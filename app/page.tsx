@@ -341,31 +341,35 @@ const Contact = () => {
 const Portfolio = () => {
   const projects = [
     {
-      title: "Neon Nexus",
-      category: "Fintech App",
-      description: "A futuristic dashboard for a crypto trading platform with real-time data visualization.",
-      color: "from-cyan-500 to-blue-500",
+      title: "PulseKart",
+      category: "Pharma POS System",
+      description: "Enterprise-grade Point of Sale with inventory management, billing, and prescription tracking for pharmacies.",
+      image: "/project-pulsekart.png",
+      color: "from-teal-500 to-cyan-500",
       delay: 0
     },
     {
-      title: "Velvet Vogue",
-      category: "E-Commerce",
-      description: "High-fashion minimalist store with immersive 3D product previews.",
-      color: "from-fuchsia-500 to-rose-500",
+      title: "Kapda Factory",
+      category: "Manufacturing ERP",
+      description: "End-to-end textile manufacturing solution with order tracking, payment management, and delivery logistics.",
+      image: "/project-kapdafactory.png",
+      color: "from-amber-500 to-orange-500",
       delay: 0.1
     },
     {
-      title: "EcoSphere",
-      category: "Sustainability",
-      description: "Corporate identity for a green energy startup featuring organic motion design.",
-      color: "from-emerald-400 to-teal-600",
+      title: "OrderFlow",
+      category: "Logistics & Tracking",
+      description: "Daily order tracking and collection ecosystem with mobile app and Android tablet dashboard for delivery hubs.",
+      image: "/project-orderflow.png",
+      color: "from-blue-500 to-indigo-500",
       delay: 0.2
     },
     {
-      title: "Orbit",
-      category: "SaaS Platform",
-      description: "Collaborative workspace tool designed for remote teams with dark mode UI.",
-      color: "from-violet-500 to-indigo-500",
+      title: "Veloria Vault",
+      category: "Luxury E-Commerce",
+      description: "Premium WordPress store for a luxury leather handbag brand with immersive product storytelling.",
+      image: "/project-veloriavault.png",
+      color: "from-rose-500 to-pink-500",
       delay: 0.3
     }
   ];
@@ -399,30 +403,36 @@ const Portfolio = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: project.delay }}
               whileHover={{ y: -10 }}
-              className="group relative h-[400px] rounded-[2rem] overflow-hidden cursor-pointer"
+              className="group relative h-[400px] rounded-[2rem] overflow-hidden cursor-pointer border border-white/5"
             >
-              {/* Abstract Background */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-20 group-hover:opacity-30 transition-opacity duration-500`} />
-              <div className="absolute inset-0 bg-[#0f0720]/80 backdrop-blur-sm group-hover:bg-[#0f0720]/60 transition-colors duration-500" />
+              {/* Background Image */}
+              <div className="absolute inset-0">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0118] via-[#0a0118]/60 to-transparent" />
+              </div>
 
               {/* Glow Effect */}
-              <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-gradient-to-r ${project.color} rounded-full blur-[80px] opacity-0 group-hover:opacity-40 transition-opacity duration-500 transform group-hover:scale-150`} />
+              <div className={`absolute bottom-0 left-1/2 -translate-x-1/2 w-64 h-32 bg-gradient-to-r ${project.color} rounded-full blur-[60px] opacity-0 group-hover:opacity-40 transition-opacity duration-500`} />
 
               {/* Content */}
-              <div className="absolute inset-0 p-10 flex flex-col justify-end">
+              <div className="absolute inset-0 p-8 flex flex-col justify-end z-10">
                 <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                  <span className={`inline-block px-3 py-1 rounded-full border border-white/20 bg-white/5 text-xs font-bold uppercase tracking-wider text-white/80 mb-4 backdrop-blur-md`}>
+                  <span className="inline-block px-3 py-1 rounded-full border border-white/20 bg-white/10 backdrop-blur-md text-xs font-bold uppercase tracking-wider text-white/90 mb-4">
                     {project.category}
                   </span>
-                  <h3 className="text-3xl font-bold text-white mb-3">{project.title}</h3>
-                  <p className="text-slate-300 text-lg leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 transform translate-y-4 group-hover:translate-y-0">
+                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">{project.title}</h3>
+                  <p className="text-slate-300 text-base leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 line-clamp-2">
                     {project.description}
                   </p>
                 </div>
 
                 {/* Arrow Icon */}
-                <div className="absolute top-8 right-8 w-12 h-12 rounded-full border border-white/10 flex items-center justify-center bg-white/5 group-hover:bg-white group-hover:text-black transition-all duration-300 transform -rotate-45 group-hover:rotate-0">
-                  <span className="material-symbols-rounded text-xl">arrow_outward</span>
+                <div className="absolute top-6 right-6 w-11 h-11 rounded-full border border-white/20 flex items-center justify-center bg-white/10 backdrop-blur-md group-hover:bg-white group-hover:text-black transition-all duration-300 transform -rotate-45 group-hover:rotate-0">
+                  <span className="material-symbols-rounded text-lg">arrow_outward</span>
                 </div>
               </div>
             </motion.div>

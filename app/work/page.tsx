@@ -18,46 +18,46 @@ export default function WorkPage() {
         {
             title: "Kapda Factory",
             category: "Manufacturing ERP",
-            description: "End-to-end textile manufacturing solution. Tracks order loading, payment collections, and shipment status in real-time. Includes a mobile app ecosystem.",
+            description: "End-to-end textile manufacturing solution including WordPress e-commerce. Tracks order loading, payment collections, and shipment status in real-time.",
             image: "/project-kapdafactory.png",
             color: "from-amber-600 to-orange-500",
-            tags: ["Mobile App", "ERP", "Manufacturing", "Tracking"],
+            tags: ["WordPress", "E-Commerce", "ERP", "Manufacturing"],
             delay: 0.1
-        },
-        {
-            title: "AgriPOS",
-            category: "Farmer Focused POS",
-            description: "A revolutionary application combining farmer-focused utility with a robust Point of Sale system. Designed for high-contrast visibility and offline capability in rural environments.",
-            image: "/project-agripos.png",
-            color: "from-emerald-600 to-green-500",
-            tags: ["Mobile App", "Offline-First", "Fintech", "Agriculture"],
-            delay: 0.2
         },
         {
             title: "OrderFlow",
             category: "Logistics & Tracking",
-            description: "A comprehensive ecosystem for daily order tracking and collection. Features a dedicated Android tablet dashboard for hubs and a real-time mobile app for riders.",
+            description: "Daily order tracking and collection ecosystem with mobile app and Android tablet dashboard for delivery hubs.",
             image: "/project-orderflow.png",
             color: "from-blue-600 to-cyan-500",
             tags: ["React Native", "Real-Time", "Logistics", "Dashboard"],
+            delay: 0.2
+        },
+        {
+            title: "Curbit",
+            category: "Smart City Solution",
+            description: "Website for a US-based company providing curb-related services. Clean, professional, and enterprise-grade.",
+            image: "/project-curbit.png",
+            color: "from-indigo-600 to-violet-500",
+            tags: ["Web Platform", "Smart City", "Enterprise", "USA"],
             delay: 0.3
         },
         {
-            title: "Curbit.us",
-            category: "Smart City Solution",
-            description: "Official web platform for the Curbit.us project. An enterprise-grade solution for modernizing US parking infrastructure and urban mobility management.",
-            image: "/project-curbit.png",
-            color: "from-indigo-600 to-violet-500",
-            tags: ["Web Platform", "Smart City", "Enterprise", "Government"],
+            title: "Veloria Vault",
+            category: "Luxury E-Commerce",
+            description: "Complete WordPress website for a women's luxury fashion brand selling premium leather handbags. High-end design and immersive product storytelling.",
+            image: "/project-veloriavault.png",
+            color: "from-rose-600 to-pink-600",
+            tags: ["WordPress", "E-Commerce", "Luxury", "Fashion"],
             delay: 0.4
         },
         {
-            title: "Veloria World",
-            category: "Luxury E-Commerce",
-            description: "A digital flagship store for a high-end leather handbag brand. Focuses on immersive product storytelling, smooth interactions, and a premium checkout experience.",
-            image: "/project-veloria.png",
-            color: "from-fuchsia-600 to-pink-600",
-            tags: ["E-Commerce", "Luxury Design", "3D Views", "Branding"],
+            title: "Local Agency Websites",
+            category: "Web Development",
+            description: "Multiple websites built for local agencies. Each project tailored to the client's unique brand identity and business goals.",
+            image: "/project-curbit.png",
+            color: "from-slate-600 to-slate-500",
+            tags: ["Web Design", "Branding", "Local Business", "Custom"],
             delay: 0.5
         }
     ];
