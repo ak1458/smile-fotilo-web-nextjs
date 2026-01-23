@@ -1,35 +1,14 @@
 'use client';
 
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-// import { sendContactEmail } from './actions'; // Removed for static export
-import { NavBar } from './components/NavBar';
+import React from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Footer } from './components/Footer';
 import { BackToTop } from './components/BackToTop';
-import { CallPopup } from './components/CallPopup';
-import { CenterPopup } from './components/CenterPopup';
-import { ChatSupport } from './components/ChatSupport';
 import Link from 'next/link';
-
-// --- Configuration ---
-const theme = {
-  colors: {
-    bg: '#020617',      // Darker Slate (2025)
-    surface: '#0F172A', // Surface Slate
-    accent: '#6366F1',  // Indigo (Premium)
-    text: '#F8FAFC',    // White Text
-    body: '#94A3B8',    // Grey Text
-    success: '#10B981', // Emerald Green (Growth)
-  }
-};
-
-// --- Components ---
-
-// NavBar component removed (imported)
 
 const Hero = () => {
   return (
-    <section id="home" className="relative pt-20 pb-12 lg:pt-28 lg:pb-20 overflow-hidden min-h-screen flex items-center bg-[#020617]">
+    <section id="home" className="relative pt-32 pb-12 lg:pt-40 lg:pb-20 overflow-hidden min-h-screen flex items-center bg-[#020617] text-white">
       {/* Anti-Gravity Background Animation */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
@@ -49,10 +28,10 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#1E293B] border border-white/5 mb-8"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#1E293B] border border-white/5 mb-8 shadow-none"
         >
           <span className="flex h-2 w-2 rounded-full bg-emerald-500"></span>
-          <span className="text-xs font-bold uppercase tracking-widest text-slate-400">Accepting Projects 2025</span>
+          <span className="text-xs font-bold uppercase tracking-widest text-slate-400">Accepting Projects {new Date().getFullYear()}</span>
         </motion.div>
 
         <motion.h1
@@ -95,14 +74,17 @@ const Hero = () => {
 
 const Services = () => {
   const services = [
-    { icon: 'code', title: 'Web Development', desc: 'Fast, secure, and SEO-optimized websites on WordPress & Custom Stacks loading in under 2 seconds.' },
-    { icon: 'trending_up', title: 'Digital Growth', desc: 'Data-driven SEO and Google Ads strategies that actually bring customers to your door.' },
-    { icon: 'photo_camera', title: 'Creative Studio', desc: 'High-end product photography and brand identity design. Visuals that elevate perceived value.' }
+    { icon: 'code', title: 'Web Development', desc: 'Fast, secure, and SEO-optimized websites on WordPress & Custom Stacks.' },
+    { icon: 'trending_up', title: 'Digital Growth', desc: 'Data-driven SEO and Google Ads strategies that bring customers.' },
+    { icon: 'photo_camera', title: 'Creative Studio', desc: 'High-end product photography and brand identity design.' },
+    { icon: 'support_agent', title: '24/7 Support', desc: 'Dedicated support team to help you grow your business.' }
   ];
 
   return (
-    <section id="services" className="py-12 bg-[#020617] relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="services" className="py-20 relative overflow-hidden bg-[#020617] text-white">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-indigo-500/5 rounded-full blur-[100px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -114,7 +96,7 @@ const Services = () => {
           <h2 className="text-3xl md:text-5xl font-bold text-slate-50 mt-3">Digital Solutions</h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           {services.map((service, index) => (
             <motion.div
               key={index}
@@ -123,9 +105,9 @@ const Services = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               whileHover={{ y: -5 }}
-              className="bg-[#0F172A] p-8 rounded-3xl border border-white/5 hover:border-indigo-500/50 hover:shadow-[0_10px_40px_-10px_rgba(99,102,241,0.1)] transition-all"
+              className="p-8 border border-white/5 bg-[#0F172A]/50 rounded-3xl hover:border-indigo-500/30 hover:shadow-[0_10px_40px_-10px_rgba(99,102,241,0.2)] transition-all group backdrop-blur-sm"
             >
-              <div className="w-14 h-14 rounded-xl bg-[#020617] border border-indigo-500/20 flex items-center justify-center text-indigo-400 mb-6">
+              <div className="w-14 h-14 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 mb-6 group-hover:scale-110 transition-transform">
                 <span className="material-symbols-rounded text-3xl">{service.icon}</span>
               </div>
               <h3 className="text-xl font-bold text-slate-50 mb-4">{service.title}</h3>
@@ -138,55 +120,9 @@ const Services = () => {
   );
 };
 
-const Portfolio = () => {
-  const projects = [
-    { title: 'KapdaFactory', category: 'E-Commerce', desc: 'Scale Up & Optimization.', img: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=800&q=80' },
-    { title: 'Veloria Vault', category: 'Luxury Brand', desc: 'Premium Leather Bags Store.', img: '/veloria-vault.jpg' },
-    { title: 'PulseKart', category: 'Pharma & Health', desc: 'Complete E-commerce Architecture.', img: 'https://images.unsplash.com/photo-1631549916768-4119b2e5f926?auto=format&fit=crop&w=800&q=80' },
-  ];
-
-  return (
-    <section id="work" className="py-12 bg-[#020617]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <span className="text-indigo-400 font-bold tracking-wider uppercase text-sm">Portfolio</span>
-          <h2 className="text-3xl md:text-5xl font-bold text-slate-50 mt-3">Selected Works</h2>
-        </motion.div>
-        <div className="grid md:grid-cols-3 gap-8">
-          {projects.map((project, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: idx * 0.1 }}
-              className="group cursor-pointer"
-            >
-              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden mb-6 border border-white/5">
-                <img src={project.img} alt={project.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100" />
-                <div className="absolute top-4 left-4">
-                  <span className="px-3 py-1 bg-indigo-500 text-white text-xs font-bold rounded-full">{project.category}</span>
-                </div>
-              </div>
-              <h3 className="text-2xl font-bold text-slate-50 mb-2">{project.title}</h3>
-              <p className="text-slate-400 text-sm">{project.desc}</p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
-
 const Pricing = () => {
   return (
-    <section id="pricing" className="py-12 bg-[#020617]">
+    <section id="pricing" className="py-12 bg-[#020617] text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -199,45 +135,44 @@ const Pricing = () => {
           <h2 className="text-3xl md:text-5xl font-bold text-slate-50 mt-3">Simple Pricing</h2>
         </motion.div>
         <div className="grid md:grid-cols-3 gap-8">
-          {/* Starter */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="p-8 rounded-3xl bg-[#0F172A] border border-white/5 hover:border-indigo-400 transition-all"
+            className="p-8 border border-white/5 bg-[#0F172A]/50 rounded-3xl backdrop-blur-sm group"
           >
             <div className="text-indigo-400 font-bold uppercase text-xs mb-2">The Starter</div>
             <h3 className="text-2xl font-bold text-slate-50 mb-4">₹15k <span className="text-sm text-slate-400 font-normal">/ project</span></h3>
             <p className="text-sm text-slate-400 mb-8">For doctors, clinics, or small shops needing a professional face.</p>
-            <Link href="/pricing" className="block w-full py-3 rounded-xl border border-white/10 text-center font-bold text-slate-50 hover:bg-indigo-500 hover:text-white transition-colors">Get Started</Link>
+            <Link href="/pricing" className="block w-full py-3 rounded-xl border border-white/10 text-center font-bold text-white hover:bg-indigo-500 hover:text-white transition-all">Get Started</Link>
           </motion.div>
-          {/* Growth */}
+
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="p-8 rounded-3xl bg-[#0F172A] border border-indigo-500 relative transform md:-translate-y-4 shadow-[0_0_30px_rgba(99,102,241,0.15)]"
+            className="p-8 border border-indigo-500/50 bg-[#0F172A]/80 rounded-3xl backdrop-blur-sm relative transform md:-translate-y-4 shadow-[0_0_40px_rgba(99,102,241,0.2)]"
           >
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-indigo-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Popular</div>
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-indigo-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase shadow-lg">Popular</div>
             <div className="text-indigo-400 font-bold uppercase text-xs mb-2">The Growth</div>
             <h3 className="text-2xl font-bold text-slate-50 mb-4">₹35k <span className="text-sm text-slate-400 font-normal">/ starting</span></h3>
             <p className="text-sm text-slate-400 mb-8">For retail brands ready to sell online. Dynamic content management.</p>
-            <Link href="/pricing" className="block w-full py-3 rounded-xl bg-indigo-500 text-center font-bold text-white hover:bg-white hover:text-[#020617] transition-colors">Choose Growth</Link>
+            <Link href="/pricing" className="block w-full py-3 rounded-xl bg-indigo-600 text-center font-bold text-white hover:bg-indigo-500 transition-all">Choose Growth</Link>
           </motion.div>
-          {/* Custom */}
+
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="p-8 rounded-3xl bg-[#0F172A] border border-white/5 hover:border-emerald-400 transition-all"
+            className="p-8 border border-white/5 bg-[#0F172A]/50 rounded-3xl backdrop-blur-sm group hover:border-emerald-500/30"
           >
             <div className="text-emerald-400 font-bold uppercase text-xs mb-2">The Domination</div>
             <h3 className="text-2xl font-bold text-slate-50 mb-4">Custom</h3>
             <p className="text-sm text-slate-400 mb-8">Full stack solution. From product photography to running ads.</p>
-            <a href="#contact" className="block w-full py-3 rounded-xl border border-white/10 text-center font-bold text-slate-50 hover:bg-emerald-400 hover:text-[#0F172A] transition-colors">Contact Sales</a>
+            <a href="#contact" className="block w-full py-3 rounded-xl border border-emerald-500/30 text-center font-bold text-white hover:bg-emerald-500/20 hover:text-emerald-300 transition-all">Contact Sales</a>
           </motion.div>
         </div>
       </div>
@@ -246,113 +181,155 @@ const Pricing = () => {
 };
 
 const Contact = () => {
-  const [isPending, setIsPending] = useState(false);
-  const [status, setStatus] = useState<{ success: boolean; message: string } | null>(null);
+  const [status, setStatus] = React.useState('');
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Construct mailto link
     const formData = new FormData(event.currentTarget);
-    const name = formData.get('name');
-    const phone = formData.get('phone');
-    const email = formData.get('email');
-    const projectType = formData.get('projectType');
-    const message = formData.get('message');
+    const name = formData.get('name') as string;
+    const service = formData.get('service') as string;
+    const budget = formData.get('budget') as string;
+    const message = formData.get('message') as string;
 
-    const mailtoLink = `mailto:ashrafkamal1458@gmail.com?subject=New Project Inquiry: ${projectType}&body=Name: ${name}%0D%0APhone: ${phone}%0D%0AEmail: ${email}%0D%0AProject Type: ${projectType}%0D%0A%0D%0AMessage:%0D%0A${message}`;
+    // Format for mailto
+    const body = `Hi, I am ${name}.%0D%0A%0D%0AMy Service Interest: ${service}%0D%0AMy Budget Range: ${budget}%0D%0A%0D%0ADetails:%0D%0A${message}`;
+    const mailtoLink = `mailto:ashrafkamal1458@gmail.com?subject=New Project Inquiry: ${service}&body=${body}`;
 
     window.location.href = mailtoLink;
-
-    setStatus({ success: true, message: 'Opening email client...' });
+    setStatus('Opening email client...');
     (event.target as HTMLFormElement).reset();
-    setIsPending(false);
+    setTimeout(() => setStatus(''), 4000);
   };
 
   return (
-    <section id="contact" className="py-12 bg-[#0F172A] relative border-t border-white/5">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-16">
-          {/* Contact Info */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-50 mt-4 mb-6">
-              Let's Build Something <br /><span className="text-indigo-400">Extraordinary.</span>
-            </h2>
-            <p className="text-slate-400 mb-8">
-              Ready to transform your digital presence? Fill out the form, and I'll personally get back to you within 24 hours.
-            </p>
-            <div className="space-y-6 mt-8">
-              <div className="flex items-center gap-4">
-                <span className="material-symbols-rounded text-indigo-400 bg-[#020617] p-3 rounded-full">call</span>
-                <span className="text-slate-200 font-bold">+91 9453878422</span>
-              </div>
-              <div className="flex items-center gap-4">
-                <span className="material-symbols-rounded text-indigo-400 bg-[#020617] p-3 rounded-full">mail</span>
-                Brands in <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-violet-400">Gonda, Greater Noida, Lucknow & Ayodhya</span>
-              </div>
-              {/* Address Removed as requested */}
-            </div>
-          </motion.div>
+    <section id="contact" className="py-24 relative overflow-hidden bg-[#0a0118] text-white">
+      {/* Ambient Background Glows */}
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[120px] pointer-events-none" />
 
-          {/* COMPLETE Contact Form */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          {/* Left Column: Text & Info */}
+          <div>
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+                Got a vision? <br />
+                Let's make it <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-indigo-400">Real.</span>
+              </h2>
+              <p className="text-slate-400 text-lg mb-8 leading-relaxed max-w-md">
+                We help ambitious brands scale with design-driven digital solutions.
+                Tell us about your project, and we'll get back to you within 24 hours.
+              </p>
+            </motion.div>
+
+            <div className="space-y-6">
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+                className="flex items-center gap-4"
+              >
+                <div className="w-12 h-12 rounded-full glass flex items-center justify-center text-violet-400">
+                  <span className="material-symbols-rounded">mail</span>
+                </div>
+                <div>
+                  <div className="text-sm text-slate-500">Email us</div>
+                  <div className="font-medium text-white text-lg">ashrafkamal1458@gmail.com</div>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+                className="flex items-center gap-4"
+              >
+                <div className="w-12 h-12 rounded-full glass flex items-center justify-center text-violet-400">
+                  <span className="material-symbols-rounded">schedule</span>
+                </div>
+                <div>
+                  <div className="text-sm text-slate-500">Response Time</div>
+                  <div className="font-medium text-white text-lg">Within 24 Hours</div>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+
+          {/* Right Column: Premium Form */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="bg-[#020617] p-8 rounded-3xl border border-white/5 shadow-lg"
+            className="glass-card p-8 md:p-10 relative"
           >
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Name Input */}
-                <div>
-                  <label className="block text-xs font-bold uppercase text-slate-500 mb-2">Name</label>
-                  <input name="name" type="text" placeholder="Your Name" required className="w-full bg-[#0F172A] border border-slate-700 rounded-lg px-4 py-3 text-slate-200 focus:border-indigo-500 outline-none transition-colors" />
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-slate-400">Name</label>
+                  <input name="name" type="text" required placeholder="John Doe"
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-600 focus:outline-none focus:border-violet-500/50 focus:bg-white/10 transition-all hover:bg-white/10" />
                 </div>
-                {/* Phone Input */}
-                <div>
-                  <label className="block text-xs font-bold uppercase text-slate-500 mb-2">Phone</label>
-                  <input name="phone" type="tel" placeholder="+91..." required className="w-full bg-[#0F172A] border border-slate-700 rounded-lg px-4 py-3 text-slate-200 focus:border-indigo-500 outline-none transition-colors" />
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-slate-400">Email</label>
+                  <input name="email" type="email" required placeholder="john@company.com"
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-600 focus:outline-none focus:border-violet-500/50 focus:bg-white/10 transition-all hover:bg-white/10" />
                 </div>
               </div>
 
-              {/* Email Input */}
-              <div>
-                <label className="block text-xs font-bold uppercase text-slate-500 mb-2">Email</label>
-                <input name="email" type="email" placeholder="hello@example.com" required className="w-full bg-[#0F172A] border border-slate-700 rounded-lg px-4 py-3 text-slate-200 focus:border-indigo-500 outline-none transition-colors" />
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-slate-400">Service Interest</label>
+                <div className="relative">
+                  <select name="service" required defaultValue="" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-violet-500/50 focus:bg-white/10 transition-all appearance-none hover:bg-white/10 [&>option]:bg-[#0f0720] [&>option]:text-white cursor-pointer">
+                    <option value="" disabled className="text-slate-500">Select a service</option>
+                    <option value="Web Design">Web Design & CMS</option>
+                    <option value="Branding">Brand Identity</option>
+                    <option value="Marketing">Digital Marketing & SEO</option>
+                    <option value="Full Package">Full Package (Web + Brand + Ads)</option>
+                  </select>
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">▼</div>
+                </div>
               </div>
 
-              {/* Project Type Dropdown - ADDED */}
-              <div>
-                <label className="block text-xs font-bold uppercase text-slate-500 mb-2">Project Type</label>
-                <select name="projectType" className="w-full bg-[#0F172A] border border-slate-700 rounded-lg px-4 py-3 text-slate-200 focus:border-indigo-500 outline-none transition-colors">
-                  <option>Web Development</option>
-                  <option>E-Commerce Store</option>
-                  <option>Product Photography</option>
-                  <option>Digital Marketing / SEO</option>
-                  <option>Brand Identity</option>
-                </select>
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-slate-400">Budget Range</label>
+                <div className="relative">
+                  <select name="budget" required defaultValue="" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-violet-500/50 focus:bg-white/10 transition-all appearance-none hover:bg-white/10 [&>option]:bg-[#0f0720] [&>option]:text-white cursor-pointer">
+                    <option value="" disabled>Select your budget</option>
+                    <option value="<15k">Less than ₹15k</option>
+                    <option value="15k-35k">₹15k - ₹35k</option>
+                    <option value="35k-75k">₹35k - ₹75k</option>
+                    <option value="75k+">₹75k+</option>
+                  </select>
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">▼</div>
+                </div>
               </div>
 
-              {/* Message Textarea */}
-              <div>
-                <label className="block text-xs font-bold uppercase text-slate-500 mb-2">Message</label>
-                <textarea name="message" rows={4} placeholder="Tell us about your project goals..." required className="w-full bg-[#0F172A] border border-slate-700 rounded-lg px-4 py-3 text-slate-200 focus:border-indigo-500 outline-none transition-colors"></textarea>
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-slate-400">Project Details</label>
+                <textarea name="message" required rows={4} placeholder="Tell us about your goals..."
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-600 focus:outline-none focus:border-violet-500/50 focus:bg-white/10 transition-all resize-none hover:bg-white/10"></textarea>
               </div>
 
-              <button type="submit" disabled={isPending} className="w-full py-4 rounded-xl bg-indigo-500 text-white font-bold text-lg hover:bg-white hover:text-[#020617] transition-all shadow-lg hover:shadow-indigo-500/20 disabled:opacity-50 disabled:cursor-not-allowed">
-                {isPending ? 'Sending...' : 'Send Message'}
+              <button type="submit" className="w-full py-4 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-bold text-lg hover:shadow-[0_0_30px_rgba(139,92,246,0.3)] hover:scale-[1.02] active:scale-[0.98] transition-all relative overflow-hidden group">
+                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 pointer-events-none" />
+                Send Message
               </button>
 
-              {status && (
-                <div className={`text-center text-sm font-bold ${status.success ? 'text-emerald-400' : 'text-red-400'}`}>
-                  {status.message}
-                </div>
-              )}
+              <AnimatePresence>
+                {status && (
+                  <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="text-center bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 py-2 rounded-lg text-sm">
+                    {status}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </form>
           </motion.div>
         </div>
@@ -361,12 +338,115 @@ const Contact = () => {
   );
 };
 
-// Footer component removed (imported)
+const Portfolio = () => {
+  const projects = [
+    {
+      title: "Neon Nexus",
+      category: "Fintech App",
+      description: "A futuristic dashboard for a crypto trading platform with real-time data visualization.",
+      color: "from-cyan-500 to-blue-500",
+      delay: 0
+    },
+    {
+      title: "Velvet Vogue",
+      category: "E-Commerce",
+      description: "High-fashion minimalist store with immersive 3D product previews.",
+      color: "from-fuchsia-500 to-rose-500",
+      delay: 0.1
+    },
+    {
+      title: "EcoSphere",
+      category: "Sustainability",
+      description: "Corporate identity for a green energy startup featuring organic motion design.",
+      color: "from-emerald-400 to-teal-600",
+      delay: 0.2
+    },
+    {
+      title: "Orbit",
+      category: "SaaS Platform",
+      description: "Collaborative workspace tool designed for remote teams with dark mode UI.",
+      color: "from-violet-500 to-indigo-500",
+      delay: 0.3
+    }
+  ];
+
+  return (
+    <section id="work" className="py-24 bg-[#0a0118] relative overflow-hidden">
+      {/* Background Decorative Elements */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-500/5 rounded-full blur-[100px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Featured <span className="text-indigo-400">Works</span></h2>
+          <p className="text-slate-400 max-w-2xl mx-auto text-lg">
+            A selection of our favorite projects. We craft digital experiences that combine
+            <span className="text-white font-medium"> aesthetics</span> with <span className="text-white font-medium">performance</span>.
+          </p>
+        </motion.div>
+
+        <div className="grid md:grid-cols-2 gap-8">
+          {projects.map((project, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: project.delay }}
+              whileHover={{ y: -10 }}
+              className="group relative h-[400px] rounded-[2rem] overflow-hidden cursor-pointer"
+            >
+              {/* Abstract Background */}
+              <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-20 group-hover:opacity-30 transition-opacity duration-500`} />
+              <div className="absolute inset-0 bg-[#0f0720]/80 backdrop-blur-sm group-hover:bg-[#0f0720]/60 transition-colors duration-500" />
+
+              {/* Glow Effect */}
+              <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-gradient-to-r ${project.color} rounded-full blur-[80px] opacity-0 group-hover:opacity-40 transition-opacity duration-500 transform group-hover:scale-150`} />
+
+              {/* Content */}
+              <div className="absolute inset-0 p-10 flex flex-col justify-end">
+                <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                  <span className={`inline-block px-3 py-1 rounded-full border border-white/20 bg-white/5 text-xs font-bold uppercase tracking-wider text-white/80 mb-4 backdrop-blur-md`}>
+                    {project.category}
+                  </span>
+                  <h3 className="text-3xl font-bold text-white mb-3">{project.title}</h3>
+                  <p className="text-slate-300 text-lg leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 transform translate-y-4 group-hover:translate-y-0">
+                    {project.description}
+                  </p>
+                </div>
+
+                {/* Arrow Icon */}
+                <div className="absolute top-8 right-8 w-12 h-12 rounded-full border border-white/10 flex items-center justify-center bg-white/5 group-hover:bg-white group-hover:text-black transition-all duration-300 transform -rotate-45 group-hover:rotate-0">
+                  <span className="material-symbols-rounded text-xl">arrow_outward</span>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="mt-16 text-center"
+        >
+          <Link href="/work" className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors border-b border-white/10 hover:border-white pb-1">
+            View All Projects <span className="material-symbols-rounded text-sm">arrow_forward</span>
+          </Link>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
 
 export default function Home() {
   return (
-    <main className="bg-[#020617] min-h-screen text-slate-200 font-sans selection:bg-indigo-500 selection:text-white">
-      <NavBar />
+    <main className="min-h-screen font-sans selection:bg-indigo-500 selection:text-white bg-[#020617]">
       <Hero />
       <Services />
       <Portfolio />
@@ -374,9 +454,6 @@ export default function Home() {
       <Contact />
       <Footer />
       <BackToTop />
-      <CallPopup />
-      <CenterPopup />
-      <ChatSupport />
     </main>
   );
-}
+};

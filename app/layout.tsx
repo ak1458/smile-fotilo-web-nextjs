@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { JsonLd } from "./components/JsonLd";
+import { NavBar } from "./components/NavBar";
+import { ChatSupport } from "./components/ChatSupport";
+import { MobileBottomNav } from "./components/MobileBottomNav";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +30,7 @@ export const metadata: Metadata = {
     siteName: "Smile Fotilo",
     images: [
       {
-        url: "/og-image.jpg", // Ensure this image exists or use a placeholder
+        url: "/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Smile Fotilo Agency",
@@ -65,7 +68,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth dark" suppressHydrationWarning>
       <head>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
       </head>
@@ -73,9 +76,13 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning
       >
+        <NavBar />
         <JsonLd />
         {children}
+        <ChatSupport />
+        <MobileBottomNav />
       </body>
     </html>
   );
 }
+
