@@ -5,7 +5,11 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 export async function chatWithGemini(history: { role: 'user' | 'model', parts: string }[], message: string, userApiKey?: string) {
     const apiKey = userApiKey || process.env.GEMINI_API_KEY;
 
+    console.log("API Key exists:", !!apiKey);
+    console.log("API Key prefix:", apiKey?.substring(0, 10) + "...");
+
     if (!apiKey) {
+        console.error("No API key found");
         return "SETUP_REQUIRED";
     }
 
@@ -19,7 +23,7 @@ export async function chatWithGemini(history: { role: 'user' | 'model', parts: s
                 parts: [{ text: msg.parts }]
             })),
             generationConfig: {
-                maxOutputTokens: 200,
+                maxOutputTokens: 500,
             },
         });
 
@@ -47,15 +51,19 @@ export async function chatWithGemini(history: { role: 'user' | 'model', parts: s
         6. If the user asks general questions, answer them briefly but steer back to the interview.
         `;
 
-        const fullMessage = `${systemPrompt}\n\nChat History:\n${history.map(m => `${m.role}: ${m.parts}`).join('\n')}\nUser: ${message}`;
+        const fullMessage = `${systemPrompt}\n\nUser: ${message}`;
 
+        console.log("Sending message to Gemini...");
         const result = await chat.sendMessage(fullMessage);
         const response = await result.response;
         const text = response.text();
+        console.log("Gemini response received:", text.substring(0, 100) + "...");
 
         return text;
-    } catch (error) {
-        console.error("Gemini Error:", error);
-        return "I'm having trouble connecting to Google Gemini. Please check your API Key.";
+    } catch (error: unknown) {
+        console.error("Gemini Error Details:", error);
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        return `I'm having trouble connecting. Error: ${errorMessage}`;
     }
 }
+
