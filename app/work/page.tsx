@@ -7,13 +7,31 @@ import Link from 'next/link';
 export default function WorkPage() {
     const projects = [
         {
+            title: "PulseKart",
+            category: "Pharma POS System",
+            description: "A highly customizable, advanced Point of Sale system for pharmacies. Features high-level scalability, detailed inventory tracking, and flexible billing modules.",
+            image: "/project-pulsekart.png",
+            color: "from-teal-600 to-cyan-500",
+            tags: ["SaaS", "Healthcare", "POS", "Inventory Management"],
+            delay: 0
+        },
+        {
+            title: "Kapda Factory",
+            category: "Manufacturing ERP",
+            description: "End-to-end textile manufacturing solution. Tracks order loading, payment collections, and shipment status in real-time. Includes a mobile app ecosystem.",
+            image: "/project-kapdafactory.png",
+            color: "from-amber-600 to-orange-500",
+            tags: ["Mobile App", "ERP", "Manufacturing", "Tracking"],
+            delay: 0.1
+        },
+        {
             title: "AgriPOS",
             category: "Farmer Focused POS",
             description: "A revolutionary application combining farmer-focused utility with a robust Point of Sale system. Designed for high-contrast visibility and offline capability in rural environments.",
             image: "/project-agripos.png",
             color: "from-emerald-600 to-green-500",
             tags: ["Mobile App", "Offline-First", "Fintech", "Agriculture"],
-            delay: 0
+            delay: 0.2
         },
         {
             title: "OrderFlow",
@@ -22,7 +40,7 @@ export default function WorkPage() {
             image: "/project-orderflow.png",
             color: "from-blue-600 to-cyan-500",
             tags: ["React Native", "Real-Time", "Logistics", "Dashboard"],
-            delay: 0.1
+            delay: 0.3
         },
         {
             title: "Curbit.us",
@@ -31,16 +49,16 @@ export default function WorkPage() {
             image: "/project-curbit.png",
             color: "from-indigo-600 to-violet-500",
             tags: ["Web Platform", "Smart City", "Enterprise", "Government"],
-            delay: 0.2
+            delay: 0.4
         },
         {
             title: "Veloria World",
             category: "Luxury E-Commerce",
             description: "A digital flagship store for a high-end leather handbag brand. Focuses on immersive product storytelling, smooth interactions, and a premium checkout experience.",
             image: "/project-veloria.png",
-            color: "from-amber-500 to-orange-600",
+            color: "from-fuchsia-600 to-pink-600",
             tags: ["E-Commerce", "Luxury Design", "3D Views", "Branding"],
-            delay: 0.3
+            delay: 0.5
         }
     ];
 

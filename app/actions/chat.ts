@@ -23,10 +23,31 @@ export async function chatWithGemini(history: { role: 'user' | 'model', parts: s
             },
         });
 
-        const systemPrompt = "You are Smile Fotilo AI. If you do not know the answer to a question, or if it is outside the scope of Smile Fotilo (Web Design/Marketing), please strictly reply with 'IDK_RESPONSE'. Do not try to make up an answer.";
+        // Combine system prompt with user message
+        const systemPrompt = `
+        You are 'Smile', the official AI Assistant of Smile Fotilo. 
+        Your goal is to collect project requirements from the user step-by-step, like a professional interviewer.
+        
+        **INSTRUCTIONS:**
+        1. Ask ONE question at a time. Do not overwhelm the user.
+        2. Be friendly, professional, and concise.
+        3. Collect the following details in order:
+           - Name
+           - Purpose of Inquiry (New Website, Redesign, App, Marketing, etc.)
+           - Budget Estimate
+           - Timeline/Deadline
+           - Specific Features/Notes
+           - Email Address (for sending the proposal)
 
-        // Combine system prompt with user message for this turn (since simple chat history doesn't support system role easily in v1)
-        const fullMessage = `${systemPrompt}\nUser: ${message}`;
+        4. When you have ALL the details, confirm them with the user.
+        5. Once confirmed, output EXACTLY this JSON format at the end of your message (hidden from user view, used by system):
+           
+           [FORM_COMPLETE: {"name": "...", "purpose": "...", "budget": "...", "timeline": "...", "features": "...", "email": "..."}]
+
+        6. If the user asks general questions, answer them briefly but steer back to the interview.
+        `;
+
+        const fullMessage = `${systemPrompt}\n\nChat History:\n${history.map(m => `${m.role}: ${m.parts}`).join('\n')}\nUser: ${message}`;
 
         const result = await chat.sendMessage(fullMessage);
         const response = await result.response;

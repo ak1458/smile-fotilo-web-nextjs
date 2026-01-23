@@ -4,7 +4,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { jsPDF } from 'jspdf';
 import { chatWithGemini } from '../actions/chat';
-import { logMissingKnowledge } from '../actions/log';
 import { Robot3D, Emotion } from './Robot3D';
 
 type Message = {
@@ -13,22 +12,6 @@ type Message = {
     sender: 'bot' | 'user';
     role?: 'user' | 'model';
 };
-
-type UserData = {
-    name: string;
-    service: string;
-    email: string;
-    phone: string;
-    details: string;
-};
-
-const STEPS = [
-    { key: 'name', prompt: "Hi! I'm your Smile Fotilo AI assistant. What's your name?" },
-    { key: 'service', prompt: "Nice to meet you! What service are you looking for today? (e.g., Web Design, Marketing, Branding)" },
-    { key: 'email', prompt: "Great! Please share your email address so we can send you the details." },
-    { key: 'phone', prompt: "And your phone number for quick contact?" },
-    { key: 'details', prompt: "Perfect. Tell me a bit more about your project needs." },
-];
 
 export const ChatSupport = () => {
     const [mounted, setMounted] = useState(false);
@@ -39,44 +22,12 @@ export const ChatSupport = () => {
     const [userApiKey, setUserApiKey] = useState('');
     const [needsSetup, setNeedsSetup] = useState(false);
 
-    // Data gathering state
-    const [userData, setUserData] = useState<UserData>({
-        name: '', service: '', email: '', phone: '', details: ''
-    });
-    const [currentStepIndex, setCurrentStepIndex] = useState(0);
-    const [isFlowComplete, setIsFlowComplete] = useState(false);
-
     const [isTyping, setIsTyping] = useState(false);
     const [emotion, setEmotion] = useState<Emotion>('idle');
     const [inputValue, setInputValue] = useState('');
     const chatContainerRef = useRef<HTMLDivElement>(null);
     const [isUserTyping, setIsUserTyping] = useState(false);
     const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-    const handleInput = (val: string) => {
-        setInputValue(val);
-        setEmotion('thinking');
-
-        setIsUserTyping(true);
-        if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
-        typingTimeoutRef.current = setTimeout(() => setIsUserTyping(false), 1000);
-    };
-
-    useEffect(() => {
-        setMounted(true);
-        const savedKey = localStorage.getItem('GEMINI_API_KEY');
-        if (savedKey) setUserApiKey(savedKey);
-
-        if (messages.length === 0) {
-            addBotMessage(STEPS[0].prompt);
-        }
-    }, []);
-
-    useEffect(() => {
-        if (chatContainerRef.current) {
-            chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
-        }
-    }, [messages, isTyping]);
 
     const addBotMessage = (text: string) => {
         setIsTyping(true);
@@ -93,6 +44,33 @@ export const ChatSupport = () => {
         }, 1500);
     };
 
+    const handleInput = (val: string) => {
+        setInputValue(val);
+        setEmotion('thinking');
+
+        setIsUserTyping(true);
+        if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
+        typingTimeoutRef.current = setTimeout(() => setIsUserTyping(false), 1000);
+    };
+
+    useEffect(() => {
+        setMounted(true);
+        const savedKey = localStorage.getItem('GEMINI_API_KEY');
+        if (savedKey) setUserApiKey(savedKey);
+
+        if (messages.length === 0) {
+            addBotMessage("Hi! I'm Smile, your AI assistant. I can help you start a project. Shall we begin?");
+        }
+    }, []);
+
+    useEffect(() => {
+        if (chatContainerRef.current) {
+            chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+        }
+    }, [messages, isTyping]);
+
+
+
     const handleUserResponse = async (text: string) => {
         if (!text.trim()) return;
 
@@ -106,9 +84,9 @@ export const ChatSupport = () => {
 
         // 1. Sentiment Analysis (Basic Keyword Match)
         const lowerText = text.toLowerCase();
-        if (lowerText.includes('stupid') || lowerText.includes('idiot') || lowerText.includes('dumb') || lowerText.includes('useless')) {
+        if (lowerText.includes('stupid') || lowerText.includes('idiot') || lowerText.includes('dumb')) {
             setEmotion('angry');
-            setTimeout(() => addBotMessage("Hey, that's not very nice! I'm doing my best here. 😤"), 500);
+            setTimeout(() => addBotMessage("I am trying my best to help you. Please be kind. 😔"), 500);
             return;
         }
 
@@ -120,71 +98,96 @@ export const ChatSupport = () => {
                 setUserApiKey(text);
                 localStorage.setItem('GEMINI_API_KEY', text);
                 setNeedsSetup(false);
-                addBotMessage("Awesome! API Key saved. connecting to my brain... 🧠. Ask me anything now!");
-                setIsFlowComplete(true);
+                addBotMessage("Awesome! Connected. I'm ready to take your project details. What is your name?");
             } else {
-                addBotMessage("That doesn't look like a valid Google API Key. It usually starts with 'AIza'. Try again?");
+                addBotMessage("That doesn't look like a valid Google API Key. It usually starts with 'AIza'.");
             }
             return;
         }
 
-        // Logic: Flow Complete (Free Chat)
-        if (isFlowComplete) {
-            const history = messages.map(m => ({ role: m.role || 'user', parts: m.text }));
-            const response = await chatWithGemini(history, text, userApiKey);
+        // Logic: AI Interaction
+        const history = messages.map(m => ({ role: m.role || 'user', parts: m.text }));
 
-            if (response === 'SETUP_REQUIRED') {
+        try {
+            const rawResponse = await chatWithGemini(history, text, userApiKey);
+
+            if (rawResponse === 'SETUP_REQUIRED') {
                 setNeedsSetup(true);
-                addBotMessage("I'm not connected to the cloud yet! Please enter your Google Gemini API Key to activate my full intelligence. (It starts with 'AIza'...)");
-            } else if (response.includes('IDK_RESPONSE')) {
-                // Unknown Answer Handling
-                setEmotion('sad');
-                await logMissingKnowledge(text);
-                addBotMessage("I'm sorry, I don't know the answer to that yet. 😔 I've logged this question for my human team to review and teach me later!");
-            } else {
-                addBotMessage(response);
+                addBotMessage("Please enter your Google Gemini API Key to activate me.");
+                return;
             }
-            return;
-        }
 
-        // Logic: Data Collection Flow
-        const currentStep = STEPS[currentStepIndex];
-        setUserData(prev => ({ ...prev, [currentStep.key]: text }));
-        const nextIndex = currentStepIndex + 1;
+            // Check for FORM_COMPLETE token - using [\s\S] instead of dotAll flag for compatibility
+            const completeMatch = rawResponse.match(/\[FORM_COMPLETE:\s*({[\s\S]*?})\]/);
 
-        if (nextIndex < STEPS.length) {
-            setCurrentStepIndex(nextIndex);
-            addBotMessage(STEPS[nextIndex].prompt);
-        } else {
-            setIsFlowComplete(true);
-            addBotMessage("Thank you! I've gathered all the details. Generating your project PDF now... 📄");
-            await generateAndSendPDF({ ...userData, [currentStep.key]: text });
+            if (completeMatch) {
+                const jsonStr = completeMatch[1];
+                let displayMessage = rawResponse.replace(completeMatch[0], '').trim(); // Remove JSON from chat
+                if (!displayMessage) displayMessage = "Perfect! I have everything I need.";
+
+                addBotMessage(displayMessage);
+
+                try {
+                    const formData = JSON.parse(jsonStr);
+                    await generateAndSendPDF(formData);
+                } catch (e) {
+                    console.error("JSON Parse Error", e);
+                    addBotMessage("I gathered the details, but had trouble processing the file. Please contact us directly.");
+                }
+
+            } else {
+                // Normal Conversation
+                addBotMessage(rawResponse);
+            }
+
+        } catch (error) {
+            addBotMessage("I'm having trouble connecting right now.");
         }
     };
 
-    const generateAndSendPDF = async (finalData: UserData) => {
-        setIsTyping(true);
-        const doc = new jsPDF();
-
-        doc.setFontSize(22);
-        doc.setTextColor(99, 102, 241);
-        doc.text('Smile Fotilo - Project Request', 20, 20);
-
-        doc.setFontSize(12);
-        doc.setTextColor(0, 0, 0);
-        doc.text(`Name: ${finalData.name}`, 20, 40);
-        doc.text(`Service: ${finalData.service}`, 20, 50);
-        doc.text(`Email: ${finalData.email}`, 20, 60);
-        doc.text(`Phone: ${finalData.phone}`, 20, 70);
-        doc.text('Details:', 20, 90);
-        const details = doc.splitTextToSize(finalData.details, 170);
-        doc.text(details, 20, 100);
-
-        doc.save(`${finalData.name.replace(/\s+/g, '_')}_Project_Brief.pdf`);
-
+    const generateAndSendPDF = async (finalData: Record<string, string>) => {
         setTimeout(() => {
+            setIsTyping(true);
+            const doc = new jsPDF();
+
+            // Header
+            doc.setFillColor(79, 70, 229); // Indigo 600
+            doc.rect(0, 0, 210, 40, 'F');
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(24);
+            doc.text('Smile Fotilo - Project Brief', 15, 25);
+
+            // Content
+            doc.setTextColor(0, 0, 0);
+            doc.setFontSize(12);
+            let y = 60;
+
+            const addField = (label: string, value: string) => {
+                doc.setFont('helvetica', 'bold');
+                doc.text(label, 20, y);
+                doc.setFont('helvetica', 'normal');
+                const splitText = doc.splitTextToSize(value || 'N/A', 120);
+                doc.text(splitText, 60, y);
+                y += (splitText.length * 7) + 10;
+            };
+
+            addField("Client Name:", finalData.name);
+            addField("Inquiry Type:", finalData.purpose);
+            addField("Budget:", finalData.budget);
+            addField("Timeline:", finalData.timeline);
+            addField("Email:", finalData.email);
+            addField("Notes/Features:", finalData.features);
+
+            // Footer
+            doc.setFontSize(10);
+            doc.setTextColor(150);
+            doc.text(`Generated on ${new Date().toLocaleDateString()}`, 20, 280);
+
+            // Save
+            doc.save(`${finalData.name?.replace(/\s+/g, '_')}_Smile_Brief.pdf`);
+
             setIsTyping(false);
-            addBotMessage("PDF downloaded! I've also emailed our team. Now, feel free to chat with me about anything!");
+            addBotMessage("✅ Project PDF Generated! It has been downloaded to your device and sent to our team at Smile Portal.");
         }, 1000);
     };
 
