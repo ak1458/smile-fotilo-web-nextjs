@@ -8,7 +8,7 @@ import Link from 'next/link';
 
 const Hero = () => {
   return (
-    <section id="home" className="relative pt-32 pb-12 lg:pt-40 lg:pb-20 overflow-hidden min-h-screen flex items-center bg-[#020617] text-white">
+    <section id="home" className="relative pt-32 pb-12 lg:pt-40 lg:pb-20 overflow-hidden min-h-screen flex items-center animated-bg text-white">
       {/* Anti-Gravity Background Animation */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
@@ -60,10 +60,10 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
-          <a href="#work" className="px-8 py-4 rounded-full bg-indigo-600 text-white font-bold text-lg hover:bg-indigo-500 transition-all shadow-[0_0_20px_rgba(99,102,241,0.3)] min-w-[180px]">
-            View Our Work
+          <a href="#work" className="btn-primary px-8 py-4 text-lg min-w-[180px] text-center">
+            <span>View Our Work</span>
           </a>
-          <a href="#contact" className="px-8 py-4 rounded-full bg-transparent border border-slate-700 text-slate-300 font-medium text-lg hover:border-indigo-400 hover:text-indigo-400 transition-all min-w-[180px]">
+          <a href="#contact" className="btn-secondary px-8 py-4 text-lg min-w-[180px] text-center">
             Book Strategy Call
           </a>
         </motion.div>
@@ -145,7 +145,7 @@ const Pricing = () => {
             <div className="text-indigo-400 font-bold uppercase text-xs mb-2">The Starter</div>
             <h3 className="text-2xl font-bold text-slate-50 mb-4">₹15k <span className="text-sm text-slate-400 font-normal">/ project</span></h3>
             <p className="text-sm text-slate-400 mb-8">For doctors, clinics, or small shops needing a professional face.</p>
-            <Link href="/pricing" className="block w-full py-3 rounded-xl border border-white/10 text-center font-bold text-white hover:bg-indigo-500 hover:text-white transition-all">Get Started</Link>
+            <Link href="/pricing" className="btn-secondary block w-full py-3 text-center">Get Started</Link>
           </motion.div>
 
           <motion.div
@@ -159,7 +159,7 @@ const Pricing = () => {
             <div className="text-indigo-400 font-bold uppercase text-xs mb-2">The Growth</div>
             <h3 className="text-2xl font-bold text-slate-50 mb-4">₹35k <span className="text-sm text-slate-400 font-normal">/ starting</span></h3>
             <p className="text-sm text-slate-400 mb-8">For retail brands ready to sell online. Dynamic content management.</p>
-            <Link href="/pricing" className="block w-full py-3 rounded-xl bg-indigo-600 text-center font-bold text-white hover:bg-indigo-500 transition-all">Choose Growth</Link>
+            <Link href="/pricing" className="btn-primary block w-full py-3 text-center">Choose Growth</Link>
           </motion.div>
 
           <motion.div
@@ -172,7 +172,7 @@ const Pricing = () => {
             <div className="text-emerald-400 font-bold uppercase text-xs mb-2">The Domination</div>
             <h3 className="text-2xl font-bold text-slate-50 mb-4">Custom</h3>
             <p className="text-sm text-slate-400 mb-8">Full stack solution. From product photography to running ads.</p>
-            <a href="#contact" className="block w-full py-3 rounded-xl border border-emerald-500/30 text-center font-bold text-white hover:bg-emerald-500/20 hover:text-emerald-300 transition-all">Contact Sales</a>
+            <a href="#contact" className="btn-secondary block w-full py-3 text-center">Contact Sales</a>
           </motion.div>
         </div>
       </div>
