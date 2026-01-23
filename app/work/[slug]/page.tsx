@@ -5,6 +5,17 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
+// Required for static export with dynamic routes
+export function generateStaticParams() {
+    return [
+        { slug: 'pulsekart' },
+        { slug: 'kapda-factory' },
+        { slug: 'orderflow' },
+        { slug: 'curbit' },
+        { slug: 'veloria-vault' },
+    ];
+}
+
 // Project data
 const projectsData: Record<string, {
     title: string;

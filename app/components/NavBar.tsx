@@ -42,8 +42,8 @@ export const NavBar = () => {
                                 </Link>
                             ))}
 
-                            <Link href="/#contact" className="star-glow px-5 py-2.5 rounded-full bg-gradient-to-r from-violet-600 to-purple-600 text-white font-bold text-sm hover:opacity-90 transition-all hover:scale-105">
-                                ⭐ Start Project
+                            <Link href="/#contact" className="px-5 py-2.5 rounded-full bg-gradient-to-r from-violet-600 to-purple-600 text-white font-bold text-sm hover:opacity-90 transition-all shadow-[0_0_20px_rgba(139,92,246,0.4)] hover:scale-105 hover:shadow-[0_0_30px_rgba(139,92,246,0.6)]">
+                                Start Project
                             </Link>
                         </div>
 
@@ -118,9 +118,9 @@ export const NavBar = () => {
                                 <Link
                                     href="/#contact"
                                     onClick={handleLinkClick}
-                                    className="star-glow block w-full text-center px-6 py-4 text-lg font-bold bg-gradient-to-r from-violet-600 to-purple-600 text-white rounded-2xl"
+                                    className="block w-full text-center px-6 py-4 text-lg font-bold bg-gradient-to-r from-violet-600 to-purple-600 text-white rounded-2xl shadow-[0_0_30px_rgba(139,92,246,0.4)]"
                                 >
-                                    ⭐ Start Project
+                                    Start Project
                                 </Link>
                             </motion.div>
 
