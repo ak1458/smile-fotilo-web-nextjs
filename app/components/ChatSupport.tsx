@@ -18,9 +18,8 @@ export const ChatSupport = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState<Message[]>([]);
 
-    // API CONFIGURATION
-    const [userApiKey, setUserApiKey] = useState('');
-    const [needsSetup, setNeedsSetup] = useState(false);
+    // API CONFIGURATION - Server uses .env.local key
+    const [isConnected, setIsConnected] = useState(true); // Assume connected by default
 
     const [isTyping, setIsTyping] = useState(false);
     const [emotion, setEmotion] = useState<Emotion>('idle');
@@ -55,8 +54,6 @@ export const ChatSupport = () => {
 
     useEffect(() => {
         setMounted(true);
-        const savedKey = localStorage.getItem('GEMINI_API_KEY');
-        if (savedKey) setUserApiKey(savedKey);
 
         if (messages.length === 0) {
             addBotMessage("Hi! I'm Smile, your AI assistant. I can help you start a project. Shall we begin?");
@@ -92,30 +89,19 @@ export const ChatSupport = () => {
 
         setEmotion('excited');
 
-        // IF SETUP is needed (Key setup mode)
-        if (needsSetup) {
-            if (text.startsWith('AIza')) {
-                setUserApiKey(text);
-                localStorage.setItem('GEMINI_API_KEY', text);
-                setNeedsSetup(false);
-                addBotMessage("Awesome! Connected. I'm ready to take your project details. What is your name?");
-            } else {
-                addBotMessage("That doesn't look like a valid Google API Key. It usually starts with 'AIza'.");
-            }
-            return;
-        }
-
-        // Logic: AI Interaction
+        // Logic: AI Interaction - Server uses .env.local key
         const history = messages.map(m => ({ role: m.role || 'user', parts: m.text }));
 
         try {
-            const rawResponse = await chatWithGemini(history, text, userApiKey);
+            const rawResponse = await chatWithGemini(history, text); // No userApiKey - server uses env
 
             if (rawResponse === 'SETUP_REQUIRED') {
-                setNeedsSetup(true);
-                addBotMessage("Please enter your Google Gemini API Key to activate me.");
+                setIsConnected(false);
+                addBotMessage("I'm not configured properly. Please contact the website administrator.");
                 return;
             }
+
+            setIsConnected(true);
 
             // Check for FORM_COMPLETE token - using [\s\S] instead of dotAll flag for compatibility
             const completeMatch = rawResponse.match(/\[FORM_COMPLETE:\s*({[\s\S]*?})\]/);
@@ -219,8 +205,8 @@ export const ChatSupport = () => {
                         <div className="bg-gradient-to-r from-violet-600 to-indigo-600 p-4 pb-12 text-center relative shrink-0">
                             <h3 className="text-white font-bold text-lg">Smile Fotilo AI</h3>
                             <p className="text-white/80 text-xs text-center flex items-center justify-center gap-1">
-                                <span className={`w-2 h-2 rounded-full ${userApiKey ? 'bg-emerald-400' : 'bg-red-400'}`}></span>
-                                {userApiKey ? 'Gemini Connected' : 'Demo Mode (Add Key)'}
+                                <span className={`w-2 h-2 rounded-full ${isConnected ? 'bg-emerald-400' : 'bg-red-400'}`}></span>
+                                {isConnected ? 'Gemini Connected' : 'Setup Required'}
                             </p>
                             <button onClick={handleClose} className="absolute top-4 right-4 text-white hover:opacity-80">✕</button>
                         </div>
@@ -254,8 +240,8 @@ export const ChatSupport = () => {
                                 onChange={(e) => handleInput(e.target.value)}
                                 onFocus={() => setIsUserTyping(true)}
                                 onBlur={() => { setEmotion('idle'); setIsUserTyping(false); }}
-                                placeholder={needsSetup ? "Enter API Key here..." : "Type a message..."}
-                                className={`flex-1 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white px-4 py-3 rounded-xl focus:outline-none focus:ring-2 ${needsSetup ? 'ring-red-500 focus:ring-red-500' : 'focus:ring-indigo-500'}`}
+                                placeholder="Type a message..."
+                                className="flex-1 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
                             />
                             <button type="submit" disabled={!inputValue.trim() || isTyping} className="p-3 bg-indigo-600 text-white rounded-xl hover:bg-indigo-500 disabled:opacity-50">➤</button>
                         </form>
