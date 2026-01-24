@@ -30,6 +30,17 @@ export const ChatSupport = () => {
     const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
     const messageIdRef = useRef(0); // Unique ID counter for messages
 
+    // Generate a client ID for rate limiting (persists per session)
+    const clientIdRef = useRef<string>('');
+
+    // Lazy getter for client ID (avoids impure function during render)
+    const getClientId = () => {
+        if (!clientIdRef.current) {
+            clientIdRef.current = `client-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+        }
+        return clientIdRef.current;
+    };
+
     const generateMessageId = () => {
         messageIdRef.current += 1;
         return `msg-${Date.now()}-${messageIdRef.current}`;
@@ -108,7 +119,7 @@ export const ChatSupport = () => {
         const history = messages.slice(1).map(m => ({ role: m.role || 'user', parts: m.text }));
 
         try {
-            const rawResponse = await chatWithGemini(history, text); // No userApiKey - server uses env
+            const rawResponse = await chatWithGemini(history, text, getClientId()); // With client ID for rate limiting
 
             if (rawResponse === 'SETUP_REQUIRED') {
                 addBotMessage("I'm not configured properly. Please contact the website administrator.");
