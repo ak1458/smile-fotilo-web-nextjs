@@ -16,7 +16,7 @@ export async function chatWithGemini(history: { role: 'user' | 'model', parts: s
 
     try {
         const genAI = new GoogleGenerativeAI(apiKey);
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
 
         const chat = model.startChat({
             history: history.map(msg => ({

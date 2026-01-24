@@ -1,0 +1,343 @@
+"use client";
+
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import Link from 'next/link';
+import { NavBar } from '../../components/NavBar';
+import { Footer } from '../../components/Footer';
+import { ConnectModal } from '../../components/ConnectModal';
+import { OtherLocations } from '../../components/OtherLocations';
+
+// Real project data
+const globalProjects = [
+    {
+        id: 'oregon-curbside',
+        title: 'Oregon Curbside Services',
+        location: 'Oregon, USA',
+        category: 'Full-Stack Website',
+        description: 'A fully functional website for Oregon residents to call and schedule curbside pickup services. Features real-time scheduling, service tracking, and instant call-to-action functionality.',
+        services: ['Website Development', 'Call Integration', 'Booking System', 'Mobile Responsive'],
+        color: 'blue',
+        icon: 'local_shipping',
+        image: '/project-oregon-curbside.png'
+    },
+    {
+        id: 'digital-marketing-suite',
+        title: 'Complete Digital Marketing Suite',
+        location: 'Texas & Mexico',
+        category: 'Digital Marketing Services',
+        description: 'Comprehensive digital marketing services including Meta Ads, Google Ads management, hosting setup with SSH access, e-commerce website management, and daily content updates.',
+        services: ['Meta Ads', 'Google Ads', 'Hosting & SSH Setup', 'E-commerce Management', 'Daily Updates'],
+        color: 'emerald',
+        icon: 'campaign',
+        image: '/project-marketing-suite.png'
+    }
+];
+
+export default function GlobalPage() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedProject, setSelectedProject] = useState<string | null>(null);
+
+    const handleProjectInquiry = (projectId: string) => {
+        setSelectedProject(projectId);
+        setIsModalOpen(true);
+    };
+
+    return (
+        <main className="min-h-screen relative text-slate-200 selection:bg-blue-500/30">
+            <NavBar />
+            <ConnectModal
+                isOpen={isModalOpen}
+                onClose={() => { setIsModalOpen(false); setSelectedProject(null); }}
+                context={selectedProject ? `Global Project: ${globalProjects.find(p => p.id === selectedProject)?.title}` : "Global Page"}
+            />
+
+            {/* Global Animated Background */}
+            <div className="fixed inset-0 z-[-2] animated-bg"></div>
+
+            {/* Global Network Background Image */}
+            <div className="fixed inset-0 z-[-1] opacity-30 pointer-events-none" style={{
+                backgroundImage: `url('/global-bg-network.png')`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                maskImage: 'linear-gradient(to bottom, black 20%, transparent 90%)'
+            }}></div>
+
+            {/* Hero Section */}
+            <section className="relative pt-32 pb-20 overflow-hidden min-h-[85vh] flex items-center">
+
+                {/* Blue Glow */}
+                <div className="absolute top-1/3 right-1/4 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+                <div className="absolute bottom-1/4 left-1/4 w-[400px] h-[400px] bg-violet-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                        className="text-center max-w-4xl mx-auto"
+                    >
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-blue-500/20 mb-8 backdrop-blur-md">
+                            <span className="flex h-2 w-2 rounded-full bg-blue-500 animate-pulse shadow-[0_0_10px_blue]"></span>
+                            <span className="text-xs font-bold uppercase tracking-widest text-blue-200">International Operations</span>
+                        </div>
+
+                        <h1 className="text-5xl md:text-7xl font-bold text-white leading-[1.1] mb-8 tracking-tight">
+                            Beyond <span className="text-blue-400">Boundaries</span>. <br />
+                            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-300 to-violet-300">Global Excellence</span>.
+                        </h1>
+
+                        <p className="text-xl text-slate-300 mb-10 font-light leading-relaxed">
+                            Delivering enterprise-grade digital solutions to <strong className="text-blue-200 font-medium">Oregon, Texas, Mexico</strong>, and across the globe.
+                            <span className="text-slate-400 block mt-2">Powered by our headquarters in Gonda, India.</span>
+                        </p>
+
+                        <div className="flex flex-wrap justify-center gap-5">
+                            <button
+                                onClick={() => setIsModalOpen(true)}
+                                className="btn-primary flex items-center gap-2 group bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-500 hover:to-violet-500 shadow-blue-500/20"
+                            >
+                                <span>Discuss Global Project</span>
+                                <span className="material-symbols-rounded group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                            </button>
+                            <Link
+                                href="/work"
+                                className="btn-secondary flex items-center gap-2 group"
+                            >
+                                <span>View Our Work</span>
+                                <span className="material-symbols-rounded group-hover:translate-x-1 transition-transform">visibility</span>
+                            </Link>
+                        </div>
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* Global Projects Section */}
+            <section className="py-20 relative" id="projects">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="text-center mb-16">
+                        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Our Global Projects</h2>
+                        <p className="text-slate-400 max-w-2xl mx-auto">Real solutions delivered to international clients. Click to learn more or start your project.</p>
+                    </div>
+
+                    <div className="grid lg:grid-cols-2 gap-8">
+                        {globalProjects.map((project, index) => (
+                            <motion.div
+                                key={project.id}
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, delay: index * 0.2 }}
+                                viewport={{ once: true }}
+                                className="group"
+                            >
+                                <div className={`glass-card p-0 overflow-hidden hover:border-${project.color}-500/30 transition-all duration-500`}>
+                                    {/* Project Header with Image */}
+                                    <div className={`aspect-[16/9] bg-gradient-to-br from-${project.color}-900/40 to-slate-900 relative overflow-hidden`}>
+                                        <img
+                                            src={project.image}
+                                            alt={project.title}
+                                            className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10"></div>
+
+                                        {/* Location Badge */}
+                                        <div className="absolute top-4 left-4 z-20">
+                                            <span className={`text-xs font-bold bg-${project.color}-500/20 border border-${project.color}-500/30 text-${project.color}-200 px-3 py-1.5 rounded-full uppercase tracking-wider flex items-center gap-2 backdrop-blur-sm`}>
+                                                <span className="material-symbols-rounded text-sm">location_on</span>
+                                                {project.location}
+                                            </span>
+                                        </div>
+
+                                        {/* Category Badge */}
+                                        <div className="absolute top-4 right-4 z-20">
+                                            <span className="text-xs font-medium bg-black/50 text-white px-3 py-1 rounded-full backdrop-blur-sm">
+                                                {project.category}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    {/* Project Content */}
+                                    <div className="p-6">
+                                        <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-300 transition-all">
+                                            {project.title}
+                                        </h3>
+                                        <p className="text-slate-400 leading-relaxed mb-6">
+                                            {project.description}
+                                        </p>
+
+                                        {/* Services Tags */}
+                                        <div className="flex flex-wrap gap-2 mb-6">
+                                            {project.services.map((service) => (
+                                                <span
+                                                    key={service}
+                                                    className={`text-xs px-3 py-1 rounded-full bg-${project.color}-500/10 border border-${project.color}-500/20 text-${project.color}-300`}
+                                                >
+                                                    {service}
+                                                </span>
+                                            ))}
+                                        </div>
+
+                                        {/* Action Buttons */}
+                                        <div className="flex gap-3">
+                                            <button
+                                                onClick={() => handleProjectInquiry(project.id)}
+                                                className={`flex-1 px-5 py-3 rounded-xl bg-gradient-to-r from-${project.color}-600 to-${project.color}-700 text-white font-bold text-sm hover:opacity-90 transition-all flex items-center justify-center gap-2 group/btn`}
+                                            >
+                                                <span>Get Similar Project</span>
+                                                <span className="material-symbols-rounded text-lg group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
+                                            </button>
+                                            <a
+                                                href="tel:+919453878422"
+                                                className="px-5 py-3 rounded-xl border border-white/10 text-white font-medium text-sm hover:bg-white/5 transition-all flex items-center gap-2"
+                                            >
+                                                <span className="material-symbols-rounded">call</span>
+                                                Call Now
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Services Offered Globally */}
+            <section className="py-20 relative bg-blue-900/5">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="text-center mb-16">
+                        <span className="text-blue-400 font-bold tracking-widest uppercase text-sm mb-4 block">What We Offer</span>
+                        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Global Services</h2>
+                        <p className="text-slate-400 max-w-2xl mx-auto">Enterprise-level services delivered worldwide with Indian efficiency.</p>
+                    </div>
+
+                    <div className="grid md:grid-cols-3 gap-6">
+                        {[
+                            { icon: 'language', title: 'Website Development', desc: 'Full-stack websites, e-commerce, booking systems', color: 'blue' },
+                            { icon: 'ads_click', title: 'Digital Advertising', desc: 'Meta Ads, Google Ads, campaign management', color: 'violet' },
+                            { icon: 'dns', title: 'Hosting & SSH Setup', desc: 'Server configuration, SSL, domain management', color: 'emerald' },
+                            { icon: 'shopping_cart', title: 'E-commerce Management', desc: 'Product updates, inventory, daily maintenance', color: 'orange' },
+                            { icon: 'support_agent', title: '24/7 Support', desc: 'Round-the-clock assistance for global clients', color: 'cyan' },
+                            { icon: 'update', title: 'Daily Updates', desc: 'Content updates, SEO optimization, monitoring', color: 'pink' },
+                        ].map((service, index) => (
+                            <motion.div
+                                key={service.title}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.5, delay: index * 0.1 }}
+                                viewport={{ once: true }}
+                                className="glass-card p-6 group hover:border-blue-500/20 transition-colors"
+                            >
+                                <div className={`w-12 h-12 rounded-xl bg-${service.color}-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                                    <span className={`material-symbols-rounded text-2xl text-${service.color}-400`}>{service.icon}</span>
+                                </div>
+                                <h3 className="text-lg font-bold text-white mb-2">{service.title}</h3>
+                                <p className="text-slate-400 text-sm">{service.desc}</p>
+                            </motion.div>
+                        ))}
+                    </div>
+
+                    <div className="text-center mt-12">
+                        <button
+                            onClick={() => setIsModalOpen(true)}
+                            className="px-8 py-4 rounded-full bg-gradient-to-r from-blue-600 to-violet-600 text-white font-bold hover:opacity-90 transition-all inline-flex items-center gap-2"
+                        >
+                            <span>Discuss Your Requirements</span>
+                            <span className="material-symbols-rounded">arrow_forward</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            {/* The "Delivery Center" Connection */}
+            <section className="py-20 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-900/5 to-transparent"></div>
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div className="grid md:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <span className="text-blue-400 font-bold tracking-widest uppercase text-sm mb-4 block">Our Origin</span>
+                            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Powered by Gonda (HQ)</h2>
+                            <p className="text-slate-300 text-lg mb-6 leading-relaxed">
+                                While we operate globally, our heart beats in Gonda. Our Headquarters serves as the central command for development, ensuring 24/7 delivery cycles for our Western clients.
+                            </p>
+                            <Link
+                                href="/locations/gonda"
+                                className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-blue-500/30 text-blue-200 hover:bg-blue-500/10 transition-colors"
+                            >
+                                <span>Explore the HQ</span>
+                                <span className="material-symbols-rounded">arrow_forward</span>
+                            </Link>
+                        </div>
+
+                        <div className="glass-card p-8 group hover:border-blue-500/30 transition-colors">
+                            <div className="flex gap-4 mb-6">
+                                <div className="flex-1 text-center p-4 rounded-xl bg-blue-500/5 border border-blue-500/10">
+                                    <h3 className="text-2xl font-bold text-blue-400 mb-1">24/7</h3>
+                                    <p className="text-xs text-slate-400 uppercase tracking-wider">Delivery</p>
+                                </div>
+                                <div className="flex-1 text-center p-4 rounded-xl bg-violet-500/5 border border-violet-500/10">
+                                    <h3 className="text-2xl font-bold text-violet-400 mb-1">Global</h3>
+                                    <p className="text-xs text-slate-400 uppercase tracking-wider">Reach</p>
+                                </div>
+                            </div>
+                            <ul className="space-y-3">
+                                <li className="flex items-center gap-3 text-slate-300">
+                                    <span className="material-symbols-rounded text-blue-400">check_circle</span>
+                                    <span>Enterprise-grade solutions</span>
+                                </li>
+                                <li className="flex items-center gap-3 text-slate-300">
+                                    <span className="material-symbols-rounded text-blue-400">check_circle</span>
+                                    <span>Cost-effective development</span>
+                                </li>
+                                <li className="flex items-center gap-3 text-slate-300">
+                                    <span className="material-symbols-rounded text-blue-400">check_circle</span>
+                                    <span>Time-zone optimized support</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Quick Contact CTA */}
+            <section className="py-20 relative overflow-hidden flex items-center justify-center bg-gradient-to-b from-blue-900/10 to-violet-900/10">
+                <div className="relative z-10 text-center max-w-2xl px-4">
+                    <h2 className="text-3xl font-bold text-white mb-6">
+                        Ready to Go Global?
+                    </h2>
+                    <p className="text-slate-400 mb-8">
+                        Partner with us for world-class digital solutions delivered with Indian efficiency.
+                    </p>
+                    <div className="flex flex-wrap justify-center gap-4">
+                        <button
+                            onClick={() => setIsModalOpen(true)}
+                            className="px-8 py-3 rounded-full bg-gradient-to-r from-blue-600 to-violet-600 text-white font-bold hover:opacity-90 transition-all"
+                        >
+                            Start Your Project
+                        </button>
+                        <a
+                            href="https://wa.me/919453878422?text=Hi,%20I%20am%20interested%20in%20your%20global%20services."
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="px-8 py-3 rounded-full border border-[#25D366]/50 text-[#25D366] font-bold hover:bg-[#25D366]/10 transition-all flex items-center gap-2"
+                        >
+                            <span className="material-symbols-rounded">chat</span>
+                            WhatsApp Us
+                        </a>
+                        <a
+                            href="tel:+919453878422"
+                            className="px-8 py-3 rounded-full border border-orange-500/50 text-orange-400 font-bold hover:bg-orange-500/10 transition-all flex items-center gap-2"
+                        >
+                            <span className="material-symbols-rounded">call</span>
+                            Call Now
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <OtherLocations currentLocation="global" />
+            <Footer />
+        </main>
+    );
+}

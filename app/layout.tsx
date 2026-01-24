@@ -5,6 +5,7 @@ import { JsonLd } from "./components/JsonLd";
 import { NavBar } from "./components/NavBar";
 import { ChatSupport } from "./components/ChatSupport";
 import { MobileBottomNav } from "./components/MobileBottomNav";
+import { FestivalProvider } from "./components/FestivalProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -76,11 +77,13 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning
       >
-        <NavBar />
-        <JsonLd />
-        {children}
-        <ChatSupport />
-        <MobileBottomNav />
+        <FestivalProvider>
+          <NavBar />
+          <JsonLd />
+          {children}
+          <ChatSupport />
+          <MobileBottomNav />
+        </FestivalProvider>
       </body>
     </html>
   );

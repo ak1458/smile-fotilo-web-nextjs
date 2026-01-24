@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { jsPDF } from 'jspdf';
 import { chatWithGemini } from '../actions/chat';
-import { Robot3D, Emotion } from './Robot3D';
+import { Robot2D, Emotion } from './Robot2D';
 
 type Message = {
     id: string;
@@ -19,7 +19,6 @@ export const ChatSupport = () => {
     const [messages, setMessages] = useState<Message[]>([]);
 
     // API CONFIGURATION - Server uses .env.local key
-    const [isConnected, setIsConnected] = useState(true); // Assume connected by default
 
     const [isTyping, setIsTyping] = useState(false);
     const [emotion, setEmotion] = useState<Emotion>('idle');
@@ -33,7 +32,7 @@ export const ChatSupport = () => {
         setEmotion('thinking');
         setTimeout(() => {
             setIsTyping(false);
-            setEmotion('smile'); // Default happy state after thinking
+            setEmotion('happy'); // Default happy state after thinking
             setMessages(prev => [...prev, {
                 id: Date.now().toString(),
                 text,
@@ -49,14 +48,19 @@ export const ChatSupport = () => {
 
         setIsUserTyping(true);
         if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
-        typingTimeoutRef.current = setTimeout(() => setIsUserTyping(false), 1000);
+        // Default to 'thinking' while user types to show attentiveness
+        setEmotion('thinking');
+        typingTimeoutRef.current = setTimeout(() => {
+            setIsUserTyping(false);
+            setEmotion('idle'); // Return to idle/happy when typing stops
+        }, 1200);
     };
 
     useEffect(() => {
         setMounted(true);
 
         if (messages.length === 0) {
-            addBotMessage("Hi! I'm Smile, your AI assistant. I can help you start a project. Shall we begin?");
+            addBotMessage("Hey there! 👋 Great to see you here. I'm here to help you bring your project to life. What are you working on today?");
         }
     }, []);
 
@@ -81,8 +85,8 @@ export const ChatSupport = () => {
 
         // 1. Sentiment Analysis (Basic Keyword Match)
         const lowerText = text.toLowerCase();
-        if (lowerText.includes('stupid') || lowerText.includes('idiot') || lowerText.includes('dumb')) {
-            setEmotion('angry');
+        if (lowerText.includes('stupid') || lowerText.includes('idiot') || lowerText.includes('dumb') || lowerText.includes('bad')) {
+            setEmotion('sad'); // Trigger SAD state as requested
             setTimeout(() => addBotMessage("I am trying my best to help you. Please be kind. 😔"), 500);
             return;
         }
@@ -90,20 +94,20 @@ export const ChatSupport = () => {
         setEmotion('excited');
 
         // Logic: AI Interaction - Server uses .env.local key
-        const history = messages.map(m => ({ role: m.role || 'user', parts: m.text }));
+        // Filter out the initial greeting or any messsage that might break the User-Model-User sequence if needed
+        // Gemini expects history to usually start with User, or at least correct alternating.
+        // Our first message is BOT greeting. We should exclude it from history sent to API.
+        const history = messages.slice(1).map(m => ({ role: m.role || 'user', parts: m.text }));
 
         try {
             const rawResponse = await chatWithGemini(history, text); // No userApiKey - server uses env
 
             if (rawResponse === 'SETUP_REQUIRED') {
-                setIsConnected(false);
                 addBotMessage("I'm not configured properly. Please contact the website administrator.");
                 return;
             }
 
-            setIsConnected(true);
-
-            // Check for FORM_COMPLETE token - using [\s\S] instead of dotAll flag for compatibility
+            // Check for FORM_COMPLETE token - using [\\s\\S] instead of dotAll flag for compatibility
             const completeMatch = rawResponse.match(/\[FORM_COMPLETE:\s*({[\s\S]*?})\]/);
 
             if (completeMatch) {
@@ -186,7 +190,7 @@ export const ChatSupport = () => {
 
     return (
         <>
-            <Robot3D
+            <Robot2D
                 emotion={emotion}
                 isOpen={isOpen}
                 onRobotClick={() => setIsOpen(!isOpen)}
@@ -203,12 +207,11 @@ export const ChatSupport = () => {
                     >
                         {/* Header */}
                         <div className="bg-gradient-to-r from-violet-600 to-indigo-600 p-4 pb-12 text-center relative shrink-0">
-                            <h3 className="text-white font-bold text-lg">Smile Fotilo AI</h3>
-                            <p className="text-white/80 text-xs text-center flex items-center justify-center gap-1">
-                                <span className={`w-2 h-2 rounded-full ${isConnected ? 'bg-emerald-400' : 'bg-red-400'}`}></span>
-                                {isConnected ? 'Gemini Connected' : 'Setup Required'}
-                            </p>
-                            <button onClick={handleClose} className="absolute top-4 right-4 text-white hover:opacity-80">✕</button>
+                            <h3 className="text-white font-bold text-lg">Hey there! 👋</h3>
+                            <p className="text-white/70 text-xs text-center">Let&apos;s build something amazing together</p>
+                            <button onClick={handleClose} className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors">
+                                <span className="material-symbols-rounded text-white text-lg">close</span>
+                            </button>
                         </div>
 
                         {/* Chat Messages */}

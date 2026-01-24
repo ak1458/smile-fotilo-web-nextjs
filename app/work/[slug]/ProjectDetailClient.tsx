@@ -3,6 +3,33 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { FaReact, FaNodeJs, FaAws, FaWordpress, FaPhp, FaStripe, FaCloudflare, FaCode } from 'react-icons/fa';
+import { SiPostgresql, SiRedis, SiWoocommerce, SiMysql, SiMongodb, SiSocketdotio, SiGooglemaps, SiNextdotjs, SiTypescript, SiTailwindcss, SiVercel } from 'react-icons/si';
+import { TbPalette } from 'react-icons/tb';
+
+const getTechIcon = (tech: string) => {
+    const normalized = tech.toLowerCase().replace(/\s+/g, '');
+    if (normalized.includes('react')) return FaReact;
+    if (normalized.includes('node')) return FaNodeJs;
+    if (normalized.includes('postgres')) return SiPostgresql;
+    if (normalized.includes('redis')) return SiRedis;
+    if (normalized.includes('aws')) return FaAws;
+    if (normalized.includes('wordpress')) return FaWordpress;
+    if (normalized.includes('woo')) return SiWoocommerce;
+    if (normalized.includes('php')) return FaPhp;
+    if (normalized.includes('mysql')) return SiMysql;
+    if (normalized.includes('mongo')) return SiMongodb;
+    if (normalized.includes('socket')) return SiSocketdotio;
+    if (normalized.includes('google')) return SiGooglemaps;
+    if (normalized.includes('next')) return SiNextdotjs;
+    if (normalized.includes('type')) return SiTypescript;
+    if (normalized.includes('tailwind')) return SiTailwindcss;
+    if (normalized.includes('vercel')) return SiVercel;
+    if (normalized.includes('stripe')) return FaStripe;
+    if (normalized.includes('cloud')) return FaCloudflare;
+    if (normalized.includes('theme')) return TbPalette;
+    return FaCode;
+};
 
 // Project data
 const projectsData: Record<string, {
@@ -155,12 +182,18 @@ export function ProjectDetailClient({ slug }: { slug: string }) {
                 {/* Technologies */}
                 <section className="mb-20">
                     <h2 className="text-3xl font-bold mb-8">Technologies Used</h2>
-                    <div className="flex flex-wrap gap-3">
-                        {project.technologies.map((tech, index) => (
-                            <span key={index} className="px-4 py-2 rounded-full bg-indigo-500/20 border border-indigo-500/30 text-indigo-300 text-sm font-medium">
-                                {tech}
-                            </span>
-                        ))}
+                    <div className="flex flex-wrap gap-6">
+                        {project.technologies.map((tech, index) => {
+                            const Icon = getTechIcon(tech);
+                            return (
+                                <div key={index} className="flex flex-col items-center gap-2 group">
+                                    <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 group-hover:border-indigo-500/50 group-hover:bg-indigo-500/10 flex items-center justify-center transition-all duration-300">
+                                        <Icon className="text-3xl text-slate-400 group-hover:text-indigo-400 transition-colors" />
+                                    </div>
+                                    <span className="text-sm font-medium text-slate-400 group-hover:text-white transition-colors">{tech}</span>
+                                </div>
+                            );
+                        })}
                     </div>
                 </section>
 

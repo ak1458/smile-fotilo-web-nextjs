@@ -465,6 +465,7 @@ export default function Home() {
       <Hero />
       <Services />
       <Portfolio />
+      <GlobalReach />
       <Pricing />
       <Contact />
       <Footer />
@@ -472,3 +473,92 @@ export default function Home() {
     </main>
   );
 };
+
+const GlobalReach = () => {
+  return (
+    <section className="py-24 bg-[#020617] relative overflow-hidden">
+      {/* Background Gradients */}
+      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[120px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="p-8 md:p-12 rounded-3xl border border-white/5 bg-[#0F172A]/30 backdrop-blur-md relative overflow-hidden">
+
+          <div className="flex flex-col md:flex-row items-center gap-12">
+            <div className="md:w-1/2 space-y-6">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-wider mb-4">
+                  <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+                  Global Delivery
+                </div>
+
+                <h2 className="text-3xl md:text-5xl font-bold text-white leading-tight">
+                  Built in India. <br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">
+                    Deployed Worldwide.
+                  </span>
+                </h2>
+              </motion.div>
+
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="text-lg text-slate-400 leading-relaxed"
+              >
+                We don't just build websites; we engineer digital platforms for the global market.
+                Proudly serving enterprise clients in <span className="text-slate-200 font-semibold under">Texas (USA)</span> and <span className="text-slate-200 font-semibold">Mexico</span> with the same dedication we bring to Gonda.
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+              >
+                <Link href="/locations/global" className="inline-flex items-center gap-2 text-white bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-xl font-semibold transition-all hover:scale-105 shadow-[0_0_20px_rgba(37,99,235,0.3)]">
+                  Explore International Services
+                  <span className="material-symbols-rounded">arrow_forward</span>
+                </Link>
+              </motion.div>
+            </div>
+
+            <div className="md:w-1/2 w-full">
+              <div className="grid grid-cols-2 gap-4">
+                {/* Card 1: USA */}
+                <motion.div
+                  whileHover={{ y: -5 }}
+                  className="p-6 rounded-2xl bg-[#020617]/50 border border-white/5 hover:border-blue-500/30 transition-all"
+                >
+                  <div className="w-10 h-10 rounded-full bg-blue-900/30 flex items-center justify-center text-blue-400 mb-4">
+                    <span className="material-symbols-rounded">public</span>
+                  </div>
+                  <div className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-1">Logistics AI</div>
+                  <div className="text-xl font-bold text-slate-200">Texas, USA</div>
+                </motion.div>
+
+                {/* Card 2: Mexico */}
+                <motion.div
+                  whileHover={{ y: -5 }}
+                  className="p-6 rounded-2xl bg-[#020617]/50 border border-white/5 hover:border-indigo-500/30 transition-all mt-8"
+                >
+                  <div className="w-10 h-10 rounded-full bg-indigo-900/30 flex items-center justify-center text-indigo-400 mb-4">
+                    <span className="material-symbols-rounded">payments</span>
+                  </div>
+                  <div className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-1">Fintech App</div>
+                  <div className="text-xl font-bold text-slate-200">Mexico City</div>
+                </motion.div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}

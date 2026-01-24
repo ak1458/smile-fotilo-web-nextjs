@@ -16,12 +16,13 @@ export const NavBar = () => {
         { href: '/#work', label: 'Work', icon: 'work' },
         { href: '/#services', label: 'Services', icon: 'apps' },
         { href: '/locations', label: 'Locations', icon: 'location_on' },
+        { href: '/locations/global', label: 'Global', icon: 'public' },
         { href: '/about', label: 'About', icon: 'info' },
     ];
 
     return (
         <nav className="fixed top-0 w-full z-50">
-            {/* Main Nav Bar - Always Dark Mode Style */}
+            {/* Main Nav Bar - Dark Mode Style */}
             <div className="glass border-b border-white/5 bg-[#0a0118]/80 backdrop-blur-xl transition-all duration-300">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center h-20">
