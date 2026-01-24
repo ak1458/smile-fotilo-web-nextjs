@@ -15,8 +15,8 @@ export const NavBar = () => {
         { href: '/#home', label: 'Home', icon: 'home' },
         { href: '/#work', label: 'Work', icon: 'work' },
         { href: '/#services', label: 'Services', icon: 'apps' },
+        { href: '/blog', label: 'Blog', icon: 'article' },
         { href: '/locations', label: 'Locations', icon: 'location_on' },
-        { href: '/locations/global', label: 'Global', icon: 'public' },
         { href: '/about', label: 'About', icon: 'info' },
     ];
 
