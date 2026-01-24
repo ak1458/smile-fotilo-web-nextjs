@@ -57,7 +57,7 @@ export default function GlobalPage() {
 
             {/* Global Network Background Image */}
             <div className="fixed inset-0 z-[-1] opacity-30 pointer-events-none" style={{
-                backgroundImage: `url('/global-bg-network.png')`,
+                backgroundImage: `url('/global-bg-network.webp')`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',

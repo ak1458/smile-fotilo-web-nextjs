@@ -21,7 +21,7 @@ export default function GreaterNoidaPage() {
 
             {/* Futuristic Tech Overlay (Circuit / Data Stream) - User Uploaded */}
             <div className="fixed inset-0 z-[-1] opacity-[0.25] pointer-events-none" style={{
-                backgroundImage: `url('/greater-noida-bg.png')`,
+                backgroundImage: `url('/greater-noida-bg.webp')`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',

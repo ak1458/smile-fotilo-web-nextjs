@@ -21,7 +21,7 @@ export default function LucknowPage() {
 
             {/* Generated Cultural Background Art (Rumi Darwaza + Digital) */}
             <div className="fixed inset-0 z-[-1] opacity-45 pointer-events-none" style={{
-                backgroundImage: `url('/lucknow-bg-art.png')`,
+                backgroundImage: `url('/lucknow-bg-art.webp')`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',

@@ -21,7 +21,7 @@ export default function GondaPage() {
 
             {/* Green Nature/Tech Overlay (Gonda HQ - User Uploaded) */}
             <div className="fixed inset-0 z-[-1] opacity-[0.35] pointer-events-none" style={{
-                backgroundImage: `url('/gonda-bg-hq.png')`,
+                backgroundImage: `url('/gonda-bg-hq.webp')`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
