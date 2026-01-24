@@ -1,9 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { jsPDF } from 'jspdf';
 import { chatWithGemini } from '../actions/chat';
-import { RobotHead, RobotHands, Emotion } from './RobotParts';
 import { EchoIcon } from './EchoIcon';
 
 type Message = {
@@ -11,30 +9,24 @@ type Message = {
     text: string;
     sender: 'bot' | 'user';
     role?: 'user' | 'model';
+    quickReplies?: string[];
 };
 
-// 3-State Machine for chatbot interaction (CSS handles transitions)
 type ChatbotState = 'idle' | 'hover' | 'active';
 
 export const ChatSupport = () => {
     const [mounted, setMounted] = useState(false);
     const [chatState, setChatState] = useState<ChatbotState>('idle');
     const [messages, setMessages] = useState<Message[]>([]);
-
-    // API CONFIGURATION - Server uses .env.local key
-
     const [isTyping, setIsTyping] = useState(false);
-    const [emotion, setEmotion] = useState<Emotion>('idle');
     const [inputValue, setInputValue] = useState('');
+    const [showTooltip, setShowTooltip] = useState(true);
+
     const chatContainerRef = useRef<HTMLDivElement>(null);
-    const [isUserTyping, setIsUserTyping] = useState(false);
-    const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-    const messageIdRef = useRef(0); // Unique ID counter for messages
-
-    // Generate a client ID for rate limiting (persists per session)
+    const messageIdRef = useRef(0);
     const clientIdRef = useRef<string>('');
+    const initializedRef = useRef(false);
 
-    // Lazy getter for client ID (avoids impure function during render)
     const getClientId = () => {
         if (!clientIdRef.current) {
             clientIdRef.current = `client-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
@@ -47,384 +39,312 @@ export const ChatSupport = () => {
         return `msg-${Date.now()}-${messageIdRef.current}`;
     };
 
-    const addBotMessage = (text: string) => {
+    // Parse AI response for quick replies - flexible to catch various AI formats
+    const parseResponse = (response: string): { text: string; quickReplies?: string[] } => {
+        // Try different patterns the AI might use
+        // Pattern 1: [QUICK_REPLIES: Option1 | Option2]
+        // Pattern 2: [Option1 | Option2]
+        // Pattern 3: [OPTION1 | OPTION2]
+        const patterns = [
+            /\[QUICK_REPLIES:\s*([^\]]+)\]/i,
+            /\[([A-Z0-9_\s🌐🎨📈💬🏢🛒📸🤷💵💰💎🏆🚨📅🗓️⏳📧📞🔄👋📄]+(?:\s*\|\s*[A-Z0-9_\s🌐🎨📈💬🏢🛒📸🤷💵💰💎🏆🚨📅🗓️⏳📧📞🔄👋📄]+)+)\]/i
+        ];
+
+        for (const pattern of patterns) {
+            const match = response.match(pattern);
+            if (match) {
+                const text = response.replace(match[0], '').trim();
+                const quickReplies = match[1]
+                    .split('|')
+                    .map(r => r.trim().replace(/_/g, ' '))
+                    .filter(r => r && r.length > 0);
+                if (quickReplies.length >= 2) {
+                    return { text, quickReplies };
+                }
+            }
+        }
+
+        return { text: response };
+    };
+
+    const addBotMessage = (text: string, quickReplies?: string[]) => {
         setIsTyping(true);
-        setEmotion('thinking');
         setTimeout(() => {
             setIsTyping(false);
-            setEmotion('happy'); // Default happy state after thinking
             setMessages(prev => [...prev, {
                 id: generateMessageId(),
                 text,
                 sender: 'bot',
-                role: 'model'
+                role: 'model',
+                quickReplies
             }]);
-        }, 1500);
+        }, 700);
     };
 
-    const handleInput = (val: string) => {
-        setInputValue(val);
-        setEmotion('thinking');
-
-        setIsUserTyping(true);
-        if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
-        // Default to 'thinking' while user types to show attentiveness
-        setEmotion('thinking');
-        typingTimeoutRef.current = setTimeout(() => {
-            setIsUserTyping(false);
-            setEmotion('idle'); // Return to idle/happy when typing stops
-        }, 1200);
-    };
-
-    useEffect(() => {
-        setMounted(true);
-
-        if (messages.length === 0) {
-            addBotMessage("Hey! 👋 What can I help you build today?");
-        }
-    }, []);
-
-    useEffect(() => {
-        if (chatContainerRef.current) {
-            chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
-        }
-    }, [messages, isTyping]);
-
-
-
-    const handleUserResponse = async (text: string) => {
-        if (!text.trim()) return;
-
+    const addUserMessage = (text: string) => {
         setMessages(prev => [...prev, {
             id: generateMessageId(),
             text,
             sender: 'user',
             role: 'user'
         }]);
-        setInputValue('');
+    };
 
-        // 1. Sentiment Analysis (Basic Keyword Match)
-        const lowerText = text.toLowerCase();
-        if (lowerText.includes('stupid') || lowerText.includes('idiot') || lowerText.includes('dumb') || lowerText.includes('bad')) {
-            setEmotion('sad'); // Trigger SAD state as requested
-            setTimeout(() => addBotMessage("I am trying my best to help you. Please be kind. 😔"), 500);
-            return;
+    // Initial greeting - powered by AI
+    const sendInitialGreeting = async () => {
+        setIsTyping(true);
+        try {
+            const response = await chatWithGemini([], "Greet the user warmly and ask what kind of project they're thinking about.", getClientId());
+            const parsed = parseResponse(response);
+            setIsTyping(false);
+            setMessages([{
+                id: generateMessageId(),
+                text: parsed.text,
+                sender: 'bot',
+                role: 'model',
+                quickReplies: parsed.quickReplies
+            }]);
+        } catch {
+            setIsTyping(false);
+            setMessages([{
+                id: generateMessageId(),
+                text: "Hey! 👋 What kind of project are you thinking about?",
+                sender: 'bot',
+                role: 'model',
+                quickReplies: undefined // No fallback - let user type
+            }]);
+        }
+    };
+
+    useEffect(() => {
+        setMounted(true);
+        if (!initializedRef.current && messages.length === 0) {
+            initializedRef.current = true;
+            sendInitialGreeting();
+        }
+    }, []);
+
+    // Auto-scroll
+    useEffect(() => {
+        if (chatContainerRef.current) {
+            chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+        }
+    }, [messages, isTyping]);
+
+    // Auto-hide tooltip
+    useEffect(() => {
+        if (showTooltip) {
+            const timer = setTimeout(() => setShowTooltip(false), 5000);
+            return () => clearTimeout(timer);
+        }
+    }, [showTooltip]);
+
+    // Send message to AI and get response with dynamic quick replies
+    const sendToAI = async (text: string) => {
+        // Check for email - capture lead
+        const emailMatch = text.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
+        if (emailMatch) {
+            const summary = messages.map(m => `${m.sender === 'bot' ? 'Echo' : 'User'}: ${m.text}`).join('\n') + `\nUser: ${text}`;
+            import('../actions/email').then(({ sendChatLeadEmail }) => {
+                sendChatLeadEmail({ email: emailMatch[0], conversationSummary: summary });
+            }).catch(console.error);
         }
 
-        setEmotion('excited');
-
-        // Logic: AI Interaction - Server uses .env.local key
-        // Filter out the initial greeting or any messsage that might break the User-Model-User sequence if needed
-        // Gemini expects history to usually start with User, or at least correct alternating.
-        // Our first message is BOT greeting. We should exclude it from history sent to API.
-        const history = messages.slice(1).map(m => ({ role: m.role || 'user', parts: m.text }));
+        setIsTyping(true);
 
         try {
-            const rawResponse = await chatWithGemini(history, text, getClientId()); // With client ID for rate limiting
+            const history = messages.map(m => ({ role: m.role || 'user', parts: m.text }));
+            const response = await chatWithGemini(history, text, getClientId());
 
-            if (rawResponse === 'SETUP_REQUIRED') {
-                addBotMessage("I'm not configured properly. Please contact the website administrator.");
+            if (response === 'SETUP_REQUIRED') {
+                addBotMessage("I'm having trouble connecting. Please try again or contact us at +91 9453878422!", ["🔄 Try again", "📞 Call us"]);
                 return;
             }
 
-            // Check for FORM_COMPLETE token - using [\\s\\S] instead of dotAll flag for compatibility
-            const completeMatch = rawResponse.match(/\[FORM_COMPLETE:\s*({[\s\S]*?})\]/);
-
-            if (completeMatch) {
-                const jsonStr = completeMatch[1];
-                let displayMessage = rawResponse.replace(completeMatch[0], '').trim(); // Remove JSON from chat
-                if (!displayMessage) displayMessage = "Perfect! I have everything I need.";
-
-                addBotMessage(displayMessage);
-
+            // Check for FORM_COMPLETE - offer PDF download
+            const formMatch = response.match(/\[FORM_COMPLETE:\s*([\s\S]*?)\]/);
+            if (formMatch) {
                 try {
-                    const formData = JSON.parse(jsonStr);
-                    await generateAndSendPDF(formData);
+                    const formData = JSON.parse(formMatch[1]);
+                    // Store form data for PDF generation
+                    sessionStorage.setItem('chatFormData', JSON.stringify(formData));
                 } catch (e) {
-                    console.error("JSON Parse Error", e);
-                    addBotMessage("I gathered the details, but had trouble processing the file. Please contact us directly.");
+                    console.error('Form data parse error:', e);
                 }
-
-            } else {
-                // Normal Conversation
-                addBotMessage(rawResponse);
+                const displayText = response.replace(formMatch[0], '').trim() || "Thanks! We have all your details!";
+                addBotMessage(displayText, ["📄 Download Summary PDF", "🔄 Start new chat", "👋 Close"]);
+                return;
             }
 
-        } catch (error) {
-            addBotMessage("I'm having trouble connecting right now.");
-        }
-    };
-
-    const generateAndSendPDF = async (finalData: Record<string, string>) => {
-        setTimeout(() => {
-            setIsTyping(true);
-            const doc = new jsPDF();
-
-            // Header
-            doc.setFillColor(79, 70, 229); // Indigo 600
-            doc.rect(0, 0, 210, 40, 'F');
-            doc.setTextColor(255, 255, 255);
-            doc.setFontSize(24);
-            doc.text('Smile Fotilo - Project Brief', 15, 25);
-
-            // Content
-            doc.setTextColor(0, 0, 0);
-            doc.setFontSize(12);
-            let y = 60;
-
-            const addField = (label: string, value: string) => {
-                doc.setFont('helvetica', 'bold');
-                doc.text(label, 20, y);
-                doc.setFont('helvetica', 'normal');
-                const splitText = doc.splitTextToSize(value || 'N/A', 120);
-                doc.text(splitText, 60, y);
-                y += (splitText.length * 7) + 10;
-            };
-
-            addField("Client Name:", finalData.name);
-            addField("Inquiry Type:", finalData.purpose);
-            addField("Budget:", finalData.budget);
-            addField("Timeline:", finalData.timeline);
-            addField("Email:", finalData.email);
-            addField("Notes/Features:", finalData.features);
-
-            // Footer
-            doc.setFontSize(10);
-            doc.setTextColor(150);
-            doc.text(`Generated on ${new Date().toLocaleDateString()}`, 20, 280);
-
-            // Save
-            doc.save(`${finalData.name?.replace(/\s+/g, '_')}_Smile_Brief.pdf`);
-
+            // Parse response for quick replies
+            const parsed = parseResponse(response);
             setIsTyping(false);
-            addBotMessage("✅ Project PDF Generated! It has been downloaded to your device and sent to our team at Smile Portal.");
-        }, 1000);
-    };
+            setMessages(prev => [...prev, {
+                id: generateMessageId(),
+                text: parsed.text,
+                sender: 'bot',
+                role: 'model',
+                quickReplies: parsed.quickReplies
+            }]);
 
-    const handleClose = () => {
-        // Direct switch - CSS handles the transition
-        setChatState('idle');
-        setEmotion('happy');
-    };
-
-    // State transition handlers for 3-state machine
-    const handleRobotInteraction = () => {
-        if (chatState === 'idle') {
-            // First interaction: idle -> hover (attention)
-            setChatState('hover');
-            setEmotion('happy');
-        } else if (chatState === 'hover') {
-            // Second interaction: hover -> active (open dialog)
-            setChatState('active');
-            setEmotion('excited');
-        } else {
-            // Active -> close
-            setChatState('idle');
-            setEmotion('idle');
+        } catch {
+            addBotMessage("Sorry, I'm having trouble. Would you like to try again?", ["🔄 Try again", "📞 Call us"]);
         }
     };
 
-    // Desktop hover behavior
-    const handleMouseEnter = () => {
-        if (chatState === 'idle') {
-            setChatState('hover');
-            setEmotion('happy');
+    // Handle quick reply click
+    const handleQuickReply = (reply: string) => {
+        if (reply === "👋 Close") {
+            handleClose();
+            return;
         }
-    };
-
-    const handleMouseLeave = () => {
-        if (chatState === 'hover') {
-            setChatState('idle');
-            setEmotion('idle');
+        if (reply === "📞 Call us") {
+            addUserMessage(reply);
+            addBotMessage("Call us at +91 9453878422, Mon-Sat 9AM-6PM! 📞", ["🔄 Start over", "👋 Close"]);
+            return;
         }
-    };
-
-    // Blink state for robot
-    const [blink, setBlink] = useState(false);
-    useEffect(() => {
-        const blinkLoop = setInterval(() => {
-            if (Math.random() > 0.6) {
-                setBlink(true);
-                setTimeout(() => setBlink(false), 150);
+        if (reply === "🔄 Try again" || reply === "🔄 Start over" || reply === "🔄 Start new chat") {
+            setMessages([]);
+            initializedRef.current = false;
+            sendInitialGreeting();
+            return;
+        }
+        if (reply === "📄 Download Summary PDF") {
+            // Generate and download PDF
+            const storedData = sessionStorage.getItem('chatFormData');
+            if (storedData) {
+                import('../utils/generatePDF').then(({ downloadProjectSummary }) => {
+                    downloadProjectSummary(JSON.parse(storedData));
+                }).catch(() => {
+                    addBotMessage("Sorry, couldn't generate PDF. Please contact us directly!", ["📞 Call us", "👋 Close"]);
+                });
+            } else {
+                // Use conversation summary instead
+                const summary = messages.filter(m => m.sender === 'user').map(m => m.text).join(', ');
+                import('../utils/generatePDF').then(({ downloadProjectSummary }) => {
+                    downloadProjectSummary({ purpose: summary, name: 'Visitor' });
+                }).catch(() => {
+                    addBotMessage("Sorry, couldn't generate PDF. Please contact us directly!", ["📞 Call us", "👋 Close"]);
+                });
             }
-        }, 8000 + Math.random() * 4000);
-        return () => clearInterval(blinkLoop);
-    }, []);
+            addBotMessage("PDF downloaded! Check your downloads folder. 📁", ["🔄 New conversation", "👋 Close"]);
+            return;
+        }
+
+        addUserMessage(reply);
+        sendToAI(reply);
+    };
+
+    // Handle form submission
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!inputValue.trim() || isTyping) return;
+
+        const text = inputValue.trim();
+        setInputValue('');
+        addUserMessage(text);
+        await sendToAI(text);
+    };
+
+    // State handlers
+    const handleClose = () => setChatState('idle');
+    const handleRobotInteraction = () => setChatState(chatState === 'active' ? 'idle' : 'active');
+    const handleMouseEnter = () => { if (chatState === 'idle') setChatState('hover'); };
+    const handleMouseLeave = () => { if (chatState === 'hover') setChatState('idle'); };
 
     if (!mounted) return null;
-
     const isOpen = chatState === 'active';
     const isHovered = chatState === 'hover';
 
-    // Parse message for quick reply buttons - handles [[button text]] syntax AND inline **option** patterns
-    const renderMessage = (text: string, isBot: boolean) => {
-        if (!isBot) return text;
-
-        // Pattern 1: Explicit [[button]] syntax
-        const buttonRegex = /\[\[([^\]]+)\]\]/g;
-        const hasExplicitButtons = buttonRegex.test(text);
-
-        if (hasExplicitButtons) {
-            const parts: (string | { type: 'button', text: string })[] = [];
-            let lastIndex = 0;
-            let match;
-            buttonRegex.lastIndex = 0;
-
-            while ((match = buttonRegex.exec(text)) !== null) {
-                if (match.index > lastIndex) {
-                    parts.push(text.slice(lastIndex, match.index));
-                }
-                parts.push({ type: 'button', text: match[1] });
-                lastIndex = match.index + match[0].length;
-            }
-            if (lastIndex < text.length) {
-                parts.push(text.slice(lastIndex));
-            }
-
-            return (
-                <div className="space-y-2">
-                    {parts.map((part, i) =>
-                        typeof part === 'string'
-                            ? <span key={i}>{part}</span>
-                            : <button
-                                key={i}
-                                onClick={() => handleUserResponse(part.text)}
-                                className="inline-block mx-1 px-3 py-1.5 bg-indigo-600 text-white text-xs rounded-full hover:bg-indigo-500 transition-colors cursor-pointer"
-                            >
-                                {part.text}
-                            </button>
-                    )}
-                </div>
-            );
-        }
-
-        // Pattern 2: Detect **bold options** and convert the last few into quick reply buttons
-        const optionRegex = /\*\*([^*]+)\*\*/g;
-        const matches = [...text.matchAll(optionRegex)];
-
-        // If we have 2+ bold options near the end, treat them as quick replies
-        if (matches.length >= 2) {
-            // Get the last 2-4 matches as quick reply options
-            const quickOptions = matches.slice(-Math.min(4, matches.length));
-            const lastOptionEnd = quickOptions[quickOptions.length - 1].index! + quickOptions[quickOptions.length - 1][0].length;
-            const textEndsWithOptions = text.slice(lastOptionEnd).trim().match(/^\??\s*$/);
-
-            if (textEndsWithOptions) {
-                // Remove the options from text and render as buttons
-                let cleanText = text;
-                const buttons: string[] = [];
-
-                // Extract button labels and clean the text
-                quickOptions.forEach(m => {
-                    buttons.push(m[1]);
-                });
-
-                // Clean up the text by removing the option pattern at the end
-                const firstOptionIndex = quickOptions[0].index!;
-                cleanText = text.slice(0, firstOptionIndex).replace(/,?\s*(or\s+)?$/, '').trim();
-                if (cleanText.endsWith(',')) cleanText = cleanText.slice(0, -1);
-
-                return (
-                    <div className="space-y-2">
-                        <p>{cleanText}</p>
-                        <div className="flex flex-wrap gap-2 mt-2">
-                            {buttons.map((btn, i) => (
-                                <button
-                                    key={i}
-                                    onClick={() => handleUserResponse(btn)}
-                                    className="px-3 py-1.5 bg-indigo-600 text-white text-xs rounded-full hover:bg-indigo-500 transition-colors cursor-pointer"
-                                >
-                                    {btn}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-                );
-            }
-        }
-
-        return text;
-    };
-
     return (
-        // Unified chatbot wrapper - Mobile: bottom-20 to clear navbar, Desktop: bottom-4
         <div
-            className="fixed bottom-20 sm:bottom-4 right-4 z-[var(--z-floating-chatbot-idle,900)]"
+            className="fixed bottom-20 sm:bottom-4 right-4 z-[900]"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >
-            {/* Echo Icon - Optimized SVG with CSS animation */}
-            <div
-                className={`transition-all duration-300 ease-out ${isOpen ? 'opacity-0 pointer-events-none scale-75' : 'opacity-100 scale-100'}`}
-            >
-                <EchoIcon
-                    size={56}
-                    onClick={handleRobotInteraction}
-                    isHovered={isHovered}
-                />
+            {/* Echo Icon */}
+            <div className={`transition-all duration-300 ${isOpen ? 'opacity-0 pointer-events-none scale-75' : 'opacity-100 scale-100'}`}>
+                {showTooltip && !isOpen && (
+                    <div className="absolute bottom-full right-0 mb-2 whitespace-nowrap animate-fade-in">
+                        <div className="relative bg-white dark:bg-slate-800 text-slate-800 dark:text-white text-sm font-medium pl-3 pr-8 py-2 rounded-xl shadow-lg border border-slate-200 dark:border-white/10">
+                            Need help? 💬
+                            <button onClick={(e) => { e.stopPropagation(); setShowTooltip(false); }}
+                                className="absolute top-1 right-1 w-5 h-5 flex items-center justify-center text-slate-400 hover:text-slate-600 rounded-full hover:bg-slate-100 transition-colors">×</button>
+                            <div className="absolute bottom-0 right-6 translate-y-1/2 rotate-45 w-2 h-2 bg-white dark:bg-slate-800 border-r border-b border-slate-200 dark:border-white/10"></div>
+                        </div>
+                    </div>
+                )}
+                <EchoIcon size={56} onClick={handleRobotInteraction} isHovered={isHovered} />
             </div>
 
-            {/* Dialog - ALWAYS MOUNTED, CSS transitions only, no AnimatePresence exit delay */}
-            <div
-                className={`absolute bottom-full right-0 mb-4 transition-all duration-300 ease-out ${isOpen
-                    ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto'
-                    : 'opacity-0 translate-y-8 scale-95 pointer-events-none'
-                    }`}
-            >
-                <div
-                    className="relative w-[350px] max-w-[calc(100vw-2rem)] h-[500px] flex flex-col bg-white dark:bg-slate-900 rounded-[2rem] shadow-2xl border border-slate-200 dark:border-white/10"
-                    style={{ overflow: 'visible' }}
-                >
-                    {/* ROBOT HEAD - Slightly offset left for natural look */}
-                    <div className="absolute -top-10 left-[47%] -translate-x-1/2 z-30">
-                        <RobotHead emotion={emotion} blink={blink} />
-                    </div>
+            {/* Chat Dialog */}
+            <div className={`absolute bottom-full right-0 mb-4 transition-all duration-300 ${isOpen ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto' : 'opacity-0 translate-y-8 scale-95 pointer-events-none'}`}>
+                <div className="relative w-[360px] max-w-[calc(100vw-2rem)] h-[520px] flex flex-col bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-white/10 overflow-hidden">
 
-                    {/* ROBOT HANDS - Now OWNED by the dialog, grabbing the top edge */}
-                    <RobotHands grabbingDialog={true} className="z-20" />
-
-                    {/* Header - with padding to accommodate robot */}
-                    <div className="bg-gradient-to-r from-violet-600 to-indigo-600 p-4 pt-8 pb-6 text-center relative shrink-0 rounded-t-[2rem]">
-                        <h3 className="text-white font-bold text-lg mt-2">Hey there! 👋</h3>
-                        <p className="text-white/70 text-xs text-center">Let&apos;s build something amazing together</p>
-                        <button onClick={handleClose} className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors">
+                    {/* Header */}
+                    <div className="bg-gradient-to-r from-violet-600 to-indigo-600 p-4 text-center relative shrink-0">
+                        <h3 className="text-white font-bold text-lg">Echo Assistant</h3>
+                        <p className="text-white/70 text-xs">Tap options or type to chat</p>
+                        <button onClick={handleClose} className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors">
                             <span className="material-symbols-rounded text-white text-lg">close</span>
                         </button>
                     </div>
 
-                    {/* Chat Messages - Inner wrapper clips content, outer dialog stays visible */}
-                    <div ref={chatContainerRef} className="flex-1 overflow-y-auto overflow-x-hidden p-4 space-y-4 bg-slate-50 dark:bg-slate-900/50">
+                    {/* Messages */}
+                    <div ref={chatContainerRef} className="flex-1 overflow-y-auto p-4 space-y-3 bg-slate-50 dark:bg-slate-900/50">
                         {messages.map((msg) => (
-                            <div key={msg.id} className={`flex ${msg.sender === 'bot' ? 'justify-start' : 'justify-end'}`}>
-                                <div className={`max-w-[85%] p-3 rounded-2xl text-sm ${msg.sender === 'bot'
-                                    ? 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-white/10 rounded-tl-none'
-                                    : 'bg-indigo-600 text-white rounded-tr-none'}`}>
-                                    {renderMessage(msg.text, msg.sender === 'bot')}
+                            <div key={msg.id} className="space-y-2">
+                                <div className={`flex ${msg.sender === 'bot' ? 'justify-start' : 'justify-end'}`}>
+                                    <div className={`max-w-[85%] p-3 rounded-2xl text-sm leading-relaxed ${msg.sender === 'bot'
+                                        ? 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-white/10 rounded-tl-none'
+                                        : 'bg-indigo-600 text-white rounded-tr-none'}`}>
+                                        {msg.text}
+                                    </div>
                                 </div>
+
+                                {/* Quick Reply Buttons - AI Generated */}
+                                {msg.sender === 'bot' && msg.quickReplies && msg.quickReplies.length > 0 && (
+                                    <div className="flex flex-wrap gap-2 pl-2">
+                                        {msg.quickReplies.map((reply, i) => (
+                                            <button
+                                                key={i}
+                                                onClick={() => handleQuickReply(reply)}
+                                                className="px-3 py-2 text-xs bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-300 rounded-full border border-indigo-200 dark:border-indigo-700 hover:bg-indigo-100 dark:hover:bg-indigo-800/50 transition-all hover:scale-105 active:scale-95"
+                                            >
+                                                {reply}
+                                            </button>
+                                        ))}
+                                    </div>
+                                )}
                             </div>
                         ))}
+
+                        {/* Typing Indicator */}
                         {isTyping && (
                             <div className="flex justify-start">
-                                <div className="bg-white dark:bg-slate-800 p-3 rounded-2xl rounded-tl-none border border-slate-200 dark:border-white/10 flex gap-1">
-                                    <div className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce" />
-                                    <div className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce delay-75" />
-                                    <div className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce delay-150" />
+                                <div className="bg-white dark:bg-slate-800 p-3 rounded-2xl rounded-tl-none border border-slate-200 dark:border-white/10">
+                                    <div className="flex gap-1">
+                                        <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
+                                        <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></span>
+                                        <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
+                                    </div>
                                 </div>
                             </div>
                         )}
                     </div>
 
                     {/* Input */}
-                    <form onSubmit={(e) => { e.preventDefault(); handleUserResponse(inputValue); }} className="p-3 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-white/10 flex gap-2 rounded-b-[2rem]">
+                    <form onSubmit={handleSubmit} className="p-3 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-white/10 flex gap-2">
                         <input
                             value={inputValue}
-                            onChange={(e) => handleInput(e.target.value)}
-                            onFocus={() => setIsUserTyping(true)}
-                            onBlur={() => { setEmotion('idle'); setIsUserTyping(false); }}
+                            onChange={(e) => setInputValue(e.target.value)}
                             placeholder="Type a message..."
-                            className="flex-1 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            disabled={isTyping}
+                            className="flex-1 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white px-4 py-3 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
                         />
-                        <button type="submit" disabled={!inputValue.trim() || isTyping} className="p-3 bg-indigo-600 text-white rounded-xl hover:bg-indigo-500 disabled:opacity-50">➤</button>
+                        <button type="submit" disabled={!inputValue.trim() || isTyping} className="p-3 bg-indigo-600 text-white rounded-xl hover:bg-indigo-500 disabled:opacity-50 transition-colors">
+                            <span className="material-symbols-rounded text-lg">send</span>
+                        </button>
                     </form>
                 </div>
             </div>
