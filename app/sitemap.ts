@@ -1,4 +1,5 @@
 import { MetadataRoute } from 'next';
+import { blogPosts } from './data/blogPosts';
 
 export const dynamic = 'force-static';
 
@@ -6,7 +7,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = 'https://smilefotilo.com';
     const now = new Date();
 
+    // Generate blog post URLs
+    const blogUrls = blogPosts.map(post => ({
+        url: `${baseUrl}/blog/${post.slug}`,
+        lastModified: new Date(post.date),
+        changeFrequency: 'monthly' as const,
+        priority: 0.7,
+    }));
+
     return [
+        // Blog main page
+        {
+            url: `${baseUrl}/blog`,
+            lastModified: now,
+            changeFrequency: 'daily',
+            priority: 0.9,
+        },
+        // All blog posts
+        ...blogUrls,
         // Main Pages
         {
             url: baseUrl,
