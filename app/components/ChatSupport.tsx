@@ -3,7 +3,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { jsPDF } from 'jspdf';
 import { chatWithGemini } from '../actions/chat';
-import { RobotFull, RobotHead, RobotHands, Emotion } from './RobotParts';
+import { RobotHead, RobotHands, Emotion } from './RobotParts';
+import { EchoIcon } from './EchoIcon';
 
 type Message = {
     id: string;
@@ -352,14 +353,12 @@ export const ChatSupport = () => {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >
-            {/* RobotFull - CSS crossfade with dialog */}
+            {/* Echo Icon - Optimized SVG with CSS animation */}
             <div
-                className={`transition-all duration-300 ease-out ${isOpen ? 'opacity-0 pointer-events-none scale-75' : 'opacity-100 scale-100'
-                    } ${isHovered ? 'scale-110' : ''}`}
+                className={`transition-all duration-300 ease-out ${isOpen ? 'opacity-0 pointer-events-none scale-75' : 'opacity-100 scale-100'}`}
             >
-                <RobotFull
-                    emotion={emotion}
-                    blink={blink}
+                <EchoIcon
+                    size={56}
                     onClick={handleRobotInteraction}
                     isHovered={isHovered}
                 />
