@@ -51,16 +51,18 @@ export const Footer = () => (
                     <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-4">Get in Touch</h4>
                     <ul className="space-y-3">
                         <li className="flex items-center gap-2 text-slate-400 text-sm justify-center md:justify-start">
-                            <span className="material-symbols-rounded text-indigo-400 text-lg">call</span>
-                            +91 9453878422
+                            <span className="material-symbols-rounded text-indigo-400 text-lg flex-shrink-0">call</span>
+                            <span>+91 9453878422</span>
                         </li>
                         <li className="flex items-center gap-2 text-slate-400 text-sm justify-center md:justify-start">
-                            <span className="material-symbols-rounded text-indigo-400 text-lg">mail</span>
-                            ashrafkamal1458@gmail.com
+                            <span className="material-symbols-rounded text-indigo-400 text-lg flex-shrink-0">mail</span>
+                            <a href="mailto:ashrafkamal1458@gmail.com" className="hover:text-indigo-400 transition-colors break-all">
+                                ashrafkamal1458@gmail.com
+                            </a>
                         </li>
                         <li className="flex items-center gap-2 text-slate-400 text-sm justify-center md:justify-start">
-                            <span className="material-symbols-rounded text-indigo-400 text-lg">schedule</span>
-                            Mon - Sat: 9AM - 6PM
+                            <span className="material-symbols-rounded text-indigo-400 text-lg flex-shrink-0">schedule</span>
+                            <span>Mon - Sat: 9AM - 6PM</span>
                         </li>
                     </ul>
                 </div>

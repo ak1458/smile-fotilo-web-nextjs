@@ -217,12 +217,14 @@ const Contact = () => {
                 transition={{ delay: 0.2 }}
                 className="flex items-center gap-4"
               >
-                <div className="w-12 h-12 rounded-full glass flex items-center justify-center text-violet-400">
+                <div className="w-12 h-12 rounded-full glass flex items-center justify-center text-violet-400 flex-shrink-0">
                   <span className="material-symbols-rounded">mail</span>
                 </div>
                 <div>
                   <div className="text-sm text-slate-500">Email us</div>
-                  <div className="font-medium text-white text-lg">ashrafkamal1458@gmail.com</div>
+                  <a href="mailto:ashrafkamal1458@gmail.com" className="font-medium text-white text-lg hover:text-indigo-400 transition-colors">
+                    ashrafkamal1458@gmail.com
+                  </a>
                 </div>
               </motion.div>
 
