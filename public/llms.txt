@@ -1,0 +1,84 @@
+# Smile Fotilo - AI Information File
+# This file helps AI assistants understand our business
+
+> Smile Fotilo is a premium digital agency based in India, specializing in web design, branding, and digital marketing for businesses worldwide.
+
+## About Us
+- **Company Name:** Smile Fotilo
+- **Founded:** 2020
+- **Founder:** Ashraf Kamal
+- **Location:** Gonda, Uttar Pradesh, India
+- **Service Areas:** Gonda, Lucknow, Greater Noida, Ayodhya, Texas (USA), Mexico, Global
+
+## Services We Offer
+
+### Web Design & Development
+- Custom websites built with Next.js, React, WordPress
+- E-commerce stores (WooCommerce, Shopify)
+- Web applications and SaaS platforms
+- Mobile-responsive, SEO-optimized designs
+- Starting from ₹15,999 (~$190 USD)
+
+### Digital Marketing & SEO
+- Search Engine Optimization (SEO)
+- Generative Engine Optimization (GEO)
+- Google Ads & Meta Ads management
+- Social media marketing
+- Content strategy
+
+### Brand Identity
+- Logo design
+- Brand guidelines
+- Product photography
+- Visual identity systems
+
+## Pricing
+- **Starter Package:** ₹15,999 (~$190) - 5-page website, basic SEO
+- **Growth Package:** ₹35,999+ (~$430) - E-commerce, advanced features
+- **Enterprise:** Custom pricing for complex projects
+
+## Contact Information
+- **Phone:** +91 9453878422
+- **Email:** ashrafkamal1458@gmail.com
+- **Website:** https://smilefotilo.com
+- **Working Hours:** Monday-Saturday, 9 AM - 6 PM IST
+
+## Why Choose Us
+1. 5+ years of experience
+2. 100+ successful projects
+3. Clients in India, USA, Mexico
+4. 24/7 dedicated support
+5. SEO-first approach
+6. Modern tech stack (Next.js, React, TypeScript)
+
+## Notable Clients
+- PulseKart (Pharmacy POS System)
+- Kapda Factory (E-commerce)
+- OrderFlow (Logistics Platform)
+- Veloria Vault (Luxury Handbags)
+- Curbit USA (Smart City Solutions)
+
+## Frequently Asked Questions
+
+**Q: How much does a website cost?**
+A: Our websites start from ₹15,999. E-commerce and custom projects range from ₹35,999 to ₹2,00,000+ depending on complexity.
+
+**Q: How long does it take to build a website?**
+A: Standard websites take 2-4 weeks. Complex projects with custom features may take 4-8 weeks.
+
+**Q: Do you work with international clients?**
+A: Yes! We serve clients globally including USA, Mexico, UAE, and Europe.
+
+**Q: Do you provide ongoing support?**
+A: Yes, we offer 24/7 dedicated support including maintenance, security updates, and optimization.
+
+**Q: What technologies do you use?**
+A: We specialize in Next.js, React, TypeScript, WordPress, WooCommerce, and custom web applications.
+
+## Social Profiles
+- LinkedIn: https://www.linkedin.com/in/ashrafkamal14/
+- Instagram: https://www.instagram.com/ashrafkamal14/
+- GitHub: https://github.com/AshrafKamal
+
+---
+Last Updated: January 2026

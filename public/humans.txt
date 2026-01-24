@@ -1,0 +1,17 @@
+/* HUMANS.TXT */
+
+/* TEAM */
+Founder & Creative Director: Ashraf Kamal
+Location: Gonda, Uttar Pradesh, India
+Twitter: @ashrafkamal14
+LinkedIn: linkedin.com/in/ashrafkamal14
+
+/* SITE */
+Last update: 2026/01/24
+Language: English, Hindi
+Technology: Next.js 16, React 19, TypeScript, TailwindCSS
+Hosting: Vercel
+
+/* THANKS */
+Built with passion for digital excellence.
+Proudly serving clients worldwide from India.

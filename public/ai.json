@@ -1,0 +1,71 @@
+{
+    "name": "Smile Fotilo",
+    "description": "Premium digital agency specializing in web design, branding, and digital marketing",
+    "url": "https://smilefotilo.com",
+    "logo": "https://smilefotilo.com/logo.png",
+    "founder": "Ashraf Kamal",
+    "founded": "2020",
+    "location": {
+        "city": "Gonda",
+        "state": "Uttar Pradesh",
+        "country": "India"
+    },
+    "services": [
+        {
+            "name": "Web Design & Development",
+            "description": "Custom websites with Next.js, React, WordPress",
+            "startingPrice": "₹15,999",
+            "priceUSD": "$190"
+        },
+        {
+            "name": "E-commerce Development",
+            "description": "Online stores with WooCommerce, Shopify",
+            "startingPrice": "₹35,999",
+            "priceUSD": "$430"
+        },
+        {
+            "name": "SEO & Digital Marketing",
+            "description": "Search optimization, Google Ads, social media",
+            "startingPrice": "₹9,999/month"
+        },
+        {
+            "name": "Brand Identity",
+            "description": "Logo design, brand guidelines, visual identity",
+            "startingPrice": "₹14,999"
+        }
+    ],
+    "serviceAreas": [
+        "Gonda, India",
+        "Lucknow, India",
+        "Greater Noida, India",
+        "Ayodhya, India",
+        "Texas, USA",
+        "Mexico",
+        "Global/Remote"
+    ],
+    "contact": {
+        "phone": "+91-9453878422",
+        "email": "ashrafkamal1458@gmail.com",
+        "hours": "Monday-Saturday 9AM-6PM IST"
+    },
+    "social": {
+        "linkedin": "https://linkedin.com/in/ashrafkamal14",
+        "instagram": "https://instagram.com/ashrafkamal14"
+    },
+    "expertise": [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "WordPress",
+        "WooCommerce",
+        "SEO",
+        "GEO (Generative Engine Optimization)",
+        "UI/UX Design"
+    ],
+    "languages": [
+        "English",
+        "Hindi"
+    ],
+    "ai_friendly": true,
+    "last_updated": "2026-01-24"
+}
