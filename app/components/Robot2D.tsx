@@ -18,6 +18,12 @@ export const Robot2D: React.FC<Robot2DProps> = ({
     onRobotClick,
     isListening = false
 }) => {
+    // Mounted check for SSR safety
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
     // Demo Mode: Allow cycling emotions by clicking for verification if not "Open"
     const [demoIndex, setDemoIndex] = useState(0);
     const emotionsList: Emotion[] = ['idle', 'happy', 'laughing', 'sad', 'angry', 'excited', 'thinking', 'confused', 'sleepy'];
@@ -26,10 +32,6 @@ export const Robot2D: React.FC<Robot2DProps> = ({
         if (isOpen) {
             onRobotClick?.(); // Close if open
         } else {
-            // Cycle emotions first, then open on double click or separate logic? 
-            // For now, let's make it toggle Open normally, BUT hover shows emotions?
-            // Actually, user wants to SEE emotions. Let's make "Hover" cycle them or just use random idle?
-            // Better: Cycle on click if NOT open? Or just cycle automatically?
             // Cycle to next emotion for demo purposes, BUT allow opening logic to proceed if connected
             const nextIndex = (demoIndex + 1) % emotionsList.length;
             setDemoIndex(nextIndex);
@@ -41,15 +43,15 @@ export const Robot2D: React.FC<Robot2DProps> = ({
 
     const [isHovered, setIsHovered] = useState(false);
 
-    // Auto-Blink Logic (Independent of Hover)
+    // Auto-Blink Logic - Increased interval for performance (8-12s randomized)
     const [blink, setBlink] = useState(false);
     useEffect(() => {
         const blinkLoop = setInterval(() => {
-            if (Math.random() > 0.7) { // Randomize blink holding
+            if (Math.random() > 0.6) { // Randomize blink holding
                 setBlink(true);
                 setTimeout(() => setBlink(false), 150);
             }
-        }, 3000);
+        }, 8000 + Math.random() * 4000); // 8-12 seconds
         return () => clearInterval(blinkLoop);
     }, []);
 
@@ -59,12 +61,15 @@ export const Robot2D: React.FC<Robot2DProps> = ({
     const currentDemoEmotion = emotionsList[demoIndex];
     const displayedEmotion = demoIndex > 0 ? currentDemoEmotion : (emotion === 'idle' ? (isHovered ? 'happy' : 'idle') : emotion);
 
+    // SSR Safety: Don't render until mounted
+    if (!mounted) return null;
+
     return (
         <motion.div
             drag
             dragMomentum={false}
             whileDrag={{ scale: 1.1, cursor: 'grabbing' }}
-            dragConstraints={{ left: -window.innerWidth + 50, right: 0, top: -window.innerHeight + 50, bottom: 0 }}
+            dragConstraints={{ left: -500, right: 0, top: -500, bottom: 0 }}
             className={`fixed ${isOpen ? 'z-[900]' : 'z-[9999]'} transition-all duration-700 cubic-bezier(0.34, 1.56, 0.64, 1) cursor-pointer group touch-none`}
             style={{
                 // "Peeking" Design Spec (Fixed "Leg" look):

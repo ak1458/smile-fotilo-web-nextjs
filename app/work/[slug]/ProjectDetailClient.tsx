@@ -91,6 +91,16 @@ const projectsData: Record<string, {
         features: ['Luxury UI/UX Design', 'High-Quality Product Gallery', 'Secure Checkout', 'Wishlist Feature', 'Size Guide', 'Express Shipping Options'],
         technologies: ['WordPress', 'WooCommerce', 'Custom Theme', 'Stripe', 'Cloudflare'],
         color: 'from-rose-500 to-pink-500'
+    },
+    'storybook-weddings': {
+        title: 'StoryBook Weddings',
+        category: 'Wedding Photography',
+        description: 'Professional website for Lucknow\'s premier wedding photography studio.',
+        fullDescription: 'StoryBook Weddings is a beautiful portfolio website for a top wedding photography studio in Lucknow. The website showcases their work across engagement shoots, haldi ceremonies, pre-wedding sessions, and full wedding day coverage. Features a stunning gallery, easy-to-use contact forms, and optimized for mobile viewing.',
+        image: '/project-storybook-weddings.png',
+        features: ['Responsive Photo Gallery', 'Service Categories', 'Contact Forms', 'Mobile Optimized', 'Fast Loading', 'SEO Optimized'],
+        technologies: ['WordPress', 'Custom Theme', 'Lightbox Gallery', 'Contact Form 7'],
+        color: 'from-amber-500 to-rose-500'
     }
 };
 

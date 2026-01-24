@@ -8,6 +8,7 @@ export function generateStaticParams() {
         { slug: 'orderflow' },
         { slug: 'curbit' },
         { slug: 'veloria-vault' },
+        { slug: 'storybook-weddings' },
     ];
 }
 

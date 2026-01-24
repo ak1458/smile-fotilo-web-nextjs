@@ -5,12 +5,14 @@ import { NavBar } from '../../components/NavBar';
 import { Footer } from '../../components/Footer';
 import { ConnectModal } from '../../components/ConnectModal';
 import { OtherLocations } from '../../components/OtherLocations';
+import { LocationSchema } from '../../components/LocationSchema';
 
 export default function GreaterNoidaPage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     return (
         <main className="min-h-screen relative text-slate-200 selection:bg-cyan-500/30">
+            <LocationSchema location="greaterNoida" />
             <NavBar />
             <ConnectModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} context="Greater Noida/NCR Location Page" />
 

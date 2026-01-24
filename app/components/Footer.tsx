@@ -68,7 +68,7 @@ export const Footer = () => (
 
             {/* Bottom Bar - Centered */}
             <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-center items-center gap-4 text-center">
-                <p className="text-slate-500 text-sm">© {new Date().getFullYear()} Smile Fotilo. Crafted with ❤️ in India.</p>
+                <p className="text-slate-500 text-sm">© {new Date().getFullYear()} Smile Fotilo. Crafted with passion in India.</p>
                 <div className="flex gap-6 text-sm">
                     <Link href="/privacy" className="text-slate-500 hover:text-slate-300 transition-colors">Privacy Policy</Link>
                     <Link href="/terms" className="text-slate-500 hover:text-slate-300 transition-colors">Terms of Service</Link>

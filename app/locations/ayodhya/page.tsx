@@ -5,12 +5,14 @@ import { NavBar } from '../../components/NavBar';
 import { Footer } from '../../components/Footer';
 import { ConnectModal } from '../../components/ConnectModal';
 import { OtherLocations } from '../../components/OtherLocations';
+import { LocationSchema } from '../../components/LocationSchema';
 
 export default function AyodhyaPage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     return (
         <main className="min-h-screen relative text-slate-200 selection:bg-orange-500/30">
+            <LocationSchema location="ayodhya" />
             <NavBar />
             <ConnectModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} context="Ayodhya Location Page" />
 
@@ -18,7 +20,7 @@ export default function AyodhyaPage() {
             <div className="fixed inset-0 z-[-2] animated-bg"></div>
 
             {/* User Provided Background Image (BG OLD) - FINAL SELECTION */}
-            <div className="fixed inset-0 z-[-1] opacity-[0.58] pointer-events-none" style={{
+            <div className="fixed inset-0 z-[-1] opacity-[0.35] pointer-events-none" style={{
                 backgroundImage: `url('/ayodhya-bg-abstract.png')`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',

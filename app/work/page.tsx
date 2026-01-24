@@ -3,10 +3,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { Footer } from '../components/Footer';
 
 export default function WorkPage() {
     const projects = [
         {
+            slug: "pulsekart",
             title: "PulseKart",
             category: "Pharma POS System",
             description: "A highly customizable, advanced Point of Sale system for pharmacies. Features high-level scalability, detailed inventory tracking, and flexible billing modules.",
@@ -16,6 +18,7 @@ export default function WorkPage() {
             delay: 0
         },
         {
+            slug: "kapda-factory",
             title: "Kapda Factory",
             category: "Manufacturing ERP",
             description: "End-to-end textile manufacturing solution including WordPress e-commerce. Tracks order loading, payment collections, and shipment status in real-time.",
@@ -25,6 +28,7 @@ export default function WorkPage() {
             delay: 0.1
         },
         {
+            slug: "orderflow",
             title: "OrderFlow",
             category: "Logistics & Tracking",
             description: "Daily order tracking and collection ecosystem with mobile app and Android tablet dashboard for delivery hubs.",
@@ -34,6 +38,7 @@ export default function WorkPage() {
             delay: 0.2
         },
         {
+            slug: "curbit",
             title: "Curbit",
             category: "Smart City Solution",
             description: "Website for a US-based company providing curb-related services. Clean, professional, and enterprise-grade.",
@@ -43,6 +48,7 @@ export default function WorkPage() {
             delay: 0.3
         },
         {
+            slug: "veloria-vault",
             title: "Veloria Vault",
             category: "Luxury E-Commerce",
             description: "Complete WordPress website for a women's luxury fashion brand selling premium leather handbags. High-end design and immersive product storytelling.",
@@ -52,12 +58,13 @@ export default function WorkPage() {
             delay: 0.4
         },
         {
-            title: "Local Agency Websites",
-            category: "Web Development",
-            description: "Multiple websites built for local agencies. Each project tailored to the client's unique brand identity and business goals.",
-            image: "/project-curbit.png",
-            color: "from-slate-600 to-slate-500",
-            tags: ["Web Design", "Branding", "Local Business", "Custom"],
+            slug: "storybook-weddings",
+            title: "StoryBook Weddings",
+            category: "Wedding Photography",
+            description: "Professional website for Lucknow's premier wedding photography studio. Beautiful portfolio showcasing engagement, haldi, pre-wedding, and wedding ceremonies.",
+            image: "/project-storybook-weddings.png",
+            color: "from-amber-500 to-rose-500",
+            tags: ["WordPress", "Photography", "Portfolio", "Lucknow"],
             delay: 0.5
         }
     ];
@@ -125,9 +132,9 @@ export default function WorkPage() {
                                 <p className="text-slate-400 leading-relaxed mb-8 text-lg">
                                     {project.description}
                                 </p>
-                                <a href="#" className="inline-flex items-center gap-2 text-white font-bold hover:gap-4 transition-all">
-                                    View Casestudy <span className="material-symbols-rounded">arrow_forward</span>
-                                </a>
+                                <Link href={`/work/${project.slug}`} className="inline-flex items-center gap-2 text-white font-bold hover:gap-4 transition-all">
+                                    View Case Study <span className="material-symbols-rounded">arrow_forward</span>
+                                </Link>
                             </div>
                         </motion.div>
                     ))}
@@ -160,6 +167,8 @@ export default function WorkPage() {
                 </motion.div>
 
             </div>
+
+            <Footer />
         </main>
     );
 }

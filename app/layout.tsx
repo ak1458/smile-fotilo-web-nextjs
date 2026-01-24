@@ -3,9 +3,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { JsonLd } from "./components/JsonLd";
 import { NavBar } from "./components/NavBar";
-import { ChatSupport } from "./components/ChatSupport";
 import { MobileBottomNav } from "./components/MobileBottomNav";
 import { FestivalProvider } from "./components/FestivalProvider";
+import { ChatSupportWrapper } from "./components/ChatSupportWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,6 +18,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://smilefotilo.com'),
   title: "Smile Fotilo | Web Design & Digital Marketing in Gonda, Lucknow & Global",
   description: "Smile Fotilo is a premium creative agency specializing in Web Design, Branding, and Digital Marketing. Serving clients in Gonda, Greater Noida, Lucknow, Ayodhya, and globally.",
   keywords: ["Web Design", "Digital Marketing", "Branding", "Gonda", "Lucknow", "Greater Noida", "Ayodhya", "Website Development", "SEO", "Creative Agency"],
@@ -81,7 +82,7 @@ export default function RootLayout({
           <NavBar />
           <JsonLd />
           {children}
-          <ChatSupport />
+          <ChatSupportWrapper />
           <MobileBottomNav />
         </FestivalProvider>
       </body>

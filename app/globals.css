@@ -17,6 +17,24 @@ html {
   --accent-light: #a78bfa;
   --card-bg: rgba(30, 27, 75, 0.8);
   --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+
+  /* Z-Index Scale (standardized) */
+  --z-base: 1;
+  --z-sticky-header: 50;
+  --z-floating-chatbot-idle: 900;
+  --z-floating-chatbot-active: 990;
+  --z-modal: 1000;
+
+  /* Animation Timing Scale (standardized) */
+  --animation-fast: 150ms;
+  --animation-normal: 300ms;
+  --animation-slow: 500ms;
+  --animation-slower: 700ms;
+
+  /* Easing Functions */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 /* ========================================

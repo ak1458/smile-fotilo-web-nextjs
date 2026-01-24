@@ -1,9 +1,11 @@
 'use client';
 
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Footer } from './components/Footer';
 import { BackToTop } from './components/BackToTop';
+import { ContactForm } from './components/ContactForm';
+import { Testimonials } from './components/Testimonials';
 import Link from 'next/link';
 
 const Hero = () => {
@@ -181,26 +183,6 @@ const Pricing = () => {
 };
 
 const Contact = () => {
-  const [status, setStatus] = React.useState('');
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const name = formData.get('name') as string;
-    const service = formData.get('service') as string;
-    const budget = formData.get('budget') as string;
-    const message = formData.get('message') as string;
-
-    // Format for mailto
-    const body = `Hi, I am ${name}.%0D%0A%0D%0AMy Service Interest: ${service}%0D%0AMy Budget Range: ${budget}%0D%0A%0D%0ADetails:%0D%0A${message}`;
-    const mailtoLink = `mailto:ashrafkamal1458@gmail.com?subject=New Project Inquiry: ${service}&body=${body}`;
-
-    window.location.href = mailtoLink;
-    setStatus('Opening email client...');
-    (event.target as HTMLFormElement).reset();
-    setTimeout(() => setStatus(''), 4000);
-  };
-
   return (
     <section id="contact" className="py-24 relative overflow-hidden bg-[#0a0118] text-white">
       {/* Ambient Background Glows */}
@@ -262,75 +244,14 @@ const Contact = () => {
             </div>
           </div>
 
-          {/* Right Column: Premium Form */}
+          {/* Right Column: Form Component */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="glass-card p-8 md:p-10 relative"
           >
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-slate-400">Name</label>
-                  <input name="name" type="text" required placeholder="John Doe"
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-600 focus:outline-none focus:border-violet-500/50 focus:bg-white/10 transition-all hover:bg-white/10" />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-slate-400">Email</label>
-                  <input name="email" type="email" required placeholder="john@company.com"
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-600 focus:outline-none focus:border-violet-500/50 focus:bg-white/10 transition-all hover:bg-white/10" />
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-400">Service Interest</label>
-                <div className="relative">
-                  <select name="service" required defaultValue="" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-violet-500/50 focus:bg-white/10 transition-all appearance-none hover:bg-white/10 [&>option]:bg-[#0f0720] [&>option]:text-white cursor-pointer">
-                    <option value="" disabled className="text-slate-500">Select a service</option>
-                    <option value="Web Design">Web Design & CMS</option>
-                    <option value="Branding">Brand Identity</option>
-                    <option value="Marketing">Digital Marketing & SEO</option>
-                    <option value="Full Package">Full Package (Web + Brand + Ads)</option>
-                  </select>
-                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">▼</div>
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-400">Budget Range</label>
-                <div className="relative">
-                  <select name="budget" required defaultValue="" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-violet-500/50 focus:bg-white/10 transition-all appearance-none hover:bg-white/10 [&>option]:bg-[#0f0720] [&>option]:text-white cursor-pointer">
-                    <option value="" disabled>Select your budget</option>
-                    <option value="<15k">Less than ₹15k</option>
-                    <option value="15k-35k">₹15k - ₹35k</option>
-                    <option value="35k-75k">₹35k - ₹75k</option>
-                    <option value="75k+">₹75k+</option>
-                  </select>
-                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">▼</div>
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-400">Project Details</label>
-                <textarea name="message" required rows={4} placeholder="Tell us about your goals..."
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-600 focus:outline-none focus:border-violet-500/50 focus:bg-white/10 transition-all resize-none hover:bg-white/10"></textarea>
-              </div>
-
-              <button type="submit" className="w-full py-4 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-bold text-lg hover:shadow-[0_0_30px_rgba(139,92,246,0.3)] hover:scale-[1.02] active:scale-[0.98] transition-all relative overflow-hidden group">
-                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 pointer-events-none" />
-                Send Message
-              </button>
-
-              <AnimatePresence>
-                {status && (
-                  <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="text-center bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 py-2 rounded-lg text-sm">
-                    {status}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </form>
+            <ContactForm />
           </motion.div>
         </div>
       </div>
@@ -465,12 +386,74 @@ export default function Home() {
       <Hero />
       <Services />
       <Portfolio />
+      <Testimonials />
       <GlobalReach />
+      <FAQ />
       <Pricing />
       <Contact />
       <Footer />
       <BackToTop />
     </main>
+  );
+};
+
+const FAQ = () => {
+  const faqs = [
+    {
+      question: "What services does Smile Fotilo offer?",
+      answer: "We offer Web Design & Development, Digital Marketing & SEO, Brand Identity Design, and Product Photography services tailored for global brands."
+    },
+    {
+      question: "How much does a website cost?",
+      answer: "Our website packages start from ₹15,999. We offer The Starter (₹15k) for small businesses, The Growth (₹35k+) for retail brands, and custom enterprise solutions."
+    },
+    {
+      question: "How long does it take to build a website?",
+      answer: "Typical websites take 2-4 weeks from concept to launch. Complex projects with custom features may take 4-8 weeks. We provide detailed timelines during your strategy call."
+    },
+    {
+      question: "Do you work with international clients?",
+      answer: "Yes! We proudly serve enterprise clients in Texas (USA), Mexico, and across India. We handle timezone differences and work in English and Hindi."
+    },
+    {
+      question: "What support do you provide after launch?",
+      answer: "We provide 24/7 dedicated support including website maintenance, security updates, performance optimization, and ongoing SEO improvements."
+    }
+  ];
+
+  return (
+    <section id="faq" className="py-24 bg-[#0a0118] relative overflow-hidden">
+      <div className="absolute top-0 left-1/4 w-[400px] h-[400px] bg-violet-500/5 rounded-full blur-[100px] pointer-events-none" />
+
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <span className="text-violet-400 font-bold tracking-wider uppercase text-sm">Got Questions?</span>
+          <h2 className="text-3xl md:text-5xl font-bold text-slate-50 mt-3">Frequently Asked Questions</h2>
+        </motion.div>
+
+        <div className="space-y-6">
+          {faqs.map((faq, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="p-6 border border-white/5 bg-[#0F172A]/50 rounded-2xl backdrop-blur-sm"
+            >
+              <h3 className="text-lg md:text-xl font-bold text-slate-50 mb-3">{faq.question}</h3>
+              <p className="text-slate-400 leading-relaxed">{faq.answer}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 };
 

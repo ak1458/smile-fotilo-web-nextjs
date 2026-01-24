@@ -1,0 +1,379 @@
+@import "tailwindcss";
+
+html {
+  scroll-behavior: smooth;
+}
+
+:root {
+  /* DARK MODE VARIABLES */
+  --bg-primary: #0a0118;
+  --bg-secondary: #0f0720;
+  --bg-card: rgba(139, 92, 246, 0.1);
+  --bg-card-solid: #1e1b4b;
+  --border-color: rgba(139, 92, 246, 0.25);
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --accent: #8b5cf6;
+  --accent-light: #a78bfa;
+  --card-bg: rgba(30, 27, 75, 0.8);
+  --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* ========================================
+   LIGHT MODE - Clean White Version
+   ======================================== */
+html.light {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-card: rgba(255, 255, 255, 0.9);
+  --bg-card-solid: #ffffff;
+  --border-color: #e2e8f0;
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --accent: #6366f1;
+  --accent-light: #818cf8;
+  --card-bg: #ffffff;
+  --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+html.light body {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 50%, #f1f5f9 100%);
+  color: var(--text-primary);
+}
+
+html.light body::before {
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(99, 102, 241, 0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(59, 130, 246, 0.03) 0%, transparent 50%);
+}
+
+/* Light mode glass cards - solid white, no purple */
+html.light .glass {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+html.light .glass-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+html.light .glass-card:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Light mode navbar */
+html.light .navbar-sticky,
+html.light nav .glass {
+  background: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid #e2e8f0;
+}
+
+/* Light mode text overrides */
+html.light .text-white {
+  color: #0f172a;
+}
+
+html.light .text-slate-50 {
+  color: #1e293b;
+}
+
+html.light .text-slate-200 {
+  color: #334155;
+}
+
+html.light .text-slate-300 {
+  color: #475569;
+}
+
+html.light .text-slate-400 {
+  color: #64748b;
+}
+
+/* Light mode section backgrounds */
+html.light section[class*="bg-[#0"] {
+  background: #ffffff !important;
+}
+
+html.light section[class*="bg-slate-9"] {
+  background: #f8fafc !important;
+}
+
+/* Light mode buttons */
+html.light .btn-secondary {
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid #e2e8f0;
+  color: #0f172a;
+}
+
+html.light .btn-secondary:hover {
+  background: rgba(0, 0, 0, 0.06);
+  border-color: #6366f1;
+}
+
+/* ========================================
+   FESTIVAL THEMES (Overrides)
+   ======================================== */
+
+/* HOLI: Vibrant, Colorful, Playful */
+:root.theme-holi {
+  --bg-primary: #1a0520;
+  /* Deep Purple base */
+  --bg-secondary: #2a0a2e;
+  --accent: #d946ef;
+  /* Magenta */
+  --accent-light: #f0abfc;
+  --border-color: rgba(217, 70, 239, 0.3);
+  --bg-card: rgba(217, 70, 239, 0.1);
+  /* Gradient text override handled via classes usually, but can tweak base colors */
+}
+
+/* DIWALI: Golden, Warm, Luxurious */
+:root.theme-diwali {
+  --bg-primary: #0f0a00;
+  /* Deep Gold/Black */
+  --bg-secondary: #1a1205;
+  --accent: #eab308;
+  /* Gold */
+  --accent-light: #fde047;
+  --border-color: rgba(234, 179, 8, 0.3);
+  --bg-card: rgba(234, 179, 8, 0.1);
+}
+
+/* DUSSEHRA: Royal, Orange/Saffron, Bold */
+:root.theme-dussehra {
+  --bg-primary: #1c0a00;
+  /* Deep Rust/Black */
+  --bg-secondary: #2e1000;
+  --accent: #f97316;
+  /* Orange */
+  --accent-light: #fdba74;
+  --border-color: rgba(249, 115, 22, 0.3);
+  --bg-card: rgba(249, 115, 22, 0.1);
+}
+
+@theme inline {
+  --color-background: var(--bg-primary);
+  --color-foreground: var(--text-primary);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: linear-gradient(180deg, #0a0118 0%, #1a0a2e 50%, #0f0720 100%);
+  color: var(--text-primary);
+  font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ========================================
+   GLASS CARDS
+   ======================================== */
+.glass {
+  background: rgba(139, 92, 246, 0.1);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(139, 92, 246, 0.25);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.glass-card {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.12) 0%, rgba(59, 130, 246, 0.08) 100%);
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  box-shadow: 0 8px 32px -4px rgba(139, 92, 246, 0.2);
+  border-radius: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  border-color: rgba(139, 92, 246, 0.5);
+  box-shadow: 0 20px 50px -12px rgba(139, 92, 246, 0.35);
+  transform: translateY(-4px);
+}
+
+/* ========================================
+   UTILITIES
+   ======================================== */
+.glow-purple {
+  box-shadow: 0 0 40px rgba(139, 92, 246, 0.4);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 20px rgba(34, 211, 238, 0.6);
+}
+
+/* Typography Scale */
+h1 {
+  font-size: clamp(2rem, 8vw, 4.5rem);
+  line-height: 1.1;
+}
+
+h2 {
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  line-height: 1.2;
+}
+
+p {
+  font-size: clamp(0.9rem, 3vw, 1.125rem);
+}
+
+/* Animations */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* ========================================
+   PREMIUM BUTTONS
+   ======================================== */
+.btn-primary {
+  position: relative;
+  background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+  color: white;
+  font-weight: 600;
+  padding: 0.875rem 2rem;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px -3px rgba(139, 92, 246, 0.5);
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #a78bfa 0%, #818cf8 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 12px 35px -5px rgba(139, 92, 246, 0.6), 0 0 20px rgba(139, 92, 246, 0.4);
+}
+
+.btn-primary:hover::before {
+  opacity: 1;
+}
+
+.btn-primary span {
+  position: relative;
+  z-index: 1;
+}
+
+.btn-secondary {
+  position: relative;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  color: white;
+  font-weight: 600;
+  padding: 0.875rem 2rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(139, 92, 246, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px -5px rgba(139, 92, 246, 0.3);
+}
+
+/* ========================================
+   STICKY NAVBAR
+   ======================================== */
+.navbar-sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(10, 1, 24, 0.8);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(139, 92, 246, 0.15);
+  transition: all 0.3s ease;
+}
+
+/* ========================================
+   SUBTLE BACKGROUND ANIMATION
+   ======================================== */
+@keyframes gradientShift {
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animated-bg {
+  background: linear-gradient(270deg, #0a0118, #1a0a2e, #0f0720, #0a0118);
+  background-size: 400% 400%;
+  animation: gradientShift 20s ease infinite;
+}
+
+/* ========================================
+   STAR ICON CONSISTENCY
+   ======================================== */
+.star-glow {
+  filter: drop-shadow(0 0 8px rgba(250, 204, 21, 0.6));
+  transition: filter 0.3s ease;
+}
+
+.star-glow:hover {
+  filter: drop-shadow(0 0 12px rgba(250, 204, 21, 0.8));
+}
+
+/* ========================================
+   MOBILE OPTIMIZATIONS
+   ======================================== */
+@media (max-width: 768px) {
+  .navbar-sticky {
+    padding: 0.5rem 1rem;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+  }
+}
