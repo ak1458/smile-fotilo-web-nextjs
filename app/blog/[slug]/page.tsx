@@ -1,6 +1,8 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { blogPosts, getBlogPost, getRecentPosts } from '../../data/blogPosts';
 
 type Params = Promise<{ slug: string }>;
@@ -122,20 +124,29 @@ export default async function BlogPostPage({ params }: { params: Params }) {
                 {/* Article Content */}
                 <article className="py-12">
                     <div className="container mx-auto px-4 max-w-4xl">
-                        <div
-                            className="prose prose-lg dark:prose-invert max-w-none
-                                prose-headings:font-bold prose-headings:text-slate-900 dark:prose-headings:text-white
-                                prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
-                                prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
-                                prose-p:text-slate-600 dark:prose-p:text-slate-300 prose-p:leading-relaxed
-                                prose-li:text-slate-600 dark:prose-li:text-slate-300
-                                prose-strong:text-slate-900 dark:prose-strong:text-white
-                                prose-a:text-indigo-600 prose-a:no-underline hover:prose-a:underline
-                                prose-table:border-collapse prose-table:w-full
-                                prose-th:bg-slate-100 dark:prose-th:bg-slate-800 prose-th:p-3 prose-th:text-left
-                                prose-td:p-3 prose-td:border prose-td:border-slate-200 dark:prose-td:border-slate-700"
-                            dangerouslySetInnerHTML={{ __html: formatContent(post.content) }}
-                        />
+                        <div className="prose prose-lg dark:prose-invert max-w-none
+                            prose-headings:font-bold prose-headings:text-slate-900 dark:prose-headings:text-white
+                            prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6 prose-h2:pb-3 prose-h2:border-b prose-h2:border-slate-200 dark:prose-h2:border-slate-800
+                            prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-4
+                            prose-h4:text-xl prose-h4:mt-6 prose-h4:mb-3
+                            prose-p:text-slate-700 dark:prose-p:text-slate-300 prose-p:leading-relaxed prose-p:mb-4
+                            prose-li:text-slate-700 dark:prose-li:text-slate-300 prose-li:my-1
+                            prose-ul:my-6 prose-ol:my-6
+                            prose-strong:text-slate-900 dark:prose-strong:text-white prose-strong:font-semibold
+                            prose-a:text-indigo-600 dark:prose-a:text-indigo-400 prose-a:no-underline hover:prose-a:underline prose-a:font-medium
+                            prose-blockquote:border-l-4 prose-blockquote:border-indigo-600 prose-blockquote:pl-4 prose-blockquote:italic
+                            prose-code:text-indigo-600 dark:prose-code:text-indigo-400 prose-code:bg-slate-100 dark:prose-code:bg-slate-800 prose-code:px-1 prose-code:py-0.5 prose-code:rounded
+                            prose-pre:bg-slate-900 prose-pre:text-slate-100
+                            prose-table:border-collapse prose-table:w-full prose-table:my-8
+                            prose-thead:bg-slate-100 dark:prose-thead:bg-slate-800
+                            prose-th:p-3 prose-th:text-left prose-th:font-semibold prose-th:border prose-th:border-slate-300 dark:prose-th:border-slate-700
+                            prose-td:p-3 prose-td:border prose-td:border-slate-200 dark:prose-td:border-slate-700
+                            prose-hr:my-8 prose-hr:border-slate-200 dark:prose-hr:border-slate-800
+                            prose-img:rounded-lg prose-img:shadow-lg">
+                            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                {post.content}
+                            </ReactMarkdown>
+                        </div>
 
                         {/* Tags */}
                         <div className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800">
@@ -200,25 +211,4 @@ export default async function BlogPostPage({ params }: { params: Params }) {
             </main>
         </>
     );
-}
-
-// Simple markdown-like content formatter
-function formatContent(content: string): string {
-    return content
-        .replace(/^## (.+)$/gm, '<h2>$1</h2>')
-        .replace(/^### (.+)$/gm, '<h3>$1</h3>')
-        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-        .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2">$1</a>')
-        .replace(/^- (.+)$/gm, '<li>$1</li>')
-        .replace(/^(\d+)\. (.+)$/gm, '<li>$2</li>')
-        .replace(/✅/g, '✅ ')
-        .replace(/❌/g, '❌ ')
-        .replace(/\n\n/g, '</p><p>')
-        .replace(/^\| (.+) \|$/gm, (match) => {
-            const cells = match.split('|').filter(c => c.trim());
-            return `<tr>${cells.map(c => `<td>${c.trim()}</td>`).join('')}</tr>`;
-        })
-        .replace(/<p><\/p>/g, '')
-        .replace(/^<p>/, '')
-        .replace(/<\/p>$/, '');
 }
