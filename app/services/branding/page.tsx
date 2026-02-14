@@ -2,13 +2,37 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'Brand Identity & Logo Design India | Smile Fotilo',
-    description: 'Professional brand identity design starting ₹7,999. Logo design, brand guidelines, packaging, and visual identity systems. 3 concepts, 2 revisions, 2-4 week delivery.',
-    keywords: 'brand identity India, logo design, brand guidelines, visual identity, branding agency, graphic design, logo cost India',
+    title: 'Brand Identity & Logo Design India — Starting ₹7,999 | Smile Fotilo',
+    description: 'Professional logo design starting ₹7,999 and brand identity from ₹25,000. 3 concepts, 2 revisions, all vector files. Packaging design, brand guidelines, and visual identity systems. 2-4 week delivery.',
+    alternates: {
+        canonical: '/services/branding',
+    },
+    keywords: [
+        'brand identity India', 'logo design India', 'brand guidelines design',
+        'visual identity system', 'branding agency India', 'graphic design Lucknow',
+        'logo cost India', 'logo designer near me', 'brand identity agency',
+        'packaging design India', 'product photography', 'business card design',
+        'brand strategy India', 'corporate branding', 'startup branding India',
+        'logo design Gonda', 'branding company UP', 'visual branding',
+        'brand book design', 'social media branding', 'affordable logo design India'
+    ],
     openGraph: {
-        title: 'Brand Identity & Logo Design India | Smile Fotilo',
-        description: 'Professional brand identity design starting ₹7,999. Complete visual identity systems for Indian businesses.',
+        title: 'Brand Identity & Logo Design — Starting ₹7,999 | Smile Fotilo',
+        description: 'Professional brand identity design. 3 concepts, 2 revisions, all vector files. Complete visual identity systems.',
         type: 'website',
+        url: 'https://smilefotilo.com/services/branding',
+        images: [{
+            url: '/og?title=Brand%20Identity%20%26%20Logo%20Design&subtitle=Starting%20₹7%2C999',
+            width: 1200,
+            height: 630,
+            alt: 'Smile Fotilo Brand Identity Services',
+        }],
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'Brand Identity & Logo Design — ₹7,999 | Smile Fotilo',
+        description: 'Professional logos & brand identity. 3 concepts, 2 revisions, all vector files. 2-4 week delivery.',
+        images: ['/og?title=Brand%20Identity%20%26%20Logo%20Design&subtitle=Starting%20₹7%2C999'],
     },
 };
 

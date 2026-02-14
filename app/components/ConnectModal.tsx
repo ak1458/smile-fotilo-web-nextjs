@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import { sendContactEmail } from "../actions/contact";
 
@@ -15,10 +15,13 @@ type ConnectMethod = "call" | "message" | "email" | null;
 export const ConnectModal = ({ isOpen, onClose, context = "General" }: ConnectModalProps) => {
     const [step, setStep] = useState<"method" | "form">("method");
     const [method, setMethod] = useState<ConnectMethod>(null);
-    const [mounted, setMounted] = useState(false);
+    const isClient = useSyncExternalStore(
+        () => () => { },
+        () => true,
+        () => false
+    );
 
     useEffect(() => {
-        setMounted(true);
         if (isOpen) {
             document.body.style.overflow = "hidden";
         } else {
@@ -33,7 +36,7 @@ export const ConnectModal = ({ isOpen, onClose, context = "General" }: ConnectMo
         };
     }, [isOpen]);
 
-    if (!mounted) return null;
+    if (!isClient) return null;
     if (!isOpen) return null;
 
     const handleMethodSelect = (selectedMethod: ConnectMethod) => {
@@ -78,7 +81,7 @@ export const ConnectModal = ({ isOpen, onClose, context = "General" }: ConnectMo
                                 </div>
                                 <div>
                                     <h4 className="font-bold text-white text-lg">Request a Call</h4>
-                                    <p className="text-slate-400 text-sm">Let's talk over the phone.</p>
+                                    <p className="text-slate-400 text-sm">Let&apos;s talk over the phone.</p>
                                 </div>
                                 <span className="material-symbols-rounded ml-auto text-slate-500 group-hover:text-orange-400 group-hover:translate-x-1 transition-all">arrow_forward</span>
                             </a>

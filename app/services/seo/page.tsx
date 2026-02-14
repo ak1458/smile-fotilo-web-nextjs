@@ -2,13 +2,38 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'SEO & GEO Services India | Zero Position Ranking | Smile Fotilo',
-    description: 'Master Zero Position ranking with our SEO & GEO services. We optimize for AI Overviews, Featured Snippets, and traditional search. Get found by both humans and AI.',
-    keywords: 'SEO India, GEO optimization, Zero Position, AI Overview ranking, Featured Snippets, search engine optimization, digital marketing 2026',
+    title: 'SEO & GEO Services India — Zero Position Ranking | Smile Fotilo',
+    description: 'Expert SEO & GEO (Generative Engine Optimization) services starting ₹9,999/month. We rank you in AI Overviews, Featured Snippets, and Google #1. Local SEO for Lucknow, Gonda, Greater Noida. Free audit.',
+    alternates: {
+        canonical: '/services/seo',
+    },
+    keywords: [
+        'SEO India', 'GEO optimization', 'Zero Position ranking', 'AI Overview ranking',
+        'Featured Snippets', 'search engine optimization 2026', 'digital marketing India',
+        'SEO agency Lucknow', 'local SEO Gonda', 'SEO expert Uttar Pradesh',
+        'Google ranking India', 'SEO company Greater Noida', 'organic traffic growth',
+        'GEO expert India', 'Generative Engine Optimization', 'AI search optimization',
+        'SEO for small business India', 'e-commerce SEO India', 'technical SEO audit',
+        'content marketing India', 'link building India', 'SEO cost India per month',
+        'best SEO agency UP', 'SEO freelancer India', 'Google Ads management'
+    ],
     openGraph: {
-        title: 'SEO & GEO Services India | Zero Position Ranking | Smile Fotilo',
-        description: 'Master Zero Position ranking with our SEO & GEO services. We optimize for AI Overviews, Featured Snippets, and traditional search.',
+        title: 'SEO & GEO Services — Zero Position Ranking | Smile Fotilo',
+        description: 'Expert SEO & GEO services. Rank in AI Overviews, Featured Snippets, and Google #1. Starting ₹9,999/month.',
         type: 'website',
+        url: 'https://smilefotilo.com/services/seo',
+        images: [{
+            url: '/og?title=SEO%20%26%20GEO%20Services&subtitle=Zero%20Position%20Ranking',
+            width: 1200,
+            height: 630,
+            alt: 'Smile Fotilo SEO & GEO Services',
+        }],
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'SEO & GEO Services — Zero Position | Smile Fotilo',
+        description: 'Rank in AI Overviews & Google #1. Expert SEO & GEO optimization starting ₹9,999/month.',
+        images: ['/og?title=SEO%20%26%20GEO%20Services&subtitle=Zero%20Position%20Ranking'],
     },
 };
 

@@ -6,6 +6,9 @@ import { Footer } from '../components/Footer';
 export const metadata: Metadata = {
     title: 'Our Locations | Smile Fotilo',
     description: 'Find Smile Fotilo offices in Gonda, Greater Noida, Lucknow, and Ayodhya. Premium web design and digital marketing across Uttar Pradesh and NCR.',
+    alternates: {
+        canonical: '/locations',
+    },
 };
 
 const locations = [

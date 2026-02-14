@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState, useSyncExternalStore } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export type Emotion = 'idle' | 'happy' | 'thinking' | 'wave' | 'laughing' | 'sad' | 'cry' | 'excited' | 'love' | 'angry' | 'sleepy' | 'confused' | 'alert';
@@ -18,11 +18,12 @@ export const Robot2D: React.FC<Robot2DProps> = ({
     onRobotClick,
     isListening = false
 }) => {
-    // Mounted check for SSR safety
-    const [mounted, setMounted] = useState(false);
-    useEffect(() => {
-        setMounted(true);
-    }, []);
+    // SSR safety (avoid document/window usage before hydration)
+    const isClient = useSyncExternalStore(
+        () => () => { },
+        () => true,
+        () => false
+    );
 
     // Demo Mode: Allow cycling emotions by clicking for verification if not "Open"
     const [demoIndex, setDemoIndex] = useState(0);
@@ -61,8 +62,8 @@ export const Robot2D: React.FC<Robot2DProps> = ({
     const currentDemoEmotion = emotionsList[demoIndex];
     const displayedEmotion = demoIndex > 0 ? currentDemoEmotion : (emotion === 'idle' ? (isHovered ? 'happy' : 'idle') : emotion);
 
-    // SSR Safety: Don't render until mounted
-    if (!mounted) return null;
+    // SSR Safety: Don't render until hydrated on the client
+    if (!isClient) return null;
 
     return (
         <motion.div

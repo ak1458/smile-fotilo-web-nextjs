@@ -4,6 +4,9 @@ import Link from 'next/link';
 export const metadata: Metadata = {
     title: 'Terms of Service | Smile Fotilo',
     description: 'Terms of Service for Smile Fotilo - Read our terms and conditions for using our web design and digital services.',
+    alternates: {
+        canonical: '/terms',
+    },
 };
 
 export default function TermsOfServicePage() {

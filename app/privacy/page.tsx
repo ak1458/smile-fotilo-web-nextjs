@@ -4,6 +4,9 @@ import Link from 'next/link';
 export const metadata: Metadata = {
     title: 'Privacy Policy | Smile Fotilo',
     description: 'Privacy Policy for Smile Fotilo - Learn how we collect, use, and protect your personal information.',
+    alternates: {
+        canonical: '/privacy',
+    },
 };
 
 export default function PrivacyPolicyPage() {

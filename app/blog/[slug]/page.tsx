@@ -1,56 +1,143 @@
-'use client';
-
-import { useEffect, useState } from 'react';
+﻿import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { getBlogPost, getRecentPosts } from '../../data/blogPosts';
+import { blogPosts, getBlogPost, getRecentPosts } from '../../data/blogPosts';
+import { ReadingProgressBar } from './ReadingProgressBar';
 
 type Params = Promise<{ slug: string }>;
 
-export default function BlogPostPage({ params }: { params: Params }) {
-    const [slug, setSlug] = useState<string>('');
-    const [scrollProgress, setScrollProgress] = useState(0);
+export const dynamic = 'force-static';
+export const dynamicParams = false;
 
-    useEffect(() => {
-        params.then(p => setSlug(p.slug));
-    }, [params]);
+export function generateStaticParams() {
+    return blogPosts.map((post) => ({ slug: post.slug }));
+}
 
-    useEffect(() => {
-        const handleScroll = () => {
-            const windowHeight = window.innerHeight;
-            const documentHeight = document.documentElement.scrollHeight;
-            const scrollTop = window.scrollY;
-            const progress = (scrollTop / (documentHeight - windowHeight)) * 100;
-            setScrollProgress(Math.min(progress, 100));
-        };
+export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
+    const { slug } = await params;
+    const post = getBlogPost(slug);
+    if (!post) return {};
 
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+    const title = `${post.title} | Smile Fotilo`;
+    const description = post.description;
+    const canonical = `/blog/${post.slug}`;
+    const ogImage = `/og?title=${encodeURIComponent(post.title)}&subtitle=${encodeURIComponent(post.category)}`;
 
-    if (!slug) return null;
+    return {
+        title,
+        description,
+        keywords: post.tags,
+        alternates: {
+            canonical,
+        },
+        openGraph: {
+            title,
+            description,
+            type: 'article',
+            url: canonical,
+            publishedTime: new Date(post.date).toISOString(),
+            authors: [post.author],
+            tags: post.tags,
+            images: [
+                {
+                    url: ogImage,
+                    width: 1200,
+                    height: 630,
+                    alt: post.title,
+                },
+            ],
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title,
+            description,
+            images: [ogImage],
+        },
+    };
+}
+
+export default async function BlogPostPage({ params }: { params: Params }) {
+    const { slug } = await params;
 
     const post = getBlogPost(slug);
     if (!post) {
         notFound();
     }
 
-    const relatedPosts = getRecentPosts(4).filter(p => p.slug !== slug).slice(0, 3);
+    const relatedPosts = getRecentPosts(4).filter((p) => p.slug !== slug).slice(0, 3);
+
+    const canonicalUrl = `https://smilefotilo.com/blog/${post.slug}`;
+    const ogImageUrl = `https://smilefotilo.com/og?title=${encodeURIComponent(post.title)}&subtitle=${encodeURIComponent(post.category)}`;
+
+    const jsonLd = {
+        '@context': 'https://schema.org',
+        '@graph': [
+            {
+                '@type': 'BreadcrumbList',
+                itemListElement: [
+                    {
+                        '@type': 'ListItem',
+                        position: 1,
+                        name: 'Home',
+                        item: 'https://smilefotilo.com/',
+                    },
+                    {
+                        '@type': 'ListItem',
+                        position: 2,
+                        name: 'Blog',
+                        item: 'https://smilefotilo.com/blog',
+                    },
+                    {
+                        '@type': 'ListItem',
+                        position: 3,
+                        name: post.title,
+                        item: canonicalUrl,
+                    },
+                ],
+            },
+            {
+                '@type': 'BlogPosting',
+                mainEntityOfPage: {
+                    '@type': 'WebPage',
+                    '@id': canonicalUrl,
+                },
+                headline: post.title,
+                description: post.description,
+                image: [ogImageUrl],
+                datePublished: new Date(post.date).toISOString(),
+                dateModified: new Date(post.date).toISOString(),
+                author: {
+                    '@type': 'Person',
+                    name: post.author,
+                },
+                publisher: {
+                    '@type': 'Organization',
+                    name: 'Smile Fotilo',
+                    logo: {
+                        '@type': 'ImageObject',
+                        url: 'https://smilefotilo.com/logo.png',
+                    },
+                },
+                articleSection: post.category,
+                keywords: post.tags.join(', '),
+            },
+        ],
+    };
 
     return (
         <>
-            {/* Reading Progress Bar */}
-            <div className="fixed top-0 left-0 w-full h-1 bg-slate-200 dark:bg-slate-800 z-50">
-                <div
-                    className="h-full bg-gradient-to-r from-indigo-600 to-violet-600 transition-all duration-150"
-                    style={{ width: `${scrollProgress}%` }}
-                />
-            </div>
+            <ReadingProgressBar />
 
             <main className="min-h-screen bg-white dark:bg-slate-950">
+                {/* BlogPosting Schema */}
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+                />
+
                 {/* Hero Section with Image */}
                 <article>
                     <header className="relative">
@@ -111,7 +198,7 @@ export default function BlogPostPage({ params }: { params: Params }) {
                                     <span>/</span>
                                     <Link href="/blog" className="hover:text-indigo-600 transition-colors">Blog</Link>
                                     <span>/</span>
-                                    <span className="text-slate-900 dark:text-white font-medium">{post.category}</span>
+                                    <span className="text-slate-900 dark:text-white font-medium line-clamp-1">{post.title}</span>
                                 </nav>
                             </div>
                         </div>
@@ -165,9 +252,9 @@ export default function BlogPostPage({ params }: { params: Params }) {
 
                             {/* Tags */}
                             <div className="mt-16 pt-8 border-t-2 border-slate-200 dark:border-slate-800">
-                                <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-4">Topics</h3>
+                                <h2 className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-4">Topics</h2>
                                 <div className="flex flex-wrap gap-3">
-                                    {post.tags.map(tag => (
+                                    {post.tags.map((tag) => (
                                         <span
                                             key={tag}
                                             className="px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-full text-sm font-medium hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors cursor-pointer"
@@ -185,9 +272,9 @@ export default function BlogPostPage({ params }: { params: Params }) {
                                         <span className="text-4xl">✍️</span>
                                     </div>
                                     <div className="flex-1">
-                                        <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
+                                        <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
                                             Written by {post.author}
-                                        </h3>
+                                        </h2>
                                         <p className="text-slate-600 dark:text-slate-400 mb-6">
                                             Expert in web design and development, helping businesses grow online since 2020.
                                         </p>
@@ -212,7 +299,7 @@ export default function BlogPostPage({ params }: { params: Params }) {
                                 Continue Reading
                             </h2>
                             <div className="grid md:grid-cols-3 gap-8">
-                                {relatedPosts.map(related => (
+                                {relatedPosts.map((related) => (
                                     <Link key={related.slug} href={`/blog/${related.slug}`} className="group">
                                         <article className="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-300 h-full flex flex-col">
                                             {related.image && (

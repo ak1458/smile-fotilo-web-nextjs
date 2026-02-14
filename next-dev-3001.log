@@ -1,0 +1,17 @@
+
+> smile-fotilo@0.1.0 dev
+> next dev -p 3001
+
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+▲ Next.js 16.1.4 (Turbopack)
+- Local:         http://localhost:3001
+- Network:       http://10.5.0.2:3001
+- Environments: .env.local
+
+✓ Starting...
+⨯ Unable to acquire lock at d:\gravity\smilefotilo live on varcel\smile-fotilo\.next\dev\lock, is another instance of next dev running?
+  Suggestion: If you intended to restart next dev, terminate the other process, and then try again.
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[?25h
+
+d:\gravity\smilefotilo live on varcel\smile-fotilo>

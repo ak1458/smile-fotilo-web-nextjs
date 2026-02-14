@@ -2,13 +2,37 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'Web Design & Development Services India | Smile Fotilo',
-    description: 'Custom web design starting ₹15,999. We build WordPress, e-commerce, and Next.js websites for Indian businesses. Mobile-first, SEO-optimized, 2-3 week delivery.',
-    keywords: 'web design India, website development Lucknow, WordPress developer, e-commerce website, responsive web design, website cost India',
+    title: 'Web Design & Development Services India — Starting ₹15,999 | Smile Fotilo',
+    description: 'Custom web design starting ₹15,999. WordPress, WooCommerce, and Next.js websites for businesses in Gonda, Lucknow, Greater Noida & globally. Mobile-first, SEO-optimized, 2-3 week delivery. Free consultation.',
+    alternates: {
+        canonical: '/services/web-design',
+    },
+    keywords: [
+        'web design India', 'website development Lucknow', 'WordPress developer Gonda',
+        'e-commerce website India', 'responsive web design', 'website cost India',
+        'web developer near me', 'custom website design', 'Next.js developer India',
+        'website design Greater Noida', 'WooCommerce developer', 'affordable website India',
+        'business website India', 'landing page design', 'website redesign service',
+        'best web design company UP', 'web design agency Uttar Pradesh',
+        'website developer Ayodhya', 'startup website India', 'React developer India'
+    ],
     openGraph: {
-        title: 'Web Design & Development Services India | Smile Fotilo',
-        description: 'Custom web design starting ₹15,999. Mobile-first, SEO-optimized websites for Indian businesses.',
+        title: 'Web Design & Development — Starting ₹15,999 | Smile Fotilo',
+        description: 'Custom websites for Indian businesses. WordPress, e-commerce, Next.js — mobile-first, SEO-optimized, delivered in 2-3 weeks.',
         type: 'website',
+        url: 'https://smilefotilo.com/services/web-design',
+        images: [{
+            url: '/og?title=Web%20Design%20%26%20Development&subtitle=Starting%20₹15%2C999',
+            width: 1200,
+            height: 630,
+            alt: 'Smile Fotilo Web Design Services',
+        }],
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'Web Design India — Starting ₹15,999 | Smile Fotilo',
+        description: 'Custom WordPress, e-commerce & Next.js websites. Mobile-first, SEO-optimized, 2-3 week delivery.',
+        images: ['/og?title=Web%20Design%20%26%20Development&subtitle=Starting%20₹15%2C999'],
     },
 };
 
