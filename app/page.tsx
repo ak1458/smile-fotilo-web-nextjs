@@ -3,7 +3,7 @@ import HomePageClient from "./HomePageClient";
 
 export const metadata: Metadata = {
   title: "Smile Fotilo | Web Design & Digital Marketing in Gonda, Lucknow & Global",
-  description: "Smile Fotilo is a premium creative agency specializing in Web Design, Branding, and Digital Marketing. Custom websites starting ₹15,999. Serving Gonda, Greater Noida, Lucknow, Ayodhya, and global clients.",
+  description: "Smile Fotilo is a premium creative agency for Web Design, Branding, and SEO. Custom websites from ₹15,999. Serving Gonda, Lucknow, and global brands.",
   keywords: ["web design Gonda", "web design Lucknow", "digital marketing India", "SEO agency", "website developer", "branding agency India", "web design Greater Noida", "website cost India", "affordable web design", "Smile Fotilo"],
   alternates: {
     canonical: "/",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
 function ServerSEOContent() {
   return (
     <div className="sr-only" aria-hidden="true">
-      <h1>Smile Fotilo — Web Design &amp; Digital Marketing Agency</h1>
+      <h2>Smile Fotilo — Web Design &amp; Digital Marketing Agency</h2>
       <p>
         Smile Fotilo is a premium creative agency specializing in Web Design,
         Branding, and Digital Marketing. We build world-class digital experiences

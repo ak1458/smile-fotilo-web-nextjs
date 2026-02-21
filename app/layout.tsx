@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     default: "Smile Fotilo | Web Design & Digital Marketing in Gonda, Lucknow & Global",
     template: "%s | Smile Fotilo",
   },
-  description: "Smile Fotilo is a premium creative agency specializing in Web Design, Branding, and Digital Marketing. Serving clients in Gonda, Greater Noida, Lucknow, Ayodhya, and globally.",
+  description: "Smile Fotilo: Premium Web Design, Branding & Digital Marketing agency. Serving Gonda, Lucknow, and global clients with world-class digital experiences.",
   keywords: ["Web Design", "Digital Marketing", "Branding", "Gonda", "Lucknow", "Greater Noida", "Ayodhya", "Website Development", "SEO", "Creative Agency", "Web Design Gonda", "SEO Lucknow", "Website Developer India"],
   authors: [{ name: "Ashraf Kamal" }],
   creator: "Smile Fotilo",
