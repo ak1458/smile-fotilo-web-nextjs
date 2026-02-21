@@ -62,6 +62,12 @@ const nextConfig: NextConfig = {
 
   async redirects() {
     return [
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'www.smilefotilo.com' }],
+        destination: 'https://smilefotilo.com/:path*',
+        permanent: true,
+      },
       // Backward compatibility for previously-referenced share image.
       {
         source: '/og-image.jpg',
