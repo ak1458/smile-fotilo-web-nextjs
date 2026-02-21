@@ -1,0 +1,46 @@
+﻿
+D:\gravity\smilefotilo live on varcel\smile-fotilo\analyze_zero_clicks.js
+  3:7  warning  'fs' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\gravity\smilefotilo live on varcel\smile-fotilo\app\HomePageClient.tsx
+  8:83  warning  'MdOpenInNew' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\gravity\smilefotilo live on varcel\smile-fotilo\app\actions\log.ts
+  17:18  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\gravity\smilefotilo live on varcel\smile-fotilo\app\blog\BlogPageClient.tsx
+  118:50  warning  'index' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\gravity\smilefotilo live on varcel\smile-fotilo\app\components\Footer.tsx
+  13:21  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+D:\gravity\smilefotilo live on varcel\smile-fotilo\app\components\GmbUpdates.tsx
+   7:11  warning  'GmbUpdate' is defined but never used                                                                                                                                                                                                                                                    @typescript-eslint/no-unused-vars
+  52:37  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+D:\gravity\smilefotilo live on varcel\smile-fotilo\app\locations\global\GlobalPageClient.tsx
+   10:10  warning  'MdLocalShipping' is defined but never used                                                                                                                                                                                                                                              @typescript-eslint/no-unused-vars
+   10:27  warning  'MdCampaign' is defined but never used                                                                                                                                                                                                                                                   @typescript-eslint/no-unused-vars
+  138:41  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+D:\gravity\smilefotilo live on varcel\smile-fotilo\app\work\WorkPageClient.tsx
+  116:33  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  154:29  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+D:\gravity\smilefotilo live on varcel\smile-fotilo\app\work\[slug]\ProjectDetailClient.tsx
+  165:25  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+D:\gravity\smilefotilo live on varcel\smile-fotilo\gmb_automated_poster.js
+  32:11  warning  'mybusinessverifications' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\gravity\smilefotilo live on varcel\smile-fotilo\gmb_review_manager.js
+  27:14  warning  'err' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\gravity\smilefotilo live on varcel\smile-fotilo\jest.config.js
+  1:18  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+D:\gravity\smilefotilo live on varcel\smile-fotilo\seo_audit.js
+  4:7  warning  'fs' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+Ô£û 17 problems (1 error, 16 warnings)
+

@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { useState } from 'react';
@@ -7,7 +8,7 @@ import { NavBar } from '../../components/NavBar';
 import { Footer } from '../../components/Footer';
 import { ConnectModal } from '../../components/ConnectModal';
 import { OtherLocations } from '../../components/OtherLocations';
-import { MdLocalShipping, MdCampaign, MdLocationOn, MdArrowForward, MdVisibility, MdCall, MdLanguage, MdAdsClick, MdDns, MdShoppingCart, MdSupportAgent, MdUpdate, MdCheckCircle, MdChat } from 'react-icons/md';
+import { MdLocationOn, MdArrowForward, MdVisibility, MdCall, MdLanguage, MdAdsClick, MdDns, MdShoppingCart, MdSupportAgent, MdUpdate, MdCheckCircle, MdChat } from 'react-icons/md';
 
 // Real project data
 const globalProjects = [

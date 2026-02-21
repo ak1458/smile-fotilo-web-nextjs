@@ -1,10 +1,11 @@
+/* eslint-disable @next/next/no-img-element */
 'use client';
 
 import React from 'react';
 import gmbData from '../data/gmb-feed.json';
 import { MdArrowForward } from 'react-icons/md';
 
-interface GmbUpdate {
+export interface GmbUpdate {
     id: string;
     location: string;
     date: string;

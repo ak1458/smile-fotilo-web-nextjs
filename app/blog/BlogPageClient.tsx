@@ -115,7 +115,7 @@ export default function BlogPage() {
                         </div>
 
                         <div className="grid md:grid-cols-3 gap-6">
-                            {featured.map((post, index) => (
+                            {featured.map((post) => (
                                 <Link key={post.slug} href={`/blog/${post.slug}`} className="group">
                                     <article className="relative h-full rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-br from-white/5 to-transparent hover:border-violet-500/50 transition-all duration-500">
                                         {/* Gradient Background */}

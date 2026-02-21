@@ -14,7 +14,7 @@ export async function logMissingKnowledge(query: string) {
         try {
             const data = await fs.readFile(LOG_FILE, 'utf-8');
             logs = JSON.parse(data);
-        } catch (error) {
+        } catch {
             // File might not exist yet
         }
 

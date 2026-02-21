@@ -5,7 +5,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Footer } from './components/Footer';
 import { BackToTop } from './components/BackToTop';
-import { MdCode, MdTrendingUp, MdPhotoCamera, MdSupportAgent, MdMail, MdSchedule, MdOpenInNew, MdArrowOutward, MdArrowForward, MdPublic, MdPayments } from 'react-icons/md';
+import { MdCode, MdTrendingUp, MdPhotoCamera, MdSupportAgent, MdMail, MdSchedule, MdArrowOutward, MdArrowForward, MdPublic, MdPayments } from 'react-icons/md';
 
 import { ContactForm } from './components/ContactForm';
 import { Testimonials } from './components/Testimonials';

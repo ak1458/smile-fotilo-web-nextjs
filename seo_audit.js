@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 const { google } = require('googleapis');
 const path = require('path');
-const fs = require('fs');
+
 
 const KEY_FILE_PATH = path.join(__dirname, '..', 'captcha-1747281225780-8777cd95d4a8.json');
 const SITE_URL = 'sc-domain:smilefotilo.com';

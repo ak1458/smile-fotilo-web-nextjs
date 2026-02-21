@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 const { google } = require('googleapis');
-const fs = require('fs');
+
 const path = require('path');
 
 async function analyzeZeroClicks() {
@@ -30,7 +30,7 @@ async function analyzeZeroClicks() {
             console.log(`Keyword: ${r.keys[0]} | Impressions: ${r.impressions} | Position: ${r.position.toFixed(1)}`);
         });
 
-    } catch (err) {
+    } catch {
         console.error('API Error:', err);
     }
 }

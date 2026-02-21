@@ -24,7 +24,7 @@ async function manageReviews() {
 
         console.log('Review Management Engine: READY (Awaiting API Quota Upgrade)');
 
-    } catch (err) {
+    } catch {
         console.log('Manual Check: GMB API Quota is currently 0. Review scanning is paused.');
     }
 }

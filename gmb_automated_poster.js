@@ -29,7 +29,7 @@ async function publishGmbPost() {
     });
 
     const mybusinessbusinessinformation = google.mybusinessbusinessinformation('v1');
-    const mybusinessverifications = google.mybusinessverifications('v1');
+
     // Note: In 2026, posting is typically handled via the "Local Services" or "Business Information" endpoints depending on the specific update.
     // This script prepares the payload for the standard "Local Post" structure.
 
