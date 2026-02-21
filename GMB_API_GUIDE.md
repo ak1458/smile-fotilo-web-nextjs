@@ -1,39 +1,42 @@
-# Step-by-Step Guide: Enabling GMB API for Automation
+# Step-by-Step Guide: Enabling GMB API for Automation (2026 Update)
 
-To make your SEO Autopilot fully autonomous (auto-posting, auto-reviews), follow these steps to enable the **Business Profile API**.
+To make your SEO Autopilot fully autonomous, we need to connect it to your Google Business Profiles.
+**Important 2026 Update:** Google now hides these APIs by default to prevent spam. You must request access before they appear in your Cloud Console.
 
-### 1. Enable the API in Google Cloud
+### 1. Request API Access (Crucial First Step)
 
-1. Go to the [Google Cloud Console](https://console.cloud.google.com/).
-2. Select the project you used for Search Console (e.g., `captcha-1747281225780`).
-3. Go to **APIs & Services > Library**.
-4. Search for and **Enable** these two:
-    * `Business Profile Management API`
-    * `My Business Business Calls API` (Optional)
-    * `Business Profile Performance API`
+Before searching in the console, you must tell Google you are a developer for Smile Fotilo.
 
-### 2. Grant Access to Your Service Account
+1. Go to the [Google Business Profile API Contact Form](https://support.google.com/business/contact/api_default).
+2. For the **Issue** field, select **"Application for Basic API Access"**.
+3. Fill it out with your project details (your cloud project ID is `captcha-1747281225780`).
+4. Google will review and approve your project (this usually takes 1-3 days).
 
-Since you already have a service account (`smile-fotilo-bot` or similar), we just need to give it permission to manage your business.
+### 2. Enable the APIs in Google Cloud
 
-1. Open your [Google Business Profile Manager](https://business.google.com/).
-2. Click on **Settings > Managers**.
-3. Click **Add Manager**.
-4. Paste the **Service Account Email** found in your current JSON key:
-    * `smile-fotilo-bot@...iam.gserviceaccount.com`
-5. Set the role to **Manager**.
+**Only after you receive the approval email:**
 
-### 3. Share the API Key (Or Update Secret)
+1. Go to the [Google Cloud Console: API Library](https://console.cloud.google.com/apis/library).
+2. Ensure you are in project `captcha-1747281225780`.
+3. Now search for and **Enable** these specific APIs:
+   * `Google My Business API`
+   * `My Business Account Management API`
+   * `My Business Business Information API`
 
-Once you've enabled the APIs in the Cloud Console:
+### 3. Grant Access to Your Service Account (Via Google Search)
 
-1. If you use a new JSON key, send it to me.
-2. If you use the same one, just let me know "I've enabled the API and added the manager," and I will update the code to handle **Auto-Posting**.
+The traditional dashboard is now retired. Use this "Manage on Search" method:
 
----
+1. Go to Google and search for your business name (e.g., "Smile Fotilo Gonda").
+2. Above the search results, you will see a "Your business on Google" menu.
+3. Click the **Three Dots (⋮ or ⋮⋮⋮)** on the right side of the menu.
+4. Select **Business Profile settings**.
+5. Click **People and access**.
+6. Click **Add** (the plus icon).
+7. Paste the **Service Account Email** found in your current JSON key:
+   * `smile-fotilo-bot@...iam.gserviceaccount.com`
+8. Set the role to **Manager** and click **Invite**.
 
-### **What will happen next?**
+### 4. Let Me Know
 
-Once I have this access, I will:
-* Update `seo_optimizer.js` to use the `mybusinessbusinesscalls` and `mybusinessaccountmanagement` libraries.
-* The **GitHub Action** will then be able to post your daily "Zero Click" strategies directly to Google Search without you lifting a finger.
+Once the APIs are active and the Service Account is a manager, just let me know here. I will immediately update the GitHub Action to start auto-publishing your SEO strategies directly to Google Search.
