@@ -1,0 +1,38 @@
+name: Daily SEO & GMB Growth Engine
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Runs daily at midnight UTC
+  workflow_dispatch: # Allows manual trigger
+
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install Dependencies
+        run: npm install googleapis axios
+
+      - name: Run SEO Optimizer
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GOOGLE_APPLICATION_CREDENTIALS_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+          SITE_URL: 'sc-domain:smilefotilo.com'
+        run: |
+          echo "$GOOGLE_APPLICATION_CREDENTIALS_JSON" > google-key.json
+          export GOOGLE_APPLICATION_CREDENTIALS=./google-key.json
+          node seo_optimizer.js
+
+      - name: Commit AI Growth Strategy
+        run: |
+          git config --global user.name 'Smile Bot'
+          git config --global user.email 'bot@smilefotilo.com'
+          git add strategy_output.json app/data/gmb-feed.json
+          git commit -m "auto: daily AI growth strategy update" || echo "No changes to commit"
+          git push
