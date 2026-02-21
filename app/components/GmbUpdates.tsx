@@ -2,6 +2,7 @@
 
 import React from 'react';
 import gmbData from '../data/gmb-feed.json';
+import { MdArrowForward } from 'react-icons/md';
 
 interface GmbUpdate {
     id: string;
@@ -38,7 +39,7 @@ export const GmbUpdates = ({ locationFilter }: { locationFilter: string }) => {
                         className="text-emerald-400 hover:text-emerald-300 text-sm font-medium flex items-center gap-2 group transition-colors"
                     >
                         Follow us on Google
-                        <span className="material-symbols-rounded text-lg group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                        <MdArrowForward className="text-lg group-hover:translate-x-1 transition-transform" />
                     </a>
                 </div>
 

@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
+import { MdHome, MdWork, MdApps, MdArticle, MdLocationOn, MdInfo, MdChevronRight } from 'react-icons/md';
 
 export const NavBar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -12,12 +13,12 @@ export const NavBar = () => {
     };
 
     const menuItems = [
-        { href: '/#home', label: 'Home', icon: 'home' },
-        { href: '/#work', label: 'Work', icon: 'work' },
-        { href: '/#services', label: 'Services', icon: 'apps' },
-        { href: '/blog', label: 'Blog', icon: 'article' },
-        { href: '/locations', label: 'Locations', icon: 'location_on' },
-        { href: '/about', label: 'About', icon: 'info' },
+        { href: '/#home', label: 'Home', icon: <MdHome /> },
+        { href: '/#work', label: 'Work', icon: <MdWork /> },
+        { href: '/#services', label: 'Services', icon: <MdApps /> },
+        { href: '/blog', label: 'Blog', icon: <MdArticle /> },
+        { href: '/locations', label: 'Locations', icon: <MdLocationOn /> },
+        { href: '/about', label: 'About', icon: <MdInfo /> },
     ];
 
     return (
@@ -100,11 +101,11 @@ export const NavBar = () => {
                                             onClick={handleLinkClick}
                                             className="flex items-center gap-4 px-4 py-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-violet-500/20 transition-all group"
                                         >
-                                            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-600/30 to-purple-600/30 border border-violet-500/30 flex items-center justify-center">
-                                                <span className="material-symbols-rounded text-violet-300">{item.icon}</span>
+                                            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-600/30 to-purple-600/30 border border-violet-500/30 flex items-center justify-center text-xl text-violet-300">
+                                                {item.icon}
                                             </div>
                                             <span className="text-lg font-medium text-white">{item.label}</span>
-                                            <span className="material-symbols-rounded text-slate-400 ml-auto group-hover:translate-x-1 transition-all">chevron_right</span>
+                                            <MdChevronRight className="text-xl text-slate-400 ml-auto group-hover:translate-x-1 transition-all" />
                                         </Link>
                                     </motion.div>
                                 ))}

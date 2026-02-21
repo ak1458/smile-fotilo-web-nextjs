@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { MdCall, MdEmail, MdSchedule } from 'react-icons/md';
 
 export const Footer = () => (
     <footer className="bg-[#0a0f1a] border-t border-white/5 pt-16 pb-8">
@@ -59,18 +60,18 @@ export const Footer = () => (
                     <ul className="space-y-3">
                         <li>
                             <a href="tel:+919453878422" className="flex items-center gap-3 text-slate-400 text-sm justify-center md:justify-start hover:text-indigo-400 transition-colors">
-                                <span className="material-symbols-rounded text-indigo-400 text-lg">call</span>
+                                <MdCall className="text-indigo-400 text-lg" />
                                 <span>+91 9453878422</span>
                             </a>
                         </li>
                         <li>
                             <a href="mailto:ashrafkamal1458@gmail.com" className="flex items-center gap-3 text-slate-400 text-sm justify-center md:justify-start hover:text-indigo-400 transition-colors">
-                                <span className="material-symbols-rounded text-indigo-400 text-lg">mail</span>
+                                <MdEmail className="text-indigo-400 text-lg" />
                                 <span className="truncate">ashrafkamal1458@gmail.com</span>
                             </a>
                         </li>
                         <li className="flex items-center gap-3 text-slate-400 text-sm justify-center md:justify-start">
-                            <span className="material-symbols-rounded text-indigo-400 text-lg">schedule</span>
+                            <MdSchedule className="text-indigo-400 text-lg" />
                             <span>Mon - Sat: 9AM - 6PM</span>
                         </li>
                     </ul>

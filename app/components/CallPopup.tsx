@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { MdClose, MdCall } from 'react-icons/md';
 
 export const CallPopup = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -28,12 +29,12 @@ export const CallPopup = () => {
                             onClick={() => setIsVisible(false)}
                             className="absolute -top-3 -right-3 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-red-600 transition-colors z-10 border-2 border-[#1E293B]"
                         >
-                            <span className="material-symbols-rounded text-xs font-bold">close</span>
+                            <MdClose className="text-xs font-bold" />
                         </button>
 
                         <div className="flex items-center gap-4">
                             <div className="bg-indigo-500/10 p-3 rounded-full text-indigo-400 animate-pulse">
-                                <span className="material-symbols-rounded text-2xl">call</span>
+                                <MdCall className="text-2xl" />
                             </div>
                             <div>
                                 <h4 className="text-white font-bold text-sm">Ready to scale?</h4>

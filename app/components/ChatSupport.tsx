@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { chatWithGemini } from '../actions/chat';
 import { EchoIcon } from './EchoIcon';
+import { MdClose, MdSend } from 'react-icons/md';
 
 type Message = {
     id: string;
@@ -286,7 +287,7 @@ export const ChatSupport = () => {
                         <h3 className="text-white font-bold text-lg">Echo Assistant</h3>
                         <p className="text-white/70 text-xs">Tap options or type to chat</p>
                         <button onClick={handleClose} className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors">
-                            <span className="material-symbols-rounded text-white text-lg">close</span>
+                            <MdClose className="text-white text-lg" />
                         </button>
                     </div>
 
@@ -343,7 +344,7 @@ export const ChatSupport = () => {
                             className="flex-1 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white px-4 py-3 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
                         />
                         <button type="submit" disabled={!inputValue.trim() || isTyping} className="p-3 bg-indigo-600 text-white rounded-xl hover:bg-indigo-500 disabled:opacity-50 transition-colors">
-                            <span className="material-symbols-rounded text-lg">send</span>
+                            <MdSend className="text-lg" />
                         </button>
                     </form>
                 </div>

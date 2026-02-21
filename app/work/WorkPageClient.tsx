@@ -4,6 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Footer } from '../components/Footer';
+import { MdArrowForward, MdOpenInNew } from 'react-icons/md';
 
 export default function WorkPage() {
     const projects = [
@@ -133,7 +134,7 @@ export default function WorkPage() {
                                     {project.description}
                                 </p>
                                 <Link href={`/work/${project.slug}`} className="inline-flex items-center gap-2 text-white font-bold hover:gap-4 transition-all">
-                                    View Case Study <span className="material-symbols-rounded">arrow_forward</span>
+                                    View Case Study <MdArrowForward />
                                 </Link>
                             </div>
                         </motion.div>
@@ -161,7 +162,7 @@ export default function WorkPage() {
                             target="_blank"
                             className="inline-flex items-center gap-3 px-8 py-4 bg-white text-black rounded-full font-bold text-lg hover:bg-indigo-50 transition-all hover:scale-105 active:scale-95 shadow-[0_0_30px_rgba(255,255,255,0.2)]"
                         >
-                            View GitHub Profile <span className="material-symbols-rounded">open_in_new</span>
+                            View GitHub Profile <MdOpenInNew />
                         </a>
                     </div>
                 </motion.div>

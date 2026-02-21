@@ -7,6 +7,7 @@ import { ConnectModal } from '../../components/ConnectModal';
 import { OtherLocations } from '../../components/OtherLocations';
 import { LocationSchema } from '../../components/LocationSchema';
 import { GmbUpdates } from '../../components/GmbUpdates';
+import { MdBusiness, MdLocationOn, MdForest, MdCheckCircle } from 'react-icons/md';
 
 export default function GondaPage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -57,7 +58,7 @@ export default function GondaPage() {
                                 className="btn-primary flex items-center gap-2 group bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 shadow-emerald-500/20"
                             >
                                 <span>Visit Our HQ</span>
-                                <span className="material-symbols-rounded group-hover:translate-x-1 transition-transform">domain</span>
+                                <MdBusiness className="group-hover:translate-x-1 transition-transform" />
                             </button>
                             <a
                                 href="https://www.google.com/maps?cid=14436214578143247413"
@@ -66,7 +67,7 @@ export default function GondaPage() {
                                 className="px-8 py-3 rounded-full border border-emerald-500/30 text-emerald-200 hover:bg-emerald-500/10 transition-all flex items-center gap-2 group"
                             >
                                 <span>View on Google Maps</span>
-                                <span className="material-symbols-rounded text-emerald-400 group-hover:rotate-12 transition-transform">location_on</span>
+                                <MdLocationOn className="text-emerald-400 group-hover:rotate-12 transition-transform" />
                             </a>
                         </div>
                     </div>
@@ -104,19 +105,19 @@ export default function GondaPage() {
                             <div className="absolute inset-0 bg-gradient-to-tl from-emerald-500/10 to-transparent blur-3xl rounded-full"></div>
                             <div className="glass-card p-8 md:p-12 relative overflow-hidden group hover:border-emerald-500/30 transition-colors">
                                 <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
-                                    <span className="material-symbols-rounded text-9xl">forest</span>
+                                    <MdForest className="text-9xl" />
                                 </div>
                                 <h3 className="text-2xl font-bold text-white mb-4">Empowering the Region</h3>
                                 <ul className="space-y-4">
                                     <li className="flex items-start gap-3 text-slate-300">
-                                        <span className="material-symbols-rounded text-emerald-400 mt-1">check_circle</span>
+                                        <MdCheckCircle className="text-emerald-400 mt-1" />
                                         <div>
                                             <strong className="text-white block mb-1">Digital Literacy</strong>
                                             Leading workshops and training for local businesses to go online.
                                         </div>
                                     </li>
                                     <li className="flex items-start gap-3 text-slate-300">
-                                        <span className="material-symbols-rounded text-emerald-400 mt-1">check_circle</span>
+                                        <MdCheckCircle className="text-emerald-400 mt-1" />
                                         <div>
                                             <strong className="text-white block mb-1">Supporting Local Brands</strong>
                                             From agricultural startups to retail chains in Gonda.

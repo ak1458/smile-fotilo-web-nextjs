@@ -1,6 +1,7 @@
 "use client";
 
 import Link from 'next/link';
+import { MdLocationOn, MdArrowForward } from 'react-icons/md';
 
 interface Location {
     id: string;
@@ -34,7 +35,7 @@ export const OtherLocations = ({ currentLocation }: { currentLocation: string })
                         <Link key={loc.id} href={loc.path} className="group block">
                             <div className="glass p-6 rounded-xl hover:bg-white/5 transition-all h-full border border-white/5 hover:border-white/20 relative overflow-hidden">
                                 <div className={`absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity ${loc.color}`}>
-                                    <span className="material-symbols-rounded text-6xl">location_on</span>
+                                    <MdLocationOn className="text-6xl" />
                                 </div>
                                 <h3 className="text-xl font-bold text-white mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-300 transition-colors">
                                     {loc.name}
@@ -42,7 +43,7 @@ export const OtherLocations = ({ currentLocation }: { currentLocation: string })
                                 <p className={`text-sm font-medium ${loc.color} uppercase tracking-wider mb-4`}>{loc.tagline}</p>
                                 <div className="flex items-center text-slate-400 text-sm group-hover:text-white transition-colors">
                                     <span>Explore Location</span>
-                                    <span className="material-symbols-rounded ml-2 text-lg group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                                    <MdArrowForward className="ml-2 text-lg group-hover:translate-x-1 transition-transform" />
                                 </div>
                             </div>
                         </Link>

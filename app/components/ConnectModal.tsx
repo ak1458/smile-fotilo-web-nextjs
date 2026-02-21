@@ -3,6 +3,7 @@
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import { sendContactEmail } from "../actions/contact";
+import { MdClose, MdCall, MdArrowForward, MdChat, MdMail, MdArrowBack } from 'react-icons/md';
 
 interface ConnectModalProps {
     isOpen: boolean;
@@ -64,7 +65,7 @@ export const ConnectModal = ({ isOpen, onClose, context = "General" }: ConnectMo
                         <p className="text-sm text-slate-400">Re: {context}</p>
                     </div>
                     <button onClick={onClose} className="w-9 h-9 flex items-center justify-center hover:bg-white/10 rounded-full transition-colors text-slate-400 hover:text-white">
-                        <span className="material-symbols-rounded text-xl">close</span>
+                        <MdClose className="text-xl" />
                     </button>
                 </div>
 
@@ -77,37 +78,37 @@ export const ConnectModal = ({ isOpen, onClose, context = "General" }: ConnectMo
                             {/* Call Option - Direct Link */}
                             <a href="tel:+919453878422" className="group relative p-6 rounded-2xl border border-white/5 bg-white/5 hover:bg-orange-500/10 hover:border-orange-500/50 transition-all text-left flex items-center gap-4">
                                 <div className="h-12 w-12 rounded-full bg-orange-500/20 flex items-center justify-center text-orange-400 group-hover:scale-110 transition-transform">
-                                    <span className="material-symbols-rounded text-2xl">call</span>
+                                    <MdCall className="text-2xl" />
                                 </div>
                                 <div>
                                     <h4 className="font-bold text-white text-lg">Request a Call</h4>
                                     <p className="text-slate-400 text-sm">Let&apos;s talk over the phone.</p>
                                 </div>
-                                <span className="material-symbols-rounded ml-auto text-slate-500 group-hover:text-orange-400 group-hover:translate-x-1 transition-all">arrow_forward</span>
+                                <MdArrowForward className="ml-auto text-slate-500 group-hover:text-orange-400 group-hover:translate-x-1 transition-all" />
                             </a>
 
                             {/* Message Option */}
                             <button onClick={() => handleMethodSelect("message")} className="group relative p-6 rounded-2xl border border-white/5 bg-white/5 hover:bg-blue-500/10 hover:border-blue-500/50 transition-all text-left flex items-center gap-4">
                                 <div className="h-12 w-12 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform">
-                                    <span className="material-symbols-rounded text-2xl">chat</span>
+                                    <MdChat className="text-2xl" />
                                 </div>
                                 <div>
                                     <h4 className="font-bold text-white text-lg">Send a Message</h4>
                                     <p className="text-slate-400 text-sm">Chat via WhatsApp or Form.</p>
                                 </div>
-                                <span className="material-symbols-rounded ml-auto text-slate-500 group-hover:text-blue-400 group-hover:translate-x-1 transition-all">arrow_forward</span>
+                                <MdArrowForward className="ml-auto text-slate-500 group-hover:text-blue-400 group-hover:translate-x-1 transition-all" />
                             </button>
 
                             {/* Email Option */}
                             <button onClick={() => handleMethodSelect("email")} className="group relative p-6 rounded-2xl border border-white/5 bg-white/5 hover:bg-emerald-500/10 hover:border-emerald-500/50 transition-all text-left flex items-center gap-4">
                                 <div className="h-12 w-12 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
-                                    <span className="material-symbols-rounded text-2xl">mail</span>
+                                    <MdMail className="text-2xl" />
                                 </div>
                                 <div>
                                     <h4 className="font-bold text-white text-lg">Send an Email</h4>
                                     <p className="text-slate-400 text-sm">Drop us a detailed mail.</p>
                                 </div>
-                                <span className="material-symbols-rounded ml-auto text-slate-500 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all">arrow_forward</span>
+                                <MdArrowForward className="ml-auto text-slate-500 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all" />
                             </button>
                         </div>
                     )}
@@ -135,14 +136,14 @@ const ContactForm = ({ method, onBack, onClose, context }: { method: ConnectMeth
         return (
             <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
                 <button onClick={onBack} className="flex items-center gap-2 text-sm text-slate-400 hover:text-white transition-colors">
-                    <span className="material-symbols-rounded text-sm">arrow_back</span> Back
+                    <MdArrowBack className="text-sm" /> Back
                 </button>
 
                 <h4 className="text-white text-lg font-bold">Choose Platform</h4>
                 <div className="grid gap-4">
                     <a href="https://wa.me/919453878422?text=Hi,%20I%20am%20interested%20in%20your%20services." target="_blank" rel="noopener noreferrer"
                         className="p-4 rounded-xl bg-[#25D366]/10 border border-[#25D366]/20 flex items-center gap-4 hover:bg-[#25D366]/20 transition-colors">
-                        <span className="material-symbols-rounded text-[#25D366] text-3xl">chat</span>
+                        <MdChat className="text-[#25D366] text-3xl" />
                         <div>
                             <strong className="text-white block">WhatsApp</strong>
                             <span className="text-slate-400 text-sm">Instant Reply</span>
@@ -194,7 +195,7 @@ const ContactForm = ({ method, onBack, onClose, context }: { method: ConnectMeth
                 onClick={onBack}
                 className="flex items-center gap-2 text-sm text-slate-400 hover:text-white transition-colors mb-4"
             >
-                <span className="material-symbols-rounded text-sm">arrow_back</span>
+                <MdArrowBack className="text-sm" />
                 Back to options
             </button>
 

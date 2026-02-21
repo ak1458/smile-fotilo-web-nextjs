@@ -7,6 +7,7 @@ import { ConnectModal } from '../../components/ConnectModal';
 import { OtherLocations } from '../../components/OtherLocations';
 import { LocationSchema } from '../../components/LocationSchema';
 import { GmbUpdates } from '../../components/GmbUpdates';
+import { MdRocketLaunch, MdMap, MdHub, MdFactory, MdCode, MdApartment, MdSpeed, MdStorage, MdDevices, MdBolt } from 'react-icons/md';
 
 export default function GreaterNoidaPage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -65,7 +66,7 @@ export default function GreaterNoidaPage() {
                                 className="btn-primary flex items-center gap-2 group bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 shadow-cyan-500/20"
                             >
                                 <span>Scale Your Business</span>
-                                <span className="material-symbols-rounded group-hover:translate-x-1 transition-transform">rocket_launch</span>
+                                <MdRocketLaunch className="group-hover:translate-x-1 transition-transform" />
                             </button>
                             <a
                                 href="https://www.google.com/maps/search/Smile+Fotilo+Greater+Noida"
@@ -74,7 +75,7 @@ export default function GreaterNoidaPage() {
                                 className="px-8 py-3 rounded-full border border-cyan-500/30 text-cyan-200 hover:bg-cyan-500/10 transition-all flex items-center gap-2 group"
                             >
                                 <span>View on Google Maps</span>
-                                <span className="material-symbols-rounded text-cyan-400 group-hover:rotate-12 transition-transform">map</span>
+                                <MdMap className="text-cyan-400 group-hover:rotate-12 transition-transform" />
                             </a>
                         </div>
                     </div>
@@ -91,13 +92,13 @@ export default function GreaterNoidaPage() {
                             <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/10 to-transparent blur-3xl rounded-full"></div>
                             <div className="glass-card p-8 md:p-12 relative overflow-hidden group hover:border-cyan-500/30 transition-colors boundary-glow-cyan">
                                 <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
-                                    <span className="material-symbols-rounded text-9xl">hub</span>
+                                    <MdHub className="text-9xl" />
                                 </div>
                                 <h3 className="text-2xl font-bold text-white mb-6">Designed for Scale</h3>
                                 <ul className="space-y-6">
                                     <li className="flex items-start gap-4 text-slate-300">
                                         <div className="bg-cyan-500/10 p-2 rounded-lg">
-                                            <span className="material-symbols-rounded text-cyan-400">factory</span>
+                                            <MdFactory className="text-cyan-400" />
                                         </div>
                                         <div>
                                             <strong className="text-white block mb-1">Manufacturing & Exports</strong>
@@ -106,7 +107,7 @@ export default function GreaterNoidaPage() {
                                     </li>
                                     <li className="flex items-start gap-4 text-slate-300">
                                         <div className="bg-cyan-500/10 p-2 rounded-lg">
-                                            <span className="material-symbols-rounded text-cyan-400">code</span>
+                                            <MdCode className="text-cyan-400" />
                                         </div>
                                         <div>
                                             <strong className="text-white block mb-1">Tech Startups & SaaS</strong>
@@ -115,7 +116,7 @@ export default function GreaterNoidaPage() {
                                     </li>
                                     <li className="flex items-start gap-4 text-slate-300">
                                         <div className="bg-cyan-500/10 p-2 rounded-lg">
-                                            <span className="material-symbols-rounded text-cyan-400">apartment</span>
+                                            <MdApartment className="text-cyan-400" />
                                         </div>
                                         <div>
                                             <strong className="text-white block mb-1">Real Estate Excellence</strong>
@@ -182,7 +183,9 @@ export default function GreaterNoidaPage() {
                             }
                         ].map((service, i) => (
                             <div key={i} className="glass p-8 rounded-2xl hover:bg-cyan-900/10 transition-all group hover:-translate-y-2 border border-white/5 hover:border-cyan-500/30">
-                                <span className={`material-symbols-rounded text-4xl mb-4 block ${service.color} group-hover:scale-110 transition-transform`}>{service.icon}</span>
+                                <div className={`text-4xl mb-4 block ${service.color} group-hover:scale-110 transition-transform`}>
+                                    {service.icon === 'speed' ? <MdSpeed /> : service.icon === 'database' ? <MdStorage /> : <MdDevices />}
+                                </div>
                                 <h3 className="text-xl font-bold text-white mb-3">{service.title}</h3>
                                 <p className="text-slate-400 text-sm leading-relaxed">{service.desc}</p>
                             </div>
@@ -194,7 +197,7 @@ export default function GreaterNoidaPage() {
             {/* Connect CTA */}
             <section className="py-32 relative overflow-hidden flex items-center justify-center">
                 <div className="relative z-10 text-center max-w-2xl px-4">
-                    <span className="material-symbols-rounded text-6xl text-cyan-500/50 mb-6 block">bolt</span>
+                    <MdBolt className="text-6xl text-cyan-500/50 mx-auto mb-6 block" />
                     <h2 className="text-3xl md:text-5xl font-bold text-white mb-8 tracking-tight">
                         Built for the <span className="text-cyan-400">Speed of Now</span>.
                     </h2>

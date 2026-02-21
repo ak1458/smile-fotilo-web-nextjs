@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { FaReact, FaNodeJs, FaAws, FaWordpress, FaPhp, FaStripe, FaCloudflare, FaCode } from 'react-icons/fa';
 import { SiPostgresql, SiRedis, SiWoocommerce, SiMysql, SiMongodb, SiSocketdotio, SiGooglemaps, SiNextdotjs, SiTypescript, SiTailwindcss, SiVercel } from 'react-icons/si';
 import { TbPalette } from 'react-icons/tb';
+import { MdArrowBack, MdCheckCircle } from 'react-icons/md';
 
 const getTechIcon = (tech: string) => {
     const normalized = tech.toLowerCase().replace(/\s+/g, '');
@@ -128,7 +129,7 @@ export function ProjectDetailClient({ slug }: { slug: string }) {
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 {/* Back Button */}
                 <Link href="/work" className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors mb-8">
-                    <span className="material-symbols-rounded">arrow_back</span> Back to All Projects
+                    <MdArrowBack /> Back to All Projects
                 </Link>
 
                 {/* Hero Section */}
@@ -182,7 +183,7 @@ export function ProjectDetailClient({ slug }: { slug: string }) {
                                 transition={{ delay: index * 0.1 }}
                                 className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-white/20 transition-colors"
                             >
-                                <span className="material-symbols-rounded text-2xl text-indigo-400 mb-3 block">check_circle</span>
+                                <MdCheckCircle className="text-2xl text-indigo-400 mb-3 block" />
                                 <p className="font-medium">{feature}</p>
                             </motion.div>
                         ))}

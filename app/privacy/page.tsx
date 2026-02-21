@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { MdArrowBack } from 'react-icons/md';
+
 
 export const metadata: Metadata = {
     title: 'Privacy Policy | Smile Fotilo',
@@ -76,7 +78,7 @@ export default function PrivacyPolicyPage() {
 
                 <div className="mt-12 pt-8 border-t border-white/10">
                     <Link href="/" className="text-indigo-400 hover:text-indigo-300 inline-flex items-center gap-2">
-                        <span className="material-symbols-rounded">arrow_back</span>
+                        <MdArrowBack />
                         Back to Home
                     </Link>
                 </div>

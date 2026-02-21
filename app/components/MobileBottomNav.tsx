@@ -3,16 +3,17 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { MdHome, MdLocationOn, MdCall, MdApps, MdEmail } from 'react-icons/md';
 
 export const MobileBottomNav = () => {
     const pathname = usePathname();
 
     const navItems = [
-        { href: '/', icon: 'home', label: 'Home' },
-        { href: '/locations', icon: 'location_on', label: 'Locations' },
-        { href: 'tel:+919453878422', icon: 'call', label: 'Call', isCall: true },
-        { href: '/#services', icon: 'apps', label: 'Services' },
-        { href: '/#contact', icon: 'mail', label: 'Contact' },
+        { href: '/', icon: <MdHome />, label: 'Home' },
+        { href: '/locations', icon: <MdLocationOn />, label: 'Locations' },
+        { href: 'tel:+919453878422', icon: <MdCall />, label: 'Call', isCall: true },
+        { href: '/#services', icon: <MdApps />, label: 'Services' },
+        { href: '/#contact', icon: <MdEmail />, label: 'Contact' },
     ];
 
     return (
@@ -27,7 +28,7 @@ export const MobileBottomNav = () => {
                             className="w-12 h-12 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center shadow-[0_0_20px_rgba(99,102,241,0.5)] hover:scale-110 transition-transform"
                             aria-label="Call Us"
                         >
-                            <span className="material-symbols-rounded text-xl text-white">call</span>
+                            <MdCall className="text-xl text-white" />
                         </a>
                     ) : (
                         <Link
@@ -38,7 +39,9 @@ export const MobileBottomNav = () => {
                                 : 'text-slate-400 hover:text-white hover:bg-white/5'
                                 }`}
                         >
-                            <span className={`material-symbols-rounded text-xl ${pathname === item.href ? 'fill-current' : ''}`}>{item.icon}</span>
+                            <div className={`text-xl ${pathname === item.href ? 'text-white' : ''}`}>
+                                {item.icon}
+                            </div>
                             <span className="text-[10px] font-medium">{item.label}</span>
                         </Link>
                     )

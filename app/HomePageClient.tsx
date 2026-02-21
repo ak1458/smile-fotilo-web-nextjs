@@ -4,6 +4,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Footer } from './components/Footer';
 import { BackToTop } from './components/BackToTop';
+import { MdCode, MdTrendingUp, MdPhotoCamera, MdSupportAgent, MdMail, MdSchedule, MdOpenInNew, MdArrowOutward, MdArrowForward, MdPublic, MdPayments } from 'react-icons/md';
+
 import { ContactForm } from './components/ContactForm';
 import { Testimonials } from './components/Testimonials';
 import Link from 'next/link';
@@ -76,10 +78,10 @@ const Hero = () => {
 
 const Services = () => {
   const services = [
-    { icon: 'code', title: 'Web Development', desc: 'Fast, secure, and SEO-optimized websites on WordPress & Custom Stacks.' },
-    { icon: 'trending_up', title: 'Digital Growth', desc: 'Data-driven SEO and Google Ads strategies that bring customers.' },
-    { icon: 'photo_camera', title: 'Creative Studio', desc: 'High-end product photography and brand identity design.' },
-    { icon: 'support_agent', title: '24/7 Support', desc: 'Dedicated support team to help you grow your business.' }
+    { icon: <MdCode />, title: 'Web Development', desc: 'Fast, secure, and SEO-optimized websites on WordPress & Custom Stacks.' },
+    { icon: <MdTrendingUp />, title: 'Digital Growth', desc: 'Data-driven SEO and Google Ads strategies that bring customers.' },
+    { icon: <MdPhotoCamera />, title: 'Creative Studio', desc: 'High-end product photography and brand identity design.' },
+    { icon: <MdSupportAgent />, title: '24/7 Support', desc: 'Dedicated support team to help you grow your business.' }
   ];
 
   return (
@@ -109,8 +111,8 @@ const Services = () => {
               whileHover={{ y: -5 }}
               className="p-4 sm:p-8 border border-white/5 bg-[#0F172A]/50 rounded-3xl hover:border-indigo-500/30 hover:shadow-[0_10px_40px_-10px_rgba(99,102,241,0.2)] transition-all group backdrop-blur-sm"
             >
-              <div className="w-14 h-14 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 mb-6 group-hover:scale-110 transition-transform">
-                <span className="material-symbols-rounded text-3xl">{service.icon}</span>
+              <div className="w-14 h-14 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 mb-6 group-hover:scale-110 transition-transform text-3xl">
+                {service.icon}
               </div>
               <h3 className="text-xl font-bold text-slate-50 mb-4">{service.title}</h3>
               <p className="text-slate-400 text-sm leading-relaxed mb-6">{service.desc}</p>
@@ -217,8 +219,8 @@ const Contact = () => {
                 transition={{ delay: 0.2 }}
                 className="flex items-center gap-4"
               >
-                <div className="w-12 h-12 rounded-full glass flex items-center justify-center text-violet-400 flex-shrink-0">
-                  <span className="material-symbols-rounded">mail</span>
+                <div className="w-12 h-12 rounded-full glass flex items-center justify-center text-violet-400 flex-shrink-0 text-xl">
+                  <MdMail />
                 </div>
                 <div>
                   <div className="text-sm text-slate-500">Email us</div>
@@ -235,9 +237,10 @@ const Contact = () => {
                 transition={{ delay: 0.3 }}
                 className="flex items-center gap-4"
               >
-                <div className="w-12 h-12 rounded-full glass flex items-center justify-center text-violet-400">
-                  <span className="material-symbols-rounded">schedule</span>
+                <div className="w-12 h-12 rounded-full glass flex items-center justify-center text-violet-400 text-xl">
+                  <MdSchedule />
                 </div>
+
                 <div>
                   <div className="text-sm text-slate-500">Response Time</div>
                   <div className="font-medium text-white text-lg">Within 24 Hours</div>
@@ -358,8 +361,8 @@ const Portfolio = () => {
                   </div>
 
                   {/* Arrow Icon */}
-                  <div className="absolute top-6 right-6 w-11 h-11 rounded-full border border-white/20 flex items-center justify-center bg-white/10 backdrop-blur-md group-hover:bg-white group-hover:text-black transition-all duration-300 transform -rotate-45 group-hover:rotate-0">
-                    <span className="material-symbols-rounded text-lg">arrow_outward</span>
+                  <div className="absolute top-6 right-6 w-11 h-11 rounded-full border border-white/20 flex items-center justify-center bg-white/10 backdrop-blur-md group-hover:bg-white group-hover:text-black transition-all duration-300 transform -rotate-45 group-hover:rotate-0 text-lg">
+                    <MdArrowOutward />
                   </div>
                 </div>
               </motion.div>
@@ -374,7 +377,7 @@ const Portfolio = () => {
           className="mt-16 text-center"
         >
           <Link href="/work" className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors border-b border-white/10 hover:border-white pb-1">
-            View All Projects <span className="material-symbols-rounded text-sm">arrow_forward</span>
+            View All Projects <MdArrowForward className="text-sm" />
           </Link>
         </motion.div>
       </div>
@@ -509,7 +512,7 @@ const GlobalReach = () => {
               >
                 <Link href="/locations/global" className="inline-flex items-center gap-2 text-white bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-xl font-semibold transition-all hover:scale-105 shadow-[0_0_20px_rgba(37,99,235,0.3)]">
                   Explore International Services
-                  <span className="material-symbols-rounded">arrow_forward</span>
+                  <MdArrowForward />
                 </Link>
               </motion.div>
             </div>
@@ -521,8 +524,8 @@ const GlobalReach = () => {
                   whileHover={{ y: -5 }}
                   className="p-6 rounded-2xl bg-[#020617]/50 border border-white/5 hover:border-blue-500/30 transition-all"
                 >
-                  <div className="w-10 h-10 rounded-full bg-blue-900/30 flex items-center justify-center text-blue-400 mb-4">
-                    <span className="material-symbols-rounded">public</span>
+                  <div className="w-10 h-10 rounded-full bg-blue-900/30 flex items-center justify-center text-blue-400 mb-4 text-xl">
+                    <MdPublic />
                   </div>
                   <div className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-1">Logistics AI</div>
                   <div className="text-xl font-bold text-slate-200">Texas, USA</div>
@@ -533,8 +536,8 @@ const GlobalReach = () => {
                   whileHover={{ y: -5 }}
                   className="p-6 rounded-2xl bg-[#020617]/50 border border-white/5 hover:border-indigo-500/30 transition-all mt-8"
                 >
-                  <div className="w-10 h-10 rounded-full bg-indigo-900/30 flex items-center justify-center text-indigo-400 mb-4">
-                    <span className="material-symbols-rounded">payments</span>
+                  <div className="w-10 h-10 rounded-full bg-indigo-900/30 flex items-center justify-center text-indigo-400 mb-4 text-xl">
+                    <MdPayments />
                   </div>
                   <div className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-1">Fintech App</div>
                   <div className="text-xl font-bold text-slate-200">Mexico City</div>
@@ -545,5 +548,5 @@ const GlobalReach = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};

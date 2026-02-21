@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { MdArrowUpward } from 'react-icons/md';
 
 export const BackToTop = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -37,7 +38,7 @@ export const BackToTop = () => {
                     className="fixed bottom-8 left-8 z-40 p-3 rounded-full bg-indigo-600 text-white shadow-xl hover:bg-indigo-500 transition-colors border border-indigo-400/20"
                     aria-label="Back to top"
                 >
-                    <span className="material-symbols-rounded text-2xl font-bold">arrow_upward</span>
+                    <MdArrowUpward className="text-2xl font-bold" />
                 </motion.button>
             )}
         </AnimatePresence>

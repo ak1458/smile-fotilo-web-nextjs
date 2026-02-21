@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { MdSchedule, MdCalendarToday, MdArrowForward } from 'react-icons/md';
 import { blogPosts, getFeaturedPosts, getAllCategories } from '../data/blogPosts';
 
 const POSTS_PER_PAGE = 12;
@@ -81,8 +82,8 @@ export default function BlogPage() {
                         <button
                             onClick={() => { setSelectedCategory(null); setCurrentPage(1); }}
                             className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all ${!selectedCategory
-                                    ? 'bg-gradient-to-r from-violet-600 to-purple-600 text-white shadow-lg shadow-violet-600/25'
-                                    : 'bg-white/5 text-slate-400 hover:bg-white/10 border border-white/10'
+                                ? 'bg-gradient-to-r from-violet-600 to-purple-600 text-white shadow-lg shadow-violet-600/25'
+                                : 'bg-white/5 text-slate-400 hover:bg-white/10 border border-white/10'
                                 }`}
                         >
                             All ({blogPosts.length})
@@ -92,8 +93,8 @@ export default function BlogPage() {
                                 key={cat}
                                 onClick={() => { setSelectedCategory(cat); setCurrentPage(1); }}
                                 className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all flex items-center gap-2 ${selectedCategory === cat
-                                        ? 'bg-gradient-to-r from-violet-600 to-purple-600 text-white shadow-lg shadow-violet-600/25'
-                                        : 'bg-white/5 text-slate-400 hover:bg-white/10 border border-white/10'
+                                    ? 'bg-gradient-to-r from-violet-600 to-purple-600 text-white shadow-lg shadow-violet-600/25'
+                                    : 'bg-white/5 text-slate-400 hover:bg-white/10 border border-white/10'
                                     }`}
                             >
                                 <span>{categoryIcons[cat] || '📄'}</span>
@@ -190,11 +191,11 @@ export default function BlogPage() {
 
                                         <div className="flex items-center gap-4 text-xs text-slate-500 pt-4 border-t border-white/5">
                                             <span className="flex items-center gap-1">
-                                                <span className="material-symbols-rounded text-sm">schedule</span>
+                                                <MdSchedule className="text-sm" />
                                                 {post.readTime}
                                             </span>
                                             <span className="flex items-center gap-1">
-                                                <span className="material-symbols-rounded text-sm">calendar_today</span>
+                                                <MdCalendarToday className="text-sm" />
                                                 {new Date(post.date).toLocaleDateString('en-IN', { month: 'short', day: 'numeric' })}
                                             </span>
                                         </div>
@@ -221,8 +222,8 @@ export default function BlogPage() {
                                         key={page}
                                         onClick={() => setCurrentPage(page)}
                                         className={`w-10 h-10 rounded-lg font-medium transition-all ${currentPage === page
-                                                ? 'bg-gradient-to-r from-violet-600 to-purple-600 text-white'
-                                                : 'bg-white/5 text-slate-400 hover:bg-white/10'
+                                            ? 'bg-gradient-to-r from-violet-600 to-purple-600 text-white'
+                                            : 'bg-white/5 text-slate-400 hover:bg-white/10'
                                             }`}
                                     >
                                         {page}
@@ -260,7 +261,7 @@ export default function BlogPage() {
                             className="inline-flex items-center gap-2 bg-gradient-to-r from-violet-600 to-purple-600 text-white px-8 py-4 rounded-full font-bold hover:opacity-90 transition-all shadow-lg shadow-violet-600/25"
                         >
                             View Pricing
-                            <span className="material-symbols-rounded">arrow_forward</span>
+                            <MdArrowForward />
                         </Link>
                         <Link
                             href="/#contact"

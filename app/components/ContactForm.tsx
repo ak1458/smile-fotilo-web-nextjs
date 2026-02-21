@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { MdExpandMore } from 'react-icons/md';
 
 // Custom glassmorphism dropdown
 const GlassSelect = ({
@@ -43,9 +44,7 @@ const GlassSelect = ({
                     } ${selected ? 'text-white' : 'text-slate-400'}`}
             >
                 <span>{selected?.label || placeholder}</span>
-                <span className={`material-symbols-rounded text-slate-400 transition-transform ${isOpen ? 'rotate-180' : ''}`}>
-                    expand_more
-                </span>
+                <MdExpandMore className={`text-slate-400 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
             </button>
 
             {/* Dropdown Menu with Glassmorphism */}

@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { NavBar } from '../components/NavBar';
 import { Footer } from '../components/Footer';
 import Link from 'next/link';
+import { MdCheckCircle } from 'react-icons/md';
 
 export default function PricingPage() {
     return (
@@ -38,23 +39,23 @@ export default function PricingPage() {
 
                         <ul className="space-y-4 mb-8 text-slate-300">
                             <li className="flex items-center gap-3">
-                                <span className="material-symbols-rounded text-emerald-400">check_circle</span>
+                                <MdCheckCircle className="text-emerald-400" />
                                 5 Page Professional Website
                             </li>
                             <li className="flex items-center gap-3">
-                                <span className="material-symbols-rounded text-emerald-400">check_circle</span>
+                                <MdCheckCircle className="text-emerald-400" />
                                 Mobile Responsive Design
                             </li>
                             <li className="flex items-center gap-3">
-                                <span className="material-symbols-rounded text-emerald-400">check_circle</span>
+                                <MdCheckCircle className="text-emerald-400" />
                                 Basic SEO Setup
                             </li>
                             <li className="flex items-center gap-3">
-                                <span className="material-symbols-rounded text-emerald-400">check_circle</span>
+                                <MdCheckCircle className="text-emerald-400" />
                                 Contact Form Integration
                             </li>
                             <li className="flex items-center gap-3">
-                                <span className="material-symbols-rounded text-emerald-400">check_circle</span>
+                                <MdCheckCircle className="text-emerald-400" />
                                 1 Month Support
                             </li>
                         </ul>
@@ -78,23 +79,23 @@ export default function PricingPage() {
 
                         <ul className="space-y-4 mb-8 text-slate-300">
                             <li className="flex items-center gap-3">
-                                <span className="material-symbols-rounded text-emerald-400">check_circle</span>
+                                <MdCheckCircle className="text-emerald-400" />
                                 E-commerce Functionality
                             </li>
                             <li className="flex items-center gap-3">
-                                <span className="material-symbols-rounded text-emerald-400">check_circle</span>
+                                <MdCheckCircle className="text-emerald-400" />
                                 Admin Dashboard
                             </li>
                             <li className="flex items-center gap-3">
-                                <span className="material-symbols-rounded text-emerald-400">check_circle</span>
+                                <MdCheckCircle className="text-emerald-400" />
                                 Payment Gateway Integration
                             </li>
                             <li className="flex items-center gap-3">
-                                <span className="material-symbols-rounded text-emerald-400">check_circle</span>
+                                <MdCheckCircle className="text-emerald-400" />
                                 Advanced SEO & Analytics
                             </li>
                             <li className="flex items-center gap-3">
-                                <span className="material-symbols-rounded text-emerald-400">check_circle</span>
+                                <MdCheckCircle className="text-emerald-400" />
                                 3 Months Support
                             </li>
                         </ul>

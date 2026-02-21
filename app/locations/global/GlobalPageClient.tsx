@@ -7,6 +7,7 @@ import { NavBar } from '../../components/NavBar';
 import { Footer } from '../../components/Footer';
 import { ConnectModal } from '../../components/ConnectModal';
 import { OtherLocations } from '../../components/OtherLocations';
+import { MdLocalShipping, MdCampaign, MdLocationOn, MdArrowForward, MdVisibility, MdCall, MdLanguage, MdAdsClick, MdDns, MdShoppingCart, MdSupportAgent, MdUpdate, MdCheckCircle, MdChat } from 'react-icons/md';
 
 // Real project data
 const globalProjects = [
@@ -99,14 +100,14 @@ export default function GlobalPage() {
                                 className="btn-primary flex items-center gap-2 group bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-500 hover:to-violet-500 shadow-blue-500/20"
                             >
                                 <span>Discuss Global Project</span>
-                                <span className="material-symbols-rounded group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                                <MdArrowForward className="group-hover:translate-x-1 transition-transform" />
                             </button>
                             <Link
                                 href="/work"
                                 className="btn-secondary flex items-center gap-2 group"
                             >
                                 <span>View Our Work</span>
-                                <span className="material-symbols-rounded group-hover:translate-x-1 transition-transform">visibility</span>
+                                <MdVisibility className="group-hover:translate-x-1 transition-transform" />
                             </Link>
                         </div>
                     </motion.div>
@@ -144,7 +145,7 @@ export default function GlobalPage() {
                                         {/* Location Badge */}
                                         <div className="absolute top-4 left-4 z-20">
                                             <span className={`text-xs font-bold bg-${project.color}-500/20 border border-${project.color}-500/30 text-${project.color}-200 px-3 py-1.5 rounded-full uppercase tracking-wider flex items-center gap-2 backdrop-blur-sm`}>
-                                                <span className="material-symbols-rounded text-sm">location_on</span>
+                                                <MdLocationOn className="text-sm" />
                                                 {project.location}
                                             </span>
                                         </div>
@@ -185,13 +186,13 @@ export default function GlobalPage() {
                                                 className={`flex-1 px-5 py-3 rounded-xl bg-gradient-to-r from-${project.color}-600 to-${project.color}-700 text-white font-bold text-sm hover:opacity-90 transition-all flex items-center justify-center gap-2 group/btn`}
                                             >
                                                 <span>Get Similar Project</span>
-                                                <span className="material-symbols-rounded text-lg group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
+                                                <MdArrowForward className="text-lg group-hover/btn:translate-x-1 transition-transform" />
                                             </button>
                                             <a
                                                 href="tel:+919453878422"
                                                 className="px-5 py-3 rounded-xl border border-white/10 text-white font-medium text-sm hover:bg-white/5 transition-all flex items-center gap-2"
                                             >
-                                                <span className="material-symbols-rounded">call</span>
+                                                <MdCall />
                                                 Call Now
                                             </a>
                                         </div>
@@ -230,7 +231,13 @@ export default function GlobalPage() {
                                 className="glass-card p-6 group hover:border-blue-500/20 transition-colors"
                             >
                                 <div className={`w-12 h-12 rounded-xl bg-${service.color}-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                                    <span className={`material-symbols-rounded text-2xl text-${service.color}-400`}>{service.icon}</span>
+                                    <span className={`text-2xl text-${service.color}-400`}>
+                                        {service.icon === 'language' ? <MdLanguage /> :
+                                            service.icon === 'ads_click' ? <MdAdsClick /> :
+                                                service.icon === 'dns' ? <MdDns /> :
+                                                    service.icon === 'shopping_cart' ? <MdShoppingCart /> :
+                                                        service.icon === 'support_agent' ? <MdSupportAgent /> : <MdUpdate />}
+                                    </span>
                                 </div>
                                 <h3 className="text-lg font-bold text-white mb-2">{service.title}</h3>
                                 <p className="text-slate-400 text-sm">{service.desc}</p>
@@ -244,7 +251,7 @@ export default function GlobalPage() {
                             className="px-8 py-4 rounded-full bg-gradient-to-r from-blue-600 to-violet-600 text-white font-bold hover:opacity-90 transition-all inline-flex items-center gap-2"
                         >
                             <span>Discuss Your Requirements</span>
-                            <span className="material-symbols-rounded">arrow_forward</span>
+                            <MdArrowForward />
                         </button>
                     </div>
                 </div>
@@ -266,7 +273,7 @@ export default function GlobalPage() {
                                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-blue-500/30 text-blue-200 hover:bg-blue-500/10 transition-colors"
                             >
                                 <span>Explore the HQ</span>
-                                <span className="material-symbols-rounded">arrow_forward</span>
+                                <MdArrowForward />
                             </Link>
                         </div>
 
@@ -283,15 +290,15 @@ export default function GlobalPage() {
                             </div>
                             <ul className="space-y-3">
                                 <li className="flex items-center gap-3 text-slate-300">
-                                    <span className="material-symbols-rounded text-blue-400">check_circle</span>
+                                    <MdCheckCircle className="text-blue-400" />
                                     <span>Enterprise-grade solutions</span>
                                 </li>
                                 <li className="flex items-center gap-3 text-slate-300">
-                                    <span className="material-symbols-rounded text-blue-400">check_circle</span>
+                                    <MdCheckCircle className="text-blue-400" />
                                     <span>Cost-effective development</span>
                                 </li>
                                 <li className="flex items-center gap-3 text-slate-300">
-                                    <span className="material-symbols-rounded text-blue-400">check_circle</span>
+                                    <MdCheckCircle className="text-blue-400" />
                                     <span>Time-zone optimized support</span>
                                 </li>
                             </ul>
@@ -322,14 +329,14 @@ export default function GlobalPage() {
                             rel="noopener noreferrer"
                             className="px-8 py-3 rounded-full border border-[#25D366]/50 text-[#25D366] font-bold hover:bg-[#25D366]/10 transition-all flex items-center gap-2"
                         >
-                            <span className="material-symbols-rounded">chat</span>
+                            <MdChat />
                             WhatsApp Us
                         </a>
                         <a
                             href="tel:+919453878422"
                             className="px-8 py-3 rounded-full border border-orange-500/50 text-orange-400 font-bold hover:bg-orange-500/10 transition-all flex items-center gap-2"
                         >
-                            <span className="material-symbols-rounded">call</span>
+                            <MdCall />
                             Call Now
                         </a>
                     </div>

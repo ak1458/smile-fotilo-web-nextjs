@@ -7,6 +7,7 @@ import { ConnectModal } from '../../components/ConnectModal';
 import { OtherLocations } from '../../components/OtherLocations';
 import { LocationSchema } from '../../components/LocationSchema';
 import { GmbUpdates } from '../../components/GmbUpdates';
+import { MdArrowForward, MdTempleHindu, MdCheckCircle, MdHotel, MdStore, MdAutoAwesome } from 'react-icons/md';
 
 export default function AyodhyaPage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -56,7 +57,7 @@ export default function AyodhyaPage() {
                                 className="btn-primary flex items-center gap-2 group shadow-orange-500/20"
                             >
                                 <span>Digitalize Your Vision</span>
-                                <span className="material-symbols-rounded group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                                <MdArrowForward className="group-hover:translate-x-1 transition-transform" />
                             </button>
                             <a
                                 href="https://www.google.com/maps/search/Smile+Fotilo+Ayodhya"
@@ -65,7 +66,7 @@ export default function AyodhyaPage() {
                                 className="px-8 py-3 rounded-full border border-orange-500/30 text-orange-200 hover:bg-orange-500/10 transition-all flex items-center gap-2 group"
                             >
                                 <span>View on Google Maps</span>
-                                <span className="material-symbols-rounded text-orange-400 group-hover:rotate-12 transition-transform">temple_hindu</span>
+                                <MdTempleHindu className="text-orange-400 group-hover:rotate-12 transition-transform" />
                             </a>
                         </div>
                     </div>
@@ -81,7 +82,7 @@ export default function AyodhyaPage() {
                             <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/20 to-blue-500/20 blur-3xl rounded-full"></div>
                             <div className="glass-card p-8 md:p-12 relative overflow-hidden group hover:border-orange-500/30 transition-colors">
                                 <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
-                                    <span className="material-symbols-rounded text-9xl">temple_hindu</span>
+                                    <MdTempleHindu className="text-9xl" />
                                 </div>
                                 <h3 className="text-2xl font-bold text-white mb-4">Our Vision for Ayodhya</h3>
                                 <p className="text-slate-400 leading-relaxed mb-6">
@@ -95,7 +96,7 @@ export default function AyodhyaPage() {
                                         'Digital archives for heritage preservation'
                                     ].map((item, i) => (
                                         <li key={i} className="flex items-center gap-3 text-slate-300">
-                                            <span className="material-symbols-rounded text-orange-400 text-sm">check_circle</span>
+                                            <MdCheckCircle className="text-orange-400 text-sm" />
                                             {item}
                                         </li>
                                     ))}
@@ -145,7 +146,9 @@ export default function AyodhyaPage() {
                             }
                         ].map((service, i) => (
                             <div key={i} className="glass p-8 rounded-2xl hover:bg-white/5 transition-all group hover:-translate-y-2">
-                                <span className={`material-symbols-rounded text-4xl mb-4 block ${service.color} group-hover:scale-110 transition-transform`}>{service.icon}</span>
+                                <span className={`${service.color} group-hover:scale-110 transition-transform text-4xl mb-4 block`}>
+                                    {service.icon === 'temple_hindu' ? <MdTempleHindu /> : service.icon === 'hotel' ? <MdHotel /> : <MdStore />}
+                                </span>
                                 <h3 className="text-xl font-bold text-white mb-3">{service.title}</h3>
                                 <p className="text-slate-400 text-sm leading-relaxed">{service.desc}</p>
                             </div>
@@ -161,7 +164,7 @@ export default function AyodhyaPage() {
                 </div>
 
                 <div className="relative z-10 text-center max-w-2xl px-4">
-                    <span className="material-symbols-rounded text-6xl text-orange-500/50 mb-6 block">auto_awesome</span>
+                    <MdAutoAwesome className="text-6xl text-orange-500/50 mx-auto mb-6 block" />
                     <h2 className="text-3xl md:text-5xl font-serif text-orange-100/90 italic mb-8">
                         &quot;Tradition is the soul. Technology is the wings.&quot;
                     </h2>

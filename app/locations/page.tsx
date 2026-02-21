@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import { MdApartment, MdTempleHindu, MdHome, MdMosque, MdRocketLaunch } from 'react-icons/md';
 import { NavBar } from '../components/NavBar';
 import { Footer } from '../components/Footer';
 
@@ -84,7 +85,11 @@ export default function LocationsPage() {
                                 className="group p-8 glass-card hover:bg-slate-800/50 hover:border-indigo-500/50 transition-all hover:-translate-y-2"
                             >
                                 <div className={`w-16 h-16 rounded-2xl bg-${loc.color}-500/10 flex items-center justify-center text-${loc.color}-400 mb-6 group-hover:bg-${loc.color}-500 group-hover:text-white transition-colors`}>
-                                    <span className="material-symbols-rounded text-3xl">{loc.icon}</span>
+                                    <span className="text-3xl">
+                                        {loc.icon === 'apartment' ? <MdApartment /> :
+                                            loc.icon === 'temple_hindu' ? <MdTempleHindu /> :
+                                                loc.icon === 'home' ? <MdHome /> : <MdMosque />}
+                                    </span>
                                 </div>
                                 <span className={`text-xs font-bold uppercase tracking-widest text-${loc.color}-400`}>{loc.tagline}</span>
                                 <h3 className="text-xl font-bold text-white mt-2 mb-3">{loc.name}</h3>
@@ -101,7 +106,7 @@ export default function LocationsPage() {
                     <h2 className="text-3xl font-bold text-white mb-6">Ready to Start Your Project?</h2>
                     <p className="text-slate-300 mb-8">No matter where you are, we deliver premium digital solutions.</p>
                     <Link href="/#contact" className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-indigo-600 text-white font-bold hover:bg-indigo-500 transition-all">
-                        <span className="material-symbols-rounded">rocket_launch</span>
+                        <MdRocketLaunch />
                         Get Started
                     </Link>
                 </div>

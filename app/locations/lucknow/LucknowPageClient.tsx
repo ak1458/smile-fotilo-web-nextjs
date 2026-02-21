@@ -6,6 +6,8 @@ import { Footer } from '../../components/Footer';
 import { ConnectModal } from '../../components/ConnectModal';
 import { OtherLocations } from '../../components/OtherLocations';
 import { LocationSchema } from '../../components/LocationSchema';
+import { MdArrowForward, MdArchitecture, MdCheckCircle, MdShoppingBag, MdSearch, MdSmartphone, MdHandshake } from 'react-icons/md';
+
 
 export default function LucknowPage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -57,7 +59,7 @@ export default function LucknowPage() {
                                 className="btn-primary flex items-center gap-2 group bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-500 hover:to-yellow-500 shadow-amber-500/20"
                             >
                                 <span>Start Your Journey</span>
-                                <span className="material-symbols-rounded group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                                <MdArrowForward className="group-hover:translate-x-1 transition-transform" />
                             </button>
                         </div>
                     </div>
@@ -95,26 +97,26 @@ export default function LucknowPage() {
                             <div className="absolute inset-0 bg-gradient-to-bl from-amber-500/10 to-transparent blur-3xl rounded-full"></div>
                             <div className="glass-card p-8 md:p-12 relative overflow-hidden group hover:border-amber-500/30 transition-colors">
                                 <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
-                                    <span className="material-symbols-rounded text-9xl">architecture</span>
+                                    <MdArchitecture className="text-9xl" />
                                 </div>
                                 <h3 className="text-2xl font-bold text-white mb-4">Empowering Local Legacy</h3>
                                 <ul className="space-y-4">
                                     <li className="flex items-start gap-3 text-slate-300">
-                                        <span className="material-symbols-rounded text-amber-400 mt-1">check_circle</span>
+                                        <MdCheckCircle className="text-amber-400 mt-1" />
                                         <div>
                                             <strong className="text-white block mb-1">Chikankari Exports</strong>
                                             Helping artisans skip the middleman and sell directly to global markets via Shopify/WooCommerce.
                                         </div>
                                     </li>
                                     <li className="flex items-start gap-3 text-slate-300">
-                                        <span className="material-symbols-rounded text-amber-400 mt-1">check_circle</span>
+                                        <MdCheckCircle className="text-amber-400 mt-1" />
                                         <div>
                                             <strong className="text-white block mb-1">Culinary Heritage</strong>
                                             Digital branding for Tunday-style eateries to attract food tourism.
                                         </div>
                                     </li>
                                     <li className="flex items-start gap-3 text-slate-300">
-                                        <span className="material-symbols-rounded text-amber-400 mt-1">check_circle</span>
+                                        <MdCheckCircle className="text-amber-400 mt-1" />
                                         <div>
                                             <strong className="text-white block mb-1">Modern Education</strong>
                                             LMS platforms for Lucknow&apos;s growing coaching and educational hubs.
@@ -158,7 +160,9 @@ export default function LucknowPage() {
                             }
                         ].map((service, i) => (
                             <div key={i} className="glass p-8 rounded-2xl hover:bg-white/5 transition-all group hover:-translate-y-2 border border-white/5 hover:border-amber-500/20">
-                                <span className={`material-symbols-rounded text-4xl mb-4 block ${service.color} group-hover:scale-110 transition-transform`}>{service.icon}</span>
+                                <div className={`text-4xl mb-4 block ${service.color} group-hover:scale-110 transition-transform`}>
+                                    {service.icon === 'shopping_bag' ? <MdShoppingBag /> : service.icon === 'search' ? <MdSearch /> : <MdSmartphone />}
+                                </div>
                                 <h3 className="text-xl font-bold text-white mb-3">{service.title}</h3>
                                 <p className="text-slate-400 text-sm leading-relaxed">{service.desc}</p>
                             </div>
@@ -168,13 +172,13 @@ export default function LucknowPage() {
             </section>
 
             {/* Connect CTA */}
-            <section className="py-32 relative overflow-hidden flex items-center justify-center">
+            <section className="py-32 relative overflow-hidden flex items-center justify-center text-center">
                 <div className="relative z-10 text-center max-w-2xl px-4">
-                    <span className="material-symbols-rounded text-6xl text-amber-500/50 mb-6 block">handshake</span>
+                    <MdHandshake className="text-6xl text-amber-500/50 mx-auto mb-6 block" />
                     <h2 className="text-3xl md:text-5xl font-serif text-amber-100/90 italic mb-8">
-                        &quot;Muskuraiye, aap digital duniya mein hain.&quot;
+                        "Muskuraiye, aap digital duniya mein hain."
                     </h2>
-                    <p className="text-slate-400 mb-8">Smile, you are in the digital world. Let&apos;s build something iconic.</p>
+                    <p className="text-slate-400 mb-8">Smile, you are in the digital world. Let's build something iconic.</p>
                     <button
                         onClick={() => setIsModalOpen(true)}
                         className="px-8 py-3 rounded-full border border-amber-500/50 text-amber-200 hover:bg-amber-500/10 transition-colors uppercase tracking-widest text-sm font-bold"

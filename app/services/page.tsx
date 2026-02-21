@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { MdCode, MdTrendingUp, MdPalette, MdArrowForward } from 'react-icons/md';
 
 export const metadata: Metadata = {
   title: "Services | Smile Fotilo",
@@ -67,8 +68,8 @@ export default function ServicesPage() {
               >
                 <div className={`p-8 bg-gradient-to-br ${s.accent}`}>
                   <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white mb-6">
-                    <span className="material-symbols-rounded text-3xl">
-                      {s.icon}
+                    <span className="text-3xl">
+                      {s.icon === 'code' ? <MdCode /> : s.icon === 'trending_up' ? <MdTrendingUp /> : <MdPalette />}
                     </span>
                   </div>
                   <h2 className="text-2xl font-bold mb-3 group-hover:text-indigo-300 transition-colors">
@@ -76,7 +77,7 @@ export default function ServicesPage() {
                   </h2>
                   <p className="text-slate-300/90 leading-relaxed">{s.desc}</p>
                   <div className="mt-6 inline-flex items-center gap-2 font-semibold text-white/90 group-hover:gap-3 transition-all">
-                    Explore <span className="material-symbols-rounded">arrow_forward</span>
+                    Explore <MdArrowForward />
                   </div>
                 </div>
               </Link>
