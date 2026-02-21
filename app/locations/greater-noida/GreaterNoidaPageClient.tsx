@@ -55,7 +55,7 @@ export default function GreaterNoidaPage() {
 
                         <p className="text-xl text-slate-300 mb-10 font-light leading-relaxed max-w-3xl mx-auto">
                             From the skyscrapers of <span className="text-cyan-200 font-medium">Cyber City</span> to the industrial hubs of Greater Noida.
-                            We engineer high-performance digital solutions for the fastest-growing tech region in India.
+                            We provide premium <span className="text-cyan-200 font-medium">smile e-commerce services in Noida</span> and engineer high-performance digital solutions.
                         </p>
 
                         <div className="flex flex-wrap justify-center gap-5">
@@ -66,6 +66,15 @@ export default function GreaterNoidaPage() {
                                 <span>Scale Your Business</span>
                                 <span className="material-symbols-rounded group-hover:translate-x-1 transition-transform">rocket_launch</span>
                             </button>
+                            <a
+                                href="https://www.google.com/maps/search/Smile+Fotilo+Greater+Noida"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="px-8 py-3 rounded-full border border-cyan-500/30 text-cyan-200 hover:bg-cyan-500/10 transition-all flex items-center gap-2 group"
+                            >
+                                <span>View on Google Maps</span>
+                                <span className="material-symbols-rounded text-cyan-400 group-hover:rotate-12 transition-transform">map</span>
+                            </a>
                         </div>
                     </div>
                 </div>

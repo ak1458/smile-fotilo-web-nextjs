@@ -47,8 +47,7 @@ export default function GondaPage() {
                         </h1>
 
                         <p className="text-xl text-slate-300 mb-10 font-light leading-relaxed">
-                            Where it all began. From the heart of Uttar Pradesh, we are building world-class digital experiences for clients across the globe.
-                            <span className="text-emerald-200 font-medium"> Local Heart, Global Standards.</span>
+                            Where it all began. As a <span className="text-emerald-200 font-medium">top-rated digital agency in Gonda</span>, we are building world-class digital experiences with <span className="text-emerald-200 font-medium">local SEO dominance</span> and global standards.
                         </p>
 
                         <div className="flex flex-wrap justify-center gap-5">
@@ -59,6 +58,15 @@ export default function GondaPage() {
                                 <span>Visit Our HQ</span>
                                 <span className="material-symbols-rounded group-hover:translate-x-1 transition-transform">domain</span>
                             </button>
+                            <a
+                                href="https://www.google.com/maps?cid=14436214578143247413"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="px-8 py-3 rounded-full border border-emerald-500/30 text-emerald-200 hover:bg-emerald-500/10 transition-all flex items-center gap-2 group"
+                            >
+                                <span>View on Google Maps</span>
+                                <span className="material-symbols-rounded text-emerald-400 group-hover:rotate-12 transition-transform">location_on</span>
+                            </a>
                         </div>
                     </div>
                 </div>
