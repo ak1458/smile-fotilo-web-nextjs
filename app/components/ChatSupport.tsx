@@ -123,6 +123,7 @@ export const ChatSupport = () => {
             initializedRef.current = true;
             sendInitialGreeting();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     // Auto-scroll

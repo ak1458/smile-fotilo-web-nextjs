@@ -176,9 +176,9 @@ export default function LucknowPage() {
                 <div className="relative z-10 text-center max-w-2xl px-4">
                     <MdHandshake className="text-6xl text-amber-500/50 mx-auto mb-6 block" />
                     <h2 className="text-3xl md:text-5xl font-serif text-amber-100/90 italic mb-8">
-                        "Muskuraiye, aap digital duniya mein hain."
+                        &quot;Muskuraiye, aap digital duniya mein hain.&quot;
                     </h2>
-                    <p className="text-slate-400 mb-8">Smile, you are in the digital world. Let's build something iconic.</p>
+                    <p className="text-slate-400 mb-8">Smile, you are in the digital world. Let&apos;s build something iconic.</p>
                     <button
                         onClick={() => setIsModalOpen(true)}
                         className="px-8 py-3 rounded-full border border-amber-500/50 text-amber-200 hover:bg-amber-500/10 transition-colors uppercase tracking-widest text-sm font-bold"
