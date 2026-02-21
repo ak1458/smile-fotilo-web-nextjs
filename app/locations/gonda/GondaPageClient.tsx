@@ -6,6 +6,7 @@ import { Footer } from '../../components/Footer';
 import { ConnectModal } from '../../components/ConnectModal';
 import { OtherLocations } from '../../components/OtherLocations';
 import { LocationSchema } from '../../components/LocationSchema';
+import { GmbUpdates } from '../../components/GmbUpdates';
 
 export default function GondaPage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -47,7 +48,7 @@ export default function GondaPage() {
                         </h1>
 
                         <p className="text-xl text-slate-300 mb-10 font-light leading-relaxed">
-                            Where it all began. As a <span className="text-emerald-200 font-medium">top-rated digital agency in Gonda</span>, we are building world-class digital experiences with <span className="text-emerald-200 font-medium">local SEO dominance</span> and global standards.
+                            With our headquarters in Gonda and additional offices in Noida and Lucknow, we are a <span className="text-emerald-200 font-medium">local business near you</span>, providing <span className="text-emerald-200 font-medium">app creation</span>, freelance software development, and digital marketing services to companies in the NCR region.
                         </p>
 
                         <div className="flex flex-wrap justify-center gap-5">
@@ -144,6 +145,7 @@ export default function GondaPage() {
                 </div>
             </section>
 
+            <GmbUpdates locationFilter="gonda" />
             <OtherLocations currentLocation="gonda" />
             <Footer />
         </main>

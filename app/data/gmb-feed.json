@@ -1,0 +1,22 @@
+{
+    "updates": [
+        {
+            "id": "post_ai_001",
+            "location": "gonda",
+            "date": "2026-02-21",
+            "title": "Transform Your Local Business with Smile Fotilo",
+            "text": "Looking for a digital marketing agency near you in Gonda? Smile Fotilo offers expert ecommerce website design, app development, and photography services. As the best digital marketing company in Greater Noida, we also serve Gonda with top-notch digital marketing solutions. Get a company website that stands out with our design and development services.",
+            "link": "https://smilefotilo.com/locations/gonda",
+            "image": "/gonda-bg-hq.webp"
+        },
+        {
+            "id": "post_002",
+            "location": "greater-noida",
+            "date": "2026-02-21",
+            "title": "E-commerce Services in Noida",
+            "text": "Scaling your brand in NCR? Our specialized 'smile e-commerce services' are designed for rapid growth and maximum conversion.",
+            "link": "https://smilefotilo.com/locations/greater-noida",
+            "image": "/greater-noida-bg.webp"
+        }
+    ]
+}
