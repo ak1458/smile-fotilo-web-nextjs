@@ -6,6 +6,7 @@ import { Footer } from '../../components/Footer';
 import { ConnectModal } from '../../components/ConnectModal';
 import { OtherLocations } from '../../components/OtherLocations';
 import { LocationSchema } from '../../components/LocationSchema';
+import { GmbUpdates } from '../../components/GmbUpdates';
 
 export default function AyodhyaPage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -52,11 +53,20 @@ export default function AyodhyaPage() {
                         <div className="flex flex-wrap justify-center gap-5">
                             <button
                                 onClick={() => setIsModalOpen(true)}
-                                className="btn-primary flex items-center gap-2 group"
+                                className="btn-primary flex items-center gap-2 group shadow-orange-500/20"
                             >
                                 <span>Digitalize Your Vision</span>
                                 <span className="material-symbols-rounded group-hover:translate-x-1 transition-transform">arrow_forward</span>
                             </button>
+                            <a
+                                href="https://www.google.com/maps/search/Smile+Fotilo+Ayodhya"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="px-8 py-3 rounded-full border border-orange-500/30 text-orange-200 hover:bg-orange-500/10 transition-all flex items-center gap-2 group"
+                            >
+                                <span>View on Google Maps</span>
+                                <span className="material-symbols-rounded text-orange-400 group-hover:rotate-12 transition-transform">temple_hindu</span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -160,6 +170,7 @@ export default function AyodhyaPage() {
             </section>
 
             {/* Other Locations Nav (Consistent with footer style) */}
+            <GmbUpdates locationFilter="ayodhya" />
             <OtherLocations currentLocation="ayodhya" />
 
             <Footer />

@@ -104,6 +104,7 @@ export const locationSchemas = {
         "name": "Smile Fotilo - Ayodhya",
         "description": "Digital services for Ayodhya's growing tourism and spiritual business ecosystem. Web design for temples, hotels, and local commerce.",
         "url": "https://smilefotilo.com/locations/ayodhya",
+        "hasMap": "https://www.google.com/maps/search/Smile+Fotilo+Ayodhya",
         "telephone": "+91-9453878422",
         "email": "hello@smilefotilo.com",
         "image": "https://smilefotilo.com/logo.png",
