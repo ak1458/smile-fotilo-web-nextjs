@@ -2,7 +2,7 @@
 
 To give me "whole control" to fix your SSL issues and manage your deployments, the most secure and effective way is to provide a **Vercel Access Token**.
 
-### Step 1: Generate the Access Token
+## Step 1: Generate the Access Token
 
 1. Go to your [Vercel Account Settings - Tokens](https://vercel.com/account/tokens).
 2. Click **Create**.
@@ -11,7 +11,7 @@ To give me "whole control" to fix your SSL issues and manage your deployments, t
 5. Set an expiration date (e.g., 30 days) if you prefer.
 6. Click **Create Token** and **Copy** the value.
 
-### Step 2: Share it with Me
+## Step 2: Share it with Me
 
 Once you have the token:
 

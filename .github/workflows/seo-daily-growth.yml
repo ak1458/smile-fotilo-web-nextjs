@@ -28,6 +28,9 @@ jobs:
           echo "$GOOGLE_APPLICATION_CREDENTIALS_JSON" > google-key.json
           export GOOGLE_APPLICATION_CREDENTIALS=./google-key.json
           node seo_optimizer.js
+          # GMB Autopilot (Staged - will succeed once API access is granted)
+          node gmb_automated_poster.js || echo "GMB API awaiting quota"
+          node gmb_review_manager.js || echo "GMB API awaiting quota"
 
       - name: Commit AI Growth Strategy
         run: |
