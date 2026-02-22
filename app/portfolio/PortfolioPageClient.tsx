@@ -61,6 +61,32 @@ export default function PortfolioPageClient({ initialRepos }: { initialRepos: Re
                 <div className="absolute top-[20%] right-[-30%] w-[80vw] h-[80vw] rounded-full bg-indigo-900/15 blur-[120px] mix-blend-screen opacity-80" />
                 <div className="absolute bottom-[-10%] left-1/4 w-[60vw] h-[60vw] rounded-full bg-fuchsia-900/10 blur-[150px] mix-blend-screen opacity-60" />
 
+                {/* Abstract Graffico-style Bursts & Scatters */}
+                <div className="absolute top-[15%] right-[10%] w-[800px] h-[800px] opacity-[0.03] animate-[spin_120s_linear_infinite]">
+                    <svg viewBox="0 0 100 100" className="w-full h-full text-white fill-current">
+                        <path d="M50 0 L52 48 L100 50 L52 52 L50 100 L48 52 L0 50 L48 48 Z" />
+                    </svg>
+                </div>
+
+                <div className="absolute top-[45%] left-[-15%] w-[1200px] h-[1200px] opacity-[0.02] animate-[spin_200s_linear_infinite_reverse]">
+                    <svg viewBox="0 0 100 100" className="w-full h-full text-white fill-current">
+                        <circle cx="50" cy="50" r="49" fill="none" stroke="currentColor" strokeWidth="0.2" strokeDasharray="1 2" />
+                        <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" strokeWidth="0.1" />
+                        <path d="M50 0 L50 100 M0 50 L100 50" stroke="currentColor" strokeWidth="0.1" />
+                    </svg>
+                </div>
+
+                <div className="absolute bottom-[20%] right-[5%] w-[600px] h-[600px] opacity-[0.04] animate-[pulse_10s_ease-in-out_infinite]">
+                    {/* Scatter Dots */}
+                    <div className="absolute top-1/4 left-1/4 w-2 h-2 rounded-full bg-violet-500 shadow-[0_0_20px_#8b5cf6]" />
+                    <div className="absolute top-1/2 right-1/4 w-1 h-1 rounded-full bg-indigo-400 shadow-[0_0_10px_#8b5cf6]" />
+                    <div className="absolute bottom-1/4 left-1/2 w-1.5 h-1.5 rounded-full bg-fuchsia-400 shadow-[0_0_15px_#d946ef]" />
+
+                    <svg viewBox="0 0 100 100" className="w-full h-full text-white fill-none stroke-current">
+                        <path d="M20,20 Q50,80 80,20" strokeWidth="0.1" strokeDasharray="0.5 1" />
+                    </svg>
+                </div>
+
                 {/* Heavy Grain Overlay to kill "pure black" void */}
                 <div className="absolute inset-0 opacity-[0.1] bg-[url('https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Dissolve_Noise_Texture.png')] mix-blend-overlay" />
             </motion.div>
