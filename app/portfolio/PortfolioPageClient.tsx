@@ -62,13 +62,13 @@ export default function PortfolioPageClient({ initialRepos }: { initialRepos: Re
                 <div className="absolute bottom-[-10%] left-1/4 w-[60vw] h-[60vw] rounded-full bg-fuchsia-900/10 blur-[150px] mix-blend-screen opacity-60" />
 
                 {/* Abstract Graffico-style Bursts & Scatters */}
-                <div className="absolute top-[15%] right-[10%] w-[800px] h-[800px] opacity-[0.03] animate-[spin_120s_linear_infinite]">
+                <div className="absolute top-[15%] right-[10%] w-[800px] h-[800px] opacity-10 animate-[spin_120s_linear_infinite]">
                     <svg viewBox="0 0 100 100" className="w-full h-full text-white fill-current">
                         <path d="M50 0 L52 48 L100 50 L52 52 L50 100 L48 52 L0 50 L48 48 Z" />
                     </svg>
                 </div>
 
-                <div className="absolute top-[45%] left-[-15%] w-[1200px] h-[1200px] opacity-[0.02] animate-[spin_200s_linear_infinite_reverse]">
+                <div className="absolute top-[45%] left-[-15%] w-[1200px] h-[1200px] opacity-[0.15] animate-[spin_200s_linear_infinite_reverse]">
                     <svg viewBox="0 0 100 100" className="w-full h-full text-white fill-current">
                         <circle cx="50" cy="50" r="49" fill="none" stroke="currentColor" strokeWidth="0.2" strokeDasharray="1 2" />
                         <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" strokeWidth="0.1" />
@@ -76,7 +76,7 @@ export default function PortfolioPageClient({ initialRepos }: { initialRepos: Re
                     </svg>
                 </div>
 
-                <div className="absolute bottom-[20%] right-[5%] w-[600px] h-[600px] opacity-[0.04] animate-[pulse_10s_ease-in-out_infinite]">
+                <div className="absolute bottom-[20%] right-[5%] w-[600px] h-[600px] opacity-20 animate-[pulse_10s_ease-in-out_infinite]">
                     {/* Scatter Dots */}
                     <div className="absolute top-1/4 left-1/4 w-2 h-2 rounded-full bg-violet-500 shadow-[0_0_20px_#8b5cf6]" />
                     <div className="absolute top-1/2 right-1/4 w-1 h-1 rounded-full bg-indigo-400 shadow-[0_0_10px_#8b5cf6]" />
@@ -141,7 +141,7 @@ export default function PortfolioPageClient({ initialRepos }: { initialRepos: Re
                     </div>
                 </motion.section>
 
-                <div className="bg-gradient-to-b from-transparent to-[#020202] relative z-10 w-full border-t border-white/10 pt-20 shadow-[0_-20px_50px_rgba(0,0,0,0.8)] backdrop-blur-md">
+                <div className="bg-transparent relative z-10 w-full border-t border-white/10 pt-20 shadow-[0_-20px_50px_rgba(0,0,0,0.8)] backdrop-blur-md">
                     {/* 2. IDENTITY REVEAL (Tighter padding, larger text) */}
                     <section ref={aboutRef} className="container mx-auto px-6 md:px-12 pb-32 max-w-7xl relative">
                         {/* Abstract structural piece */}
@@ -194,9 +194,9 @@ export default function PortfolioPageClient({ initialRepos }: { initialRepos: Re
 
                     {/* 3. HORIZONTAL SCROLL (Massive cards, structural lines) */}
                     {/* Decreased height from 400vh to 250vh so the horizontal scroll feels snappier and doesn't scroll off into emptiness */}
-                    <section ref={horizontalContainerRef} className="relative h-[250vh] bg-black">
+                    <section ref={horizontalContainerRef} className="relative h-[250vh] bg-transparent">
 
-                        <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden border-y border-white/10 bg-[url('https://grain-image.s3.amazonaws.com/noise.png')] bg-repeat opacity-95">
+                        <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden border-y border-white/10 bg-black/40 backdrop-blur-xl">
 
                             {/* Giant background text to fill void */}
                             <div className="absolute top-1/2 -translate-y-1/2 left-0 w-full pointer-events-none overflow-hidden">
@@ -266,7 +266,7 @@ export default function PortfolioPageClient({ initialRepos }: { initialRepos: Re
                     </section>
 
                     {/* 4. HIGH DENSITY TIMELINE */}
-                    <section className="container mx-auto px-6 md:px-12 py-32 max-w-7xl relative z-10 bg-[#020202]">
+                    <section className="container mx-auto px-6 md:px-12 py-32 max-w-7xl relative z-10 bg-transparent">
                         <div className="grid lg:grid-cols-12 gap-12">
                             <div className="lg:col-span-4 relative z-20">
                                 <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter sticky top-32 mb-12">
