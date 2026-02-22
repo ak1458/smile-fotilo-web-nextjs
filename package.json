@@ -12,8 +12,7 @@
   "overrides": {
     "minimatch": "^5.1.6",
     "glob": "^8.1.0",
-    "rimraf": "^4.4.1",
-    "gaxios": "^6.5.0"
+    "rimraf": "^4.4.1"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",

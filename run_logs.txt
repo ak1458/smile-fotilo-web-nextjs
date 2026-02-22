@@ -1,0 +1,536 @@
+﻿optimize	UNKNOWN STEP	´╗┐2026-02-22T01:45:53.6419724Z Current runner version: '2.331.0'
+optimize	UNKNOWN STEP	2026-02-22T01:45:53.6487592Z ##[group]Runner Image Provisioner
+optimize	UNKNOWN STEP	2026-02-22T01:45:53.6488905Z Hosted Compute Agent
+optimize	UNKNOWN STEP	2026-02-22T01:45:53.6489952Z Version: 20260123.484
+optimize	UNKNOWN STEP	2026-02-22T01:45:53.6490990Z Commit: 6bd6555ca37d84114959e1c76d2c01448ff61c5d
+optimize	UNKNOWN STEP	2026-02-22T01:45:53.6492243Z Build Date: 2026-01-23T19:41:17Z
+optimize	UNKNOWN STEP	2026-02-22T01:45:53.6494784Z Worker ID: {40cadc5c-2288-47ab-9d45-eb2cbcf8e2c1}
+optimize	UNKNOWN STEP	2026-02-22T01:45:53.6496020Z Azure Region: centralus
+optimize	UNKNOWN STEP	2026-02-22T01:45:53.6497127Z ##[endgroup]
+optimize	UNKNOWN STEP	2026-02-22T01:45:53.6499479Z ##[group]Operating System
+optimize	UNKNOWN STEP	2026-02-22T01:45:53.6500448Z Ubuntu
+optimize	UNKNOWN STEP	2026-02-22T01:45:53.6501343Z 24.04.3
+optimize	UNKNOWN STEP	2026-02-22T01:45:53.6502150Z LTS
+optimize	UNKNOWN STEP	2026-02-22T01:45:53.6502945Z ##[endgroup]
+optimize	UNKNOWN STEP	2026-02-22T01:45:53.6504187Z ##[group]Runner Image
+optimize	UNKNOWN STEP	2026-02-22T01:45:53.6505155Z Image: ubuntu-24.04
+optimize	UNKNOWN STEP	2026-02-22T01:45:53.6505956Z Version: 20260201.15.1
+optimize	UNKNOWN STEP	2026-02-22T01:45:53.6508049Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260201.15/images/ubuntu/Ubuntu2404-Readme.md
+optimize	UNKNOWN STEP	2026-02-22T01:45:53.6510678Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260201.15
+optimize	UNKNOWN STEP	2026-02-22T01:45:53.6512481Z ##[endgroup]
+optimize	UNKNOWN STEP	2026-02-22T01:45:53.6515761Z ##[group]GITHUB_TOKEN Permissions
+optimize	UNKNOWN STEP	2026-02-22T01:45:53.6518538Z Contents: read
+optimize	UNKNOWN STEP	2026-02-22T01:45:53.6519559Z Metadata: read
+optimize	UNKNOWN STEP	2026-02-22T01:45:53.6520393Z Packages: read
+optimize	UNKNOWN STEP	2026-02-22T01:45:53.6521254Z ##[endgroup]
+optimize	UNKNOWN STEP	2026-02-22T01:45:53.6524556Z Secret source: Actions
+optimize	UNKNOWN STEP	2026-02-22T01:45:53.6526018Z Prepare workflow directory
+optimize	UNKNOWN STEP	2026-02-22T01:45:53.7265918Z Prepare all required actions
+optimize	UNKNOWN STEP	2026-02-22T01:45:53.7323360Z Getting action download info
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.1442616Z Download action repository 'actions/checkout@v3' (SHA:f43a0e5ff2bd294095638e18286ca9a3d1956744)
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.2901354Z Download action repository 'actions/setup-node@v3' (SHA:3235b876344d2a9aa001b8d1453c930bba69e610)
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.5278091Z Complete job name: optimize
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.6027494Z ##[group]Run actions/checkout@v3
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.6028340Z with:
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.6028806Z   repository: ak1458/Smile-Fotilo-NEXT-js-app
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.6029561Z   token: ***
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.6029937Z   ssh-strict: true
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.6030344Z   persist-credentials: true
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.6030780Z   clean: true
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.6031187Z   sparse-checkout-cone-mode: true
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.6031654Z   fetch-depth: 1
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.6032034Z   fetch-tags: false
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.6032417Z   lfs: false
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.6032771Z   submodules: false
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.6033166Z   set-safe-directory: true
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.6034052Z ##[endgroup]
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.7338957Z Syncing repository: ak1458/Smile-Fotilo-NEXT-js-app
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.7340760Z ##[group]Getting Git version info
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.7341609Z Working directory is '/home/runner/work/Smile-Fotilo-NEXT-js-app/Smile-Fotilo-NEXT-js-app'
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.7358180Z [command]/usr/bin/git version
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.7393865Z git version 2.52.0
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.7423754Z ##[endgroup]
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.7440642Z Temporarily overriding HOME='/home/runner/work/_temp/09477f40-544d-46b0-807f-cba90ae0717a' before making global git config changes
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.7446558Z Adding repository directory to the temporary git global config as a safe directory
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.7448999Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Smile-Fotilo-NEXT-js-app/Smile-Fotilo-NEXT-js-app
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.7492425Z Deleting the contents of '/home/runner/work/Smile-Fotilo-NEXT-js-app/Smile-Fotilo-NEXT-js-app'
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.7498569Z ##[group]Initializing the repository
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.7502938Z [command]/usr/bin/git init /home/runner/work/Smile-Fotilo-NEXT-js-app/Smile-Fotilo-NEXT-js-app
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.7601821Z hint: Using 'master' as the name for the initial branch. This default branch name
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.7604218Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.7605761Z hint: to use in all of your new repositories, which will suppress this warning,
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.7607212Z hint: call:
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.7607783Z hint:
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.7608531Z hint: 	git config --global init.defaultBranch <name>
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.7609439Z hint:
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.7610340Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.7611867Z hint: 'development'. The just-created branch can be renamed via this command:
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.7613133Z hint:
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.7614069Z hint: 	git branch -m <name>
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.7614854Z hint:
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.7616168Z hint: Disable this message with "git config set advice.defaultBranchName false"
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.7618431Z Initialized empty Git repository in /home/runner/work/Smile-Fotilo-NEXT-js-app/Smile-Fotilo-NEXT-js-app/.git/
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.7626164Z [command]/usr/bin/git remote add origin https://github.com/ak1458/Smile-Fotilo-NEXT-js-app
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.7664479Z ##[endgroup]
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.7665715Z ##[group]Disabling automatic garbage collection
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.7666941Z [command]/usr/bin/git config --local gc.auto 0
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.7700271Z ##[endgroup]
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.7703478Z ##[group]Setting up auth
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.7704645Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.7734350Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.8107642Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.8139099Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.8393149Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.8431513Z ##[endgroup]
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.8432964Z ##[group]Fetching the repository
+optimize	UNKNOWN STEP	2026-02-22T01:45:54.8441117Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 origin +b5896b39a9410f65ef732b67679f5da5ad98c504:refs/remotes/origin/main
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1171399Z remote: Enumerating objects: 145, done.        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1193578Z remote: Counting objects:   0% (1/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1196664Z remote: Counting objects:   1% (2/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1197309Z remote: Counting objects:   2% (3/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1197905Z remote: Counting objects:   3% (5/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1198494Z remote: Counting objects:   4% (6/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1199084Z remote: Counting objects:   5% (8/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1199710Z remote: Counting objects:   6% (9/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1200302Z remote: Counting objects:   7% (11/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1200914Z remote: Counting objects:   8% (12/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1201519Z remote: Counting objects:   9% (14/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1202109Z remote: Counting objects:  10% (15/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1202663Z remote: Counting objects:  11% (16/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1203432Z remote: Counting objects:  12% (18/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1204060Z remote: Counting objects:  13% (19/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1204624Z remote: Counting objects:  14% (21/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1205171Z remote: Counting objects:  15% (22/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1205720Z remote: Counting objects:  16% (24/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1206274Z remote: Counting objects:  17% (25/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1206821Z remote: Counting objects:  18% (27/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1207369Z remote: Counting objects:  19% (28/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1207919Z remote: Counting objects:  20% (29/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1208777Z remote: Counting objects:  21% (31/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1209324Z remote: Counting objects:  22% (32/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1209875Z remote: Counting objects:  23% (34/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1210420Z remote: Counting objects:  24% (35/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1210979Z remote: Counting objects:  25% (37/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1211527Z remote: Counting objects:  26% (38/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1212068Z remote: Counting objects:  27% (40/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1212614Z remote: Counting objects:  28% (41/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1213151Z remote: Counting objects:  29% (43/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1213998Z remote: Counting objects:  30% (44/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1214564Z remote: Counting objects:  31% (45/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1215132Z remote: Counting objects:  32% (47/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1215698Z remote: Counting objects:  33% (48/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1216254Z remote: Counting objects:  34% (50/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1216806Z remote: Counting objects:  35% (51/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1217358Z remote: Counting objects:  36% (53/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1272388Z remote: Counting objects:  37% (54/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1274063Z remote: Counting objects:  38% (56/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1274971Z remote: Counting objects:  39% (57/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1276000Z remote: Counting objects:  40% (58/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1276985Z remote: Counting objects:  41% (60/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1277886Z remote: Counting objects:  42% (61/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1278771Z remote: Counting objects:  43% (63/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1279684Z remote: Counting objects:  44% (64/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1280559Z remote: Counting objects:  45% (66/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1281678Z remote: Counting objects:  46% (67/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1282610Z remote: Counting objects:  47% (69/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1283670Z remote: Counting objects:  48% (70/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1284545Z remote: Counting objects:  49% (72/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1285432Z remote: Counting objects:  50% (73/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1286330Z remote: Counting objects:  51% (74/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1287216Z remote: Counting objects:  52% (76/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1288148Z remote: Counting objects:  53% (77/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1289044Z remote: Counting objects:  54% (79/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1289932Z remote: Counting objects:  55% (80/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1290819Z remote: Counting objects:  56% (82/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1291699Z remote: Counting objects:  57% (83/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1292579Z remote: Counting objects:  58% (85/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1293603Z remote: Counting objects:  59% (86/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1294504Z remote: Counting objects:  60% (87/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1295393Z remote: Counting objects:  61% (89/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1296290Z remote: Counting objects:  62% (90/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1297191Z remote: Counting objects:  63% (92/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1298683Z remote: Counting objects:  64% (93/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1299859Z remote: Counting objects:  65% (95/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1300842Z remote: Counting objects:  66% (96/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1301767Z remote: Counting objects:  67% (98/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1302661Z remote: Counting objects:  68% (99/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1304077Z remote: Counting objects:  69% (101/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1306558Z remote: Counting objects:  70% (102/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1307651Z remote: Counting objects:  71% (103/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1308519Z remote: Counting objects:  72% (105/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1309123Z remote: Counting objects:  73% (106/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1309693Z remote: Counting objects:  74% (108/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1310448Z remote: Counting objects:  75% (109/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1310997Z remote: Counting objects:  76% (111/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1311556Z remote: Counting objects:  77% (112/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1312201Z remote: Counting objects:  78% (114/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1313424Z remote: Counting objects:  79% (115/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1314308Z remote: Counting objects:  80% (116/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1314888Z remote: Counting objects:  81% (118/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1315453Z remote: Counting objects:  82% (119/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1316020Z remote: Counting objects:  83% (121/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1316565Z remote: Counting objects:  84% (122/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1317102Z remote: Counting objects:  85% (124/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1317701Z remote: Counting objects:  86% (125/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1318304Z remote: Counting objects:  87% (127/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1318860Z remote: Counting objects:  88% (128/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1319398Z remote: Counting objects:  89% (130/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1319943Z remote: Counting objects:  90% (131/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1320485Z remote: Counting objects:  91% (132/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1321026Z remote: Counting objects:  92% (134/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1321570Z remote: Counting objects:  93% (135/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1322100Z remote: Counting objects:  94% (137/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1322639Z remote: Counting objects:  95% (138/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1323369Z remote: Counting objects:  96% (140/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1323990Z remote: Counting objects:  97% (141/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1324581Z remote: Counting objects:  98% (143/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1325321Z remote: Counting objects:  99% (144/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1325887Z remote: Counting objects: 100% (145/145)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1326469Z remote: Counting objects: 100% (145/145), done.        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1327066Z remote: Compressing objects:   0% (1/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1327628Z remote: Compressing objects:   1% (2/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1328181Z remote: Compressing objects:   2% (3/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1328730Z remote: Compressing objects:   3% (5/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1329287Z remote: Compressing objects:   4% (6/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1329842Z remote: Compressing objects:   5% (7/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1330392Z remote: Compressing objects:   6% (9/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1330954Z remote: Compressing objects:   7% (10/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1331520Z remote: Compressing objects:   8% (11/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1332094Z remote: Compressing objects:   9% (13/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1332660Z remote: Compressing objects:  10% (14/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1333337Z remote: Compressing objects:  11% (15/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1334350Z remote: Compressing objects:  12% (17/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1335358Z remote: Compressing objects:  13% (18/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1451739Z remote: Compressing objects:  14% (19/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1452387Z remote: Compressing objects:  15% (21/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1453410Z remote: Compressing objects:  16% (22/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1454509Z remote: Compressing objects:  17% (23/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1455494Z remote: Compressing objects:  18% (25/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1456412Z remote: Compressing objects:  19% (26/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1457316Z remote: Compressing objects:  20% (27/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1458291Z remote: Compressing objects:  21% (29/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1459230Z remote: Compressing objects:  22% (30/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1460161Z remote: Compressing objects:  23% (31/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1461389Z remote: Compressing objects:  24% (33/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1462387Z remote: Compressing objects:  25% (34/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1463547Z remote: Compressing objects:  26% (35/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1464657Z remote: Compressing objects:  27% (37/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1465630Z remote: Compressing objects:  28% (38/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1466627Z remote: Compressing objects:  29% (39/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1467618Z remote: Compressing objects:  30% (41/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1468589Z remote: Compressing objects:  31% (42/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1469518Z remote: Compressing objects:  32% (43/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1470925Z remote: Compressing objects:  33% (45/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1471930Z remote: Compressing objects:  34% (46/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1472939Z remote: Compressing objects:  35% (47/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1474133Z remote: Compressing objects:  36% (49/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1476432Z remote: Compressing objects:  37% (50/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1477062Z remote: Compressing objects:  38% (51/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1477628Z remote: Compressing objects:  39% (53/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1478202Z remote: Compressing objects:  40% (54/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1478770Z remote: Compressing objects:  41% (55/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1479904Z remote: Compressing objects:  42% (57/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1480966Z remote: Compressing objects:  43% (58/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1482014Z remote: Compressing objects:  44% (59/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1482687Z remote: Compressing objects:  45% (61/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1483530Z remote: Compressing objects:  46% (62/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1484173Z remote: Compressing objects:  47% (63/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1484929Z remote: Compressing objects:  48% (65/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1485517Z remote: Compressing objects:  49% (66/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1486084Z remote: Compressing objects:  50% (67/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1487209Z remote: Compressing objects:  51% (69/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1487802Z remote: Compressing objects:  52% (70/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1488356Z remote: Compressing objects:  53% (72/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1488916Z remote: Compressing objects:  54% (73/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1489478Z remote: Compressing objects:  55% (74/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1490513Z remote: Compressing objects:  56% (76/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1491527Z remote: Compressing objects:  57% (77/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1492516Z remote: Compressing objects:  58% (78/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1493696Z remote: Compressing objects:  59% (80/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1494700Z remote: Compressing objects:  60% (81/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1495735Z remote: Compressing objects:  61% (82/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1496700Z remote: Compressing objects:  62% (84/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1497318Z remote: Compressing objects:  63% (85/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1497892Z remote: Compressing objects:  64% (86/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1498467Z remote: Compressing objects:  65% (88/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1499031Z remote: Compressing objects:  66% (89/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1499611Z remote: Compressing objects:  67% (90/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1500179Z remote: Compressing objects:  68% (92/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1500735Z remote: Compressing objects:  69% (93/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1501308Z remote: Compressing objects:  70% (94/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1501871Z remote: Compressing objects:  71% (96/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1502441Z remote: Compressing objects:  72% (97/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1503006Z remote: Compressing objects:  73% (98/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1503982Z remote: Compressing objects:  74% (100/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1504572Z remote: Compressing objects:  75% (101/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1505342Z remote: Compressing objects:  76% (102/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1505923Z remote: Compressing objects:  77% (104/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1506504Z remote: Compressing objects:  78% (105/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1507079Z remote: Compressing objects:  79% (106/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1507643Z remote: Compressing objects:  80% (108/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1508213Z remote: Compressing objects:  81% (109/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1508883Z remote: Compressing objects:  82% (110/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1509554Z remote: Compressing objects:  83% (112/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1510226Z remote: Compressing objects:  84% (113/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1510783Z remote: Compressing objects:  85% (114/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1511359Z remote: Compressing objects:  86% (116/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1511919Z remote: Compressing objects:  87% (117/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1512491Z remote: Compressing objects:  88% (118/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1513054Z remote: Compressing objects:  89% (120/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1513940Z remote: Compressing objects:  90% (121/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1514503Z remote: Compressing objects:  91% (122/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1515070Z remote: Compressing objects:  92% (124/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1515633Z remote: Compressing objects:  93% (125/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1516189Z remote: Compressing objects:  94% (126/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1516754Z remote: Compressing objects:  95% (128/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1517313Z remote: Compressing objects:  96% (129/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1517869Z remote: Compressing objects:  97% (130/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1518438Z remote: Compressing objects:  98% (132/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1519138Z remote: Compressing objects:  99% (133/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1519710Z remote: Compressing objects: 100% (134/134)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1520354Z remote: Compressing objects: 100% (134/134), done.        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1522429Z Receiving objects:   0% (1/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1523401Z Receiving objects:   1% (2/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1524209Z Receiving objects:   2% (3/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1524958Z Receiving objects:   3% (5/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1525723Z Receiving objects:   4% (6/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1526489Z Receiving objects:   5% (8/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1527265Z Receiving objects:   6% (9/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1528069Z Receiving objects:   7% (11/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1529133Z Receiving objects:   8% (12/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1529928Z Receiving objects:   9% (14/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1530706Z Receiving objects:  10% (15/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1531448Z Receiving objects:  11% (16/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1555249Z Receiving objects:  12% (18/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1559828Z Receiving objects:  13% (19/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1561204Z Receiving objects:  14% (21/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1702362Z Receiving objects:  15% (22/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1704354Z Receiving objects:  16% (24/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1707546Z Receiving objects:  17% (25/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1709191Z Receiving objects:  18% (27/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1710876Z Receiving objects:  19% (28/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1711706Z Receiving objects:  20% (29/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1712465Z Receiving objects:  21% (31/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1716364Z Receiving objects:  22% (32/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1718484Z Receiving objects:  23% (34/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1719043Z Receiving objects:  24% (35/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1719522Z Receiving objects:  25% (37/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1720309Z Receiving objects:  26% (38/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1721151Z Receiving objects:  27% (40/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1781973Z Receiving objects:  28% (41/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1783980Z Receiving objects:  29% (43/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1784781Z Receiving objects:  30% (44/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1787488Z Receiving objects:  31% (45/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1789011Z Receiving objects:  32% (47/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1789520Z Receiving objects:  33% (48/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1789995Z Receiving objects:  34% (50/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1790450Z Receiving objects:  35% (51/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1808252Z Receiving objects:  36% (53/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1954608Z Receiving objects:  37% (54/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1959881Z Receiving objects:  38% (56/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1965589Z Receiving objects:  39% (57/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1968329Z Receiving objects:  40% (58/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1969259Z Receiving objects:  41% (60/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1973113Z Receiving objects:  42% (61/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1978025Z Receiving objects:  43% (63/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1978842Z Receiving objects:  44% (64/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1979628Z Receiving objects:  45% (66/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1980428Z Receiving objects:  46% (67/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1981205Z Receiving objects:  47% (69/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1981977Z Receiving objects:  48% (70/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1982717Z Receiving objects:  49% (72/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1983682Z Receiving objects:  50% (73/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1984503Z Receiving objects:  51% (74/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1985278Z Receiving objects:  52% (76/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1987999Z Receiving objects:  53% (77/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1989278Z Receiving objects:  54% (79/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1989845Z Receiving objects:  55% (80/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1990313Z Receiving objects:  56% (82/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1990789Z Receiving objects:  57% (83/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1991249Z Receiving objects:  58% (85/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1991703Z Receiving objects:  59% (86/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1992161Z Receiving objects:  60% (87/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1992598Z Receiving objects:  61% (89/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1993556Z Receiving objects:  62% (90/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1994075Z Receiving objects:  63% (92/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1994539Z Receiving objects:  64% (93/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1994986Z Receiving objects:  65% (95/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.1995864Z Receiving objects:  66% (96/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.2034154Z Receiving objects:  67% (98/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.2036723Z Receiving objects:  68% (99/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.2039827Z Receiving objects:  69% (101/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.2040638Z Receiving objects:  70% (102/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.2041440Z Receiving objects:  71% (103/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.2042220Z Receiving objects:  72% (105/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.2043034Z Receiving objects:  73% (106/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.2045809Z Receiving objects:  74% (108/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.2047898Z Receiving objects:  75% (109/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.2048684Z Receiving objects:  76% (111/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.2075026Z Receiving objects:  77% (112/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.2075968Z Receiving objects:  78% (114/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.2230585Z Receiving objects:  79% (115/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.2233544Z Receiving objects:  80% (116/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.2234405Z Receiving objects:  81% (118/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.2358879Z Receiving objects:  82% (119/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.2361063Z Receiving objects:  83% (121/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.2570958Z Receiving objects:  84% (122/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.2584184Z Receiving objects:  85% (124/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.2593491Z Receiving objects:  86% (125/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.2607308Z Receiving objects:  87% (127/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.3068952Z Receiving objects:  88% (128/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.3177559Z Receiving objects:  89% (130/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.3265969Z Receiving objects:  90% (131/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.3405407Z Receiving objects:  91% (132/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.3514209Z Receiving objects:  92% (134/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.3593872Z Receiving objects:  93% (135/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.3595560Z remote: Total 145 (delta 12), reused 83 (delta 2), pack-reused 0 (from 0)        
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.3608635Z Receiving objects:  94% (137/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.3614081Z Receiving objects:  95% (138/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.3615054Z Receiving objects:  96% (140/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.3615934Z Receiving objects:  97% (141/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.3616677Z Receiving objects:  98% (143/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.3617406Z Receiving objects:  99% (144/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.3618156Z Receiving objects: 100% (145/145)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.3619153Z Receiving objects: 100% (145/145), 5.45 MiB | 25.86 MiB/s, done.
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.3620297Z Resolving deltas:   0% (0/12)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.3621039Z Resolving deltas:   8% (1/12)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.3623065Z Resolving deltas:  16% (2/12)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.3624088Z Resolving deltas:  25% (3/12)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.3624872Z Resolving deltas:  33% (4/12)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.3625684Z Resolving deltas:  41% (5/12)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.3626495Z Resolving deltas:  50% (6/12)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.3627359Z Resolving deltas:  58% (7/12)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.3628209Z Resolving deltas:  66% (8/12)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.3629176Z Resolving deltas:  75% (9/12)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.3630028Z Resolving deltas:  83% (10/12)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.3630930Z Resolving deltas:  91% (11/12)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.3631853Z Resolving deltas: 100% (12/12)
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.3632816Z Resolving deltas: 100% (12/12), done.
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.3794552Z From https://github.com/ak1458/Smile-Fotilo-NEXT-js-app
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.3796685Z  * [new ref]         b5896b39a9410f65ef732b67679f5da5ad98c504 -> origin/main
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.3846345Z ##[endgroup]
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.3847725Z ##[group]Determining the checkout info
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.3849330Z ##[endgroup]
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.3850666Z ##[group]Checking out the ref
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.3852277Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.4170221Z Switched to a new branch 'main'
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.4174787Z branch 'main' set up to track 'origin/main'.
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.4190425Z ##[endgroup]
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.4223130Z [command]/usr/bin/git log -1 --format='%H'
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.4248942Z 'b5896b39a9410f65ef732b67679f5da5ad98c504'
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.4524959Z ##[group]Run actions/setup-node@v3
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.4525640Z with:
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.4587874Z   node-version: 18
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.4588823Z   always-auth: false
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.4589742Z   check-latest: false
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.4590952Z   token: ***
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.4591641Z ##[endgroup]
+optimize	UNKNOWN STEP	2026-02-22T01:45:55.6993064Z Attempting to download 18...
+optimize	UNKNOWN STEP	2026-02-22T01:45:56.2378422Z Acquiring 18.20.8 - x64 from https://github.com/actions/node-versions/releases/download/18.20.8-14110393767/node-18.20.8-linux-x64.tar.gz
+optimize	UNKNOWN STEP	2026-02-22T01:45:57.2590451Z Extracting ...
+optimize	UNKNOWN STEP	2026-02-22T01:45:57.2721160Z [command]/usr/bin/tar xz --strip 1 --warning=no-unknown-keyword -C /home/runner/work/_temp/2c43801e-f224-4d60-a1ed-8ca243f77cd1 -f /home/runner/work/_temp/d33410be-270d-47f5-8f9c-4be26a60f1fe
+optimize	UNKNOWN STEP	2026-02-22T01:45:58.3204264Z Adding to the cache ...
+optimize	UNKNOWN STEP	2026-02-22T01:46:01.0845232Z ##[group]Environment details
+optimize	UNKNOWN STEP	2026-02-22T01:46:01.3952232Z node: v18.20.8
+optimize	UNKNOWN STEP	2026-02-22T01:46:01.3957027Z npm: 10.8.2
+optimize	UNKNOWN STEP	2026-02-22T01:46:01.3960867Z yarn: 1.22.22
+optimize	UNKNOWN STEP	2026-02-22T01:46:01.3967897Z ##[endgroup]
+optimize	UNKNOWN STEP	2026-02-22T01:46:01.4133891Z ##[group]Run npm install googleapis axios
+optimize	UNKNOWN STEP	2026-02-22T01:46:01.4134303Z [36;1mnpm install googleapis axios[0m
+optimize	UNKNOWN STEP	2026-02-22T01:46:01.4172262Z shell: /usr/bin/bash -e {0}
+optimize	UNKNOWN STEP	2026-02-22T01:46:01.4172537Z ##[endgroup]
+optimize	UNKNOWN STEP	2026-02-22T01:46:02.9222735Z npm warn EBADENGINE Unsupported engine {
+optimize	UNKNOWN STEP	2026-02-22T01:46:02.9223978Z npm warn EBADENGINE   package: 'eslint-visitor-keys@5.0.1',
+optimize	UNKNOWN STEP	2026-02-22T01:46:02.9224970Z npm warn EBADENGINE   required: { node: '^20.19.0 || ^22.13.0 || >=24' },
+optimize	UNKNOWN STEP	2026-02-22T01:46:02.9225972Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+optimize	UNKNOWN STEP	2026-02-22T01:46:02.9226692Z npm warn EBADENGINE }
+optimize	UNKNOWN STEP	2026-02-22T01:46:02.9228851Z npm warn EBADENGINE Unsupported engine {
+optimize	UNKNOWN STEP	2026-02-22T01:46:02.9230815Z npm warn EBADENGINE   package: 'camera-controls@3.1.2',
+optimize	UNKNOWN STEP	2026-02-22T01:46:02.9231780Z npm warn EBADENGINE   required: { node: '>=22.0.0', npm: '>=10.5.1' },
+optimize	UNKNOWN STEP	2026-02-22T01:46:02.9233660Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+optimize	UNKNOWN STEP	2026-02-22T01:46:02.9234432Z npm warn EBADENGINE }
+optimize	UNKNOWN STEP	2026-02-22T01:46:02.9292508Z npm warn EBADENGINE Unsupported engine {
+optimize	UNKNOWN STEP	2026-02-22T01:46:02.9294454Z npm warn EBADENGINE   package: 'next@16.1.6',
+optimize	UNKNOWN STEP	2026-02-22T01:46:02.9295154Z npm warn EBADENGINE   required: { node: '>=20.9.0' },
+optimize	UNKNOWN STEP	2026-02-22T01:46:02.9296054Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+optimize	UNKNOWN STEP	2026-02-22T01:46:02.9296732Z npm warn EBADENGINE }
+optimize	UNKNOWN STEP	2026-02-22T01:46:02.9297282Z npm warn EBADENGINE Unsupported engine {
+optimize	UNKNOWN STEP	2026-02-22T01:46:02.9297976Z npm warn EBADENGINE   package: 'resend@6.8.0',
+optimize	UNKNOWN STEP	2026-02-22T01:46:02.9298723Z npm warn EBADENGINE   required: { node: '>=20' },
+optimize	UNKNOWN STEP	2026-02-22T01:46:02.9299532Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+optimize	UNKNOWN STEP	2026-02-22T01:46:02.9300196Z npm warn EBADENGINE }
+optimize	UNKNOWN STEP	2026-02-22T01:46:05.4665691Z npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+optimize	UNKNOWN STEP	2026-02-22T01:46:08.2144711Z npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+optimize	UNKNOWN STEP	2026-02-22T01:46:08.3196036Z npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+optimize	UNKNOWN STEP	2026-02-22T01:46:08.4906259Z npm warn deprecated glob@8.1.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+optimize	UNKNOWN STEP	2026-02-22T01:47:07.6308015Z 
+optimize	UNKNOWN STEP	2026-02-22T01:47:07.6309254Z added 894 packages, and audited 895 packages in 1m
+optimize	UNKNOWN STEP	2026-02-22T01:47:07.6313745Z 
+optimize	UNKNOWN STEP	2026-02-22T01:47:07.6314347Z 277 packages are looking for funding
+optimize	UNKNOWN STEP	2026-02-22T01:47:07.6315250Z   run `npm fund` for details
+optimize	UNKNOWN STEP	2026-02-22T01:47:07.9175492Z 
+optimize	UNKNOWN STEP	2026-02-22T01:47:07.9176301Z 31 high severity vulnerabilities
+optimize	UNKNOWN STEP	2026-02-22T01:47:07.9176677Z 
+optimize	UNKNOWN STEP	2026-02-22T01:47:07.9177092Z To address issues that do not require attention, run:
+optimize	UNKNOWN STEP	2026-02-22T01:47:07.9177639Z   npm audit fix
+optimize	UNKNOWN STEP	2026-02-22T01:47:07.9177838Z 
+optimize	UNKNOWN STEP	2026-02-22T01:47:07.9178252Z To address all issues (including breaking changes), run:
+optimize	UNKNOWN STEP	2026-02-22T01:47:07.9178824Z   npm audit fix --force
+optimize	UNKNOWN STEP	2026-02-22T01:47:07.9179069Z 
+optimize	UNKNOWN STEP	2026-02-22T01:47:07.9179311Z Run `npm audit` for details.
+optimize	UNKNOWN STEP	2026-02-22T01:47:07.9790429Z ##[group]Run echo "$GOOGLE_APPLICATION_CREDENTIALS_JSON" > google-key.json
+optimize	UNKNOWN STEP	2026-02-22T01:47:07.9790986Z [36;1mecho "$GOOGLE_APPLICATION_CREDENTIALS_JSON" > google-key.json[0m
+optimize	UNKNOWN STEP	2026-02-22T01:47:07.9791526Z [36;1mexport GOOGLE_APPLICATION_CREDENTIALS=./google-key.json[0m
+optimize	UNKNOWN STEP	2026-02-22T01:47:07.9791935Z [36;1mnode seo_optimizer.js[0m
+optimize	UNKNOWN STEP	2026-02-22T01:47:07.9792304Z [36;1m# GMB Autopilot (Staged - will succeed once API access is granted)[0m
+optimize	UNKNOWN STEP	2026-02-22T01:47:07.9792842Z [36;1mnode gmb_automated_poster.js || echo "GMB API awaiting quota"[0m
+optimize	UNKNOWN STEP	2026-02-22T01:47:07.9793522Z [36;1mnode gmb_review_manager.js || echo "GMB API awaiting quota"[0m
+optimize	UNKNOWN STEP	2026-02-22T01:47:07.9826475Z shell: /usr/bin/bash -e {0}
+optimize	UNKNOWN STEP	2026-02-22T01:47:07.9826692Z env:
+optimize	UNKNOWN STEP	2026-02-22T01:47:07.9826850Z   GROQ_API_KEY: 
+optimize	UNKNOWN STEP	2026-02-22T01:47:07.9827053Z   GOOGLE_APPLICATION_CREDENTIALS_JSON: 
+optimize	UNKNOWN STEP	2026-02-22T01:47:07.9827317Z   SITE_URL: sc-domain:smilefotilo.com
+optimize	UNKNOWN STEP	2026-02-22T01:47:07.9827548Z ##[endgroup]
+optimize	UNKNOWN STEP	2026-02-22T01:47:09.0178919Z --- STEP 1: Fetching Search Performance Data ---
+optimize	UNKNOWN STEP	2026-02-22T01:47:09.0210818Z Optimization loop failed: gaxios_1.Gaxios.mergeHeaders is not a function
+optimize	UNKNOWN STEP	2026-02-22T01:47:09.9938447Z No GMB post idea found in strategy.
+optimize	UNKNOWN STEP	2026-02-22T01:47:10.9461425Z Manual Check: GMB API Quota is currently 0. Review scanning is paused.
+optimize	UNKNOWN STEP	2026-02-22T01:47:11.0945718Z ##[group]Run git config --global user.name 'Smile Bot'
+optimize	UNKNOWN STEP	2026-02-22T01:47:11.0946447Z [36;1mgit config --global user.name 'Smile Bot'[0m
+optimize	UNKNOWN STEP	2026-02-22T01:47:11.0947127Z [36;1mgit config --global user.email 'bot@smilefotilo.com'[0m
+optimize	UNKNOWN STEP	2026-02-22T01:47:11.0947934Z [36;1mgit add strategy_output.json app/data/gmb-feed.json[0m
+optimize	UNKNOWN STEP	2026-02-22T01:47:11.0948401Z [36;1mgit commit -m "auto: daily AI growth strategy update" || echo "No changes to commit"[0m
+optimize	UNKNOWN STEP	2026-02-22T01:47:11.0948819Z [36;1mgit push[0m
+optimize	UNKNOWN STEP	2026-02-22T01:47:11.0980974Z shell: /usr/bin/bash -e {0}
+optimize	UNKNOWN STEP	2026-02-22T01:47:11.0981196Z ##[endgroup]
+optimize	UNKNOWN STEP	2026-02-22T01:47:11.2895774Z On branch main
+optimize	UNKNOWN STEP	2026-02-22T01:47:11.2896344Z Your branch is up to date with 'origin/main'.
+optimize	UNKNOWN STEP	2026-02-22T01:47:11.2896706Z 
+optimize	UNKNOWN STEP	2026-02-22T01:47:11.2896924Z Changes not staged for commit:
+optimize	UNKNOWN STEP	2026-02-22T01:47:11.2897476Z   (use "git add <file>..." to update what will be committed)
+optimize	UNKNOWN STEP	2026-02-22T01:47:11.2898199Z   (use "git restore <file>..." to discard changes in working directory)
+optimize	UNKNOWN STEP	2026-02-22T01:47:11.2898894Z 	modified:   package-lock.json
+optimize	UNKNOWN STEP	2026-02-22T01:47:11.2899159Z 
+optimize	UNKNOWN STEP	2026-02-22T01:47:11.2899286Z Untracked files:
+optimize	UNKNOWN STEP	2026-02-22T01:47:11.2899781Z   (use "git add <file>..." to include in what will be committed)
+optimize	UNKNOWN STEP	2026-02-22T01:47:11.2900305Z 	google-key.json
+optimize	UNKNOWN STEP	2026-02-22T01:47:11.2900497Z 
+optimize	UNKNOWN STEP	2026-02-22T01:47:11.2900909Z no changes added to commit (use "git add" and/or "git commit -a")
+optimize	UNKNOWN STEP	2026-02-22T01:47:11.2901521Z No changes to commit
+optimize	UNKNOWN STEP	2026-02-22T01:47:11.4890377Z remote: Write access to repository not granted.
+optimize	UNKNOWN STEP	2026-02-22T01:47:11.4891706Z fatal: unable to access 'https://github.com/ak1458/Smile-Fotilo-NEXT-js-app/': The requested URL returned error: 403
+optimize	UNKNOWN STEP	2026-02-22T01:47:11.4927211Z ##[error]Process completed with exit code 128.
+optimize	UNKNOWN STEP	2026-02-22T01:47:11.5885064Z Post job cleanup.
+optimize	UNKNOWN STEP	2026-02-22T01:47:11.6666792Z [command]/usr/bin/git version
+optimize	UNKNOWN STEP	2026-02-22T01:47:11.6708015Z git version 2.52.0
+optimize	UNKNOWN STEP	2026-02-22T01:47:11.6750261Z Copying '/home/runner/.gitconfig' to '/home/runner/work/_temp/d816386f-376e-4c13-a506-ae235844f616/.gitconfig'
+optimize	UNKNOWN STEP	2026-02-22T01:47:11.6760610Z Temporarily overriding HOME='/home/runner/work/_temp/d816386f-376e-4c13-a506-ae235844f616' before making global git config changes
+optimize	UNKNOWN STEP	2026-02-22T01:47:11.6764255Z Adding repository directory to the temporary git global config as a safe directory
+optimize	UNKNOWN STEP	2026-02-22T01:47:11.6766937Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Smile-Fotilo-NEXT-js-app/Smile-Fotilo-NEXT-js-app
+optimize	UNKNOWN STEP	2026-02-22T01:47:11.6972655Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+optimize	UNKNOWN STEP	2026-02-22T01:47:11.7008218Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+optimize	UNKNOWN STEP	2026-02-22T01:47:11.7439259Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+optimize	UNKNOWN STEP	2026-02-22T01:47:11.7464275Z http.https://github.com/.extraheader
+optimize	UNKNOWN STEP	2026-02-22T01:47:11.7477787Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+optimize	UNKNOWN STEP	2026-02-22T01:47:11.7510178Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+optimize	UNKNOWN STEP	2026-02-22T01:47:11.7857798Z Cleaning up orphan processes
