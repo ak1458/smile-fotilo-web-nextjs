@@ -45,8 +45,17 @@ export default function PortfolioPageClient({ initialRepos }: { initialRepos: Re
     // Horizontal Scroll
     const horizontalContainerRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress: horizontalScroll } = useScroll({ target: horizontalContainerRef });
-    // Adjusted the translation distance so the cards don't scroll off-screen on the left
-    const xTrack = useSmoothTransform(horizontalScroll, [0, 1], [0, -((initialRepos?.length || 1) * 300)]);
+
+    // Dynamically calculate horizontal translation & section height based on repository count
+    const repoCount = initialRepos?.length || 1;
+    // Card width (approx 500px) + gap
+    const xTrack = useSmoothTransform(horizontalScroll, [0, 1], [0, -(repoCount * 450)]);
+
+    // Interstitial Word Reveal
+    const revealRef = useRef<HTMLDivElement>(null);
+    const { scrollYProgress: revealScroll } = useScroll({ target: revealRef, offset: ["start 75%", "end 25%"] });
+    const revealText = "I CRAFT DIGITAL EXPERIENCES THAT ARE SCALABLE ROBUST AND EXCEPTIONALLY BEAUTIFUL";
+    const revealWords = revealText.split(' ');
 
     return (
         <div ref={containerRef} className="min-h-screen bg-[#020202] text-white selection:bg-white/20 font-sans overflow-x-hidden relative">
@@ -193,8 +202,8 @@ export default function PortfolioPageClient({ initialRepos }: { initialRepos: Re
                     </section>
 
                     {/* 3. HORIZONTAL SCROLL (Massive cards, structural lines) */}
-                    {/* Decreased height from 400vh to 250vh so the horizontal scroll feels snappier and doesn't scroll off into emptiness */}
-                    <section ref={horizontalContainerRef} className="relative h-[250vh] bg-transparent">
+                    {/* Dynamic height based on repositories so it doesn't scroll off into emptiness */}
+                    <section ref={horizontalContainerRef} className="relative bg-transparent" style={{ height: `calc(100vh + ${repoCount * 400}px)` }}>
 
                         <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden border-y border-white/10 bg-black/40 backdrop-blur-xl">
 
@@ -263,6 +272,23 @@ export default function PortfolioPageClient({ initialRepos }: { initialRepos: Re
                                 )}
                             </motion.div>
                         </div>
+                    </section>
+
+                    {/* Massive Interstitial Text Reveal (filling the void) */}
+                    <section ref={revealRef} className="min-h-screen flex items-center justify-center relative z-10 px-6 md:px-12 bg-transparent overflow-hidden py-32">
+                        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-violet-900/5 to-transparent mix-blend-screen pointer-events-none" />
+                        <h2 className="text-[12vw] md:text-[9vw] font-black uppercase leading-[0.85] tracking-tighter flex flex-wrap justify-center gap-x-[3vw] gap-y-[1vw] max-w-[95vw] text-center mix-blend-difference">
+                            {revealWords.map((word, i) => {
+                                const start = i / revealWords.length;
+                                // eslint-disable-next-line react-hooks/rules-of-hooks
+                                const opacity = useTransform(revealScroll, [Math.max(0, start - 0.15), start], [0.1, 1]);
+                                return (
+                                    <motion.span key={i} style={{ opacity }} className="relative text-white">
+                                        {word}
+                                    </motion.span>
+                                );
+                            })}
+                        </h2>
                     </section>
 
                     {/* 4. HIGH DENSITY TIMELINE */}
