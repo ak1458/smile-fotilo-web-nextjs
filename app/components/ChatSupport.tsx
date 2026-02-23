@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { chatWithGemini } from '../actions/chat';
+import { chatWithGemini, AI_MODELS } from '../actions/chat';
 import { EchoIcon } from './EchoIcon';
 import { MdClose, MdSend } from 'react-icons/md';
 
@@ -26,6 +26,11 @@ export const ChatSupport = () => {
     const [inputValue, setInputValue] = useState('');
     const [showTooltip, setShowTooltip] = useState(true);
     const [pendingPrompt, setPendingPrompt] = useState<string | null>(null);
+    const [selectedModel, setSelectedModel] = useState(() => {
+        if (typeof window !== 'undefined') return localStorage.getItem('echo_model') || 'auto';
+        return 'auto';
+    });
+    const [showModelPicker, setShowModelPicker] = useState(false);
 
     const chatContainerRef = useRef<HTMLDivElement>(null);
     const messageIdRef = useRef(0);
@@ -233,7 +238,7 @@ export const ChatSupport = () => {
 
         try {
             const history = messages.map(m => ({ role: m.role || 'user', parts: m.text }));
-            const response = await chatWithGemini(history, text, getClientId());
+            const response = await chatWithGemini(history, text, getClientId(), selectedModel);
 
             if (response === 'SETUP_REQUIRED') {
                 addBotMessage("I'm having trouble connecting. Please try again or contact us at +91 9453878422!", ["🔄 Try again", "📞 Call us"]);
@@ -364,11 +369,40 @@ export const ChatSupport = () => {
                     {/* Header */}
                     <div className="bg-gradient-to-r from-violet-600 to-indigo-600 p-4 text-center relative shrink-0">
                         <h3 className="text-white font-bold text-lg">Echo Assistant</h3>
-                        <p className="text-white/70 text-xs">Tap options or type to chat</p>
+                        <button
+                            onClick={() => setShowModelPicker(!showModelPicker)}
+                            className="text-white/70 text-xs hover:text-white transition-colors cursor-pointer flex items-center justify-center gap-1 mx-auto"
+                        >
+                            {AI_MODELS.find(m => m.id === selectedModel)?.name || '⚡ Auto (Smart)'}
+                            <svg width="10" height="6" viewBox="0 0 10 6" fill="none" className={`transition-transform ${showModelPicker ? 'rotate-180' : ''}`}><path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                        </button>
                         <button onClick={handleClose} className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors">
                             <MdClose className="text-white text-lg" />
                         </button>
                     </div>
+
+                    {/* Model Picker Dropdown */}
+                    {showModelPicker && (
+                        <div className="bg-slate-50 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 p-2 max-h-[200px] overflow-y-auto shrink-0">
+                            {AI_MODELS.map((model) => (
+                                <button
+                                    key={model.id}
+                                    onClick={() => {
+                                        setSelectedModel(model.id);
+                                        localStorage.setItem('echo_model', model.id);
+                                        setShowModelPicker(false);
+                                    }}
+                                    className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors flex items-center justify-between ${selectedModel === model.id
+                                            ? 'bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300'
+                                            : 'hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300'
+                                        }`}
+                                >
+                                    <span className="font-medium">{model.name}</span>
+                                    <span className="text-xs text-slate-400">{model.description}</span>
+                                </button>
+                            ))}
+                        </div>
+                    )}
 
                     {/* Messages */}
                     <div ref={chatContainerRef} className="flex-1 overflow-y-auto p-4 space-y-3 bg-slate-50 dark:bg-slate-900/50">

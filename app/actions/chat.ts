@@ -7,6 +7,19 @@ type ChatHistoryItem = { role: 'user' | 'model'; parts: string };
 type Counter = { count: number; resetTime: number };
 type PredefinedReply = { text: string; quickReplies: string[] };
 
+// Available free models for user selection
+export const AI_MODELS = [
+    { id: 'auto', name: '⚡ Auto (Smart)', description: 'Best model for each query' },
+    { id: 'z-ai/glm-4.5-air:free', name: '🧠 GLM-4.5 Air', description: 'Fast & reliable' },
+    { id: 'deepseek/deepseek-r1-0528:free', name: '🔬 DeepSeek R1', description: 'Deep reasoning' },
+    { id: 'openai/gpt-oss-120b:free', name: '🤖 GPT-OSS 120B', description: 'GPT-class power' },
+    { id: 'qwen/qwen3-coder:free', name: '💻 Qwen3 Coder', description: 'Code specialist' },
+    { id: 'stepfun/step-3.5-flash:free', name: '⚡ Step 3.5 Flash', description: 'Ultra fast' },
+    { id: 'cognitivecomputations/dolphin-mistral-24b-venice-edition:free', name: '🐬 Dolphin Mistral', description: 'Creative & open' },
+] as const;
+
+export type AIModelId = typeof AI_MODELS[number]['id'];
+
 function readPositiveNumber(value: string | undefined, fallback: number): number {
     const parsed = Number(value);
     if (!Number.isFinite(parsed) || parsed <= 0) return fallback;
@@ -293,7 +306,8 @@ if (!globalState.__echoCleanupIntervalStarted) {
 export async function chatWithGemini(
     history: ChatHistoryItem[],
     message: string,
-    clientId: string = 'anonymous'
+    clientId: string = 'anonymous',
+    selectedModel: string = 'auto'
 ) {
     const throttle = consumeRequestQuota(clientId);
     if (!throttle.allowed) {
@@ -311,6 +325,11 @@ export async function chatWithGemini(
     const predefined = getPredefinedReply(sanitizedMessage);
     if (predefined) {
         return formatReply(predefined.text, predefined.quickReplies);
+    }
+
+    // USER SELECTED A SPECIFIC MODEL → route directly to OpenRouter
+    if (selectedModel && selectedModel !== 'auto') {
+        return await callOpenRouter(sanitizedMessage, history, selectedModel);
     }
 
     // SMART ROUTING: Simple queries → OpenRouter (free), Complex → Groq (powerful)
