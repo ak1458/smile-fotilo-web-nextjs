@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
         const { businessName, industry, targetAudience, personality, existingColors } = await request.json();
 
         if (!businessName || !industry) {
-            return NextResponse.json({ error: 'Business name and industry are required' });
+            return NextResponse.json({ error: 'Business name and industry are required' }, { status: 400 });
         }
 
         const personalityStr = personality || 'professional, modern, trustworthy';
@@ -124,8 +124,7 @@ Return ONLY valid JSON (no markdown, no code blocks) with this exact structure:
         if (!parsed) {
             return NextResponse.json({
                 error: 'AI response could not be parsed. Please try again.',
-                rawOutput: rawResponse,
-            });
+            }, { status: 422 });
         }
 
         return NextResponse.json({
@@ -136,6 +135,6 @@ Return ONLY valid JSON (no markdown, no code blocks) with this exact structure:
     } catch (error: unknown) {
         console.error('[Brand Kit] Error:', error);
         const msg = error instanceof Error ? error.message : 'Unknown error';
-        return NextResponse.json({ error: `Brand kit generation failed: ${msg.slice(0, 80)}` }, { status: 200 });
+        return NextResponse.json({ error: `Brand kit generation failed: ${msg.slice(0, 80)}` }, { status: 500 });
     }
 }

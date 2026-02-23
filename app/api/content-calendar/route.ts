@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
         const { businessName, industry, platforms, tone, goals } = await request.json();
 
         if (!businessName || !industry) {
-            return NextResponse.json({ error: 'Business name and industry are required' });
+            return NextResponse.json({ error: 'Business name and industry are required' }, { status: 400 });
         }
 
         const platformList = platforms?.length ? platforms.join(', ') : 'Instagram, Facebook, LinkedIn';
@@ -107,14 +107,13 @@ Generate posts for all 7 days (Monday to Sunday). Each day should have 1 post fo
         if (!parsed) {
             return NextResponse.json({
                 error: 'AI response could not be parsed. Please try again.',
-                rawOutput: rawResponse?.slice(0, 500),
-            });
+            }, { status: 422 });
         }
 
         return NextResponse.json({ ...parsed, businessName, industry });
     } catch (error: unknown) {
         console.error('[Content Calendar] Error:', error);
         const msg = error instanceof Error ? error.message : 'Unknown error';
-        return NextResponse.json({ error: `Calendar generation failed: ${msg.slice(0, 80)}` }, { status: 200 });
+        return NextResponse.json({ error: `Calendar generation failed: ${msg.slice(0, 80)}` }, { status: 500 });
     }
 }

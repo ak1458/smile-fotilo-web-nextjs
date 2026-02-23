@@ -144,6 +144,6 @@ export async function POST(request: NextRequest) {
             summary: 'An unexpected error occurred',
             issues: [],
             recommendations: [],
-        }, { status: 200 }); // Return 200 with error data so client can display it
+        }, { status: 500 });
     }
 }

@@ -69,7 +69,7 @@ export async function POST(request: NextRequest) {
                 metaDescriptions: [],
                 contentOutline: '',
                 keywords: [],
-            });
+            }, { status: 400 });
         }
 
         const locationStr = location ? ` in ${location}` : '';
@@ -170,6 +170,6 @@ Suggest 3 pages on the business website to link to/from this content.`;
             metaDescriptions: [],
             contentOutline: '',
             keywords: [],
-        }, { status: 200 });
+        }, { status: 500 });
     }
 }
