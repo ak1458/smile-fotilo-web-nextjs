@@ -18,7 +18,7 @@ export const NavBar = () => {
         { href: '/#work', label: 'Work', icon: <MdWork /> },
         { href: '/#services', label: 'Services', icon: <MdApps /> },
         { href: '/services/clinic-growth-autopilot', label: 'Growth AI', icon: <MdLocalHospital /> },
-        { href: '/tools/website-audit', label: 'Free Audit', icon: <MdSearch /> },
+        { href: '/tools', label: 'Free Tools', icon: <MdSearch /> },
         { href: '/blog', label: 'Blog', icon: <MdArticle /> },
         { href: '/locations', label: 'Locations', icon: <MdLocationOn /> },
         { href: '/about', label: 'About', icon: <MdInfo /> },
