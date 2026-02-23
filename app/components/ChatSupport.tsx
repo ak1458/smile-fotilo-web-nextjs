@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { chatWithGemini, AI_MODELS } from '../actions/chat';
+import { chatWithGemini } from '../actions/chat';
+import { AI_MODELS } from '../data/aiModels';
 import { EchoIcon } from './EchoIcon';
 import { MdClose, MdSend } from 'react-icons/md';
 
@@ -393,8 +394,8 @@ export const ChatSupport = () => {
                                         setShowModelPicker(false);
                                     }}
                                     className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors flex items-center justify-between ${selectedModel === model.id
-                                            ? 'bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300'
-                                            : 'hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300'
+                                        ? 'bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300'
+                                        : 'hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300'
                                         }`}
                                 >
                                     <span className="font-medium">{model.name}</span>
