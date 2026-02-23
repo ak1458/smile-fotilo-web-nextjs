@@ -1,8 +1,4 @@
-import { NextResponse } from 'next/server';
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL
-    || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null)
-    || 'http://localhost:3000';
+import { NextRequest, NextResponse } from 'next/server';
 
 // All known pages with their expected characteristics
 const PAGES = [
@@ -96,9 +92,9 @@ async function checkApi(baseUrl: string, api: (typeof API_ROUTES)[number]): Prom
     }
 }
 
-export async function GET() {
+export async function GET(request: NextRequest) {
     const startTime = Date.now();
-    const baseUrl = SITE_URL;
+    const baseUrl = request.nextUrl.origin;
 
     // Check env vars (without exposing values)
     const envStatus = {
