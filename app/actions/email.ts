@@ -2,7 +2,7 @@
 
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 const COMPANY_EMAIL = 'ashrafkamal1458@gmail.com';
 const FROM_EMAIL = 'onboarding@resend.dev'; // Use your verified domain email
@@ -25,6 +25,12 @@ interface ChatLeadData {
 
 // Send email from contact form
 export async function sendContactEmail(data: ContactFormData) {
+    if (!resend) {
+        console.warn('RESEND_API_KEY is missing. Simulating contact form success in local mode.');
+        await new Promise((resolve) => setTimeout(resolve, 600));
+        return { success: true, message: 'Message received (local mode).' };
+    }
+
     try {
         // Send to company
         await resend.emails.send({
@@ -98,6 +104,11 @@ export async function sendContactEmail(data: ContactFormData) {
 
 // Send email from chatbot lead
 export async function sendChatLeadEmail(data: ChatLeadData) {
+    if (!resend) {
+        console.warn('RESEND_API_KEY is missing. Skipping chat lead email in local mode.');
+        return { success: true };
+    }
+
     try {
         // Send to company
         await resend.emails.send({

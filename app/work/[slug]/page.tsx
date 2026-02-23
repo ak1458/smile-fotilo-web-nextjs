@@ -1,5 +1,6 @@
 import { ProjectDetailClient } from './ProjectDetailClient';
 import type { Metadata } from 'next';
+import { Footer } from '../../components/Footer';
 
 export const dynamic = 'force-static';
 export const dynamicParams = false;
@@ -98,5 +99,10 @@ export function generateStaticParams() {
 
 export default async function ProjectDetailPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = (await params);
-    return <ProjectDetailClient slug={slug} />;
+    return (
+        <>
+            <ProjectDetailClient slug={slug} />
+            <Footer />
+        </>
+    );
 }

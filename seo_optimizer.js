@@ -9,6 +9,11 @@ const KEY_FILE_PATH = process.env.GOOGLE_APPLICATION_CREDENTIALS || path.join(__
 const SITE_URL = process.env.SITE_URL || 'sc-domain:smilefotilo.com';
 const GROQ_API_KEY = process.env.GROQ_API_KEY || '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';
 
+// AI PROVIDER SELECTION
+const AI_PROVIDER = process.env.AI_PROVIDER || 'groq';
+const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
+const OPENROUTER_MODEL = process.env.OPENROUTER_MODEL || 'google/gemini-2.0-flash-lite-001';
+
 async function runOptimizer() {
     const auth = new google.auth.GoogleAuth({
         keyFile: KEY_FILE_PATH,
@@ -44,14 +49,33 @@ async function runOptimizer() {
             Return in JSON format: { "gmb_post": { "title": "", "text": "" }, "web_suggestion": "" }
         `;
 
-        const groqRes = await axios.post('https://api.groq.com/openai/v1/chat/completions', {
-            model: 'llama-3.3-70b-versatile',
-            messages: [{ role: 'user', content: prompt }]
-        }, {
-            headers: { 'Authorization': `Bearer ${GROQ_API_KEY}`, 'Content-Type': 'application/json' }
-        });
+        let aiRes;
+        if (AI_PROVIDER === 'groq') {
+            aiRes = await axios.post('https://api.groq.com/openai/v1/chat/completions', {
+                model: 'llama-3.3-70b-versatile',
+                messages: [{ role: 'user', content: prompt }]
+            }, {
+                headers: { 'Authorization': `Bearer ${GROQ_API_KEY}`, 'Content-Type': 'application/json' }
+            });
+        } else if (AI_PROVIDER === 'openrouter') {
+            if (!OPENROUTER_API_KEY || OPENROUTER_API_KEY === 'your_openrouter_key_here') {
+                throw new Error('OPENROUTER_API_KEY is missing or invalid in .env.local');
+            }
+            aiRes = await axios.post('https://openrouter.ai/api/v1/chat/completions', {
+                model: OPENROUTER_MODEL,
+                messages: [{ role: 'user', content: prompt }]
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
+                    'HTTP-Referer': 'https://smilefotilo.com',
+                    'Content-Type': 'application/json'
+                }
+            });
+        } else {
+            throw new Error(`Unsupported AI_PROVIDER: ${AI_PROVIDER}`);
+        }
 
-        let content = groqRes.data.choices[0].message.content;
+        let content = aiRes.data.choices[0].message.content;
         // Basic JSON extraction if AI wraps in code blocks
         if (content.includes('```json')) {
             content = content.split('```json')[1].split('```')[0];

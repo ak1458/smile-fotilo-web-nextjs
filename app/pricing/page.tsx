@@ -1,21 +1,30 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import PricingPageClient from "./PricingPageClient";
 
 export const metadata: Metadata = {
-  title: "Pricing | Web Design Packages from ₹15,999",
+  title: "Pricing | Web Design + Clinic Growth Plans",
   description:
-    "Transparent pricing for web design, SEO, and branding. Website packages starting from ₹15,999. Choose The Starter, The Growth, or custom enterprise solutions.",
+    "Transparent pricing for web design, SEO, branding, and clinic automation. Choose Starter, Growth, Growth Autopilot, or enterprise plans.",
   alternates: {
     canonical: "/pricing",
   },
-  keywords: ["website pricing India", "web design cost", "website packages", "affordable web design", "web design Gonda", "SEO pricing"],
+  keywords: [
+    "website pricing India",
+    "web design cost",
+    "website packages",
+    "affordable web design",
+    "web design Gonda",
+    "SEO pricing",
+    "clinic automation pricing",
+  ],
   openGraph: {
-    title: "Pricing | Web Design Packages from ₹15,999 | Smile Fotilo",
-    description: "Transparent website pricing. Packages from ₹15,999 with SEO, mobile optimization, and 24/7 support included.",
+    title: "Pricing | Web Design + Clinic Growth Plans | Smile Fotilo",
+    description:
+      "Transparent pricing for web design and Growth Autopilot automation with SEO and support.",
     type: "website",
     images: [
       {
-        url: "/og?title=Website%20Pricing&subtitle=Packages%20from%20%E2%82%B915%2C999",
+        url: "/og?title=Website%20Pricing&subtitle=Web%20Design%20and%20AI%20Growth",
         width: 1200,
         height: 630,
         alt: "Smile Fotilo Pricing",
@@ -24,9 +33,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Web Design Pricing from ₹15,999 | Smile Fotilo",
-    description: "Transparent website pricing. Starter, Growth, and Enterprise packages for Indian businesses.",
-    images: ["/og?title=Website%20Pricing&subtitle=Packages%20from%20%E2%82%B915%2C999"],
+    title: "Web Design + Clinic Growth Pricing | Smile Fotilo",
+    description:
+      "Transparent pricing for Starter, Growth, Growth Autopilot, and enterprise packages.",
+    images: ["/og?title=Website%20Pricing&subtitle=Web%20Design%20and%20AI%20Growth"],
   },
 };
 

@@ -5,7 +5,7 @@ import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring, MotionValue } from 'framer-motion';
 import { Footer } from '../components/Footer';
 import Link from 'next/link';
-import { MdArrowBack, MdWorkOutline, MdSchool, MdCheckCircle, MdMemory, MdLanguage, MdCode, MdArrowOutward, MdStars } from 'react-icons/md';
+import { MdArrowBack, MdCheckCircle, MdMemory, MdLanguage, MdCode, MdArrowOutward, MdStars } from 'react-icons/md';
 
 interface Repo {
     id: number;

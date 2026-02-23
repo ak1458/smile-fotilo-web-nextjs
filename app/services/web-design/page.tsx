@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { OpenChatButton } from '../../components/OpenChatButton';
+import { Footer } from '../../components/Footer';
 
 export const metadata: Metadata = {
     title: 'Web Design & Development Services India — Starting ₹15,999 | Smile Fotilo',
@@ -121,6 +123,7 @@ export default function WebDesignPage() {
     ];
 
     return (
+        <>
         <main className="min-h-screen bg-[#020617] text-white">
             {/* FAQ Schema */}
             <script
@@ -145,9 +148,12 @@ export default function WebDesignPage() {
                         Mobile-first design, on-page SEO included, and 24/7 support. From local shops to enterprise brands.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <Link href="/#contact" className="btn-primary px-8 py-4 text-lg bg-indigo-600 hover:bg-indigo-500 rounded-xl font-semibold">
-                            Get Free Quote
-                        </Link>
+                        <OpenChatButton
+                            prompt="I need a website quote. Please ask me about pages, features, budget, and timeline."
+                            className="btn-primary px-8 py-4 text-lg bg-indigo-600 hover:bg-indigo-500 rounded-xl font-semibold"
+                        >
+                            <span>Get Free Quote</span>
+                        </OpenChatButton>
                         <Link href="/work" className="btn-secondary px-8 py-4 text-lg border border-white/20 rounded-xl hover:bg-white/5">
                             View Portfolio
                         </Link>
@@ -227,9 +233,12 @@ export default function WebDesignPage() {
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Build Your Website?</h2>
                     <p className="text-xl text-white/80 mb-8">Book a free strategy call. No pressure, just honest advice.</p>
-                    <Link href="/#contact" className="inline-block bg-white text-indigo-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-slate-100 transition-colors">
-                        Get Started Today
-                    </Link>
+                    <OpenChatButton
+                        prompt="I am ready to start my website project. Please guide me with next steps."
+                        className="inline-block bg-white text-indigo-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-slate-100 transition-colors"
+                    >
+                        <span>Get Started Today</span>
+                    </OpenChatButton>
                 </div>
             </section>
 
@@ -246,5 +255,7 @@ export default function WebDesignPage() {
                 </div>
             </section>
         </main>
+        <Footer />
+        </>
     );
 }

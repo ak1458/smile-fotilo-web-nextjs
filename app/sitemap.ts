@@ -81,6 +81,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
             changeFrequency: 'monthly',
             priority: 0.9,
         },
+        {
+            url: `${baseUrl}/services/ai-growth-os`,
+            lastModified: now,
+            changeFrequency: 'monthly',
+            priority: 0.9,
+        },
+        {
+            url: `${baseUrl}/services/clinic-growth-autopilot`,
+            lastModified: now,
+            changeFrequency: 'monthly',
+            priority: 0.9,
+        },
         // Work / Portfolio
         {
             url: `${baseUrl}/work`,

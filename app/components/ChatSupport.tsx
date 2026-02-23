@@ -14,6 +14,9 @@ type Message = {
 };
 
 type ChatbotState = 'idle' | 'hover' | 'active';
+type OpenChatEventDetail = { message?: string };
+
+const OPEN_CHAT_EVENT = 'echo:open-chat';
 
 export const ChatSupport = () => {
     const [mounted, setMounted] = useState(false);
@@ -22,15 +25,31 @@ export const ChatSupport = () => {
     const [isTyping, setIsTyping] = useState(false);
     const [inputValue, setInputValue] = useState('');
     const [showTooltip, setShowTooltip] = useState(true);
+    const [pendingPrompt, setPendingPrompt] = useState<string | null>(null);
 
     const chatContainerRef = useRef<HTMLDivElement>(null);
     const messageIdRef = useRef(0);
     const clientIdRef = useRef<string>('');
     const initializedRef = useRef(false);
+    const CLIENT_ID_STORAGE_KEY = 'echo_client_id';
 
     const getClientId = () => {
         if (!clientIdRef.current) {
-            clientIdRef.current = `client-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+            let stableId = '';
+            if (typeof window !== 'undefined') {
+                try {
+                    const existing = localStorage.getItem(CLIENT_ID_STORAGE_KEY);
+                    if (existing && /^client-[a-z0-9-]+$/i.test(existing)) {
+                        stableId = existing;
+                    } else {
+                        stableId = `client-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 11)}`;
+                        localStorage.setItem(CLIENT_ID_STORAGE_KEY, stableId);
+                    }
+                } catch {
+                    stableId = '';
+                }
+            }
+            clientIdRef.current = stableId || `client-${Date.now()}-${Math.random().toString(36).slice(2, 11)}`;
         }
         return clientIdRef.current;
     };
@@ -66,6 +85,37 @@ export const ChatSupport = () => {
         }
 
         return { text: response };
+    };
+
+    // Client-side fallback when server action fails, so chat never dead-ends.
+    const getClientFallbackReply = (raw: string): { text: string; quickReplies?: string[] } => {
+        const text = raw.toLowerCase();
+
+        if (text.includes('price') || text.includes('pricing') || text.includes('cost') || text.includes('budget')) {
+            return {
+                text: "Starter is INR 15k, Growth starts INR 35k, and Growth Autopilot starts INR 9,999 monthly.",
+                quickReplies: ["Starter plan", "Growth plan", "Autopilot plan"]
+            };
+        }
+
+        if (text.includes('autopilot') || text.includes('clinic') || text.includes('automation')) {
+            return {
+                text: "Growth Autopilot is clinic-first and automates followups, reminders, reviews, and bilingual support.",
+                quickReplies: ["How it works", "Book pilot", "Pricing"]
+            };
+        }
+
+        if (text.includes('service') || text.includes('offer')) {
+            return {
+                text: "We offer web development, SEO, branding, and Growth Autopilot automation.",
+                quickReplies: ["Web Design", "SEO", "Growth Autopilot"]
+            };
+        }
+
+        return {
+            text: "I am in basic mode right now. Ask pricing, services, autopilot, or contact details.",
+            quickReplies: ["Pricing", "Services", "Contact"]
+        };
     };
 
     const addBotMessage = (text: string, quickReplies?: string[]) => {
@@ -125,6 +175,33 @@ export const ChatSupport = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    // Open chatbot from any page CTA.
+    useEffect(() => {
+        const handleOpenChat = (event: Event) => {
+            const customEvent = event as CustomEvent<OpenChatEventDetail>;
+            const prompt = customEvent.detail?.message?.trim();
+
+            setShowTooltip(false);
+            setChatState('active');
+
+            if (prompt) {
+                setPendingPrompt(prompt);
+            }
+        };
+
+        window.addEventListener(OPEN_CHAT_EVENT, handleOpenChat as EventListener);
+        return () => window.removeEventListener(OPEN_CHAT_EVENT, handleOpenChat as EventListener);
+    }, []);
+
+    // If a CTA provided a prompt, send it automatically after chat opens.
+    useEffect(() => {
+        if (!pendingPrompt || isTyping) return;
+        addUserMessage(pendingPrompt);
+        void sendToAI(pendingPrompt);
+        setPendingPrompt(null);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [pendingPrompt, isTyping]);
 
     // Auto-scroll
     useEffect(() => {
@@ -190,7 +267,8 @@ export const ChatSupport = () => {
             }]);
 
         } catch {
-            addBotMessage("Sorry, I'm having trouble. Would you like to try again?", ["🔄 Try again", "📞 Call us"]);
+            const fallback = getClientFallbackReply(text);
+            addBotMessage(fallback.text, fallback.quickReplies);
         }
     };
 

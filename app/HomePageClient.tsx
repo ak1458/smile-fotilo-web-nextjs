@@ -5,10 +5,11 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Footer } from './components/Footer';
 import { BackToTop } from './components/BackToTop';
-import { MdCode, MdTrendingUp, MdPhotoCamera, MdSupportAgent, MdMail, MdSchedule, MdArrowOutward, MdArrowForward, MdPublic, MdPayments } from 'react-icons/md';
+import { MdCode, MdTrendingUp, MdPhotoCamera, MdSupportAgent, MdMail, MdSchedule, MdArrowOutward, MdArrowForward, MdPublic, MdPayments, MdLocalHospital } from 'react-icons/md';
 
 import { ContactForm } from './components/ContactForm';
 import { Testimonials } from './components/Testimonials';
+import { AILocalBusinessOS } from './components/AILocalBusinessOS';
 import Link from 'next/link';
 
 const Hero = () => {
@@ -68,7 +69,7 @@ const Hero = () => {
           <a href="#work" className="btn-primary px-8 py-4 text-lg min-w-[180px] text-center">
             <span>View Our Work</span>
           </a>
-          <a href="#contact" className="btn-secondary px-8 py-4 text-lg min-w-[180px] text-center">
+          <a href="tel:+919453878422" className="btn-secondary px-8 py-4 text-lg min-w-[180px] text-center">
             Book Strategy Call
           </a>
         </motion.div>
@@ -82,7 +83,8 @@ const Services = () => {
     { icon: <MdCode />, title: 'Web Development', desc: 'Fast, secure, and SEO-optimized websites on WordPress & Custom Stacks.' },
     { icon: <MdTrendingUp />, title: 'Digital Growth', desc: 'Data-driven SEO and Google Ads strategies that bring customers.' },
     { icon: <MdPhotoCamera />, title: 'Creative Studio', desc: 'High-end product photography and brand identity design.' },
-    { icon: <MdSupportAgent />, title: '24/7 Support', desc: 'Dedicated support team to help you grow your business.' }
+    { icon: <MdSupportAgent />, title: '24/7 Support', desc: 'Dedicated support team to help you grow your business.' },
+    { icon: <MdLocalHospital />, title: 'Growth Autopilot', desc: 'Clinic-first missed-call recovery, reminders, review workflows, and bilingual inquiry handling.' }
   ];
 
   return (
@@ -101,7 +103,7 @@ const Services = () => {
           <h2 className="text-3xl md:text-5xl font-bold text-slate-50 mt-3">Digital Solutions</h2>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
           {services.map((service, index) => (
             <motion.div
               key={index}
@@ -164,7 +166,7 @@ const Pricing = () => {
             <div className="text-indigo-400 font-bold uppercase text-xs mb-2">The Growth</div>
             <h3 className="text-2xl font-bold text-slate-50 mb-4">₹35k <span className="text-sm text-slate-400 font-normal">/ starting</span></h3>
             <p className="text-sm text-slate-400 mb-8">For retail brands ready to sell online. Dynamic content management.</p>
-            <Link href="/pricing" className="btn-primary block w-full py-3 text-center">Choose Growth</Link>
+            <Link href="/pricing" className="btn-primary block w-full py-3 text-center"><span>Choose Growth</span></Link>
           </motion.div>
 
           <motion.div
@@ -391,6 +393,7 @@ export default function Home() {
     <main className="min-h-screen font-sans selection:bg-indigo-500 selection:text-white bg-[#020617]">
       <Hero />
       <Services />
+      <AILocalBusinessOS />
       <Portfolio />
       <Testimonials />
       <GlobalReach />
@@ -424,6 +427,10 @@ const FAQ = () => {
     {
       question: "What support do you provide after launch?",
       answer: "We provide 24/7 dedicated support including website maintenance, security updates, performance optimization, and ongoing SEO improvements."
+    },
+    {
+      question: "Do you offer AI automation services for local businesses?",
+      answer: "Yes. Our flagship Growth Autopilot is clinic-first and helps automate followups, reminders, reviews, and patient inquiry workflows."
     }
   ];
 

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { MdArrowBack } from 'react-icons/md';
+import { Footer } from '../components/Footer';
 
 export const metadata: Metadata = {
     title: 'Terms of Service | Smile Fotilo',
@@ -12,10 +13,11 @@ export const metadata: Metadata = {
 
 export default function TermsOfServicePage() {
     return (
-        <main className="min-h-screen bg-[#020617] text-white pt-24 pb-20">
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h1 className="text-4xl md:text-5xl font-bold mb-8">Terms of Service</h1>
-                <p className="text-slate-400 mb-8">Last updated: January 24, 2026</p>
+        <>
+            <main className="min-h-screen bg-[#020617] text-white pt-24 pb-20">
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h1 className="text-4xl md:text-5xl font-bold mb-8">Terms of Service</h1>
+                    <p className="text-slate-400 mb-8">Last updated: January 24, 2026</p>
 
                 <div className="prose prose-invert prose-slate max-w-none space-y-8">
                     <section>
@@ -98,13 +100,15 @@ export default function TermsOfServicePage() {
                     </section>
                 </div>
 
-                <div className="mt-12 pt-8 border-t border-white/10">
-                    <Link href="/" className="text-indigo-400 hover:text-indigo-300 inline-flex items-center gap-2">
-                        <MdArrowBack />
-                        Back to Home
-                    </Link>
+                    <div className="mt-12 pt-8 border-t border-white/10">
+                        <Link href="/" className="text-indigo-400 hover:text-indigo-300 inline-flex items-center gap-2">
+                            <MdArrowBack />
+                            Back to Home
+                        </Link>
+                    </div>
                 </div>
-            </div>
-        </main>
+            </main>
+            <Footer />
+        </>
     );
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import BlogPageClient from "./BlogPageClient";
+import { Footer } from "../components/Footer";
 
 export const metadata: Metadata = {
   title: "Blog | Smile Fotilo",
@@ -11,6 +12,10 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <BlogPageClient />;
+  return (
+    <>
+      <BlogPageClient />
+      <Footer />
+    </>
+  );
 }
-

@@ -6,6 +6,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { blogPosts, getBlogPost, getRecentPosts } from '../../data/blogPosts';
 import { ReadingProgressBar } from './ReadingProgressBar';
+import { Footer } from '../../components/Footer';
 
 type Params = Promise<{ slug: string }>;
 
@@ -335,6 +336,7 @@ export default async function BlogPostPage({ params }: { params: Params }) {
                     </section>
                 )}
             </main>
+            <Footer />
         </>
     );
 }

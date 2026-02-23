@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { OpenChatButton } from '../../components/OpenChatButton';
+import { Footer } from '../../components/Footer';
 
 export const metadata: Metadata = {
     title: 'Brand Identity & Logo Design India — Starting ₹7,999 | Smile Fotilo',
@@ -121,6 +123,7 @@ export default function BrandingPage() {
     ];
 
     return (
+        <>
         <main className="min-h-screen bg-[#020617] text-white">
             {/* FAQ Schema */}
             <script
@@ -145,9 +148,12 @@ export default function BrandingPage() {
                         3 concepts, 2 revision rounds, all vector files included. From startups to established businesses.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <Link href="/#contact" className="btn-primary px-8 py-4 text-lg bg-rose-600 hover:bg-rose-500 rounded-xl font-semibold">
-                            Start Your Brand
-                        </Link>
+                        <OpenChatButton
+                            prompt="I want to start a branding project. Ask me about my brand, audience, and style."
+                            className="btn-primary px-8 py-4 text-lg bg-rose-600 hover:bg-rose-500 rounded-xl font-semibold"
+                        >
+                            <span>Start Your Brand</span>
+                        </OpenChatButton>
                         <Link href="/work" className="btn-secondary px-8 py-4 text-lg border border-white/20 rounded-xl hover:bg-white/5">
                             See Our Work
                         </Link>
@@ -227,9 +233,12 @@ export default function BrandingPage() {
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Build Your Brand?</h2>
                     <p className="text-xl text-white/80 mb-8">Let&apos;s create something memorable together.</p>
-                    <Link href="/#contact" className="inline-block bg-white text-rose-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-slate-100 transition-colors">
-                        Start Your Project
-                    </Link>
+                    <OpenChatButton
+                        prompt="I am ready to start my brand project. Help me with scope and next steps."
+                        className="inline-block bg-white text-rose-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-slate-100 transition-colors"
+                    >
+                        <span>Start Your Project</span>
+                    </OpenChatButton>
                 </div>
             </section>
 
@@ -246,5 +255,7 @@ export default function BrandingPage() {
                 </div>
             </section>
         </main>
+        <Footer />
+        </>
     );
 }

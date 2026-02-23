@@ -4,7 +4,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MdHome, MdWork, MdApps, MdArticle, MdLocationOn, MdInfo, MdChevronRight } from 'react-icons/md';
+import { MdHome, MdWork, MdApps, MdArticle, MdLocationOn, MdInfo, MdChevronRight, MdLocalHospital } from 'react-icons/md';
 
 export const NavBar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -17,6 +17,7 @@ export const NavBar = () => {
         { href: '/#home', label: 'Home', icon: <MdHome /> },
         { href: '/#work', label: 'Work', icon: <MdWork /> },
         { href: '/#services', label: 'Services', icon: <MdApps /> },
+        { href: '/services/clinic-growth-autopilot', label: 'Growth AI', icon: <MdLocalHospital /> },
         { href: '/blog', label: 'Blog', icon: <MdArticle /> },
         { href: '/locations', label: 'Locations', icon: <MdLocationOn /> },
         { href: '/about', label: 'About', icon: <MdInfo /> },

@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { OpenChatButton } from '../../components/OpenChatButton';
+import { Footer } from '../../components/Footer';
 
 export const metadata: Metadata = {
     title: 'SEO & GEO Services India — Zero Position Ranking | Smile Fotilo',
@@ -111,6 +113,7 @@ const faqSchema = {
 
 export default function SEOPage() {
     return (
+        <>
         <main className="min-h-screen bg-[#020617] text-white">
             {/* FAQ Schema */}
             <script
@@ -131,9 +134,12 @@ export default function SEOPage() {
                         Featured Snippets, and traditional search. Get found by both humans and AI models.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <Link href="/#contact" className="btn-primary px-8 py-4 text-lg bg-emerald-600 hover:bg-emerald-500 rounded-xl font-semibold">
-                            Free SEO Audit
-                        </Link>
+                        <OpenChatButton
+                            prompt="I want a free SEO and GEO audit. Ask me about my website and goals."
+                            className="btn-primary px-8 py-4 text-lg bg-emerald-600 hover:bg-emerald-500 rounded-xl font-semibold"
+                        >
+                            <span>Free SEO Audit</span>
+                        </OpenChatButton>
                         <Link href="/work" className="btn-secondary px-8 py-4 text-lg border border-white/20 rounded-xl hover:bg-white/5">
                             See Results
                         </Link>
@@ -276,9 +282,12 @@ export default function SEOPage() {
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <h2 className="text-3xl md:text-4xl font-bold mb-6">Get Your Free SEO & GEO Audit</h2>
                     <p className="text-xl text-white/80 mb-8">Discover what&apos;s stopping you from Zero Position. We&apos;ll analyze your site for both traditional SEO and AI readability.</p>
-                    <Link href="/#contact" className="inline-block bg-white text-emerald-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-slate-100 transition-colors">
-                        Request Free Audit
-                    </Link>
+                    <OpenChatButton
+                        prompt="Please start my SEO and GEO audit request and collect the project details."
+                        className="inline-block bg-white text-emerald-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-slate-100 transition-colors"
+                    >
+                        <span>Request Free Audit</span>
+                    </OpenChatButton>
                 </div>
             </section>
 
@@ -295,5 +304,7 @@ export default function SEOPage() {
                 </div>
             </section>
         </main>
+        <Footer />
+        </>
     );
 }
