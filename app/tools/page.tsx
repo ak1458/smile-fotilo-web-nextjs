@@ -32,26 +32,24 @@ const tools = [
         features: ['Blog titles', 'Meta descriptions', '15 keywords', 'Content outlines'],
     },
     {
-        href: '#',
+        href: '/tools/brand-kit',
         title: 'AI Brand Kit',
         emoji: '🎨',
         color: 'from-amber-600 to-orange-600',
-        borderColor: 'border-amber-500/20',
-        glowColor: '',
+        borderColor: 'border-amber-500/20 hover:border-amber-500/40',
+        glowColor: 'group-hover:shadow-amber-500/20',
         description: 'Upload your business info and get AI-generated color palettes, taglines, and brand voice guidelines.',
         features: ['Color palettes', 'Taglines', 'Brand voice', 'Social templates'],
-        comingSoon: true,
     },
     {
-        href: '#',
+        href: '/tools/content-calendar',
         title: 'Content Calendar',
         emoji: '📅',
         color: 'from-pink-600 to-rose-600',
-        borderColor: 'border-pink-500/20',
-        glowColor: '',
-        description: 'Get a 30-day social media content calendar with post ideas, captions, and hashtags — tailored to your industry.',
-        features: ['30-day plan', 'Post ideas', 'Captions', 'Hashtags'],
-        comingSoon: true,
+        borderColor: 'border-pink-500/20 hover:border-pink-500/40',
+        glowColor: 'group-hover:shadow-pink-500/20',
+        description: 'Get a 7-day social media content calendar with AI-written captions, hashtags, and posting tips.',
+        features: ['7-day plan', 'Post captions', 'Hashtags', 'Best times'],
     },
 ];
 
@@ -83,14 +81,8 @@ export default function ToolsPage() {
                         <Link
                             key={tool.title}
                             href={tool.href}
-                            className={`group relative bg-white/5 rounded-2xl border ${tool.borderColor} p-6 transition-all duration-300 shadow-lg ${tool.glowColor} ${tool.comingSoon ? 'pointer-events-none opacity-60' : 'hover:bg-white/[0.07] hover:shadow-xl hover:-translate-y-1'}`}
+                            className={`group relative bg-white/5 rounded-2xl border ${tool.borderColor} p-6 transition-all duration-300 shadow-lg ${tool.glowColor} hover:bg-white/[0.07] hover:shadow-xl hover:-translate-y-1`}
                         >
-                            {tool.comingSoon && (
-                                <span className="absolute top-4 right-4 px-2 py-0.5 bg-white/10 border border-white/10 rounded-full text-white/40 text-[10px] uppercase tracking-wider font-medium">
-                                    Coming Soon
-                                </span>
-                            )}
-
                             <div className="flex items-center gap-3 mb-3">
                                 <span className="text-3xl">{tool.emoji}</span>
                                 <h2 className="text-xl font-bold">{tool.title}</h2>
@@ -106,11 +98,9 @@ export default function ToolsPage() {
                                 ))}
                             </div>
 
-                            {!tool.comingSoon && (
-                                <span className={`inline-flex items-center gap-1.5 text-sm font-medium bg-gradient-to-r ${tool.color} bg-clip-text text-transparent`}>
-                                    Try it free →
-                                </span>
-                            )}
+                            <span className={`inline-flex items-center gap-1.5 text-sm font-medium bg-gradient-to-r ${tool.color} bg-clip-text text-transparent`}>
+                                Try it free →
+                            </span>
                         </Link>
                     ))}
                 </div>
