@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import { runWebsiteAudit } from '../../actions/audit';
 import Link from 'next/link';
 
 type AuditResult = {
@@ -11,7 +10,6 @@ type AuditResult = {
     summary: string;
     issues: { category: string; severity: 'critical' | 'warning' | 'info'; message: string }[];
     recommendations: string[];
-    quickReplies: string[];
 };
 
 const severityStyles = {
@@ -48,17 +46,21 @@ export default function WebsiteAuditPage() {
         setIsAuditing(true);
         setResult(null);
         try {
-            const auditResult = await runWebsiteAudit(url.trim());
-            setResult(auditResult);
+            const res = await fetch('/api/audit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ url: url.trim() }),
+            });
+            const data = await res.json();
+            setResult(data);
         } catch {
             setResult({
                 url,
                 score: 0,
                 grade: 'N/A',
-                summary: 'Something went wrong. Please try again.',
+                summary: 'Network error. Please check your connection and try again.',
                 issues: [],
                 recommendations: [],
-                quickReplies: [],
             });
         }
         setIsAuditing(false);
