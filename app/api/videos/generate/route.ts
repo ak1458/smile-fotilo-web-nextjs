@@ -151,11 +151,11 @@ TOTAL SCRIPT: (full script)`
 
   if (!response.ok) {
     // Fallback to template if Groq fails
-    return generateFallbackScript(prompt);
+    return generateFallbackScript();
   }
 
   const data = await response.json();
-  return data.choices[0]?.message?.content || generateFallbackScript(prompt);
+  return data.choices[0]?.message?.content || generateFallbackScript();
 }
 
 async function generateCaptionsWithGemini(prompt: string, language: string): Promise<string[]> {
@@ -195,7 +195,7 @@ CAPTION 3:
     );
 
     if (!response.ok) {
-      return generateFallbackCaptions(prompt);
+      return generateFallbackCaptions();
     }
 
     const data = await response.json();
@@ -204,10 +204,10 @@ CAPTION 3:
     // Parse captions
     const captions = text.split('CAPTION').filter(Boolean).map((c: string) => c.replace(/^\d+:/, '').trim());
 
-    return captions.length >= 3 ? captions : generateFallbackCaptions(prompt);
+    return captions.length >= 3 ? captions : generateFallbackCaptions();
 
   } catch {
-    return generateFallbackCaptions(prompt);
+    return generateFallbackCaptions();
   }
 }
 
@@ -287,7 +287,7 @@ Need help? Contact support!
 `;
 }
 
-function generateFallbackScript(prompt: string): string {
+function generateFallbackScript(): string {
   return `HOOK: Namaste! Aaj main aapke liye khaas information lekar aaya hoon...
 
 BODY: Hamari clinic mein aapko best care milta hai. Modern equipment, experienced doctors, aur affordable prices. Aapka health hamara priority hai!
@@ -295,7 +295,7 @@ BODY: Hamari clinic mein aapko best care milta hai. Modern equipment, experience
 CTA: Aaj hi appointment book karein! Call karein ya WhatsApp karein.`;
 }
 
-function generateFallbackCaptions(prompt: string): string[] {
+function generateFallbackCaptions(): string[] {
   return [
     '✨ New update from our business! Check it out 👆 #LocalBusiness #India',
     '🌟 Exciting news! We\'re here to serve you better. Swipe to know more 👉 #SupportLocal',

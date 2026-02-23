@@ -42,7 +42,7 @@ export async function generateAIResponse(
     try {
       const result = await callOpenRouterFree(prompt, maxTokens, temperature);
       if (result) return result;
-    } catch (e) {
+    } catch {
       console.log('OpenRouter free failed, trying Gemini');
     }
   }
@@ -55,7 +55,7 @@ export async function generateAIResponse(
         usageTracker.gemini.count++;
         return result;
       }
-    } catch (e) {
+    } catch {
       console.log('Gemini failed or limit reached, trying Groq');
     }
   }
@@ -64,7 +64,7 @@ export async function generateAIResponse(
   try {
     const result = await callGroq(prompt, maxTokens, temperature);
     if (result) return result;
-  } catch (e) {
+  } catch {
     console.log('Groq failed, using fallback template');
   }
 
@@ -280,7 +280,7 @@ export async function generateEmbedding(text: string): Promise<number[] | null> 
         const data = await response.json();
         return data.embedding?.values || null;
       }
-    } catch (e) {
+    } catch {
       console.log('Gemini embedding failed');
     }
   }
@@ -304,7 +304,7 @@ export async function generateEmbedding(text: string): Promise<number[] | null> 
         const data = await response.json();
         return data.data?.[0]?.embedding || null;
       }
-    } catch (e) {
+    } catch {
       console.log('OpenRouter embedding failed');
     }
   }
