@@ -24,11 +24,14 @@ async function runOptimizer() {
 
     try {
         console.log('--- STEP 1: Fetching Search Performance Data ---');
+        const dateRange = getDateRange();
+        console.log(`Date Range: ${dateRange.startDate} to ${dateRange.endDate}`);
+        
         const res = await searchconsole.searchanalytics.query({
             siteUrl: SITE_URL,
             requestBody: {
-                startDate: '2026-01-20',
-                endDate: '2026-02-21',
+                startDate: dateRange.startDate,
+                endDate: dateRange.endDate,
                 dimensions: ['QUERY'],
                 rowLimit: 20,
             },
@@ -92,10 +95,20 @@ async function runOptimizer() {
         console.log('\nSuccessfully saved to strategy_output.json');
 
     } catch (err) {
-        console.error('Optimization loop failed:', err.message);
-        if (err.response && err.response.data) {
-            console.error('Detailed Error:', JSON.stringify(err.response.data, null, 2));
+        console.error('❌ Optimization loop failed:', err.message);
+        console.error('Stack trace:', err.stack);
+        
+        // Check for specific errors
+        if (err.message.includes('gaxios')) {
+            console.error('🔧 This is a gaxios compatibility issue. Try running: npm install gaxios@6.3.0');
         }
+        if (err.message.includes('401') || err.message.includes('403')) {
+            console.error('🔐 Authentication error. Check your GOOGLE_SERVICE_ACCOUNT_JSON secret.');
+        }
+        if (err.response && err.response.data) {
+            console.error('API Error Details:', JSON.stringify(err.response.data, null, 2));
+        }
+        process.exit(1);
     }
 }
 

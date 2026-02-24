@@ -1,0 +1,12 @@
+{
+  "totalChecks": 34,
+  "non200Pages": 0,
+  "pagesWithOverflowX": 0,
+  "pagesWithBrokenImages": 0,
+  "pagesWithClippedText": 7,
+  "pagesWithConsoleIssues": 5,
+  "pagesWithFailedResponses": 0,
+  "pagesWithTinyTouchTargets": 34,
+  "axeViolations": 0,
+  "outPath": "D:\\gravity\\smilefotilo live on varcel\\smile-fotilo\\audit-output\\live-ui-audit.json"
+}

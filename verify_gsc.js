@@ -3,9 +3,9 @@ const { google } = require('googleapis');
 const path = require('path');
 const fs = require('fs');
 
-// Path to your JSON key file (adjust if the name is different)
-const KEY_FILE_PATH = path.join(__dirname, '..', 'captcha-1747281225780-8777cd95d4a8.json');
-const SITE_URL = 'sc-domain:smilefotilo.com';
+// Support both environment variable and local file
+const KEY_FILE_PATH = process.env.GOOGLE_APPLICATION_CREDENTIALS || path.join(__dirname, 'google-key.json');
+const SITE_URL = process.env.SITE_URL || 'sc-domain:smilefotilo.com';
 
 async function verifyAccess() {
     try {

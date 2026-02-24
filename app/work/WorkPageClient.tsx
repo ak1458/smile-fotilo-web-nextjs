@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 'use client';
 
 import React from 'react';
@@ -6,6 +5,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Footer } from '../components/Footer';
 import { MdArrowForward, MdOpenInNew } from 'react-icons/md';
+import Image from 'next/image';
 
 export default function WorkPage() {
     const projects = [
@@ -114,10 +114,13 @@ export default function WorkPage() {
                             {/* Image Section */}
                             <div className="h-[300px] md:h-[400px] w-full overflow-hidden relative">
                                 <div className={`absolute inset-0 bg-gradient-to-b from-transparent to-[#0f0720] z-10 opacity-60`} />
-                                <img
+                                <Image
                                     src={project.image}
                                     alt={project.title}
-                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                    fill
+                                    sizes="(max-width: 768px) 100vw, 50vw"
+                                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                    loading={index < 2 ? 'eager' : 'lazy'}
                                 />
                             </div>
 
@@ -151,8 +154,8 @@ export default function WorkPage() {
                 >
                     <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-indigo-500 to-transparent opacity-50" />
                     <div className="relative z-10">
-                        <div className="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-8 border border-white/10">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" className="w-10 h-10 invert opacity-80" alt="GitHub" />
+                        <div className="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-8 border border-white/10 relative">
+                            <Image src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" fill className="object-contain p-5 invert opacity-80" alt="GitHub" unoptimized />
                         </div>
                         <h2 className="text-3xl md:text-4xl font-bold mb-6">Explore the Codebase</h2>
                         <p className="text-slate-400 max-w-2xl mx-auto mb-10 text-lg">

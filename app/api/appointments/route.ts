@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { createAdminClient } from '@/app/lib/supabase/admin';
+import { canAccessBusiness, getCurrentUser } from '@/app/lib/auth/session';
 
 const appointmentSchema = z.object({
   businessId: z.string().uuid(),
@@ -17,6 +18,12 @@ export async function GET(request: NextRequest) {
   try {
     const businessId = request.nextUrl.searchParams.get('businessId');
     if (!businessId) return NextResponse.json({ error: 'businessId is required' }, { status: 400 });
+
+    const user = await getCurrentUser();
+    if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    if (!(await canAccessBusiness(user.id, businessId))) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+    }
 
     const supabase = createAdminClient();
     const { data, error } = await supabase
@@ -36,7 +43,14 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    const user = await getCurrentUser();
+    if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+
     const payload = appointmentSchema.parse(await request.json());
+    if (!(await canAccessBusiness(user.id, payload.businessId))) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+    }
+
     const supabase = createAdminClient();
 
     const { data, error } = await supabase

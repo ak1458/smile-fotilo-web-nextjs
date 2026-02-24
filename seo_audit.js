@@ -3,8 +3,8 @@ const { google } = require('googleapis');
 const path = require('path');
 
 
-const KEY_FILE_PATH = path.join(__dirname, '..', 'captcha-1747281225780-8777cd95d4a8.json');
-const SITE_URL = 'sc-domain:smilefotilo.com';
+const KEY_FILE_PATH = process.env.GOOGLE_APPLICATION_CREDENTIALS || path.join(__dirname, 'google-key.json');
+const SITE_URL = process.env.SITE_URL || 'sc-domain:smilefotilo.com';
 
 async function performAudit() {
     try {

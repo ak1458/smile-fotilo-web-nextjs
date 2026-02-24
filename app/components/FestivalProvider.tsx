@@ -25,7 +25,9 @@ export const FestivalProvider = ({ children }: { children: React.ReactNode }) =>
             if (found) {
                 setActiveFestival(found);
                 document.documentElement.classList.add(found.themeClass);
-                console.log(`🎉 Happy ${found.name}! Theme activated.`);
+                if (process.env.NODE_ENV === 'development') {
+                    console.log(`🎉 Happy ${found.name}! Theme activated.`);
+                }
             } else {
                 setActiveFestival(null);
                 // Cleanup all possible themes

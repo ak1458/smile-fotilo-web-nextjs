@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MdArrowUpward } from 'react-icons/md';
 
-export const BackToTop = () => {
+export const BackToTop = React.memo(() => {
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
@@ -43,4 +43,6 @@ export const BackToTop = () => {
             )}
         </AnimatePresence>
     );
-};
+});
+
+BackToTop.displayName = 'BackToTop';

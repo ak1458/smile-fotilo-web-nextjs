@@ -1,0 +1,46 @@
+name: Dependency Update Check
+
+on:
+  schedule:
+    # Run daily at 06:00 UTC
+    - cron: '0 6 * * *'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  check-updates:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        
+    - name: Check for outdated dependencies
+      run: |
+        npm outdated > outdated-dependencies.txt 2>&1 || true
+        cat outdated-dependencies.txt
+        
+    - name: Create issue if updates available
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+          const content = fs.readFileSync('outdated-dependencies.txt', 'utf8');
+          
+          if (content.includes('Package') && content.includes('Current')) {
+            const title = `📦 Dependency Updates Available - ${new Date().toISOString().split('T')[0]}`;
+            const body = `## Outdated Dependencies\n\n\`\`\`\n${content}\n\`\`\`\n\nPlease review and update dependencies. Run \`npm update\` locally and test before deploying.`;
+            
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: title,
+              body: body,
+              labels: ['dependencies', 'automated']
+            });
+          }

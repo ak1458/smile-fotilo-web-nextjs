@@ -1,12 +1,12 @@
-/* eslint-disable @next/next/no-img-element */
 'use client';
 
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MdHome, MdWork, MdApps, MdArticle, MdLocationOn, MdInfo, MdChevronRight, MdLocalHospital, MdSearch } from 'react-icons/md';
+import Image from 'next/image';
 
-export const NavBar = () => {
+export const NavBar = React.memo(() => {
     const [isOpen, setIsOpen] = useState(false);
 
     const handleLinkClick = () => {
@@ -31,8 +31,15 @@ export const NavBar = () => {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center h-20">
                         {/* Logo */}
-                        <Link href="/" className="flex items-center gap-2 group" onClick={handleLinkClick}>
-                            <img src="/logo.png" alt="Smile Fotilo Logo" className="h-10 w-auto object-contain transition-all" />
+                        <Link href="/" className="flex items-center gap-2 group relative h-10 w-auto" onClick={handleLinkClick}>
+                            <Image 
+                                src="/logo.png" 
+                                alt="Smile Fotilo Logo" 
+                                width={120} 
+                                height={40}
+                                className="h-10 w-auto object-contain transition-all" 
+                                priority
+                            />
                         </Link>
 
                         {/* Desktop Menu */}
@@ -138,4 +145,6 @@ export const NavBar = () => {
             </AnimatePresence>
         </nav>
     );
-};
+});
+
+NavBar.displayName = 'NavBar';

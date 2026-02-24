@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { MdHome, MdLocationOn, MdCall, MdApps, MdEmail } from 'react-icons/md';
 
-export const MobileBottomNav = () => {
+export const MobileBottomNav = React.memo(() => {
     const pathname = usePathname();
 
     const navItems = [
@@ -17,8 +17,8 @@ export const MobileBottomNav = () => {
     ];
 
     return (
-        <nav className="md:hidden fixed bottom-4 left-4 right-4 z-[100]">
-            <div className="glass rounded-2xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)] px-4 py-2 flex items-center justify-around backdrop-blur-xl">
+        <nav className="md:hidden fixed bottom-3 left-3 right-3 z-[100]">
+            <div className="glass rounded-2xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)] px-3 py-2.5 flex items-center justify-around backdrop-blur-xl">
                 {navItems.map((item) => (
                     item.isCall ? (
                         // Call Button - Inline but Distinct
@@ -34,7 +34,7 @@ export const MobileBottomNav = () => {
                         <Link
                             key={item.href}
                             href={item.href}
-                            className={`flex flex-col items-center justify-center gap-1 p-2 rounded-xl transition-all ${pathname === item.href
+                            className={`flex min-h-11 min-w-14 flex-col items-center justify-center gap-1 rounded-xl px-2 py-2 transition-all ${pathname === item.href
                                 ? 'text-white bg-white/10'
                                 : 'text-slate-400 hover:text-white hover:bg-white/5'
                                 }`}
@@ -42,11 +42,13 @@ export const MobileBottomNav = () => {
                             <div className={`text-xl ${pathname === item.href ? 'text-white' : ''}`}>
                                 {item.icon}
                             </div>
-                            <span className="text-[10px] font-medium">{item.label}</span>
+                            <span className="text-[11px] font-medium leading-none">{item.label}</span>
                         </Link>
                     )
                 ))}
             </div>
         </nav>
     );
-};
+});
+
+MobileBottomNav.displayName = 'MobileBottomNav';

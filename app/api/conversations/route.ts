@@ -1,11 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createAdminClient } from '@/app/lib/supabase/admin';
+import { canAccessBusiness, getCurrentUser } from '@/app/lib/auth/session';
 
 export async function GET(request: NextRequest) {
   try {
     const businessId = request.nextUrl.searchParams.get('businessId');
     if (!businessId) {
       return NextResponse.json({ error: 'businessId is required' }, { status: 400 });
+    }
+
+    const user = await getCurrentUser();
+    if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    if (!(await canAccessBusiness(user.id, businessId))) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
 
     const limit = Math.min(Number(request.nextUrl.searchParams.get('limit') ?? 50), 200);

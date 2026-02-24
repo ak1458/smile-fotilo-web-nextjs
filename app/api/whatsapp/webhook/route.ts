@@ -5,8 +5,9 @@ export async function GET(request: NextRequest) {
   const mode = request.nextUrl.searchParams.get('hub.mode');
   const token = request.nextUrl.searchParams.get('hub.verify_token');
   const challenge = request.nextUrl.searchParams.get('hub.challenge');
+  const expectedToken = process.env.WHATSAPP_WEBHOOK_SECRET?.trim();
 
-  if (mode === 'subscribe' && token === process.env.WHATSAPP_WEBHOOK_SECRET) {
+  if (mode === 'subscribe' && expectedToken && token === expectedToken) {
     return new NextResponse(challenge ?? '', { status: 200 });
   }
 

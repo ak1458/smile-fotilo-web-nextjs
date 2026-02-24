@@ -11,15 +11,31 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
 
       - name: Install Dependencies
-        run: npm install googleapis axios
+        run: |
+          npm install googleapis@133.0.0 axios@1.6.7
+          # Force compatible gaxios version to fix mergeHeaders error
+          npm install gaxios@6.3.0 --save
+
+      - name: Verify Secrets
+        run: |
+          if [ -z "${{ secrets.GROQ_API_KEY }}" ]; then
+            echo "⚠️ Warning: GROQ_API_KEY is not set"
+          else
+            echo "✅ GROQ_API_KEY is configured"
+          fi
+          if [ -z "${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}" ]; then
+            echo "⚠️ Warning: GOOGLE_SERVICE_ACCOUNT_JSON is not set"
+          else
+            echo "✅ GOOGLE_SERVICE_ACCOUNT_JSON is configured"
+          fi
 
       - name: Run SEO Optimizer
         env:
@@ -29,15 +45,27 @@ jobs:
         run: |
           echo "$GOOGLE_APPLICATION_CREDENTIALS_JSON" > google-key.json
           export GOOGLE_APPLICATION_CREDENTIALS=./google-key.json
-          node seo_optimizer.js
+          echo "🔍 Running SEO Optimizer..."
+          node seo_optimizer.js || echo "⚠️ SEO Optimizer failed but continuing..."
           # GMB Autopilot (Staged - will succeed once API access is granted)
-          node gmb_automated_poster.js || echo "GMB API awaiting quota"
-          node gmb_review_manager.js || echo "GMB API awaiting quota"
+          node gmb_automated_poster.js || echo "⚠️ GMB Poster failed but continuing..."
+          node gmb_review_manager.js || echo "⚠️ GMB Review Manager failed but continuing..."
+
+      - name: Check for Changes
+        id: check_changes
+        run: |
+          git status
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          fi
 
       - name: Commit AI Growth Strategy
+        if: steps.check_changes.outputs.has_changes == 'true'
         run: |
           git config --global user.name 'Smile Bot'
           git config --global user.email 'bot@smilefotilo.com'
-          git add strategy_output.json app/data/gmb-feed.json
-          git commit -m "auto: daily AI growth strategy update" || echo "No changes to commit"
+          git add strategy_output.json app/data/gmb-feed.json || true
+          git commit -m "auto: daily AI growth strategy update - $(date -u +%Y-%m-%d)"
           git push

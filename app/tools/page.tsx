@@ -2,119 +2,121 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'Free AI Tools | Smile Fotilo — Website Audit, SEO Content & More',
-    description: 'Use our free AI-powered tools to audit your website, generate SEO content, and grow your business online. No signup required.',
-    openGraph: {
-        title: 'Free AI Tools by Smile Fotilo',
-        description: 'Audit your website, generate SEO blog titles & keywords — all free, all AI-powered.',
-    },
+  title: 'Free AI Tools | Smile Fotilo',
+  description:
+    'Use free AI tools to audit websites, generate content, build brand kits, and plan growth workflows.',
+  alternates: {
+    canonical: '/tools',
+  },
 };
 
 const tools = [
-    {
-        href: '/tools/website-audit',
-        title: 'Website Audit',
-        emoji: '🔍',
-        color: 'from-violet-600 to-indigo-600',
-        borderColor: 'border-violet-500/20 hover:border-violet-500/40',
-        glowColor: 'group-hover:shadow-violet-500/20',
-        description: 'Enter any URL and get an instant SEO, performance, and security analysis with an A-F score.',
-        features: ['15+ SEO checks', 'A-F scoring', 'Issue detection', 'Fix recommendations'],
-    },
-    {
-        href: '/tools/seo-content',
-        title: 'SEO Content Engine',
-        emoji: '✨',
-        color: 'from-emerald-600 to-cyan-600',
-        borderColor: 'border-emerald-500/20 hover:border-emerald-500/40',
-        glowColor: 'group-hover:shadow-emerald-500/20',
-        description: 'Generate AI-powered blog titles, meta descriptions, keyword lists, and content outlines for your business.',
-        features: ['Blog titles', 'Meta descriptions', '15 keywords', 'Content outlines'],
-    },
-    {
-        href: '/tools/brand-kit',
-        title: 'AI Brand Kit',
-        emoji: '🎨',
-        color: 'from-amber-600 to-orange-600',
-        borderColor: 'border-amber-500/20 hover:border-amber-500/40',
-        glowColor: 'group-hover:shadow-amber-500/20',
-        description: 'Upload your business info and get AI-generated color palettes, taglines, and brand voice guidelines.',
-        features: ['Color palettes', 'Taglines', 'Brand voice', 'Social templates'],
-    },
-    {
-        href: '/tools/content-calendar',
-        title: 'Content Calendar',
-        emoji: '📅',
-        color: 'from-pink-600 to-rose-600',
-        borderColor: 'border-pink-500/20 hover:border-pink-500/40',
-        glowColor: 'group-hover:shadow-pink-500/20',
-        description: 'Get a 7-day social media content calendar with AI-written captions, hashtags, and posting tips.',
-        features: ['7-day plan', 'Post captions', 'Hashtags', 'Best times'],
-    },
+  {
+    href: '/tools/website-audit',
+    title: 'Website Audit',
+    badge: 'Audit',
+    color: 'from-violet-600 to-indigo-600',
+    borderColor: 'border-violet-500/20 hover:border-violet-500/40',
+    glowColor: 'group-hover:shadow-violet-500/20',
+    description: 'Instant SEO, performance, and security analysis with grading.',
+    features: ['SEO checks', 'A-F score', 'Issue list', 'Recommendations'],
+  },
+  {
+    href: '/tools/seo-content',
+    title: 'SEO Content Engine',
+    badge: 'SEO',
+    color: 'from-emerald-600 to-cyan-600',
+    borderColor: 'border-emerald-500/20 hover:border-emerald-500/40',
+    glowColor: 'group-hover:shadow-emerald-500/20',
+    description: 'Generate blog titles, meta descriptions, keywords, and outlines.',
+    features: ['Titles', 'Meta descriptions', 'Keywords', 'Outlines'],
+  },
+  {
+    href: '/tools/brand-kit',
+    title: 'AI Brand Kit',
+    badge: 'Brand',
+    color: 'from-amber-600 to-orange-600',
+    borderColor: 'border-amber-500/20 hover:border-amber-500/40',
+    glowColor: 'group-hover:shadow-amber-500/20',
+    description: 'Create color palettes, brand voice, taglines, and social bios.',
+    features: ['Palette', 'Voice', 'Taglines', 'Social bios'],
+  },
+  {
+    href: '/tools/content-calendar',
+    title: 'Content Calendar',
+    badge: 'Calendar',
+    color: 'from-pink-600 to-rose-600',
+    borderColor: 'border-pink-500/20 hover:border-pink-500/40',
+    glowColor: 'group-hover:shadow-pink-500/20',
+    description: 'Plan 7-day social content with captions and hashtags.',
+    features: ['Weekly plan', 'Captions', 'Hashtags', 'Posting tips'],
+  },
+  {
+    href: '/tools/document-intelligence',
+    title: 'Document Intelligence',
+    badge: 'Docs',
+    color: 'from-blue-600 to-cyan-600',
+    borderColor: 'border-blue-500/20 hover:border-blue-500/40',
+    glowColor: 'group-hover:shadow-blue-500/20',
+    description: 'Extract summaries and structured insights from raw documents.',
+    features: ['Summary', 'Extraction', 'Action items', 'Multi-domain'],
+  },
+  {
+    href: '/tools/website-factory',
+    title: 'Website Factory',
+    badge: 'Factory',
+    color: 'from-sky-600 to-indigo-600',
+    borderColor: 'border-sky-500/20 hover:border-sky-500/40',
+    glowColor: 'group-hover:shadow-sky-500/20',
+    description: 'Generate complete website blueprints from a short brief.',
+    features: ['Sitemap', 'Copy blocks', 'SEO terms', 'Launch checklist'],
+  },
 ];
 
 export default function ToolsPage() {
-    return (
-        <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white">
-            <div className="fixed inset-0 pointer-events-none">
-                <div className="absolute top-20 left-1/3 w-96 h-96 bg-violet-500/5 rounded-full blur-3xl" />
-                <div className="absolute bottom-20 right-1/3 w-80 h-80 bg-emerald-500/5 rounded-full blur-3xl" />
-            </div>
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white">
+      <div className="fixed inset-0 pointer-events-none">
+        <div className="absolute top-20 left-1/3 h-96 w-96 rounded-full bg-violet-500/5 blur-3xl" />
+        <div className="absolute bottom-20 right-1/3 h-80 w-80 rounded-full bg-emerald-500/5 blur-3xl" />
+      </div>
 
-            <div className="relative z-10 max-w-5xl mx-auto px-6 pt-32 pb-20">
-                <div className="text-center mb-16">
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-white/50 text-xs font-medium mb-6">
-                        <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                        NO SIGNUP REQUIRED
-                    </div>
-                    <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight">
-                        Free AI
-                        <span className="bg-gradient-to-r from-violet-400 via-emerald-400 to-cyan-400 bg-clip-text text-transparent"> Tools</span>
-                    </h1>
-                    <p className="text-white/40 text-lg max-w-2xl mx-auto">
-                        Powerful AI-powered tools to analyze, optimize, and grow your online presence — completely free.
-                    </p>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {tools.map((tool) => (
-                        <Link
-                            key={tool.title}
-                            href={tool.href}
-                            className={`group relative bg-white/5 rounded-2xl border ${tool.borderColor} p-6 transition-all duration-300 shadow-lg ${tool.glowColor} hover:bg-white/[0.07] hover:shadow-xl hover:-translate-y-1`}
-                        >
-                            <div className="flex items-center gap-3 mb-3">
-                                <span className="text-3xl">{tool.emoji}</span>
-                                <h2 className="text-xl font-bold">{tool.title}</h2>
-                            </div>
-
-                            <p className="text-white/50 text-sm mb-4 leading-relaxed">{tool.description}</p>
-
-                            <div className="flex flex-wrap gap-2 mb-4">
-                                {tool.features.map((f) => (
-                                    <span key={f} className="px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-[11px] text-white/40">
-                                        {f}
-                                    </span>
-                                ))}
-                            </div>
-
-                            <span className={`inline-flex items-center gap-1.5 text-sm font-medium bg-gradient-to-r ${tool.color} bg-clip-text text-transparent`}>
-                                Try it free →
-                            </span>
-                        </Link>
-                    ))}
-                </div>
-
-                <div className="mt-16 text-center">
-                    <p className="text-white/30 text-sm mb-6">Need something custom? We build AI solutions for businesses.</p>
-                    <Link
-                        href="/#contact"
-                        className="inline-flex items-center gap-2 px-8 py-3.5 bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-semibold text-sm rounded-xl hover:from-violet-500 hover:to-indigo-500 transition-all shadow-lg shadow-violet-500/20"
-                    >
-                        Talk to Us About Custom AI →
-                    </Link>
-                </div>
-            </div>
+      <div className="relative z-10 mx-auto max-w-6xl px-6 pb-20 pt-24">
+        <div className="mb-12 text-center">
+          <h1 className="text-4xl font-bold md:text-6xl">
+            Free AI <span className="bg-gradient-to-r from-violet-400 via-emerald-400 to-cyan-400 bg-clip-text text-transparent">Tools</span>
+          </h1>
+          <p className="mx-auto mt-4 max-w-2xl text-lg text-white/40">
+            Analyze, optimize, and automate growth workflows without setup friction.
+          </p>
         </div>
-    );
+
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {tools.map((tool) => (
+            <Link
+              key={tool.title}
+              href={tool.href}
+              className={`group rounded-2xl border ${tool.borderColor} bg-white/5 p-6 transition-all duration-300 hover:-translate-y-1 hover:bg-white/[0.07] hover:shadow-xl ${tool.glowColor}`}
+            >
+              <div className="mb-3 inline-flex rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs uppercase tracking-wide text-white/60">
+                {tool.badge}
+              </div>
+              <h2 className="text-xl font-bold">{tool.title}</h2>
+              <p className="mb-4 mt-2 text-sm leading-relaxed text-white/50">{tool.description}</p>
+              <div className="mb-4 flex flex-wrap gap-2">
+                {tool.features.map((f) => (
+                  <span key={f} className="rounded-lg border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] text-white/40">
+                    {f}
+                  </span>
+                ))}
+              </div>
+              <span className={`inline-flex items-center gap-1.5 bg-gradient-to-r ${tool.color} bg-clip-text text-sm font-medium text-transparent`}>
+                Open tool {"->"}
+              </span>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 }

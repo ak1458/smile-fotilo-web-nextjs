@@ -1,15 +1,13 @@
 ﻿'use client';
 
 import React from 'react';
-import { NavBar } from '../components/NavBar';
 import { Footer } from '../components/Footer';
 
 export default function AboutPage() {
     return (
         <main className="bg-[#0F172A] min-h-screen text-slate-200 font-sans selection:bg-sky-400 selection:text-[#0F172A]">
-            <NavBar />
 
-            <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <section className="pt-28 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
                 <div className="max-w-4xl mx-auto">
                     <header className="text-center mb-16">
                         <h1 className="text-4xl md:text-6xl font-bold text-slate-50 mb-6">

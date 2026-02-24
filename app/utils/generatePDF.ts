@@ -1,6 +1,10 @@
 'use client';
 
-import { jsPDF } from 'jspdf';
+// jsPDF is dynamically imported to reduce initial bundle size
+async function getJsPDF() {
+    const { jsPDF } = await import('jspdf');
+    return jsPDF;
+}
 
 interface ProjectData {
     name?: string;
@@ -12,7 +16,8 @@ interface ProjectData {
     projectType?: string;
 }
 
-export function generateProjectPDF(data: ProjectData): void {
+export async function generateProjectPDF(data: ProjectData): Promise<void> {
+    const jsPDF = await getJsPDF();
     const doc = new jsPDF({
         orientation: 'portrait',
         unit: 'mm',
@@ -217,11 +222,13 @@ export function generateProjectPDF(data: ProjectData): void {
 }
 
 // Export a function to generate and download
-export function downloadProjectSummary(data: ProjectData): void {
+export async function downloadProjectSummary(data: ProjectData): Promise<void> {
     try {
-        generateProjectPDF(data);
+        await generateProjectPDF(data);
     } catch (error) {
-        console.error('PDF generation error:', error);
+        if (process.env.NODE_ENV === 'development') {
+            console.error('PDF generation error:', error);
+        }
         alert('Failed to generate PDF. Please try again.');
     }
 }

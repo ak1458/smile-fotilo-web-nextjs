@@ -1,82 +1,125 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createAdminClient } from '@/app/lib/supabase/admin';
-import { sendWhatsAppMessage } from '@/app/lib/whatsapp/client';
-
-function parseTwilioPayload(body: URLSearchParams | Record<string, unknown>) {
-  const get = (key: string) => (body instanceof URLSearchParams ? body.get(key) : (body[key] as string | undefined));
-  return {
-    to: get('To') ?? '',
-    from: get('From') ?? '',
-    status: get('CallStatus') ?? '',
-    duration: Number(get('CallDuration') ?? '0'),
-  };
-}
+import { sendWhatsAppTemplate } from '@/app/lib/whatsapp/client';
+import { validateTwilioSignature, getTwilioParams } from '@/app/lib/security/twilio-verify';
+import { rateLimitMiddleware, rateLimits } from '@/app/lib/security/rate-limit';
 
 export async function POST(request: NextRequest) {
   try {
-    const contentType = request.headers.get('content-type') ?? '';
-    let payload: URLSearchParams | Record<string, unknown>;
-
-    if (contentType.includes('application/x-www-form-urlencoded')) {
-      payload = new URLSearchParams(await request.text());
-    } else {
-      payload = (await request.json()) as Record<string, unknown>;
+    // Rate limiting
+    const rateLimit = await rateLimitMiddleware(request, rateLimits.webhook);
+    if (!rateLimit.allowed) {
+      return NextResponse.json(
+        { error: 'Too many requests' },
+        { status: 429, headers: rateLimit.headers }
+      );
     }
 
-    const data = parseTwilioPayload(payload);
-    if (!data.to || !data.from) {
-      return NextResponse.json({ status: 'ignored', reason: 'missing phone fields' }, { status: 200 });
+    // Verify Twilio signature
+    const authToken = process.env.TWILIO_AUTH_TOKEN;
+    const signature = request.headers.get('X-Twilio-Signature');
+    const url = request.url;
+    
+    const params = await getTwilioParams(request.clone());
+    
+    if (!authToken) {
+      console.error('[CALLS_WEBHOOK] TWILIO_AUTH_TOKEN not configured');
+      return NextResponse.json(
+        { error: 'Service not configured' },
+        { status: 503, headers: rateLimit.headers }
+      );
+    }
+    
+    // Validate signature in production
+    if (process.env.NODE_ENV === 'production') {
+      const isValid = validateTwilioSignature(authToken, signature, url, params);
+      if (!isValid) {
+        console.warn('[CALLS_WEBHOOK] Invalid signature', { signature, url });
+        return NextResponse.json({ error: 'Invalid signature' }, { status: 401 });
+      }
     }
 
-    if (data.status !== 'no-answer' && data.duration > 5) {
-      return NextResponse.json({ status: 'ignored', reason: 'not a missed call' }, { status: 200 });
+    // Extract Twilio params
+    const businessPhone = params.To || '';
+    const callerNumber = params.From || '';
+    const callStatus = params.CallStatus || '';
+    const callDuration = parseInt(params.CallDuration || '0', 10);
+
+    // Only process missed calls (duration < 5 seconds or no-answer)
+    if (callDuration > 5 || callStatus !== 'no-answer') {
+      return NextResponse.json({ status: 'ignored' }, { headers: rateLimit.headers });
     }
 
-    const supabase = createAdminClient();
-    const { data: business, error: businessError } = await supabase
+    const supabaseAdmin = createAdminClient();
+
+    // Find business by phone number
+    const { data: business } = await supabaseAdmin
       .from('businesses')
       .select('*')
-      .eq('phone', data.to)
-      .maybeSingle();
+      .eq('phone', businessPhone)
+      .single();
 
-    if (businessError) return NextResponse.json({ error: businessError.message }, { status: 500 });
-    if (!business) return NextResponse.json({ error: 'Business not found' }, { status: 404 });
+    if (!business) {
+      return NextResponse.json(
+        { error: 'Business not found' },
+        { status: 404, headers: rateLimit.headers }
+      );
+    }
 
-    const { data: call, error: callError } = await supabase
+    // Record missed call
+    const { data: missedCall } = await supabaseAdmin
       .from('missed_calls')
       .insert({
         business_id: business.id,
-        caller_number: data.from,
+        caller_number: callerNumber,
         call_time: new Date().toISOString(),
-        call_duration: data.duration,
+        call_duration: callDuration,
         recovery_status: 'pending',
       })
-      .select('*')
+      .select()
       .single();
 
-    if (callError) return NextResponse.json({ error: callError.message }, { status: 500 });
-
+    // Send WhatsApp recovery message
     try {
-      await sendWhatsAppMessage(
-        data.from,
-        `Namaste! Aapne ${business.name} par call kiya tha. Aap appointment, services ya timing ke liye reply kar sakte hain.`,
-        business.whatsapp_number ?? undefined
+      await sendWhatsAppTemplate(
+        callerNumber,
+        'missed_call_followup',
+        'hi',
+        [
+          {
+            type: 'body',
+            parameters: [
+              { type: 'text', text: business.name },
+              { type: 'text', text: business.phone },
+            ],
+          },
+        ],
+        business.whatsapp_number
       );
 
-      await supabase
-        .from('missed_calls')
-        .update({ recovery_status: 'whatsapp_sent', recovery_sent_at: new Date().toISOString() })
-        .eq('id', call.id);
-    } catch {
-      await supabase
-        .from('missed_calls')
-        .update({ recovery_status: 'failed' })
-        .eq('id', call.id);
+      // Update recovery status
+      if (missedCall) {
+        await supabaseAdmin
+          .from('missed_calls')
+          .update({
+            recovery_status: 'whatsapp_sent',
+            recovery_sent_at: new Date().toISOString(),
+          })
+          .eq('id', missedCall.id);
+      }
+    } catch (error) {
+      console.error('[CALLS_WEBHOOK] Failed to send WhatsApp:', error);
     }
 
-    return NextResponse.json({ status: 'ok', missedCallId: call.id });
+    return NextResponse.json(
+      { status: 'recovery_initiated', missedCallId: missedCall?.id },
+      { headers: rateLimit.headers }
+    );
   } catch (error: unknown) {
-    const message = error instanceof Error ? error.message : 'Unexpected error';
-    return NextResponse.json({ error: message }, { status: 500 });
+    console.error('[CALLS_WEBHOOK] Error:', error);
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
   }
 }

@@ -82,6 +82,8 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth dark" suppressHydrationWarning>
       <head>
         <GoogleAnalytics />
+        <link rel="alternate" type="application/json" href="/api/web-mcp" title="Web MCP Index" />
+        <link rel="alternate" type="application/json" href="/api/web-mcp?all=1" title="Web MCP Full Manifest" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}

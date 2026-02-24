@@ -5,6 +5,11 @@
 const GROQ_API_KEY = process.env.GROQ_API_KEY;
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
 const GOOGLE_GEMINI_API_KEY = process.env.GOOGLE_GEMINI_API_KEY;
+const GEMINI_ROUTER_MODEL =
+  process.env.GEMINI_ROUTER_MODEL ||
+  process.env.GEMINI_PAID_MODEL ||
+  process.env.GOOGLE_GEMINI_MODEL ||
+  'gemini-3-flash-preview';
 
 // Track API usage (simple in-memory tracking, reset on deploy)
 const usageTracker = {
@@ -43,7 +48,7 @@ export async function generateAIResponse(
       const result = await callOpenRouterFree(prompt, maxTokens, temperature);
       if (result) return result;
     } catch {
-      console.log('OpenRouter free failed, trying Gemini');
+      // OpenRouter failed, will try Gemini next
     }
   }
 
@@ -56,7 +61,7 @@ export async function generateAIResponse(
         return result;
       }
     } catch {
-      console.log('Gemini failed or limit reached, trying Groq');
+      // Gemini failed, will try Groq next
     }
   }
 
@@ -65,7 +70,7 @@ export async function generateAIResponse(
     const result = await callGroq(prompt, maxTokens, temperature);
     if (result) return result;
   } catch {
-    console.log('Groq failed, using fallback template');
+    // Groq failed, using fallback template
   }
 
   // Final fallback: Template response
@@ -118,7 +123,7 @@ async function callGemini(
   if (!GOOGLE_GEMINI_API_KEY) return null;
 
   const response = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GOOGLE_GEMINI_API_KEY}`,
+    `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(GEMINI_ROUTER_MODEL)}:generateContent?key=${GOOGLE_GEMINI_API_KEY}`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -281,7 +286,7 @@ export async function generateEmbedding(text: string): Promise<number[] | null> 
         return data.embedding?.values || null;
       }
     } catch {
-      console.log('Gemini embedding failed');
+      // Gemini embedding failed
     }
   }
 
@@ -305,7 +310,7 @@ export async function generateEmbedding(text: string): Promise<number[] | null> 
         return data.data?.[0]?.embedding || null;
       }
     } catch {
-      console.log('OpenRouter embedding failed');
+      // OpenRouter embedding failed
     }
   }
 

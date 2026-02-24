@@ -1,6 +1,8 @@
 import { generateAIResponse } from '@/app/lib/ai/smart-router';
-import { supabaseAdmin } from '@/app/lib/supabase/admin';
+import { createAdminClient } from '@/app/lib/supabase/admin';
 import { getLanguagePrompt } from '@/app/lib/languages';
+import { guardPromptInput, sanitizeConversationHistory } from '@/app/lib/security/prompt-guard';
+import { withTimeout, timeouts } from '@/app/lib/security/api-timeout';
 
 type MessageHistory = Array<{ role: 'user' | 'assistant'; content: string }>;
 
@@ -57,6 +59,16 @@ export async function chatWithBusinessAgent(input: {
   conversationId?: string;
 }) {
   const source = input.source ?? 'website';
+  const supabaseAdmin = createAdminClient();
+
+  // Guard the customer message against injection
+  const messageGuard = guardPromptInput(input.message, { maxLength: 500 });
+  if (!messageGuard.safe) {
+    return {
+      conversationId: input.conversationId || '',
+      response: 'I apologize, but I cannot process that message. Please rephrase your question.',
+    };
+  }
 
   const { data: business } = await supabaseAdmin
     .from('businesses')
@@ -114,11 +126,14 @@ export async function chatWithBusinessAgent(input: {
       : Promise.resolve({ data: null as { name?: string } | null }),
   ]);
 
-  const history: MessageHistory =
+  // Sanitize history to prevent injection through past messages
+  const rawHistory: MessageHistory =
     historyRows?.map((row) => ({
       role: row.sender_type === 'customer' ? 'user' : 'assistant',
       content: row.content,
     })) ?? [];
+  
+  const history = sanitizeConversationHistory(rawHistory, 20);
 
   const prompt = buildPrompt({
     businessName: business.name,
@@ -126,21 +141,25 @@ export async function chatWithBusinessAgent(input: {
     languagePreference: business.language_preference,
     agentName: agent?.name,
     knowledge: docs?.map((d) => d.content) ?? [],
-    customerMessage: input.message,
+    customerMessage: messageGuard.sanitized,
     history,
   });
 
-  const response = await generateAIResponse(prompt, {
-    complexity: 'medium',
-    maxTokens: 350,
-    temperature: 0.6,
-  });
+  // Generate response with timeout
+  const response = await withTimeout(
+    generateAIResponse(prompt, {
+      complexity: 'medium',
+      maxTokens: 350,
+      temperature: 0.6,
+    }),
+    { timeoutMs: timeouts.fastAI, errorMessage: 'AI response timeout' }
+  );
 
   await supabaseAdmin.from('messages').insert([
     {
       conversation_id: conversationId,
       sender_type: 'customer',
-      content: input.message,
+      content: messageGuard.sanitized,
     },
     {
       conversation_id: conversationId,
@@ -161,4 +180,3 @@ export async function chatWithBusinessAgent(input: {
     response,
   };
 }
-

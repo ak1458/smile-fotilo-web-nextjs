@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { createAdminClient } from '@/app/lib/supabase/admin';
+import { getCurrentUser } from '@/app/lib/auth/session';
 
 const createBusinessSchema = z.object({
-  ownerId: z.string().uuid(),
   name: z.string().min(2),
   phone: z.string().min(7),
   category: z.string().optional(),
@@ -17,11 +17,21 @@ const createBusinessSchema = z.object({
 
 export async function GET(request: NextRequest) {
   try {
+    const user = await getCurrentUser();
+    if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+
     const ownerId = request.nextUrl.searchParams.get('ownerId');
+    if (ownerId && ownerId !== user.id) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+    }
+
     const supabase = createAdminClient();
 
-    let query = supabase.from('businesses').select('*').order('created_at', { ascending: false });
-    if (ownerId) query = query.eq('owner_id', ownerId);
+    const query = supabase
+      .from('businesses')
+      .select('*')
+      .eq('owner_id', user.id)
+      .order('created_at', { ascending: false });
 
     const { data, error } = await query.limit(100);
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
@@ -35,13 +45,16 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    const user = await getCurrentUser();
+    if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+
     const payload = createBusinessSchema.parse(await request.json());
     const supabase = createAdminClient();
 
     const { data, error } = await supabase
       .from('businesses')
       .insert({
-        owner_id: payload.ownerId,
+        owner_id: user.id,
         name: payload.name,
         phone: payload.phone,
         category: payload.category ?? null,

@@ -1,9 +1,9 @@
-/* eslint-disable @next/next/no-img-element */
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { MdCall, MdEmail, MdSchedule } from 'react-icons/md';
 
-export const Footer = () => (
+export const Footer = React.memo(() => (
     <footer className="bg-[#0a0f1a] border-t border-white/5 pt-16 pb-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Main Footer Grid - Reorganized for better mobile layout */}
@@ -11,7 +11,13 @@ export const Footer = () => (
 
                 {/* Brand - Full width on mobile, centered */}
                 <div className="text-center md:text-left md:col-span-1">
-                    <img src="/logo.png" alt="Smile Fotilo" className="h-10 brightness-0 invert mb-4 mx-auto md:mx-0" />
+                    <Image 
+                        src="/logo.png" 
+                        alt="Smile Fotilo" 
+                        width={160} 
+                        height={40}
+                        className="h-10 w-auto brightness-0 invert mb-4 mx-auto md:mx-0" 
+                    />
                     <p className="text-slate-400 text-sm leading-relaxed max-w-xs mx-auto md:mx-0">
                         Premium digital agency crafting world-class websites and brands.
                     </p>
@@ -91,4 +97,6 @@ export const Footer = () => (
             </div>
         </div>
     </footer>
-);
+));
+
+Footer.displayName = 'Footer';

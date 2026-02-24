@@ -25,7 +25,7 @@ export const ChatSupport = () => {
     const [messages, setMessages] = useState<Message[]>([]);
     const [isTyping, setIsTyping] = useState(false);
     const [inputValue, setInputValue] = useState('');
-    const [showTooltip, setShowTooltip] = useState(true);
+    const [showTooltip, setShowTooltip] = useState(false);
     const [pendingPrompt, setPendingPrompt] = useState<string | null>(null);
     const [selectedModel, setSelectedModel] = useState(() => {
         if (typeof window !== 'undefined') return localStorage.getItem('echo_model') || 'auto';
@@ -175,12 +175,18 @@ export const ChatSupport = () => {
 
     useEffect(() => {
         setMounted(true);
-        if (!initializedRef.current && messages.length === 0) {
-            initializedRef.current = true;
-            sendInitialGreeting();
+        if (typeof window !== 'undefined') {
+            setShowTooltip(window.innerWidth >= 1024);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    useEffect(() => {
+        if (!mounted || chatState !== 'active') return;
+        if (initializedRef.current || messages.length > 0) return;
+        initializedRef.current = true;
+        void sendInitialGreeting();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [mounted, chatState, messages.length]);
 
     // Open chatbot from any page CTA.
     useEffect(() => {
@@ -298,22 +304,21 @@ export const ChatSupport = () => {
         if (reply === "📄 Download Summary PDF") {
             // Generate and download PDF
             const storedData = sessionStorage.getItem('chatFormData');
-            if (storedData) {
-                import('../utils/generatePDF').then(({ downloadProjectSummary }) => {
-                    downloadProjectSummary(JSON.parse(storedData));
-                }).catch(() => {
+            const generatePDF = async () => {
+                try {
+                    const { downloadProjectSummary } = await import('../utils/generatePDF');
+                    if (storedData) {
+                        await downloadProjectSummary(JSON.parse(storedData));
+                    } else {
+                        const summary = messages.filter(m => m.sender === 'user').map(m => m.text).join(', ');
+                        await downloadProjectSummary({ purpose: summary, name: 'Visitor' });
+                    }
+                    addBotMessage("PDF downloaded! Check your downloads folder. 📁", ["🔄 New conversation", "👋 Close"]);
+                } catch {
                     addBotMessage("Sorry, couldn't generate PDF. Please contact us directly!", ["📞 Call us", "👋 Close"]);
-                });
-            } else {
-                // Use conversation summary instead
-                const summary = messages.filter(m => m.sender === 'user').map(m => m.text).join(', ');
-                import('../utils/generatePDF').then(({ downloadProjectSummary }) => {
-                    downloadProjectSummary({ purpose: summary, name: 'Visitor' });
-                }).catch(() => {
-                    addBotMessage("Sorry, couldn't generate PDF. Please contact us directly!", ["📞 Call us", "👋 Close"]);
-                });
-            }
-            addBotMessage("PDF downloaded! Check your downloads folder. 📁", ["🔄 New conversation", "👋 Close"]);
+                }
+            };
+            void generatePDF();
             return;
         }
 
@@ -344,7 +349,7 @@ export const ChatSupport = () => {
 
     return (
         <div
-            className="fixed bottom-20 sm:bottom-4 right-4 z-[900]"
+            className="fixed bottom-28 md:bottom-4 right-4 z-[950]"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >
@@ -355,17 +360,23 @@ export const ChatSupport = () => {
                         <div className="relative bg-white dark:bg-slate-800 text-slate-800 dark:text-white text-sm font-medium pl-3 pr-8 py-2 rounded-xl shadow-lg border border-slate-200 dark:border-white/10">
                             Need help? 💬
                             <button onClick={(e) => { e.stopPropagation(); setShowTooltip(false); }}
-                                className="absolute top-1 right-1 w-5 h-5 flex items-center justify-center text-slate-400 hover:text-slate-600 rounded-full hover:bg-slate-100 transition-colors">×</button>
+                                className="absolute top-0.5 right-0.5 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 rounded-full hover:bg-slate-100 transition-colors">×</button>
                             <div className="absolute bottom-0 right-6 translate-y-1/2 rotate-45 w-2 h-2 bg-white dark:bg-slate-800 border-r border-b border-slate-200 dark:border-white/10"></div>
                         </div>
                     </div>
                 )}
-                <EchoIcon size={56} onClick={handleRobotInteraction} isHovered={isHovered} />
+                <button
+                            onClick={handleRobotInteraction}
+                            aria-label="Open chat assistant"
+                            className="rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-900"
+                        >
+                            <EchoIcon size={56} isHovered={isHovered} />
+                        </button>
             </div>
 
             {/* Chat Dialog */}
             <div className={`absolute bottom-full right-0 mb-4 transition-all duration-300 ${isOpen ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto' : 'opacity-0 translate-y-8 scale-95 pointer-events-none'}`}>
-                <div className="relative w-[360px] max-w-[calc(100vw-2rem)] h-[520px] flex flex-col bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-white/10 overflow-hidden">
+                <div className="relative w-[360px] max-w-[calc(100vw-2rem)] h-[520px] max-h-[calc(100dvh-180px)] sm:max-h-[520px] flex flex-col bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-white/10 overflow-hidden">
 
                     {/* Header */}
                     <div className="bg-gradient-to-r from-violet-600 to-indigo-600 p-4 text-center relative shrink-0">

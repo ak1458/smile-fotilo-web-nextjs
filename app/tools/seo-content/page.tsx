@@ -71,8 +71,11 @@ export default function SEOContentPage() {
                 <Link href="/" className="text-xl font-bold tracking-wider text-white/90 hover:text-white transition-colors">
                     SMILEFOTILO
                 </Link>
-                <div className="flex gap-4">
-                    <Link href="/tools/website-audit" className="text-sm text-white/60 hover:text-white transition-colors">
+                <div className="flex items-center gap-4">
+                    <Link href="/tools" className="text-sm text-white/60 hover:text-white transition-colors">
+                        ← All Tools
+                    </Link>
+                    <Link href="/tools/website-audit" className="text-sm text-white/60 hover:text-white transition-colors hidden sm:block">
                         Website Audit →
                     </Link>
                 </div>
@@ -171,10 +174,11 @@ export default function SEOContentPage() {
                                 {result.blogTitles.map((title, i) => (
                                     <div key={i} className="flex items-center gap-3 px-4 py-3 bg-white/5 rounded-xl border border-white/5 group hover:border-emerald-500/20 transition-colors">
                                         <span className="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-300 text-xs flex items-center justify-center font-bold shrink-0">{i + 1}</span>
-                                        <span className="flex-1 text-sm text-white/80">{title}</span>
+                                        <span className="flex-1 text-sm text-white/80 min-w-0 overflow-hidden text-ellipsis">{title}</span>
                                         <button
                                             onClick={() => copyToClipboard(title, i)}
-                                            className="text-xs text-white/30 hover:text-emerald-400 transition-colors opacity-0 group-hover:opacity-100 shrink-0"
+                                            className="text-xs text-white/40 hover:text-emerald-400 transition-colors sm:opacity-0 sm:group-hover:opacity-100 shrink-0 p-2 -mr-2"
+                                            aria-label="Copy to clipboard"
                                         >
                                             {copiedIdx === i ? '✅' : '📋'}
                                         </button>
@@ -192,10 +196,11 @@ export default function SEOContentPage() {
                                 {result.metaDescriptions.map((meta, i) => (
                                     <div key={i} className="flex items-start gap-3 px-4 py-3 bg-white/5 rounded-xl border border-white/5 group hover:border-cyan-500/20 transition-colors">
                                         <span className="w-6 h-6 rounded-full bg-cyan-500/20 text-cyan-300 text-xs flex items-center justify-center font-bold shrink-0 mt-0.5">{i + 1}</span>
-                                        <span className="flex-1 text-sm text-white/70">{meta}</span>
+                                        <span className="flex-1 text-sm text-white/70 min-w-0 overflow-hidden text-ellipsis">{meta}</span>
                                         <button
                                             onClick={() => copyToClipboard(meta, 100 + i)}
-                                            className="text-xs text-white/30 hover:text-cyan-400 transition-colors opacity-0 group-hover:opacity-100 shrink-0"
+                                            className="text-xs text-white/40 hover:text-cyan-400 transition-colors sm:opacity-0 sm:group-hover:opacity-100 shrink-0 p-2 -mr-2"
+                                            aria-label="Copy to clipboard"
                                         >
                                             {copiedIdx === 100 + i ? '✅' : '📋'}
                                         </button>

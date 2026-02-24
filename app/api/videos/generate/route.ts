@@ -3,6 +3,15 @@
 // NO Runway, NO paid video APIs needed
 
 import { NextRequest, NextResponse } from 'next/server';
+import { rateLimitMiddleware, rateLimits } from '@/app/lib/security/rate-limit';
+import { guardPromptInput } from '@/app/lib/security/prompt-guard';
+import { withTimeout, timeouts } from '@/app/lib/security/api-timeout';
+
+const VIDEO_GEMINI_MODEL =
+  process.env.VIDEO_GEMINI_MODEL ||
+  process.env.GEMINI_PAID_MODEL ||
+  process.env.GOOGLE_GEMINI_MODEL ||
+  'gemini-3-flash-preview';
 
 // Canva template library (create these in Canva, share links)
 const CANVA_TEMPLATES: Record<string, { url: string; name: string; duration: string }> = {
@@ -40,20 +49,47 @@ const CANVA_TEMPLATES: Record<string, { url: string; name: string; duration: str
 
 export async function POST(request: NextRequest) {
   try {
+    // Rate limiting
+    const rateLimit = await rateLimitMiddleware(request, rateLimits.publicApi);
+    if (!rateLimit.allowed) {
+      return NextResponse.json(
+        { error: 'Too many requests. Please try again later.' },
+        { status: 429, headers: rateLimit.headers }
+      );
+    }
+
     const { businessId, prompt, template = 'clinic_welcome', language = 'hi-EN' } = await request.json();
 
     if (!prompt) {
-      return NextResponse.json({ error: 'Prompt is required' }, { status: 400 });
+      return NextResponse.json(
+        { error: 'Prompt is required' },
+        { status: 400, headers: rateLimit.headers }
+      );
+    }
+
+    // Guard against prompt injection
+    const promptGuard = guardPromptInput(prompt, { maxLength: 500 });
+    if (!promptGuard.safe) {
+      return NextResponse.json(
+        { error: 'Invalid input detected' },
+        { status: 400, headers: rateLimit.headers }
+      );
     }
 
     // 1. Generate script using Groq (FREE - $5/month credit)
-    const script = await generateScriptWithGroq(prompt, language);
+    const script = await withTimeout(
+      generateScriptWithGroq(promptGuard.sanitized, language),
+      { timeoutMs: timeouts.slowAI, errorMessage: 'Script generation timeout' }
+    );
 
     // 2. Generate captions using Gemini (FREE - 1,500 requests/day)
-    const captions = await generateCaptionsWithGemini(prompt, language);
+    const captions = await withTimeout(
+      generateCaptionsWithGemini(promptGuard.sanitized, language),
+      { timeoutMs: timeouts.slowAI, errorMessage: 'Caption generation timeout' }
+    );
 
     // 3. Generate hashtags
-    const hashtags = generateHashtags(prompt);
+    const hashtags = generateHashtags(promptGuard.sanitized);
 
     // 4. Get Canva template
     const canvaTemplate = CANVA_TEMPLATES[template] || CANVA_TEMPLATES['clinic_welcome'];
@@ -88,7 +124,7 @@ export async function POST(request: NextRequest) {
         'Download as MP4',
         'Upload back to schedule'
       ]
-    });
+    }, { headers: rateLimit.headers });
 
   } catch (error) {
     console.error('Video generation error:', error);
@@ -161,7 +197,7 @@ TOTAL SCRIPT: (full script)`
 async function generateCaptionsWithGemini(prompt: string, language: string): Promise<string[]> {
   try {
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GOOGLE_GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(VIDEO_GEMINI_MODEL)}:generateContent?key=${process.env.GOOGLE_GEMINI_API_KEY}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

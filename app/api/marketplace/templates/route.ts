@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { createAdminClient } from '@/app/lib/supabase/admin';
+import { getCurrentUser } from '@/app/lib/auth/session';
 
 const templateSchema = z.object({
-  creatorId: z.string().uuid(),
   name: z.string().min(2),
   slug: z.string().min(2),
   description: z.string().min(10),
@@ -17,16 +17,24 @@ const templateSchema = z.object({
 export async function GET(request: NextRequest) {
   try {
     const category = request.nextUrl.searchParams.get('category');
+    const slug = request.nextUrl.searchParams.get('slug');
+    const user = await getCurrentUser();
     const supabase = createAdminClient();
 
     let query = supabase
       .from('agent_templates')
       .select('*')
-      .in('status', ['published', 'draft'])
       .order('is_featured', { ascending: false })
       .order('downloads_count', { ascending: false });
 
+    if (user) {
+      query = query.or(`status.eq.published,creator_id.eq.${user.id}`);
+    } else {
+      query = query.eq('status', 'published');
+    }
+
     if (category && category !== 'all') query = query.eq('category', category);
+    if (slug) query = query.eq('slug', slug);
 
     const { data, error } = await query.limit(100);
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
@@ -40,13 +48,16 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    const user = await getCurrentUser();
+    if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+
     const payload = templateSchema.parse(await request.json());
     const supabase = createAdminClient();
 
     const { data, error } = await supabase
       .from('agent_templates')
       .insert({
-        creator_id: payload.creatorId,
+        creator_id: user.id,
         name: payload.name,
         slug: payload.slug,
         description: payload.description,

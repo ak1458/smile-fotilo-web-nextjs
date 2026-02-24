@@ -1,21 +1,37 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { createAdminClient } from '@/app/lib/supabase/admin';
+import { canAccessBusiness, getCurrentUser } from '@/app/lib/auth/session';
 
 const createAgentSchema = z.object({
   businessId: z.string().uuid(),
   name: z.string().min(2),
-  type: z.enum(['receptionist', 'followup', 'review_manager', 'content_creator', 'custom']).default('receptionist'),
+  type: z
+    .enum(['receptionist', 'followup', 'review_manager', 'content_creator', 'custom'])
+    .default('receptionist'),
   configuration: z.record(z.string(), z.unknown()).optional(),
 });
 
 export async function GET(request: NextRequest) {
   try {
     const businessId = request.nextUrl.searchParams.get('businessId');
+    if (!businessId) {
+      return NextResponse.json({ error: 'businessId is required' }, { status: 400 });
+    }
+
+    const user = await getCurrentUser();
+    if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    if (!(await canAccessBusiness(user.id, businessId))) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+    }
+
     const supabase = createAdminClient();
 
-    let query = supabase.from('agents').select('*').order('created_at', { ascending: false });
-    if (businessId) query = query.eq('business_id', businessId);
+    const query = supabase
+      .from('agents')
+      .select('*')
+      .eq('business_id', businessId)
+      .order('created_at', { ascending: false });
 
     const { data, error } = await query.limit(100);
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
@@ -29,7 +45,14 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    const user = await getCurrentUser();
+    if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+
     const payload = createAgentSchema.parse(await request.json());
+    if (!(await canAccessBusiness(user.id, payload.businessId))) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+    }
+
     const supabase = createAdminClient();
 
     const { data, error } = await supabase

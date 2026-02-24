@@ -91,9 +91,14 @@ export default function WebsiteAuditPage() {
                     <Link href="/" className="text-xl font-bold tracking-wider text-white/90 hover:text-white transition-colors">
                         SMILEFOTILO
                     </Link>
-                    <Link href="/services" className="text-sm text-white/60 hover:text-white transition-colors">
-                        ← Back to Services
-                    </Link>
+                    <div className="flex items-center gap-4">
+                        <Link href="/tools" className="text-sm text-white/60 hover:text-white transition-colors">
+                            ← All Tools
+                        </Link>
+                        <Link href="/services" className="text-sm text-white/60 hover:text-white transition-colors hidden sm:block">
+                            Services
+                        </Link>
+                    </div>
                 </nav>
 
                 <div className="relative z-10 max-w-3xl mx-auto text-center px-6 pt-16 pb-12">

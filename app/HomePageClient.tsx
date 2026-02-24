@@ -1,10 +1,10 @@
-/* eslint-disable @next/next/no-img-element */
 'use client';
 
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Footer } from './components/Footer';
 import { BackToTop } from './components/BackToTop';
+import Image from 'next/image';
 import { MdCode, MdTrendingUp, MdPhotoCamera, MdSupportAgent, MdMail, MdSchedule, MdArrowOutward, MdArrowForward, MdPublic, MdPayments, MdLocalHospital } from 'react-icons/md';
 
 import { ContactForm } from './components/ContactForm';
@@ -152,7 +152,7 @@ const Pricing = () => {
             <div className="text-indigo-400 font-bold uppercase text-xs mb-2">The Starter</div>
             <h3 className="text-2xl font-bold text-slate-50 mb-4">₹15k <span className="text-sm text-slate-400 font-normal">/ project</span></h3>
             <p className="text-sm text-slate-400 mb-8">For doctors, clinics, or small shops needing a professional face.</p>
-            <Link href="/pricing" className="btn-secondary block w-full py-3 text-center">Get Started</Link>
+            <Link href="/pricing" className="btn-secondary block w-full py-3 text-center" prefetch>Get Started</Link>
           </motion.div>
 
           <motion.div
@@ -166,7 +166,7 @@ const Pricing = () => {
             <div className="text-indigo-400 font-bold uppercase text-xs mb-2">The Growth</div>
             <h3 className="text-2xl font-bold text-slate-50 mb-4">₹35k <span className="text-sm text-slate-400 font-normal">/ starting</span></h3>
             <p className="text-sm text-slate-400 mb-8">For retail brands ready to sell online. Dynamic content management.</p>
-            <Link href="/pricing" className="btn-primary block w-full py-3 text-center"><span>Choose Growth</span></Link>
+            <Link href="/pricing" className="btn-primary block w-full py-3 text-center" prefetch><span>Choose Growth</span></Link>
           </motion.div>
 
           <motion.div
@@ -340,10 +340,13 @@ const Portfolio = () => {
               >
                 {/* Background Image */}
                 <div className="absolute inset-0">
-                  <img
+                  <Image
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    loading={index < 2 ? 'eager' : 'lazy'}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a0118] via-[#0a0118]/60 to-transparent" />
                 </div>
@@ -518,7 +521,7 @@ const GlobalReach = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.4 }}
               >
-                <Link href="/locations/global" className="inline-flex items-center gap-2 text-white bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-xl font-semibold transition-all hover:scale-105 shadow-[0_0_20px_rgba(37,99,235,0.3)]">
+                <Link href="/locations/global" className="inline-flex items-center gap-2 text-white bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-xl font-semibold transition-all hover:scale-105 shadow-[0_0_20px_rgba(37,99,235,0.3)]" prefetch>
                   Explore International Services
                   <MdArrowForward />
                 </Link>

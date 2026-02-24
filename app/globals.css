@@ -391,6 +391,15 @@ p {
    MOBILE OPTIMIZATIONS
    ======================================== */
 @media (max-width: 768px) {
+  body {
+    padding-bottom: calc(100px + env(safe-area-inset-bottom));
+  }
+  
+  /* Ensure main content doesn't get hidden behind bottom nav */
+  main {
+    padding-bottom: 1rem;
+  }
+
   .navbar-sticky {
     padding: 0.5rem 1rem;
   }

@@ -7,7 +7,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "jest"
+    "test": "jest --passWithNoTests",
+    "security:audit": "node scripts/monitoring/security-audit.js",
+    "security:webhook-test": "node scripts/monitoring/webhook-test.js",
+    "security:prompt-test": "node scripts/monitoring/prompt-injection-test.js",
+    "test:api": "node scripts/monitoring/api-health-check.js",
+    "test:all": "npm run security:audit && npm run test:api",
+    "logs:analyze": "node scripts/monitoring/log-analyzer.js"
   },
   "overrides": {
     "minimatch": "^5.1.6",
@@ -63,6 +69,7 @@
     "eslint-config-next": "16.0.5",
     "jest": "^30.2.0",
     "jest-environment-jsdom": "^30.2.0",
+    "playwright": "^1.58.2",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

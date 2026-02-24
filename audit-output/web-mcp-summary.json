@@ -1,0 +1,10 @@
+{
+  "totalChecks": 34,
+  "non200Pages": 0,
+  "checksWithNetworkFailures": 0,
+  "checksMissingMcpRoute": 0,
+  "checksWithAnomalies": 34,
+  "checksWithOverflowX": 0,
+  "checksWithManyTinyTargets": 34,
+  "outPath": "D:\\gravity\\smilefotilo live on varcel\\smile-fotilo\\audit-output\\web-mcp-audit.json"
+}

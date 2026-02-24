@@ -3,20 +3,28 @@ const { google } = require('googleapis');
 
 const path = require('path');
 
+const KEY_FILE_PATH = process.env.GOOGLE_APPLICATION_CREDENTIALS || path.join(__dirname, 'google-key.json');
+const SITE_URL = process.env.SITE_URL || 'sc-domain:smilefotilo.com';
+
 async function analyzeZeroClicks() {
     const auth = new google.auth.GoogleAuth({
-        keyFile: path.join(__dirname, '..', 'captcha-1747281225780-8777cd95d4a8.json'),
+        keyFile: KEY_FILE_PATH,
         scopes: ['https://www.googleapis.com/auth/webmasters.readonly'],
     });
 
     const searchconsole = google.searchconsole({ version: 'v1', auth });
 
     try {
+        // Get dynamic date range (last 30 days)
+        const endDate = new Date();
+        const startDate = new Date();
+        startDate.setDate(endDate.getDate() - 30);
+        
         const res = await searchconsole.searchanalytics.query({
-            siteUrl: 'sc-domain:smilefotilo.com',
+            siteUrl: SITE_URL,
             requestBody: {
-                startDate: '2026-01-20',
-                endDate: '2026-02-20',
+                startDate: startDate.toISOString().split('T')[0],
+                endDate: endDate.toISOString().split('T')[0],
                 dimensions: ['QUERY'],
                 rowLimit: 500,
             },
