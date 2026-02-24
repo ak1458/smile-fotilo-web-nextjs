@@ -5,9 +5,9 @@ const axios = require('axios');
 const fs = require('fs');
 
 // CONFIG
-const KEY_FILE_PATH = process.env.GOOGLE_APPLICATION_CREDENTIALS || path.join(__dirname, '..', 'captcha-1747281225780-8777cd95d4a8.json');
-const SITE_URL = process.env.SITE_URL || 'sc-domain:smilefotilo.com';
-const GROQ_API_KEY = process.env.GROQ_API_KEY || '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';
+const KEY_FILE_PATH = process.env.GOOGLE_APPLICATION_CREDENTIALS;
+const SITE_URL = process.env.SITE_URL;
+const GROQ_API_KEY = process.env.GROQ_API_KEY;
 
 // AI PROVIDER SELECTION
 const AI_PROVIDER = process.env.AI_PROVIDER || 'groq';
