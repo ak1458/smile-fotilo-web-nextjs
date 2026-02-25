@@ -14,7 +14,7 @@ import { OpenChatButton } from '../../components/OpenChatButton';
 import { Footer } from '../../components/Footer';
 
 export const metadata: Metadata = {
-  title: 'Growth Autopilot (Clinic-First) | Smile Fotilo',
+  title: 'Growth Autopilot (Clinic-First)',
   description:
     'Growth Autopilot by Smile Fotilo is a clinic-first, multi-vertical-ready automation system for lead followups, reminders, review workflows, and support.',
   alternates: {
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     'Hindi English clinic chatbot',
   ],
   openGraph: {
-    title: 'Growth Autopilot (Clinic-First) | Smile Fotilo',
+    title: 'Growth Autopilot (Clinic-First)',
     description:
       'A clinic-first automation system for missed-call recovery, reminders, reviews, and appointment-focused growth analytics.',
     type: 'website',
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Growth Autopilot (Clinic-First) | Smile Fotilo',
+    title: 'Growth Autopilot (Clinic-First)',
     description:
       'Clinic-first automation for lead handling, reminders, review management, and local growth.',
     images: ['/og?title=Growth%20Autopilot&subtitle=Clinic-First%20Automation'],
@@ -168,11 +168,11 @@ export default function ClinicGrowthAutopilotPage() {
       <section className="py-20 bg-[#0a0118]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-14">Why This Is Different (USP)</h2>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-6">
             {usps.map((item) => (
-              <div key={item.title} className="p-6 rounded-2xl border border-white/10 bg-[#0F172A]/60">
-                <h3 className="text-xl font-bold mb-2 text-cyan-300">{item.title}</h3>
-                <p className="text-slate-400">{item.desc}</p>
+              <div key={item.title} className="p-4 sm:p-6 rounded-2xl border border-white/10 bg-[#0F172A]/60">
+                <h3 className="text-sm sm:text-xl font-bold mb-2 text-cyan-300">{item.title}</h3>
+                <p className="text-slate-400 text-xs sm:text-base leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -182,17 +182,17 @@ export default function ClinicGrowthAutopilotPage() {
       <section className="py-20 bg-[#020617]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-14">Automation Modules</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
             {modules.map((module) => (
               <div
                 key={module.title}
-                className="p-6 rounded-2xl border border-white/10 bg-[#0F172A]/60 hover:border-cyan-400/40 transition-colors"
+                className="min-h-[200px] p-4 sm:p-6 rounded-2xl border border-white/10 bg-[#0F172A]/60 hover:border-cyan-400/40 transition-colors"
               >
-                <div className="w-12 h-12 rounded-xl border border-cyan-400/30 bg-cyan-500/10 text-cyan-300 flex items-center justify-center text-2xl mb-5">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl border border-cyan-400/30 bg-cyan-500/10 text-cyan-300 flex items-center justify-center text-xl sm:text-2xl mb-4 sm:mb-5">
                   {module.icon}
                 </div>
-                <h3 className="text-xl font-bold mb-2">{module.title}</h3>
-                <p className="text-slate-400">{module.desc}</p>
+                <h3 className="text-sm sm:text-xl font-bold mb-2">{module.title}</h3>
+                <p className="text-slate-400 text-xs sm:text-base leading-relaxed line-clamp-4 sm:line-clamp-none">{module.desc}</p>
               </div>
             ))}
           </div>
@@ -202,18 +202,18 @@ export default function ClinicGrowthAutopilotPage() {
       <section className="py-20 bg-[#0a0118]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Expansion Path</h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="p-6 rounded-2xl border border-white/10 bg-[#0F172A]/60">
-              <h3 className="text-xl font-bold mb-2 text-cyan-300">Phase 1: Clinics</h3>
-              <p className="text-slate-400">Validate lead recovery, reminders, and review workflows with measurable outcomes.</p>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-6">
+            <div className="p-4 sm:p-6 rounded-2xl border border-white/10 bg-[#0F172A]/60">
+              <h3 className="text-sm sm:text-xl font-bold mb-2 text-cyan-300">Phase 1: Clinics</h3>
+              <p className="text-slate-400 text-xs sm:text-base">Validate lead recovery, reminders, and review workflows with measurable outcomes.</p>
             </div>
-            <div className="p-6 rounded-2xl border border-white/10 bg-[#0F172A]/60">
-              <h3 className="text-xl font-bold mb-2 text-cyan-300">Phase 2: Restaurants</h3>
-              <p className="text-slate-400">Repurpose followup and review modules for reservation, offer, and reputation operations.</p>
+            <div className="p-4 sm:p-6 rounded-2xl border border-white/10 bg-[#0F172A]/60">
+              <h3 className="text-sm sm:text-xl font-bold mb-2 text-cyan-300">Phase 2: Restaurants</h3>
+              <p className="text-slate-400 text-xs sm:text-base">Repurpose followup and review modules for reservation, offer, and reputation operations.</p>
             </div>
-            <div className="p-6 rounded-2xl border border-white/10 bg-[#0F172A]/60">
-              <h3 className="text-xl font-bold mb-2 text-cyan-300">Phase 3: Real Estate</h3>
-              <p className="text-slate-400">Adapt inquiry qualification, callback workflows, and localized campaign orchestration.</p>
+            <div className="p-4 sm:p-6 rounded-2xl border border-white/10 bg-[#0F172A]/60 col-span-2 md:col-span-1">
+              <h3 className="text-sm sm:text-xl font-bold mb-2 text-cyan-300">Phase 3: Real Estate</h3>
+              <p className="text-slate-400 text-xs sm:text-base">Adapt inquiry qualification, callback workflows, and localized campaign orchestration.</p>
             </div>
           </div>
         </div>
@@ -237,11 +237,11 @@ export default function ClinicGrowthAutopilotPage() {
       <section className="py-20 bg-[#020617]">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Expected Outcomes</h2>
-          <div className="grid md:grid-cols-2 gap-5">
+          <div className="grid grid-cols-2 md:grid-cols-2 gap-3 sm:gap-5">
             {kpis.map((item) => (
-              <div key={item} className="flex items-center gap-3 p-5 rounded-2xl border border-white/10 bg-[#020617]/75">
-                <MdTrendingUp className="text-cyan-300 text-xl shrink-0" />
-                <span className="text-slate-200">{item}</span>
+              <div key={item} className="flex items-center gap-2 sm:gap-3 p-3 sm:p-5 rounded-2xl border border-white/10 bg-[#020617]/75">
+                <MdTrendingUp className="text-cyan-300 text-lg sm:text-xl shrink-0" />
+                <span className="text-slate-200 text-xs sm:text-base">{item}</span>
               </div>
             ))}
           </div>

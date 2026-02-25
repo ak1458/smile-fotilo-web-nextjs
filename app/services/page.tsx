@@ -81,9 +81,9 @@ export default function ServicesPage() {
                 <Link
                   key={s.href}
                   href={s.href}
-                  className="group h-full rounded-3xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.05] hover:border-white/20 transition-all duration-300 aspect-square sm:aspect-[6/5] lg:aspect-auto"
+                  className="group h-full rounded-3xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.05] hover:border-white/20 transition-all duration-300 aspect-auto"
                 >
-                  <div className={`h-full min-h-0 lg:min-h-[250px] p-4 sm:p-5 lg:p-6 bg-gradient-to-br ${s.accent} flex flex-col`}>
+                  <div className={`h-full min-h-[220px] sm:min-h-[250px] lg:min-h-[250px] p-4 sm:p-5 lg:p-6 bg-gradient-to-br ${s.accent} flex flex-col`}>
                     <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white mb-4 sm:mb-5">
                       <span className="text-2xl sm:text-3xl">{s.icon}</span>
                     </div>

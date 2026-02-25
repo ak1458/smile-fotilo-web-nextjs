@@ -10,6 +10,50 @@ import { ConnectModal } from '../../components/ConnectModal';
 import { OtherLocations } from '../../components/OtherLocations';
 import { MdLocationOn, MdArrowForward, MdVisibility, MdCall, MdLanguage, MdAdsClick, MdDns, MdShoppingCart, MdSupportAgent, MdUpdate, MdCheckCircle, MdChat } from 'react-icons/md';
 
+const projectColorClasses = {
+    blue: {
+        cardHover: 'hover:border-blue-500/30',
+        imageGradient: 'from-blue-900/40 to-slate-900',
+        locationBadge: 'bg-blue-500/20 border-blue-500/30 text-blue-200',
+        serviceTag: 'bg-blue-500/10 border-blue-500/20 text-blue-300',
+        actionButton: 'from-blue-600 to-blue-700',
+    },
+    emerald: {
+        cardHover: 'hover:border-emerald-500/30',
+        imageGradient: 'from-emerald-900/40 to-slate-900',
+        locationBadge: 'bg-emerald-500/20 border-emerald-500/30 text-emerald-200',
+        serviceTag: 'bg-emerald-500/10 border-emerald-500/20 text-emerald-300',
+        actionButton: 'from-emerald-600 to-emerald-700',
+    },
+} as const;
+
+const serviceColorClasses = {
+    blue: {
+        iconBox: 'bg-blue-500/10',
+        iconText: 'text-blue-400',
+    },
+    violet: {
+        iconBox: 'bg-violet-500/10',
+        iconText: 'text-violet-400',
+    },
+    emerald: {
+        iconBox: 'bg-emerald-500/10',
+        iconText: 'text-emerald-400',
+    },
+    orange: {
+        iconBox: 'bg-orange-500/10',
+        iconText: 'text-orange-400',
+    },
+    cyan: {
+        iconBox: 'bg-cyan-500/10',
+        iconText: 'text-cyan-400',
+    },
+    pink: {
+        iconBox: 'bg-pink-500/10',
+        iconText: 'text-pink-400',
+    },
+} as const;
+
 // Real project data
 const globalProjects = [
     {
@@ -133,9 +177,13 @@ export default function GlobalPage() {
                                 viewport={{ once: true }}
                                 className="group"
                             >
-                                <div className={`glass-card p-0 overflow-hidden hover:border-${project.color}-500/30 transition-all duration-500`}>
+                                <div
+                                    className={`glass-card p-0 overflow-hidden transition-all duration-500 ${projectColorClasses[project.color as keyof typeof projectColorClasses].cardHover}`}
+                                >
                                     {/* Project Header with Image */}
-                                    <div className={`aspect-[16/9] bg-gradient-to-br from-${project.color}-900/40 to-slate-900 relative overflow-hidden`}>
+                                    <div
+                                        className={`aspect-[16/9] bg-gradient-to-br relative overflow-hidden ${projectColorClasses[project.color as keyof typeof projectColorClasses].imageGradient}`}
+                                    >
                                         <img
                                             src={project.image}
                                             alt={project.title}
@@ -145,7 +193,9 @@ export default function GlobalPage() {
 
                                         {/* Location Badge */}
                                         <div className="absolute top-4 left-4 z-20">
-                                            <span className={`text-xs font-bold bg-${project.color}-500/20 border border-${project.color}-500/30 text-${project.color}-200 px-3 py-1.5 rounded-full uppercase tracking-wider flex items-center gap-2 backdrop-blur-sm`}>
+                                            <span
+                                                className={`text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider flex items-center gap-2 backdrop-blur-sm border ${projectColorClasses[project.color as keyof typeof projectColorClasses].locationBadge}`}
+                                            >
                                                 <MdLocationOn className="text-sm" />
                                                 {project.location}
                                             </span>
@@ -173,7 +223,7 @@ export default function GlobalPage() {
                                             {project.services.map((service) => (
                                                 <span
                                                     key={service}
-                                                    className={`text-xs px-3 py-1 rounded-full bg-${project.color}-500/10 border border-${project.color}-500/20 text-${project.color}-300`}
+                                                    className={`text-xs px-3 py-1 rounded-full border ${projectColorClasses[project.color as keyof typeof projectColorClasses].serviceTag}`}
                                                 >
                                                     {service}
                                                 </span>
@@ -184,7 +234,7 @@ export default function GlobalPage() {
                                         <div className="flex gap-3">
                                             <button
                                                 onClick={() => handleProjectInquiry(project.id)}
-                                                className={`flex-1 px-5 py-3 rounded-xl bg-gradient-to-r from-${project.color}-600 to-${project.color}-700 text-white font-bold text-sm hover:opacity-90 transition-all flex items-center justify-center gap-2 group/btn`}
+                                                className={`flex-1 px-5 py-3 rounded-xl bg-gradient-to-r text-white font-bold text-sm hover:opacity-90 transition-all flex items-center justify-center gap-2 group/btn ${projectColorClasses[project.color as keyof typeof projectColorClasses].actionButton}`}
                                             >
                                                 <span>Get Similar Project</span>
                                                 <MdArrowForward className="text-lg group-hover/btn:translate-x-1 transition-transform" />
@@ -231,8 +281,8 @@ export default function GlobalPage() {
                                 viewport={{ once: true }}
                                 className="glass-card p-6 group hover:border-blue-500/20 transition-colors"
                             >
-                                <div className={`w-12 h-12 rounded-xl bg-${service.color}-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                                    <span className={`text-2xl text-${service.color}-400`}>
+                                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform ${serviceColorClasses[service.color as keyof typeof serviceColorClasses].iconBox}`}>
+                                    <span className={`text-2xl ${serviceColorClasses[service.color as keyof typeof serviceColorClasses].iconText}`}>
                                         {service.icon === 'language' ? <MdLanguage /> :
                                             service.icon === 'ads_click' ? <MdAdsClick /> :
                                                 service.icon === 'dns' ? <MdDns /> :

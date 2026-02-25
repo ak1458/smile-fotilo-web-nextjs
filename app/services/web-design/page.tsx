@@ -4,7 +4,7 @@ import { OpenChatButton } from '../../components/OpenChatButton';
 import { Footer } from '../../components/Footer';
 
 export const metadata: Metadata = {
-    title: 'Web Design & Development Services India — Starting ₹15,999 | Smile Fotilo',
+    title: 'Web Design & Development Services India — Starting ₹15,999',
     description: 'Custom web design starting ₹15,999. WordPress, WooCommerce, and Next.js websites for businesses in Gonda, Lucknow, Greater Noida & globally. Mobile-first, SEO-optimized, 2-3 week delivery. Free consultation.',
     alternates: {
         canonical: '/services/web-design',
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
         'website developer Ayodhya', 'startup website India', 'React developer India'
     ],
     openGraph: {
-        title: 'Web Design & Development — Starting ₹15,999 | Smile Fotilo',
+        title: 'Web Design & Development — Starting ₹15,999',
         description: 'Custom websites for Indian businesses. WordPress, e-commerce, Next.js — mobile-first, SEO-optimized, delivered in 2-3 weeks.',
         type: 'website',
         url: 'https://smilefotilo.com/services/web-design',
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'Web Design India — Starting ₹15,999 | Smile Fotilo',
+        title: 'Web Design India — Starting ₹15,999',
         description: 'Custom WordPress, e-commerce & Next.js websites. Mobile-first, SEO-optimized, 2-3 week delivery.',
         images: ['/og?title=Web%20Design%20%26%20Development&subtitle=Starting%20₹15%2C999'],
     },

@@ -49,12 +49,9 @@ export async function sendContactEmail(formData: ContactFormData) {
         };
 
         // 4. Send Email
-        // If credentials are not set, this will throw/log an error in dev, which we catch.
         if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-            console.warn("EMAIL_USER or EMAIL_PASS not set. Simulating success for demo.");
-            // Simulate network delay
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            return { success: true, message: 'Simulated success (Env not set)' };
+            console.error('EMAIL_USER or EMAIL_PASS is not configured. Contact mail not sent.');
+            return { success: false, error: 'Email service is not configured yet. Please try again later.' };
         }
 
         await transporter.sendMail(mailOptions);

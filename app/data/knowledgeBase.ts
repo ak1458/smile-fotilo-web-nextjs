@@ -52,8 +52,8 @@ Smile Fotilo is a premium digital agency specializing in high-end web design, SE
   - Dedicated support officer
 
 **CONTACT INFO:**
-- **Email:** hello@smilefotilo.com
-- **Phone:** +91 98765 43210
+- **Email:** ashrafkamal1458@gmail.com
+- **Phone:** +91 9453878422
 - **Location:** Digital-first agency with hubs in Greater Noida, Lucknow, Ayodhya, and Gonda.
 
 **WHY CHOOSE US?**

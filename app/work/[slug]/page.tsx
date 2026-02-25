@@ -49,12 +49,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     const project = projectMeta[slug];
     if (!project) {
         return {
-            title: 'Project Not Found | Smile Fotilo',
+            title: 'Project Not Found',
             robots: { index: false, follow: false },
         };
     }
 
-    const title = `${project.title} Case Study | Smile Fotilo`;
+    const title = `${project.title} Case Study`;
     const description = project.description;
     const canonical = `/work/${slug}`;
     const ogImage = `/og?title=${encodeURIComponent(project.title)}&subtitle=Case%20Study`;

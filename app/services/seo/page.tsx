@@ -4,7 +4,7 @@ import { OpenChatButton } from '../../components/OpenChatButton';
 import { Footer } from '../../components/Footer';
 
 export const metadata: Metadata = {
-    title: 'SEO & GEO Services India — Zero Position Ranking | Smile Fotilo',
+    title: 'SEO & GEO Services India — Zero Position Ranking',
     description: 'Expert SEO & GEO (Generative Engine Optimization) services starting ₹9,999/month. We rank you in AI Overviews, Featured Snippets, and Google #1. Local SEO for Lucknow, Gonda, Greater Noida. Free audit.',
     alternates: {
         canonical: '/services/seo',
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
         'best SEO agency UP', 'SEO freelancer India', 'Google Ads management'
     ],
     openGraph: {
-        title: 'SEO & GEO Services — Zero Position Ranking | Smile Fotilo',
+        title: 'SEO & GEO Services — Zero Position Ranking',
         description: 'Expert SEO & GEO services. Rank in AI Overviews, Featured Snippets, and Google #1. Starting ₹9,999/month.',
         type: 'website',
         url: 'https://smilefotilo.com/services/seo',
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'SEO & GEO Services — Zero Position | Smile Fotilo',
+        title: 'SEO & GEO Services — Zero Position',
         description: 'Rank in AI Overviews & Google #1. Expert SEO & GEO optimization starting ₹9,999/month.',
         images: ['/og?title=SEO%20%26%20GEO%20Services&subtitle=Zero%20Position%20Ranking'],
     },

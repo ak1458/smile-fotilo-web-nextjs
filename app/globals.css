@@ -272,6 +272,24 @@ p {
   animation: float 4s ease-in-out infinite;
 }
 
+/* Logo Spin Animation */
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-logo-spin {
+  animation: logo-spin 3s linear infinite;
+}
+
+.animate-logo-spin-slow {
+  animation: logo-spin 8s linear infinite;
+}
+
 /* ========================================
    PREMIUM BUTTONS
    ======================================== */

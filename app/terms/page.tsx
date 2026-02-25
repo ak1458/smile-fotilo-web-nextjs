@@ -4,7 +4,7 @@ import { MdArrowBack } from 'react-icons/md';
 import { Footer } from '../components/Footer';
 
 export const metadata: Metadata = {
-    title: 'Terms of Service | Smile Fotilo',
+    title: 'Terms of Service',
     description: 'Terms of Service for Smile Fotilo - Read our terms and conditions for using our web design and digital services.',
     alternates: {
         canonical: '/terms',

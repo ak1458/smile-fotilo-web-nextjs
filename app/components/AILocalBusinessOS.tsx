@@ -80,17 +80,17 @@ export const AILocalBusinessOS = () => {
             className="rounded-3xl border border-white/10 bg-[#0F172A]/55 p-6 md:p-8"
           >
             <h3 className="text-2xl font-bold mb-6">Core Modules</h3>
-            <div className="grid sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
               {modules.map((item) => (
                 <div
                   key={item.title}
-                  className="rounded-2xl border border-white/10 bg-[#020617]/80 p-5 hover:border-cyan-400/40 transition-colors"
+                  className="h-full min-h-[190px] rounded-xl sm:rounded-2xl border border-white/10 bg-[#020617]/80 p-4 sm:p-5 hover:border-cyan-400/40 transition-colors flex flex-col"
                 >
-                  <div className="w-11 h-11 rounded-xl bg-cyan-500/15 border border-cyan-400/30 text-cyan-300 flex items-center justify-center text-2xl mb-4">
+                  <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl bg-cyan-500/15 border border-cyan-400/30 text-cyan-300 flex items-center justify-center text-lg sm:text-2xl mb-3 sm:mb-4">
                     {item.icon}
                   </div>
-                  <h4 className="font-semibold text-slate-100 mb-2">{item.title}</h4>
-                  <p className="text-sm text-slate-400 leading-relaxed">{item.desc}</p>
+                  <h4 className="font-semibold text-slate-100 text-sm sm:text-base mb-1.5 sm:mb-2">{item.title}</h4>
+                  <p className="text-xs sm:text-sm text-slate-400 leading-relaxed line-clamp-4 sm:line-clamp-none">{item.desc}</p>
                 </div>
               ))}
             </div>

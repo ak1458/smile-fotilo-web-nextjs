@@ -5,7 +5,7 @@ import { CategoryFilter } from './components/CategoryFilter';
 import { SearchBar } from './components/SearchBar';
 
 export const metadata: Metadata = {
-  title: 'AI Agent Marketplace | Smile Fotilo',
+  title: 'AI Agent Marketplace',
   description: 'Browse and install ready-to-use AI agent templates for clinics, restaurants, retail, and local businesses.',
   alternates: {
     canonical: '/marketplace',

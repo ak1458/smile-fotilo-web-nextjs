@@ -114,31 +114,31 @@ export default function BlogPage() {
                             <h2 className="text-2xl md:text-3xl font-bold text-white">Featured Articles</h2>
                         </div>
 
-                        <div className="grid md:grid-cols-3 gap-6">
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
                             {featured.map((post) => (
                                 <Link key={post.slug} href={`/blog/${post.slug}`} className="group">
-                                    <article className="relative h-full rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-br from-white/5 to-transparent hover:border-violet-500/50 transition-all duration-500">
+                                    <article className="relative h-full rounded-xl sm:rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-br from-white/5 to-transparent hover:border-violet-500/50 transition-all duration-500">
                                         {/* Gradient Background */}
-                                        <div className={`h-48 bg-gradient-to-br ${categoryColors[post.category] || 'from-violet-600 to-purple-600'} flex items-center justify-center relative overflow-hidden`}>
+                                        <div className={`h-28 sm:h-48 bg-gradient-to-br ${categoryColors[post.category] || 'from-violet-600 to-purple-600'} flex items-center justify-center relative overflow-hidden`}>
                                             <div className="absolute inset-0 bg-black/20" />
-                                            <span className="text-7xl relative z-10">{categoryIcons[post.category] || '📝'}</span>
+                                            <span className="text-4xl sm:text-7xl relative z-10">{categoryIcons[post.category] || '📝'}</span>
                                             {/* Featured badge */}
-                                            <div className="absolute top-4 left-4 px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-white text-xs font-medium">
+                                            <div className="absolute top-2 left-2 sm:top-4 sm:left-4 px-2 sm:px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-white text-[10px] sm:text-xs font-medium">
                                                 ⭐ Featured
                                             </div>
                                         </div>
 
-                                        <div className="p-6">
-                                            <span className={`inline-block px-3 py-1 text-xs font-medium rounded-full bg-gradient-to-r ${categoryColors[post.category] || 'from-violet-600 to-purple-600'} text-white mb-3`}>
+                                        <div className="p-3 sm:p-6">
+                                            <span className={`inline-block px-2 sm:px-3 py-1 text-[10px] sm:text-xs font-medium rounded-full bg-gradient-to-r ${categoryColors[post.category] || 'from-violet-600 to-purple-600'} text-white mb-2 sm:mb-3`}>
                                                 {post.category}
                                             </span>
-                                            <h3 className="text-lg font-bold text-white mb-3 group-hover:text-violet-300 transition-colors line-clamp-2">
+                                            <h3 className="text-sm sm:text-lg font-bold text-white mb-2 sm:mb-3 group-hover:text-violet-300 transition-colors line-clamp-2">
                                                 {post.title}
                                             </h3>
-                                            <p className="text-sm text-slate-400 line-clamp-2 mb-4">
+                                            <p className="hidden sm:block text-sm text-slate-400 line-clamp-2 mb-4">
                                                 {post.description}
                                             </p>
-                                            <div className="flex items-center justify-between text-xs text-slate-500">
+                                            <div className="flex items-center justify-between text-[10px] sm:text-xs text-slate-500">
                                                 <span>{post.readTime}</span>
                                                 <span>{new Date(post.date).toLocaleDateString('en-IN', { month: 'short', day: 'numeric' })}</span>
                                             </div>
@@ -166,30 +166,30 @@ export default function BlogPage() {
                         </div>
                     </div>
 
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                         {paginatedPosts.map((post) => (
                             <Link key={post.slug} href={`/blog/${post.slug}`} className="group">
-                                <article className="h-full rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.05] hover:border-violet-500/30 transition-all duration-300 overflow-hidden">
+                                <article className="h-full rounded-xl sm:rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.05] hover:border-violet-500/30 transition-all duration-300 overflow-hidden">
                                     {/* Mini gradient header */}
                                     <div className={`h-2 bg-gradient-to-r ${categoryColors[post.category] || 'from-violet-600 to-purple-600'}`} />
 
-                                    <div className="p-6">
-                                        <div className="flex items-center gap-3 mb-4">
-                                            <span className="text-2xl">{categoryIcons[post.category] || '📝'}</span>
-                                            <span className="text-xs font-medium text-slate-500 uppercase tracking-wider">
+                                    <div className="p-3 sm:p-6">
+                                        <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+                                            <span className="text-xl sm:text-2xl">{categoryIcons[post.category] || '📝'}</span>
+                                            <span className="text-[10px] sm:text-xs font-medium text-slate-500 uppercase tracking-wider">
                                                 {post.category}
                                             </span>
                                         </div>
 
-                                        <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-violet-300 transition-colors line-clamp-2">
+                                        <h3 className="text-sm sm:text-lg font-semibold text-white mb-2 sm:mb-3 group-hover:text-violet-300 transition-colors line-clamp-2">
                                             {post.title}
                                         </h3>
 
-                                        <p className="text-sm text-slate-400 line-clamp-2 mb-4">
+                                        <p className="hidden sm:block text-sm text-slate-400 line-clamp-2 mb-4">
                                             {post.description}
                                         </p>
 
-                                        <div className="flex items-center gap-4 text-xs text-slate-500 pt-4 border-t border-white/5">
+                                        <div className="flex items-center gap-3 sm:gap-4 text-[10px] sm:text-xs text-slate-500 pt-3 sm:pt-4 border-t border-white/5">
                                             <span className="flex items-center gap-1">
                                                 <MdSchedule className="text-sm" />
                                                 {post.readTime}

@@ -33,10 +33,9 @@ export const metadata: Metadata = {
     icon: '/icon.png',
     apple: '/icon.png',
   },
-  // Uncomment and add your Google Search Console verification code:
-  // verification: {
-  //   google: 'YOUR_GOOGLE_SEARCH_CONSOLE_VERIFICATION_CODE',
-  // },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GSC_VERIFICATION || 'YOUR_GOOGLE_SEARCH_CONSOLE_VERIFICATION_CODE',
+  },
   openGraph: {
     title: "Smile Fotilo | World-Class Digital Experiences",
     description: "We build beautiful, high-performance websites and brands. Based in India, serving the world.",

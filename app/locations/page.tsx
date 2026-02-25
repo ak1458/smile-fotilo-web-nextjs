@@ -19,7 +19,8 @@ const locations = [
         tagline: 'Tech Hub',
         description: 'Enterprise solutions for the industrial capital of NCR.',
         icon: 'apartment',
-        color: 'cyan',
+        iconClasses: 'bg-cyan-500/10 text-cyan-400 group-hover:bg-cyan-500',
+        taglineClasses: 'text-cyan-400',
     },
     {
         name: 'Ayodhya',
@@ -27,7 +28,8 @@ const locations = [
         tagline: 'Vedic Smart City',
         description: 'Where ancient heritage meets modern technology.',
         icon: 'temple_hindu',
-        color: 'orange',
+        iconClasses: 'bg-orange-500/10 text-orange-400 group-hover:bg-orange-500',
+        taglineClasses: 'text-orange-400',
     },
     {
         name: 'Gonda',
@@ -35,7 +37,8 @@ const locations = [
         tagline: 'Headquarters',
         description: 'Where it all began. Silicon Valley quality from hometown roots.',
         icon: 'home',
-        color: 'emerald',
+        iconClasses: 'bg-emerald-500/10 text-emerald-400 group-hover:bg-emerald-500',
+        taglineClasses: 'text-emerald-400',
     },
     {
         name: 'Lucknow',
@@ -43,9 +46,10 @@ const locations = [
         tagline: 'City of Nawabs',
         description: 'Cultural heritage meets digital transformation.',
         icon: 'mosque',
-        color: 'rose',
+        iconClasses: 'bg-rose-500/10 text-rose-400 group-hover:bg-rose-500',
+        taglineClasses: 'text-rose-400',
     },
-];
+] as const;
 
 export default function LocationsPage() {
     return (
@@ -77,23 +81,23 @@ export default function LocationsPage() {
             {/* Locations Grid */}
             <section className="py-20 bg-[#0F172A]">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                         {locations.map((loc) => (
                             <Link
                                 key={loc.slug}
                                 href={`/locations/${loc.slug}`}
-                                className="group p-8 glass-card hover:bg-slate-800/50 hover:border-indigo-500/50 transition-all hover:-translate-y-2"
+                                className="group h-full p-4 sm:p-8 glass-card hover:bg-slate-800/50 hover:border-indigo-500/50 transition-all hover:-translate-y-2"
                             >
-                                <div className={`w-16 h-16 rounded-2xl bg-${loc.color}-500/10 flex items-center justify-center text-${loc.color}-400 mb-6 group-hover:bg-${loc.color}-500 group-hover:text-white transition-colors`}>
-                                    <span className="text-3xl">
+                                <div className={`w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl flex items-center justify-center mb-3 sm:mb-6 group-hover:text-white transition-colors ${loc.iconClasses}`}>
+                                    <span className="text-xl sm:text-3xl">
                                         {loc.icon === 'apartment' ? <MdApartment /> :
                                             loc.icon === 'temple_hindu' ? <MdTempleHindu /> :
                                                 loc.icon === 'home' ? <MdHome /> : <MdMosque />}
                                     </span>
                                 </div>
-                                <span className={`text-xs font-bold uppercase tracking-widest text-${loc.color}-400`}>{loc.tagline}</span>
-                                <h3 className="text-xl font-bold text-white mt-2 mb-3">{loc.name}</h3>
-                                <p className="text-slate-400 text-sm">{loc.description}</p>
+                                <span className={`text-[10px] sm:text-xs font-bold uppercase tracking-widest ${loc.taglineClasses}`}>{loc.tagline}</span>
+                                <h3 className="text-sm sm:text-xl font-bold text-white mt-2 mb-1 sm:mb-3 line-clamp-2">{loc.name}</h3>
+                                <p className="hidden sm:block text-slate-400 text-sm">{loc.description}</p>
                             </Link>
                         ))}
                     </div>

@@ -1,10 +1,10 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import HomePageClient from "./HomePageClient";
 
 export const metadata: Metadata = {
-  title: "Smile Fotilo | Web Design & Digital Marketing in Gonda, Lucknow & Global",
+  title: "Smile Fotilo | Web Design & SEO Agency India | Gonda, Lucknow & Global",
   description:
-    "Smile Fotilo is a premium creative agency for Web Design, Branding, and SEO. Custom websites from INR 15,999. Serving Gonda, Lucknow, and global brands.",
+    "Web design and SEO agency in India. Custom websites from INR 15,999 serving Gonda, Lucknow, Greater Noida, and global brands.",
   keywords: [
     "web design Gonda",
     "web design Lucknow",
@@ -21,9 +21,9 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Smile Fotilo | Web Design, SEO & Branding Agency",
+    title: "Smile Fotilo | Web Design & SEO Agency India",
     description:
-      "We build world-class websites and digital experiences. Custom web design from INR 15,999. Based in India, serving globally.",
+      "Web design and SEO agency in India. Custom websites from INR 15,999 serving Gonda, Lucknow, Greater Noida, and global brands.",
     type: "website",
     url: "https://smilefotilo.com",
     images: [
@@ -31,15 +31,15 @@ export const metadata: Metadata = {
         url: "/og?title=Smile%20Fotilo&subtitle=Web%20Design%2C%20Branding%20%26%20Digital%20Marketing",
         width: 1200,
         height: 630,
-        alt: "Smile Fotilo - Web Design & Digital Marketing Agency",
+        alt: "Smile Fotilo - Web Design & SEO Agency India",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Smile Fotilo | Web Design & Digital Marketing",
+    title: "Smile Fotilo | Web Design & SEO Agency India",
     description:
-      "Premium web design, SEO, and branding. Custom websites from INR 15,999. Global delivery.",
+      "Web design and SEO agency in India. Custom websites from INR 15,999. Global delivery.",
     images: ["/og?title=Smile%20Fotilo&subtitle=Web%20Design%2C%20Branding%20%26%20Digital%20Marketing"],
   },
 };
@@ -48,11 +48,11 @@ export const metadata: Metadata = {
 function ServerSEOContent() {
   return (
     <div className="sr-only" aria-hidden="true">
-      <h2>Smile Fotilo - Web Design and Digital Marketing Agency</h2>
+      <h2>Smile Fotilo - Web Design and SEO Agency India</h2>
       <p>
         Smile Fotilo is a premium creative agency specializing in Web Design,
-        Branding, and Digital Marketing. We build world-class digital experiences
-        for global brands. Custom websites starting at INR 15,999 with 2-3 week delivery.
+        Branding, and SEO. Web design and SEO agency serving Gonda, Lucknow, Greater Noida and global brands.
+        Custom websites starting at INR 15,999 with 2-3 week delivery.
       </p>
       <h2>Our Services</h2>
       <ul>

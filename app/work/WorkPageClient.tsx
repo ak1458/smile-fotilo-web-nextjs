@@ -101,7 +101,7 @@ export default function WorkPage() {
                 </div>
 
                 {/* Case Studies Grid */}
-                <div className="grid lg:grid-cols-2 gap-10 mb-32">
+                <div className="grid grid-cols-2 lg:grid-cols-2 gap-4 sm:gap-10 mb-20 sm:mb-32">
                     {projects.map((project, index) => (
                         <motion.div
                             key={index}
@@ -109,10 +109,10 @@ export default function WorkPage() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.6, delay: project.delay }}
-                            className="group relative bg-[#0f0720] border border-white/5 rounded-[2.5rem] overflow-hidden hover:border-white/10 transition-all duration-500 shadow-2xl hover:shadow-[0_0_50px_rgba(99,102,241,0.15)]"
+                            className="group relative h-full bg-[#0f0720] border border-white/5 rounded-3xl sm:rounded-[2.5rem] overflow-hidden hover:border-white/10 transition-all duration-500 shadow-2xl hover:shadow-[0_0_50px_rgba(99,102,241,0.15)]"
                         >
                             {/* Image Section */}
-                            <div className="h-[300px] md:h-[400px] w-full overflow-hidden relative">
+                            <div className="h-[185px] sm:h-[240px] md:h-[400px] w-full overflow-hidden relative">
                                 <div className={`absolute inset-0 bg-gradient-to-b from-transparent to-[#0f0720] z-10 opacity-60`} />
                                 <Image
                                     src={project.image}
@@ -125,19 +125,22 @@ export default function WorkPage() {
                             </div>
 
                             {/* Content Section */}
-                            <div className="relative z-20 -mt-20 p-8 md:p-10">
-                                <div className="flex flex-wrap gap-2 mb-6">
+                            <div className="relative z-20 -mt-8 sm:-mt-20 p-4 sm:p-8 md:p-10">
+                                <div className="inline-flex sm:hidden px-2 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-semibold text-indigo-300 mb-3">
+                                    {project.category}
+                                </div>
+                                <div className="hidden sm:flex flex-wrap gap-2 mb-6">
                                     {project.tags.map((tag, i) => (
                                         <span key={i} className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-indigo-300">
                                             {tag}
                                         </span>
                                     ))}
                                 </div>
-                                <h2 className="text-3xl md:text-4xl font-bold mb-4 group-hover:text-indigo-400 transition-colors">{project.title}</h2>
-                                <p className="text-slate-400 leading-relaxed mb-8 text-lg">
+                                <h2 className="text-lg sm:text-3xl md:text-4xl font-bold mb-2 sm:mb-4 group-hover:text-indigo-400 transition-colors line-clamp-2 sm:line-clamp-none">{project.title}</h2>
+                                <p className="hidden sm:block text-slate-400 leading-relaxed mb-8 text-lg">
                                     {project.description}
                                 </p>
-                                <Link href={`/work/${project.slug}`} className="inline-flex items-center gap-2 text-white font-bold hover:gap-4 transition-all">
+                                <Link href={`/work/${project.slug}`} className="inline-flex items-center gap-2 text-white font-bold text-sm sm:text-base hover:gap-4 transition-all">
                                     View Case Study <MdArrowForward />
                                 </Link>
                             </div>

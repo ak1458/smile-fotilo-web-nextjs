@@ -4,7 +4,7 @@ import { OpenChatButton } from '../../components/OpenChatButton';
 import { Footer } from '../../components/Footer';
 
 export const metadata: Metadata = {
-    title: 'Brand Identity & Logo Design India — Starting ₹7,999 | Smile Fotilo',
+    title: 'Brand Identity & Logo Design India — Starting ₹7,999',
     description: 'Professional logo design starting ₹7,999 and brand identity from ₹25,000. 3 concepts, 2 revisions, all vector files. Packaging design, brand guidelines, and visual identity systems. 2-4 week delivery.',
     alternates: {
         canonical: '/services/branding',
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
         'brand book design', 'social media branding', 'affordable logo design India'
     ],
     openGraph: {
-        title: 'Brand Identity & Logo Design — Starting ₹7,999 | Smile Fotilo',
+        title: 'Brand Identity & Logo Design — Starting ₹7,999',
         description: 'Professional brand identity design. 3 concepts, 2 revisions, all vector files. Complete visual identity systems.',
         type: 'website',
         url: 'https://smilefotilo.com/services/branding',
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'Brand Identity & Logo Design — ₹7,999 | Smile Fotilo',
+        title: 'Brand Identity & Logo Design — ₹7,999',
         description: 'Professional logos & brand identity. 3 concepts, 2 revisions, all vector files. 2-4 week delivery.',
         images: ['/og?title=Brand%20Identity%20%26%20Logo%20Design&subtitle=Starting%20₹7%2C999'],
     },

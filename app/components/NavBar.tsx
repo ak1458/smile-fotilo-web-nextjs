@@ -1,13 +1,20 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MdHome, MdWork, MdApps, MdArticle, MdLocationOn, MdInfo, MdChevronRight, MdLocalHospital, MdSearch } from 'react-icons/md';
+import { MdHome, MdWork, MdApps, MdArticle, MdLocationOn, MdInfo, MdChevronRight, MdLocalHospital, MdSearch, MdPayments } from 'react-icons/md';
 import Image from 'next/image';
 
 export const NavBar = React.memo(() => {
     const [isOpen, setIsOpen] = useState(false);
+
+    useEffect(() => {
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [isOpen]);
 
     const handleLinkClick = () => {
         setIsOpen(false);
@@ -17,6 +24,7 @@ export const NavBar = React.memo(() => {
         { href: '/#home', label: 'Home', icon: <MdHome /> },
         { href: '/#work', label: 'Work', icon: <MdWork /> },
         { href: '/#services', label: 'Services', icon: <MdApps /> },
+        { href: '/pricing', label: 'Pricing', icon: <MdPayments /> },
         { href: '/services/clinic-growth-autopilot', label: 'Growth AI', icon: <MdLocalHospital /> },
         { href: '/tools', label: 'Free Tools', icon: <MdSearch /> },
         { href: '/blog', label: 'Blog', icon: <MdArticle /> },
@@ -31,13 +39,14 @@ export const NavBar = React.memo(() => {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center h-20">
                         {/* Logo */}
-                        <Link href="/" className="flex items-center gap-2 group relative h-10 w-auto" onClick={handleLinkClick}>
+                        <Link href="/" className="flex items-center gap-2 group relative h-12 w-auto" onClick={handleLinkClick}>
                             <Image 
                                 src="/logo.png" 
                                 alt="Smile Fotilo Logo" 
-                                width={120} 
-                                height={40}
-                                className="h-10 w-auto object-contain transition-all" 
+                                width={168} 
+                                height={48}
+                                className="h-12 w-auto object-contain transition-all brightness-125 contrast-110" 
+                                style={{ width: 'auto', height: '48px' }}
                                 priority
                             />
                         </Link>
@@ -97,7 +106,10 @@ export const NavBar = React.memo(() => {
                     >
                         <div className="absolute inset-0 bg-[#0a0118]/98 backdrop-blur-2xl" />
 
-                        <div className="relative h-full flex flex-col px-6 py-8">
+                        <div
+                            className="relative h-full min-h-0 max-h-[calc(100vh-5rem)] overflow-y-auto overscroll-contain px-6 py-8 pb-[calc(2rem+env(safe-area-inset-bottom))]"
+                            style={{ WebkitOverflowScrolling: 'touch', touchAction: 'pan-y' }}
+                        >
                             <div className="space-y-2">
                                 {menuItems.map((item, index) => (
                                     <motion.div

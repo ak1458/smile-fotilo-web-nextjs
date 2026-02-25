@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Free AI Tools | Smile Fotilo',
+  title: 'Free AI Tools',
   description:
     'Use free AI tools to audit websites, generate content, build brand kits, and plan growth workflows.',
   alternates: {
@@ -91,26 +91,26 @@ export default function ToolsPage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+        <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-3 md:gap-6">
           {tools.map((tool) => (
             <Link
               key={tool.title}
               href={tool.href}
-              className={`group rounded-2xl border ${tool.borderColor} bg-white/5 p-6 transition-all duration-300 hover:-translate-y-1 hover:bg-white/[0.07] hover:shadow-xl ${tool.glowColor}`}
+              className={`group min-h-[240px] sm:min-h-[280px] rounded-2xl border ${tool.borderColor} bg-white/5 p-3 sm:p-6 transition-all duration-300 hover:-translate-y-1 hover:bg-white/[0.07] hover:shadow-xl ${tool.glowColor} flex flex-col`}
             >
-              <div className="mb-3 inline-flex rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs uppercase tracking-wide text-white/60">
+              <div className="mb-2 sm:mb-3 inline-flex rounded-full border border-white/10 bg-white/5 px-2.5 py-1 sm:px-3 text-[10px] sm:text-xs uppercase tracking-wide text-white/60">
                 {tool.badge}
               </div>
-              <h2 className="text-xl font-bold">{tool.title}</h2>
-              <p className="mb-4 mt-2 text-sm leading-relaxed text-white/50">{tool.description}</p>
-              <div className="mb-4 flex flex-wrap gap-2">
-                {tool.features.map((f) => (
-                  <span key={f} className="rounded-lg border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] text-white/40">
+              <h2 className="text-base sm:text-xl font-bold leading-tight">{tool.title}</h2>
+              <p className="mb-3 sm:mb-4 mt-2 text-xs sm:text-sm leading-relaxed text-white/50 line-clamp-3 sm:line-clamp-none">{tool.description}</p>
+              <div className="mb-3 sm:mb-4 flex flex-wrap gap-1.5 sm:gap-2">
+                {tool.features.map((f, index) => (
+                  <span key={f} className={`rounded-lg border border-white/10 bg-white/5 px-2 py-1 text-[10px] sm:text-[11px] text-white/40 ${index > 1 ? 'hidden sm:inline-flex' : ''}`}>
                     {f}
                   </span>
                 ))}
               </div>
-              <span className={`inline-flex items-center gap-1.5 bg-gradient-to-r ${tool.color} bg-clip-text text-sm font-medium text-transparent`}>
+              <span className={`mt-auto inline-flex items-center gap-1.5 bg-gradient-to-r ${tool.color} bg-clip-text text-xs sm:text-sm font-medium text-transparent`}>
                 Open tool {"->"}
               </span>
             </Link>

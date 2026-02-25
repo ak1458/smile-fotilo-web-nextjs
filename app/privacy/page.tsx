@@ -5,7 +5,7 @@ import { Footer } from '../components/Footer';
 
 
 export const metadata: Metadata = {
-    title: 'Privacy Policy | Smile Fotilo',
+    title: 'Privacy Policy',
     description: 'Privacy Policy for Smile Fotilo - Learn how we collect, use, and protect your personal information.',
     alternates: {
         canonical: '/privacy',

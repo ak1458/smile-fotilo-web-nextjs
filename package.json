@@ -13,7 +13,8 @@
     "security:prompt-test": "node scripts/monitoring/prompt-injection-test.js",
     "test:api": "node scripts/monitoring/api-health-check.js",
     "test:all": "npm run security:audit && npm run test:api",
-    "logs:analyze": "node scripts/monitoring/log-analyzer.js"
+    "logs:analyze": "node scripts/monitoring/log-analyzer.js",
+    "seo:audit:weekly": "node scripts/seo/unified-seo-agent.mjs"
   },
   "overrides": {
     "minimatch": "^5.1.6",

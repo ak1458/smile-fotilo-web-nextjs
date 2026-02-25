@@ -1,17 +1,12 @@
 'use server';
 
-import Groq from 'groq-sdk';
 import { AI_MODELS } from '../data/aiModels';
 import { SMILE_FOTILO_KNOWLEDGE } from '../data/knowledgeBase';
 
 type ChatHistoryItem = { role: 'user' | 'model'; parts: string };
 type Counter = { count: number; resetTime: number };
 type PredefinedReply = { text: string; quickReplies: string[] };
-type ResolvedModel = {
-  provider: 'openrouter' | 'openai' | 'gemini';
-  model: string;
-  paid: boolean;
-};
+type OpenRouterResult = { ok: true; text: string } | { ok: false; error: string };
 
 function readPositiveNumber(value: string | undefined, fallback: number): number {
   const parsed = Number(value);
@@ -19,42 +14,36 @@ function readPositiveNumber(value: string | undefined, fallback: number): number
   return parsed;
 }
 
+function readNumberInRange(value: string | undefined, fallback: number, min: number, max: number): number {
+  const parsed = Number(value);
+  if (!Number.isFinite(parsed)) return fallback;
+  return Math.min(max, Math.max(min, parsed));
+}
+
 const MINUTE_MS = 60 * 1000;
-const HOUR_MS = 60 * MINUTE_MS;
-const DAY_MS = 24 * HOUR_MS;
 
 const REQUEST_LIMIT = readPositiveNumber(process.env.CHAT_REQUEST_LIMIT, 25);
 const REQUEST_WINDOW_MS = readPositiveNumber(process.env.CHAT_REQUEST_WINDOW_MS, MINUTE_MS);
 
-const SMART_ROUTING = process.env.AI_PROVIDER === 'smart' || process.env.AI_PROVIDER === 'openrouter';
-const GROQ_ENABLED = process.env.GROQ_ENABLED !== 'false';
-const GROQ_CLIENT_HOURLY_LIMIT = readPositiveNumber(process.env.GROQ_CLIENT_HOURLY_LIMIT, 8);
-const GROQ_CLIENT_DAILY_LIMIT = readPositiveNumber(process.env.GROQ_CLIENT_DAILY_LIMIT, 20);
-const GROQ_GLOBAL_HOURLY_LIMIT = readPositiveNumber(process.env.GROQ_GLOBAL_HOURLY_LIMIT, 120);
-const GROQ_GLOBAL_DAILY_LIMIT = readPositiveNumber(process.env.GROQ_GLOBAL_DAILY_LIMIT, 400);
-const GROQ_MODEL = process.env.GROQ_MODEL || 'llama-3.3-70b-versatile';
+const OPENROUTER_PRIMARY_MODEL = process.env.OPENROUTER_MODEL || 'z-ai/glm-4.5-air:free';
+const OPENROUTER_REASONING_MODEL =
+  process.env.OPENROUTER_REASONING_MODEL ||
+  process.env.OPENROUTER_DEEP_MODEL ||
+  'deepseek/deepseek-r1-0528:free';
 
-const OPENROUTER_MODEL = process.env.OPENROUTER_MODEL || 'z-ai/glm-4.5-air:free';
-const OPENROUTER_DEEP_MODEL = process.env.OPENROUTER_DEEP_MODEL || 'google/gemini-2.0-flash-lite-001';
-const OPENAI_PAID_MODEL =
-  process.env.OPENAI_PAID_MODEL || process.env.OPENAI_MODEL || 'gpt-5.2-chat-latest';
-const GEMINI_PAID_MODEL =
-  process.env.GEMINI_PAID_MODEL || process.env.GOOGLE_GEMINI_MODEL || 'gemini-3.1-pro-preview';
+const OPENROUTER_MAX_TOKENS = readPositiveNumber(process.env.OPENROUTER_MAX_TOKENS, 220);
+const OPENROUTER_TEMPERATURE = readNumberInRange(process.env.OPENROUTER_TEMPERATURE, 0.45, 0, 1);
 
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-const GOOGLE_GEMINI_API_KEY = process.env.GOOGLE_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
+const baseOpenRouterModels: string[] = AI_MODELS
+  .map((model) => model.id as string)
+  .filter((modelId) => modelId !== 'auto');
 
-const FREE_OPENROUTER_MODELS = AI_MODELS
-  .map((model) => model.id)
-  .filter((modelId) => modelId !== 'auto' && !modelId.startsWith('openai:') && !modelId.startsWith('google:'));
+const FREE_OPENROUTER_MODELS: string[] = Array.from(
+  new Set([...baseOpenRouterModels, OPENROUTER_PRIMARY_MODEL, OPENROUTER_REASONING_MODEL])
+);
 
 const requestThrottleMap = new Map<string, Counter>();
-const groqClientHourMap = new Map<string, Counter>();
-const groqClientDayMap = new Map<string, Counter>();
 const freeModelPointerMap = new Map<string, number>();
-
-let groqGlobalHourCounter: Counter = { count: 0, resetTime: Date.now() + HOUR_MS };
-let groqGlobalDayCounter: Counter = { count: 0, resetTime: Date.now() + DAY_MS };
 
 function sanitizeInput(input: string): string {
   if (typeof input !== 'string') return '';
@@ -93,15 +82,51 @@ function formatReply(text: string, quickReplies: string[]): string {
 }
 
 function buildSystemPrompt(): string {
-  return `You are Echo, sales assistant for Smile Fotilo.
-Rules:
-- Sound natural and conversational while staying concise.
-- Use at most 2 short sentences per reply.
-- End every reply with this exact format:
-[QUICK_REPLIES: Option1 | Option2 | Option3]
-- Stay focused on Smile Fotilo services and lead qualification.
-- If user asks off-topic, gently redirect to agency services.
-Knowledge:
+  return `You are Echo, a senior business consultant at Smile Fotilo, a premium digital agency based in India with global clients. You've been with the company for 3+ years and know the services inside-out.
+
+YOUR PERSONALITY:
+- Professional but approachable - like a knowledgeable colleague, not a support script
+- Confident in your expertise - you know what works for different business types
+- Direct and honest - no fluff, no generic filler phrases
+- Context-aware - acknowledge what the user actually said, don't ignore it
+- Conversational - use natural speech patterns, varied sentence structures
+
+WHAT TO AVOID (SOUNDS ROBOTIC):
+- Generic greetings like "Hey there!" or "How can I help you today?"
+- Overused phrases: "Great question!", "Absolutely!", "No worries!"
+- Starting every response the same way
+- Excessive enthusiasm that feels fake
+- Bullet-point speech patterns
+
+AUTHENTIC RESPONSE EXAMPLES:
+User: "I need a website"
+Bad: "Great! We can help with that!"
+Good: "Sure thing. What's the business - clinic, retail, services? Helps me point you to the right package."
+
+User: "How much?"
+Bad: "Great question! Our pricing starts at..."
+Good: "Depends on what you need. Starter sites run ₹15k, e-commerce starts around ₹35k. What's your budget looking like?"
+
+User: "What do you do?"
+Bad: "We offer web development, SEO, branding..."
+Good: "We build revenue-generating digital assets - websites that actually convert, SEO that gets you found, and automation systems like Growth Autopilot for clinics. What are you trying to solve?"
+
+CONVERSATION PRINCIPLES:
+1. ACKNOWLEDGE first - show you understood their message
+2. ANSWER directly - no beating around the bush  
+3. GUIDE forward - suggest next step or ask clarifying question
+4. VARY your style - sometimes brief, sometimes explanatory based on context
+
+TONE ADAPTATION:
+- If user is brief/casual: Match it. "Got it. Budget?"
+- If user is detailed/formal: Give thorough response
+- If user is stressed/urgent: Reassure with specifics
+- If user is comparing options: Highlight differentiators
+
+ALWAYS END WITH:
+[QUICK_REPLIES: relevant-option-1 | relevant-option-2 | relevant-option-3]
+
+COMPANY KNOWLEDGE:
 ${SMILE_FOTILO_KNOWLEDGE}`;
 }
 
@@ -115,16 +140,6 @@ function toOpenAIHistory(history: ChatHistoryItem[]) {
     .slice(-8);
 }
 
-function toGeminiHistory(history: ChatHistoryItem[]) {
-  return history
-    .map((msg) => ({
-      role: msg.role === 'model' ? ('model' as const) : ('user' as const),
-      parts: [{ text: sanitizeInput(msg.parts) }],
-    }))
-    .filter((msg) => msg.parts[0].text.length > 0)
-    .slice(-8);
-}
-
 function getPredefinedReply(rawMessage: string): PredefinedReply | null {
   const message = normalizeMessage(rawMessage);
   if (!message) return null;
@@ -132,106 +147,168 @@ function getPredefinedReply(rawMessage: string): PredefinedReply | null {
   const hasEmail = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/i.test(message);
   if (hasEmail) {
     return {
-      text: 'Thanks, we got your email and our team will contact you shortly.',
-      quickReplies: ['Share budget', 'Share timeline', 'Call now'],
+      text: 'Noted. Our team will reach out within 24 hours - usually same day if it\'s during work hours. In the meantime, anything specific you want to know about the process or timeline?',
+      quickReplies: ['How does the process work?', 'What\'s the timeline?', 'I\'m good for now'],
     };
   }
 
+  // First greeting - professional, confident, sets the tone immediately
   if (message.includes('greet the user warmly') || containsWord(message, ['hello', 'hi', 'hey', 'namaste', 'start'])) {
+    const greetings = [
+      {
+        text: 'Welcome to Smile Fotilo. I\'m Echo - I handle initial consultations here. What type of business are you looking to build or improve?',
+        quickReplies: ['Clinic/medical', 'Retail/e-commerce', 'Service business', 'Something else']
+      },
+      {
+        text: 'Thanks for reaching out. To point you in the right direction - are you looking for a new website, better rankings on Google, or automation for an existing business?',
+        quickReplies: ['New website', 'Better SEO', 'Business automation', 'Not sure yet']
+      },
+      {
+        text: 'Good to connect. I can walk you through our services, pricing, or connect you directly with the team. What\'s your priority right now?',
+        quickReplies: ['See pricing', 'Understand services', 'Speak to someone', 'Just browsing']
+      }
+    ];
+    // Rotate based on time to feel less scripted
+    return greetings[Date.now() % 3];
+  }
+
+  if (containsAny(message, ['price', 'pricing', 'cost', 'budget', 'how much', 'investment'])) {
     return {
-      text: 'Hi, I can help with pricing, services, timeline, and Growth Autopilot.',
-      quickReplies: ['Pricing', 'Services', 'Growth Autopilot'],
+      text: 'Straight to the numbers - I respect that. Starter sites begin at ₹15k (5 pages, basic SEO). E-commerce and complex builds start around ₹35k. Growth Autopilot for clinics is ₹9,999/month. What\'s your ballpark?',
+      quickReplies: ['Under ₹20k', '₹20k-50k range', 'Flexible for right solution', 'Just researching'],
     };
   }
 
-  if (containsAny(message, ['price', 'pricing', 'cost', 'budget', 'how much'])) {
+  if (containsAny(message, ['starter', 'basic', 'simple website'])) {
     return {
-      text: 'Starter is INR 15k, Growth starts INR 35k, and Growth Autopilot starts INR 9,999 monthly.',
-      quickReplies: ['Starter plan', 'Growth plan', 'Autopilot plan'],
+      text: 'Starter makes sense if you\'re just establishing your online presence. You get a professional 5-page site, mobile optimization, basic SEO setup, and one month of support. Turnaround is usually 5-7 days. Solid foundation to build on.',
+      quickReplies: ['What pages are included?', 'Can I upgrade later?', 'Let\'s move forward'],
     };
   }
 
-  if (containsAny(message, ['starter'])) {
+  if (containsAny(message, ['growth', 'ecommerce', 'e-commerce', 'online store'])) {
     return {
-      text: 'Starter includes a 5-page website, basic SEO, and one-month support for INR 15k.',
-      quickReplies: ['Timeline', 'Growth plan', 'Book call'],
+      text: 'Growth tier is where most serious businesses land. You get full e-commerce with payment integration, an admin panel so you can update products yourself, advanced SEO setup, and we handle up to 50 products in the initial build. Starts at ₹35k.',
+      quickReplies: ['Payment gateway options?', 'How many products?', 'Timeline for this?'],
     };
   }
 
-  if (containsAny(message, ['growth'])) {
+  if (containsAny(message, ['clinic autopilot', 'clinic ai', 'ai growth', 'ai os', 'automation', 'chatbot', 'local business os', 'autopilot'])) {
     return {
-      text: 'Growth starts at INR 35k with ecommerce, admin panel, and advanced SEO setup.',
-      quickReplies: ['Starter plan', 'AI OS plan', 'Book call'],
+      text: 'Growth Autopilot is our flagship product for clinics specifically. It handles the repetitive stuff - missed call follow-ups via WhatsApp, appointment reminders 24h and 2h before, Google review responses, and a bilingual chatbot for patient queries. ₹9,999/month per location.',
+      quickReplies: ['How does setup work?', 'Which clinics is this for?', 'Book a pilot demo'],
     };
   }
 
-  if (containsAny(message, ['clinic autopilot', 'clinic ai', 'ai growth', 'ai os', 'automation', 'chatbot', 'local business os'])) {
+  if (containsAny(message, ['services', 'what do you do', 'offer', 'help with', 'capabilities'])) {
     return {
-      text: 'Growth Autopilot automates follow-ups, reminders, reviews, and bilingual patient workflows.',
-      quickReplies: ['Clinic pricing', 'Book pilot', 'How it works'],
+      text: 'Four main areas: One, custom web development - business sites to full e-commerce. Two, SEO and GEO - we get you ranking, including AI overviews. Three, branding - visual identity that actually converts. Four, Growth Autopilot - automation for clinics. Which area are you struggling with most?',
+      quickReplies: ['Website needs work', 'Not ranking on Google', 'Need better branding', 'Want automation'],
     };
   }
 
-  if (containsAny(message, ['services', 'what do you do', 'offer'])) {
+  if (containsAny(message, ['web design', 'website', 'web development', 'redesign'])) {
     return {
-      text: 'We offer web development, SEO, branding, creative studio, and Growth Autopilot.',
-      quickReplies: ['Web design', 'SEO', 'Branding'],
+      text: 'We build revenue-focused websites, not just pretty pages. The difference is conversion optimization - clear CTAs, fast load times, mobile-first design, and SEO baked in from day one. What type of site are you after?',
+      quickReplies: ['Business brochure site', 'Full e-commerce', 'Custom web application', 'Redesign existing'],
     };
   }
 
-  if (containsAny(message, ['web design', 'website', 'web development'])) {
+  if (containsAny(message, ['seo', 'geo', 'ranking', 'google', 'search', 'visibility'])) {
     return {
-      text: 'We build fast business websites, ecommerce stores, and custom web apps.',
-      quickReplies: ['Website pricing', 'Timeline', 'Book consultation'],
+      text: 'SEO has shifted. It\'s not just keywords anymore - it\'s about being cited in AI overviews, owning featured snippets (position zero), and local map pack dominance. We do technical audits, content strategy, and authority building. Where are you currently ranking?',
+      quickReplies: ['Not ranking at all', 'Page 2-3', 'Top 10 but want top 3', 'Need local SEO'],
     };
   }
 
-  if (containsAny(message, ['seo', 'geo', 'ranking', 'google'])) {
+  if (containsAny(message, ['branding', 'logo', 'identity', 'rebrand'])) {
     return {
-      text: 'Our SEO and GEO service targets AI overviews, snippets, and local search growth.',
-      quickReplies: ['SEO pricing', 'Free audit', 'Case studies'],
+      text: 'Branding is strategy before design. We start with positioning - who you are, who you serve, why you\'re different. Then we build the visual system: logo, typography, color psychology, asset library. The result is consistency across every touchpoint.',
+      quickReplies: ['Starting from scratch', 'Rebranding existing', 'Just need a logo', 'Full brand strategy'],
     };
   }
 
-  if (containsAny(message, ['branding', 'logo', 'identity'])) {
+  if (containsAny(message, ['timeline', 'how long', 'delivery', 'deadline', 'when', 'fast'])) {
     return {
-      text: 'Branding includes logo systems, visual identity, and premium brand assets.',
-      quickReplies: ['Brand pricing', 'Portfolio', 'Book call'],
+      text: 'Standard business websites: 2-3 weeks. E-commerce with inventory: 4-6 weeks. Custom applications or complex integrations: 8-12 weeks. Rush delivery is possible for 20% surcharge if you\'re time-pressured. When do you need this live?',
+      quickReplies: ['ASAP - urgent', '2-4 weeks is fine', '2-3 months out', 'No specific deadline'],
     };
   }
 
-  if (containsAny(message, ['timeline', 'how long', 'delivery', 'deadline'])) {
+  if (containsAny(message, ['contact', 'phone', 'call', 'email', 'reach', 'speak', 'talk'])) {
     return {
-      text: 'Typical websites take 2-4 weeks, while advanced custom builds take 4-8 weeks.',
-      quickReplies: ['Starter plan', 'Growth plan', 'Discuss project'],
+      text: 'Direct line to Ashraf (founder) is +91 9453878422, or email ashrafkamal1458@gmail.com. He\'s usually available 9AM-6PM IST, Monday-Saturday. If it\'s urgent, call - otherwise email with details and he\'ll respond same day.',
+      quickReplies: ['I\'ll call now', 'Will email details', 'Can you have him call me?'],
     };
   }
 
-  if (containsAny(message, ['contact', 'phone', 'call', 'email', 'reach'])) {
+  if (containsAny(message, ['location', 'where are you', 'based', 'office', 'gonda', 'lucknow', 'noida', 'ayodhya'])) {
     return {
-      text: 'Call +91 9453878422 or email ashrafkamal1458@gmail.com for direct support.',
-      quickReplies: ['Call now', 'Share email', 'Book call'],
+      text: 'HQ is in Gonda, UP. We also have presence in Lucknow, Greater Noida, and Ayodhya. But honestly, most of our clients are remote - Texas, Mexico, across India. We work through video calls and Slack. Location isn\'t a constraint.',
+      quickReplies: ['I\'m in UP', 'Different state', 'International', 'Good to know'],
     };
   }
 
-  if (containsAny(message, ['location', 'where are you', 'gonda', 'lucknow', 'noida', 'ayodhya'])) {
+  if (containsAny(message, ['thanks', 'thank you', 'appreciate', 'helpful'])) {
     return {
-      text: 'We serve from Gonda, Lucknow, Greater Noida, and Ayodhya, with global delivery.',
-      quickReplies: ['Book call', 'See locations', 'Pricing'],
+      text: 'Anytime. Ready to move forward or do you need to think it over? No pressure either way.',
+      quickReplies: ['Ready to start', 'Need to discuss with team', 'Need more info first'],
     };
   }
 
-  if (containsAny(message, ['thanks', 'thank you'])) {
+  if (containsAny(message, ['bye', 'goodbye', 'talk later', 'speak soon'])) {
     return {
-      text: 'You are welcome. Tell me what you want next and I will help quickly.',
-      quickReplies: ['Pricing', 'Services', 'Contact'],
+      text: 'Sounds good. You\'ve got my contact info if anything else comes up.',
+      quickReplies: ['Will reach out soon', 'Thanks again', 'Exit chat'],
     };
   }
 
-  if (containsAny(message, ['bye', 'goodbye'])) {
+  if (containsAny(message, ['who are you', 'what is echo', 'are you ai', 'are you human', 'bot or human'])) {
     return {
-      text: 'Thanks for visiting. Reach us anytime and we can continue from here.',
-      quickReplies: ['Start again', 'Pricing', 'Call now'],
+      text: 'I\'m Echo - I handle initial consultations at Smile Fotilo. Think of me as the first point of contact to understand what you need before connecting you with the right team member.',
+      quickReplies: ['What services do you offer?', 'Company background', 'Connect me with Ashraf'],
+    };
+  }
+
+  if (containsAny(message, ['why smile fotilo', 'why choose you', 'difference', 'better than', 'competitors', 'compare'])) {
+    return {
+      text: 'Three things: One, we\'re revenue-focused - we build assets that make money, not just look good. Two, we\'ve got serious technical depth - AI integration, 3D experiences, complex automation. Three, we\'re fast without being sloppy. Most sites in 2-3 weeks.',
+      quickReplies: ['Show me your work', 'What do you charge?', 'Book a consultation'],
+    };
+  }
+
+  if (containsAny(message, ['portfolio', 'work', 'examples', 'case studies', 'clients', 'you built'])) {
+    return {
+      text: 'We\'ve built across healthcare (PulseKart POS), manufacturing (Kapda Factory ERP), logistics (OrderFlow), luxury e-commerce (Veloria Vault), and more. Want to see the full portfolio?',
+      quickReplies: ['View all projects', 'Similar to my industry', 'Tell me about results'],
+    };
+  }
+
+  if (containsAny(message, ['process', 'how does it work', 'steps', 'what happens', 'onboarding'])) {
+    return {
+      text: 'Four phases: Discovery (we understand your business), Strategy (we plan the solution), Build (we develop with weekly check-ins), Launch (we deploy and train your team). You\'re involved throughout - no black box.',
+      quickReplies: ['How long is each phase?', 'What do you need from me?', 'Let\'s start'],
+    };
+  }
+
+  if (containsAny(message, ['payment', 'pay', 'installment', 'emi', ' upfront'])) {
+    return {
+      text: 'Typically 50% to start, 50% on delivery. For larger projects, we can do 40/30/30. We accept bank transfer, UPI, and cards. No EMI options currently, but we can pace milestones to match your cash flow.',
+      quickReplies: ['That works', 'Need different terms', 'What about monthly billing?'],
+    };
+  }
+
+  if (containsAny(message, ['revision', 'changes', 'modify', 'edit', 'update', 'iterations'])) {
+    return {
+      text: 'Two rounds of revisions are included in all packages. We do detailed check-ins during design so there are no surprises. After launch, minor tweaks are free for 30 days. Major changes are quoted separately.',
+      quickReplies: ['What counts as major?', 'Unlimited revisions?', 'Post-launch support'],
+    };
+  }
+
+  if (containsAny(message, ['hosting', 'domain', 'server', 'maintenance', 'support after'])) {
+    return {
+      text: 'First year of hosting and domain is included. After that, ₹3k/year for hosting. We handle all maintenance, security updates, and backups. You focus on your business, we handle the tech.',
+      quickReplies: ['What\'s included in maintenance?', 'Can I use my own hosting?', 'SSL included?'],
     };
   }
 
@@ -310,36 +387,16 @@ function isLowValueOrOffTopicQuery(rawMessage: string, history: ChatHistoryItem[
   return false;
 }
 
-function resolveModelSelection(modelSelection: string): ResolvedModel {
-  const selection = (modelSelection || 'auto').trim();
+function dedupeModels(models: string[]): string[] {
+  return Array.from(new Set(models.filter(Boolean)));
+}
 
-  if (selection.startsWith('openai:')) {
-    const alias = selection.split(':')[1] || 'latest';
-    return {
-      provider: 'openai',
-      model: alias === 'latest' ? OPENAI_PAID_MODEL : alias,
-      paid: true,
-    };
-  }
-
-  if (selection.startsWith('google:') || selection.startsWith('gemini:')) {
-    const alias = selection.split(':')[1] || 'latest';
-    return {
-      provider: 'gemini',
-      model: alias === 'latest' ? GEMINI_PAID_MODEL : alias,
-      paid: true,
-    };
-  }
-
-  return {
-    provider: 'openrouter',
-    model: selection || OPENROUTER_MODEL,
-    paid: false,
-  };
+function isFreeOpenRouterModel(modelId: string): boolean {
+  return FREE_OPENROUTER_MODELS.includes(modelId);
 }
 
 function pickNextFreeModel(clientId: string): string {
-  if (!FREE_OPENROUTER_MODELS.length) return OPENROUTER_MODEL;
+  if (!FREE_OPENROUTER_MODELS.length) return OPENROUTER_PRIMARY_MODEL;
   const current = freeModelPointerMap.get(clientId) || 0;
   const selected = FREE_OPENROUTER_MODELS[current % FREE_OPENROUTER_MODELS.length];
   freeModelPointerMap.set(clientId, current + 1);
@@ -356,13 +413,6 @@ function touchCounter(map: Map<string, Counter>, key: string, windowMs: number, 
   return current;
 }
 
-function resetGlobalCounter(counter: Counter, windowMs: number, now: number): Counter {
-  if (now > counter.resetTime) {
-    return { count: 0, resetTime: now + windowMs };
-  }
-  return counter;
-}
-
 function consumeRequestQuota(clientId: string): { allowed: boolean; retryAfterMs: number } {
   const now = Date.now();
   const counter = touchCounter(requestThrottleMap, clientId, REQUEST_WINDOW_MS, now);
@@ -375,33 +425,10 @@ function consumeRequestQuota(clientId: string): { allowed: boolean; retryAfterMs
   return { allowed: true, retryAfterMs: 0 };
 }
 
-function consumeGroqQuota(clientId: string): { allowed: boolean; reason?: string } {
-  const now = Date.now();
-  const clientHour = touchCounter(groqClientHourMap, clientId, HOUR_MS, now);
-  const clientDay = touchCounter(groqClientDayMap, clientId, DAY_MS, now);
-  groqGlobalHourCounter = resetGlobalCounter(groqGlobalHourCounter, HOUR_MS, now);
-  groqGlobalDayCounter = resetGlobalCounter(groqGlobalDayCounter, DAY_MS, now);
-
-  if (clientHour.count >= GROQ_CLIENT_HOURLY_LIMIT) return { allowed: false, reason: 'client_hourly' };
-  if (clientDay.count >= GROQ_CLIENT_DAILY_LIMIT) return { allowed: false, reason: 'client_daily' };
-  if (groqGlobalHourCounter.count >= GROQ_GLOBAL_HOURLY_LIMIT) return { allowed: false, reason: 'global_hourly' };
-  if (groqGlobalDayCounter.count >= GROQ_GLOBAL_DAILY_LIMIT) return { allowed: false, reason: 'global_daily' };
-
-  clientHour.count += 1;
-  clientDay.count += 1;
-  groqGlobalHourCounter.count += 1;
-  groqGlobalDayCounter.count += 1;
-
-  return { allowed: true };
-}
-
 function cleanupExpiredEntries(): void {
   const now = Date.now();
-  const maps = [requestThrottleMap, groqClientHourMap, groqClientDayMap];
-  for (const map of maps) {
-    for (const [key, value] of map.entries()) {
-      if (now > value.resetTime) map.delete(key);
-    }
+  for (const [key, value] of requestThrottleMap.entries()) {
+    if (now > value.resetTime) requestThrottleMap.delete(key);
   }
   if (freeModelPointerMap.size > 5000) freeModelPointerMap.clear();
 }
@@ -412,110 +439,31 @@ if (!globalState.__echoCleanupIntervalStarted) {
   globalState.__echoCleanupIntervalStarted = true;
 }
 
-export async function chatWithGemini(
-  history: ChatHistoryItem[],
-  message: string,
-  clientId: string = 'anonymous',
-  selectedModel: string = 'auto'
-) {
-  const throttle = consumeRequestQuota(clientId);
-  if (!throttle.allowed) {
-    return formatReply(
-      'Too many messages right now. Please wait a bit and try again.',
-      ['Try again', 'Pricing', 'Contact']
-    );
+function extractOpenRouterText(data: unknown): string {
+  const candidate = (data as { choices?: Array<{ message?: { content?: unknown } }> })?.choices?.[0]?.message?.content;
+  if (typeof candidate === 'string') return candidate;
+
+  if (Array.isArray(candidate)) {
+    const joined = candidate
+      .map((item) => {
+        if (typeof item === 'string') return item;
+        if (item && typeof item === 'object' && 'text' in item) {
+          return String((item as { text?: unknown }).text || '');
+        }
+        return '';
+      })
+      .join(' ')
+      .trim();
+    return joined;
   }
 
-  const sanitizedMessage = sanitizeInput(message);
-  if (!sanitizedMessage) {
-    return formatReply('Please type your question again.', ['Pricing', 'Services', 'Contact']);
-  }
-
-  const predefined = getPredefinedReply(sanitizedMessage);
-  if (predefined) {
-    return formatReply(predefined.text, predefined.quickReplies);
-  }
-
-  const queryIsComplex = isComplexQuery(sanitizedMessage);
-  const lowValue = isLowValueOrOffTopicQuery(sanitizedMessage, history);
-
-  if (selectedModel && selectedModel !== 'auto') {
-    const chosen = resolveModelSelection(selectedModel);
-    if (chosen.paid && lowValue) {
-      return await callOpenRouter(sanitizedMessage, history, pickNextFreeModel(clientId));
-    }
-    return await callModelBySelection(chosen, sanitizedMessage, history, clientId);
-  }
-
-  if (lowValue) {
-    return await callOpenRouter(sanitizedMessage, history, pickNextFreeModel(clientId));
-  }
-
-  if (SMART_ROUTING && !queryIsComplex) {
-    return await callOpenRouter(sanitizedMessage, history, OPENROUTER_MODEL);
-  }
-
-  if (SMART_ROUTING && queryIsComplex) {
-    const paidOpenAI = await callOpenAI(sanitizedMessage, history, OPENAI_PAID_MODEL);
-    if (paidOpenAI) return paidOpenAI;
-
-    const paidGemini = await callGemini(sanitizedMessage, history, GEMINI_PAID_MODEL);
-    if (paidGemini) return paidGemini;
-
-    const groqResult = await tryGroq(sanitizedMessage, history, clientId);
-    if (groqResult) return groqResult;
-
-    return await callOpenRouter(sanitizedMessage, history, OPENROUTER_DEEP_MODEL);
-  }
-
-  if (!queryIsComplex) {
-    return formatReply(
-      'I can instantly help with pricing, services, timeline, and contact details.',
-      ['Pricing', 'Services', 'Timeline']
-    );
-  }
-
-  const paidOpenAI = await callOpenAI(sanitizedMessage, history, OPENAI_PAID_MODEL);
-  if (paidOpenAI) return paidOpenAI;
-
-  const paidGemini = await callGemini(sanitizedMessage, history, GEMINI_PAID_MODEL);
-  if (paidGemini) return paidGemini;
-
-  const groqResult = await tryGroq(sanitizedMessage, history, clientId);
-  if (groqResult) return groqResult;
-
-  return formatReply(
-    'I am having trouble with advanced AI right now. Basic help is still available.',
-    ['Pricing', 'Services', 'Contact']
-  );
+  return '';
 }
 
-async function callModelBySelection(
-  selection: ResolvedModel,
-  message: string,
-  history: ChatHistoryItem[],
-  clientId: string
-): Promise<string> {
-  if (selection.provider === 'openrouter') {
-    return await callOpenRouter(message, history, selection.model);
-  }
-
-  if (selection.provider === 'openai') {
-    const openAIText = await callOpenAI(message, history, selection.model);
-    if (openAIText) return openAIText;
-    return await callOpenRouter(message, history, pickNextFreeModel(clientId));
-  }
-
-  const geminiText = await callGemini(message, history, selection.model);
-  if (geminiText) return geminiText;
-  return await callOpenRouter(message, history, pickNextFreeModel(clientId));
-}
-
-async function callOpenRouter(message: string, history: ChatHistoryItem[], model: string): Promise<string> {
+async function callOpenRouterOnce(message: string, history: ChatHistoryItem[], model: string): Promise<OpenRouterResult> {
   const apiKey = process.env.OPENROUTER_API_KEY;
   if (!apiKey || apiKey === 'your_openrouter_key_here') {
-    console.error('[CHAT] OPENROUTER_API_KEY is missing');
-    return formatReply('AI is not configured yet. Basic help is active.', ['Pricing', 'Services', 'Contact']);
+    return { ok: false, error: 'OPENROUTER_API_KEY is missing' };
   }
 
   try {
@@ -534,129 +482,103 @@ async function callOpenRouter(message: string, history: ChatHistoryItem[], model
           ...toOpenAIHistory(history),
           { role: 'user', content: message },
         ],
-        max_tokens: 180,
-        temperature: 0.45,
+        max_tokens: OPENROUTER_MAX_TOKENS,
+        temperature: OPENROUTER_TEMPERATURE,
       }),
     });
 
     const data = await response.json();
     if (!response.ok) {
-      throw new Error(data.error?.message || `OpenRouter API error: ${response.status}`);
+      const errorMessage = (data as { error?: { message?: string } })?.error?.message || `Service error ${response.status}`;
+      return { ok: false, error: `${model}: ${errorMessage}` };
     }
 
-    const text = data.choices?.[0]?.message?.content || 'I could not process that right now.';
-    return sanitizeInput(text);
+    const text = extractOpenRouterText(data);
+    if (!text) return { ok: false, error: `${model}: Empty response` };
+
+    return { ok: true, text: sanitizeInput(text) };
   } catch (error: unknown) {
-    console.error('[CHAT] OpenRouter error:', error instanceof Error ? error.message : 'Unknown error');
-    return formatReply('AI is temporarily unavailable. Basic help is active.', ['Pricing', 'Services', 'Contact']);
+    return { ok: false, error: `${model}: ${error instanceof Error ? error.message : 'Connection issue'}` };
   }
 }
 
-async function callOpenAI(message: string, history: ChatHistoryItem[], model: string): Promise<string | null> {
-  if (!OPENAI_API_KEY) return null;
+async function callOpenRouterWithFallback(
+  message: string,
+  history: ChatHistoryItem[],
+  models: string[]
+): Promise<string> {
+  const uniqueModels = dedupeModels(models);
+  let lastError = 'No model candidates available';
 
-  try {
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${OPENAI_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model,
-        messages: [
-          { role: 'system', content: buildSystemPrompt() },
-          ...toOpenAIHistory(history),
-          { role: 'user', content: message },
-        ],
-        max_tokens: 180,
-        temperature: 0.45,
-      }),
-    });
-
-    const data = await response.json();
-    if (!response.ok) {
-      console.warn('[CHAT] OpenAI failed:', response.status, (data?.error?.message || '').slice(0, 180));
-      return null;
-    }
-
-    const text = data.choices?.[0]?.message?.content;
-    if (!text) return null;
-    return sanitizeInput(text);
-  } catch (error: unknown) {
-    console.warn('[CHAT] OpenAI error:', error instanceof Error ? error.message : 'Unknown error');
-    return null;
+  for (const model of uniqueModels) {
+    const result = await callOpenRouterOnce(message, history, model);
+    if (result.ok) return result.text;
+    lastError = result.error;
   }
+
+  console.error('[CHAT] Model fallback chain failed:', lastError);
+  return formatReply("Having a brief connection issue on my end. I can still handle basic questions, or you can reach Ashraf directly at +91 9453878422.", ['Pricing', 'Services', 'Contact directly']);
 }
 
-async function callGemini(message: string, history: ChatHistoryItem[], model: string): Promise<string | null> {
-  if (!GOOGLE_GEMINI_API_KEY) return null;
+function buildAutoModelChain(clientId: string, complex: boolean, lowValue: boolean): string[] {
+  const rotating = pickNextFreeModel(clientId);
 
-  try {
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${GOOGLE_GEMINI_API_KEY}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          systemInstruction: {
-            parts: [{ text: buildSystemPrompt() }],
-          },
-          contents: [
-            ...toGeminiHistory(history),
-            { role: 'user', parts: [{ text: message }] },
-          ],
-          generationConfig: {
-            maxOutputTokens: 180,
-            temperature: 0.45,
-          },
-        }),
-      }
+  if (lowValue) {
+    return dedupeModels([OPENROUTER_PRIMARY_MODEL, rotating, OPENROUTER_REASONING_MODEL]);
+  }
+
+  if (complex) {
+    return dedupeModels([
+      OPENROUTER_REASONING_MODEL,
+      OPENROUTER_PRIMARY_MODEL,
+      rotating,
+      ...FREE_OPENROUTER_MODELS,
+    ]);
+  }
+
+  return dedupeModels([OPENROUTER_PRIMARY_MODEL, rotating, OPENROUTER_REASONING_MODEL]);
+}
+
+export async function chatWithGemini(
+  history: ChatHistoryItem[],
+  message: string,
+  clientId: string = 'anonymous',
+  selectedModel: string = 'auto'
+) {
+  const throttle = consumeRequestQuota(clientId);
+  if (!throttle.allowed) {
+    return formatReply(
+      "Hit our rate limit - too many messages in a short window. Give it a minute and try again, or call +91 9453878422 if it's urgent.",
+      ['Will try again', 'Call now', 'Email instead']
     );
-
-    const data = await response.json();
-    if (!response.ok) {
-      console.warn('[CHAT] Gemini failed:', response.status, JSON.stringify(data).slice(0, 180));
-      return null;
-    }
-
-    const parts = data?.candidates?.[0]?.content?.parts;
-    const text = Array.isArray(parts) ? parts.map((part: { text?: string }) => part.text || '').join(' ').trim() : '';
-    if (!text) return null;
-    return sanitizeInput(text);
-  } catch (error: unknown) {
-    console.warn('[CHAT] Gemini error:', error instanceof Error ? error.message : 'Unknown error');
-    return null;
   }
-}
 
-async function tryGroq(message: string, history: ChatHistoryItem[], clientId: string): Promise<string | null> {
-  if (!GROQ_ENABLED) return null;
-
-  const apiKey = process.env.GROQ_API_KEY;
-  if (!apiKey) return null;
-
-  const quota = consumeGroqQuota(clientId);
-  if (!quota.allowed) return null;
-
-  try {
-    const groq = new Groq({ apiKey });
-
-    const response = await groq.chat.completions.create({
-      model: GROQ_MODEL,
-      messages: [
-        { role: 'system', content: buildSystemPrompt() },
-        ...toOpenAIHistory(history),
-        { role: 'user', content: message },
-      ],
-      max_tokens: 180,
-      temperature: 0.45,
-    });
-
-    const text = response.choices[0]?.message?.content || 'I could not process that right now.';
-    return sanitizeInput(text);
-  } catch (error: unknown) {
-    console.error('[CHAT] Groq error:', error instanceof Error ? error.message : 'Unknown error');
-    return null;
+  const sanitizedMessage = sanitizeInput(message);
+  if (!sanitizedMessage) {
+    return formatReply('Please type your question again.', ['Pricing', 'Services', 'Contact']);
   }
+
+  const predefined = getPredefinedReply(sanitizedMessage);
+  if (predefined) {
+    return formatReply(predefined.text, predefined.quickReplies);
+  }
+
+  const queryIsComplex = isComplexQuery(sanitizedMessage);
+  const lowValue = isLowValueOrOffTopicQuery(sanitizedMessage, history);
+
+  const normalizedSelection = (selectedModel || 'auto').trim();
+  if (normalizedSelection !== 'auto') {
+    const selected = isFreeOpenRouterModel(normalizedSelection)
+      ? normalizedSelection
+      : OPENROUTER_PRIMARY_MODEL;
+
+    const chain = queryIsComplex
+      ? [selected, OPENROUTER_REASONING_MODEL, OPENROUTER_PRIMARY_MODEL, pickNextFreeModel(clientId)]
+      : [selected, OPENROUTER_PRIMARY_MODEL, pickNextFreeModel(clientId)];
+
+    return await callOpenRouterWithFallback(sanitizedMessage, history, chain);
+  }
+
+  const chain = buildAutoModelChain(clientId, queryIsComplex, lowValue);
+  return await callOpenRouterWithFallback(sanitizedMessage, history, chain);
 }

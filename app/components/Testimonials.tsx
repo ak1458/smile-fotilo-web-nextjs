@@ -49,13 +49,13 @@ const testimonials: Testimonial[] = [
     }
 ];
 
-const clientLogos = [
-    { name: "KapdaFactory", logo: "fY" },
-    { name: "OrderFlow", logo: "📦" },
-    { name: "Veloria Vault", logo: "👜" },
-    { name: "Curbit", logo: "📱" },
-    { name: "PulseKart", logo: "💊" },
-    { name: "Smile Fotilo", logo: "📸" }
+const aiCapabilities = [
+    { name: "AI Workflow Automation", icon: "AI" },
+    { name: "Missed-Call Recovery", icon: "MC" },
+    { name: "Review Intelligence", icon: "RV" },
+    { name: "Multilingual Chat", icon: "ML" },
+    { name: "Content Ops Engine", icon: "CO" },
+    { name: "Growth Analytics", icon: "GA" }
 ];
 
 export const Testimonials = () => {
@@ -88,12 +88,12 @@ export const Testimonials = () => {
                     ))}
                 </div>
 
-                {/* Client Logos */}
-                <div className="flex flex-wrap justify-center gap-8 md:gap-12 mb-20 opacity-60">
-                    {clientLogos.map((client, i) => (
-                        <div key={i} className="flex items-center gap-2 text-2xl">
-                            <span>{client.logo}</span>
-                            <span className="text-slate-400 text-sm font-medium">{client.name}</span>
+                {/* Capability Strip */}
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mb-20">
+                    {aiCapabilities.map((capability, i) => (
+                        <div key={i} className="flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2.5">
+                            <span>{capability.icon}</span>
+                            <span className="text-slate-300 text-xs md:text-sm font-medium">{capability.name}</span>
                         </div>
                     ))}
                 </div>
@@ -108,7 +108,7 @@ export const Testimonials = () => {
                             {/* Stars */}
                             <div className="flex gap-1 mb-6">
                                 {[...Array(testimonial.rating)].map((_, j) => (
-                                    <span key={j} className="text-yellow-400">★</span>
+                                    <span key={j} className="text-yellow-400">*</span>
                                 ))}
                             </div>
 
@@ -136,3 +136,4 @@ export const Testimonials = () => {
         </section>
     );
 };
+

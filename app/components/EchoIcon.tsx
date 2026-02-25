@@ -11,8 +11,11 @@ interface EchoIconProps {
 
 export const EchoIcon = ({ size = 56, onClick, isHovered = false, className = '' }: EchoIconProps) => {
     return (
-        <button
+        <div
             onClick={onClick}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onClick?.(); }}
             className={`relative group transition-transform duration-300 cursor-pointer ${isHovered ? 'scale-110' : 'scale-100'} ${className}`}
             aria-label="Open chat"
             style={{ filter: 'drop-shadow(0 4px 16px rgba(110,231,255,0.4))' }}
@@ -75,7 +78,7 @@ export const EchoIcon = ({ size = 56, onClick, isHovered = false, className = ''
                     96%, 98% { transform: scaleY(0.15); }
                 }
             `}</style>
-        </button>
+        </div>
     );
 };
 

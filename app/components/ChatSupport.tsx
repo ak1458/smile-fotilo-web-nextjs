@@ -18,6 +18,8 @@ type ChatbotState = 'idle' | 'hover' | 'active';
 type OpenChatEventDetail = { message?: string };
 
 const OPEN_CHAT_EVENT = 'echo:open-chat';
+const DEFAULT_MODEL = 'auto';
+const VALID_MODEL_IDS = new Set<string>(AI_MODELS.map((model) => model.id as string));
 
 export const ChatSupport = () => {
     const [mounted, setMounted] = useState(false);
@@ -27,9 +29,12 @@ export const ChatSupport = () => {
     const [inputValue, setInputValue] = useState('');
     const [showTooltip, setShowTooltip] = useState(false);
     const [pendingPrompt, setPendingPrompt] = useState<string | null>(null);
-    const [selectedModel, setSelectedModel] = useState(() => {
-        if (typeof window !== 'undefined') return localStorage.getItem('echo_model') || 'auto';
-        return 'auto';
+    const [selectedModel, setSelectedModel] = useState<string>(() => {
+        if (typeof window !== 'undefined') {
+            const saved = localStorage.getItem('echo_model') || DEFAULT_MODEL;
+            return VALID_MODEL_IDS.has(saved) ? saved : DEFAULT_MODEL;
+        }
+        return DEFAULT_MODEL;
     });
     const [showModelPicker, setShowModelPicker] = useState(false);
 
@@ -99,28 +104,28 @@ export const ChatSupport = () => {
 
         if (text.includes('price') || text.includes('pricing') || text.includes('cost') || text.includes('budget')) {
             return {
-                text: "Starter is INR 15k, Growth starts INR 35k, and Growth Autopilot starts INR 9,999 monthly.",
-                quickReplies: ["Starter plan", "Growth plan", "Autopilot plan"]
+                text: "Our packages run from ₹15k for Starter sites up to ₹35k+ for e-commerce. Growth Autopilot is ₹9,999/month. What's your budget range?",
+                quickReplies: ["Under ₹20k", "₹20k-50k", "Flexible budget"]
             };
         }
 
         if (text.includes('autopilot') || text.includes('clinic') || text.includes('automation')) {
             return {
-                text: "Growth Autopilot is clinic-first and automates followups, reminders, reviews, and bilingual support.",
-                quickReplies: ["How it works", "Book pilot", "Pricing"]
+                text: "Growth Autopilot handles missed calls, appointment reminders, reviews, and patient queries automatically. Built specifically for clinics. Want to see a demo?",
+                quickReplies: ["How does it work?", "Book pilot", "Pricing details"]
             };
         }
 
-        if (text.includes('service') || text.includes('offer')) {
+        if (text.includes('service') || text.includes('offer') || text.includes('do')) {
             return {
-                text: "We offer web development, SEO, branding, and Growth Autopilot automation.",
-                quickReplies: ["Web Design", "SEO", "Growth Autopilot"]
+                text: "We build revenue-focused websites, handle SEO/GEO rankings, create brand identities, and run Growth Autopilot for clinics. What's your main focus?",
+                quickReplies: ["Website", "SEO", "Branding", "Automation"]
             };
         }
 
         return {
-            text: "I am in basic mode right now. Ask pricing, services, autopilot, or contact details.",
-            quickReplies: ["Pricing", "Services", "Contact"]
+            text: "That's a bit outside what I can help with directly. Want me to connect you with our team? Ashraf handles the complex stuff.",
+            quickReplies: ["Connect me", "Just browsing", "Ask something else"]
         };
     };
 
@@ -147,11 +152,11 @@ export const ChatSupport = () => {
         }]);
     };
 
-    // Initial greeting - powered by AI
+    // Initial greeting - professional, varied, not robotic
     const sendInitialGreeting = async () => {
         setIsTyping(true);
         try {
-            const response = await chatWithGemini([], "Greet the user warmly and ask what kind of project they're thinking about.", getClientId());
+            const response = await chatWithGemini([], "Welcome the user to Smile Fotilo with energy and enthusiasm. Be proactive and friendly - ask what they're looking to build or grow. Use emojis sparingly. Sound like a helpful business partner, not a robot. Examples: 'Hey! Want help growing your business online?' or 'Ready to level up? What brings you in today?'", getClientId());
             const parsed = parseResponse(response);
             setIsTyping(false);
             setMessages([{
@@ -163,12 +168,32 @@ export const ChatSupport = () => {
             }]);
         } catch {
             setIsTyping(false);
+            // Multiple proactive, friendly greetings that rotate
+            const greetings = [
+                {
+                    text: "Hey! 👋 Want help growing your business online? I'm Echo, and I'm here to help you win. Whether it's a killer website, SEO that actually works, or AI automation - what's on your mind?",
+                    quickReplies: ["🚀 I need a website", "📈 Help with SEO", "🤖 AI automation", "💰 What's the pricing?"]
+                },
+                {
+                    text: "Ready to level up? 🚀 I'm here to help you build something amazing. What brings you in today - looking to launch fresh or scale what you've got?",
+                    quickReplies: ["Launch something new", "Scale existing business", "Not sure yet", "Just exploring"]
+                },
+                {
+                    text: "Hi there! 👋 I help business owners like you turn ideas into reality. Need a website that converts? Better Google rankings? Or maybe AI to handle the busy work? Tell me what you're after!",
+                    quickReplies: ["Website that sells", "Rank on Google", "AI for my business", "Show me everything"]
+                },
+                {
+                    text: "Be your own boss with Smile Fotilo AI power 🚀 I'm Echo - your digital growth partner. What are we building today?",
+                    quickReplies: ["New website 🌐", "More customers 📊", "Business automation ⚡", "Talk to a human 👤"]
+                }
+            ];
+            const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
             setMessages([{
                 id: generateMessageId(),
-                text: "Hey! 👋 What kind of project are you thinking about?",
+                text: randomGreeting.text,
                 sender: 'bot',
                 role: 'model',
-                quickReplies: undefined // No fallback - let user type
+                quickReplies: randomGreeting.quickReplies
             }]);
         }
     };
@@ -179,6 +204,13 @@ export const ChatSupport = () => {
             setShowTooltip(window.innerWidth >= 1024);
         }
     }, []);
+
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+        if (VALID_MODEL_IDS.has(selectedModel)) return;
+        setSelectedModel(DEFAULT_MODEL);
+        localStorage.setItem('echo_model', DEFAULT_MODEL);
+    }, [selectedModel]);
 
     useEffect(() => {
         if (!mounted || chatState !== 'active') return;
@@ -248,7 +280,7 @@ export const ChatSupport = () => {
             const response = await chatWithGemini(history, text, getClientId(), selectedModel);
 
             if (response === 'SETUP_REQUIRED') {
-                addBotMessage("I'm having trouble connecting. Please try again or contact us at +91 9453878422!", ["🔄 Try again", "📞 Call us"]);
+                addBotMessage("Connection issue on my end. Try again in a moment, or call Ashraf directly at +91 9453878422.", ["Try again", "Call now"]);
                 return;
             }
 
@@ -358,7 +390,7 @@ export const ChatSupport = () => {
                 {showTooltip && !isOpen && (
                     <div className="absolute bottom-full right-0 mb-2 whitespace-nowrap animate-fade-in">
                         <div className="relative bg-white dark:bg-slate-800 text-slate-800 dark:text-white text-sm font-medium pl-3 pr-8 py-2 rounded-xl shadow-lg border border-slate-200 dark:border-white/10">
-                            Need help? 💬
+                            Want to grow? Let's chat! 🚀
                             <button onClick={(e) => { e.stopPropagation(); setShowTooltip(false); }}
                                 className="absolute top-0.5 right-0.5 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 rounded-full hover:bg-slate-100 transition-colors">×</button>
                             <div className="absolute bottom-0 right-6 translate-y-1/2 rotate-45 w-2 h-2 bg-white dark:bg-slate-800 border-r border-b border-slate-200 dark:border-white/10"></div>
@@ -385,7 +417,7 @@ export const ChatSupport = () => {
                             onClick={() => setShowModelPicker(!showModelPicker)}
                             className="text-white/70 text-xs hover:text-white transition-colors cursor-pointer flex items-center justify-center gap-1 mx-auto"
                         >
-                            {AI_MODELS.find(m => m.id === selectedModel)?.name || '⚡ Auto (Smart)'}
+                            {AI_MODELS.find((m) => m.id === selectedModel)?.name || 'Smart Select'}
                             <svg width="10" height="6" viewBox="0 0 10 6" fill="none" className={`transition-transform ${showModelPicker ? 'rotate-180' : ''}`}><path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
                         </button>
                         <button onClick={handleClose} className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors">
@@ -464,7 +496,7 @@ export const ChatSupport = () => {
                         <input
                             value={inputValue}
                             onChange={(e) => setInputValue(e.target.value)}
-                            placeholder="Type a message..."
+                            placeholder="Ask about websites, SEO, pricing..."
                             disabled={isTyping}
                             className="flex-1 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white px-4 py-3 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
                         />
