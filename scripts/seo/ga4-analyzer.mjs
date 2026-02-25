@@ -4,15 +4,25 @@ const KEY_FILE_PATH = process.env.GOOGLE_APPLICATION_CREDENTIALS;
 const PROPERTY_ID = process.env.GA4_PROPERTY_ID; // e.g. 'properties/123456789'
 
 async function getGA4Metrics() {
-    if (!KEY_FILE_PATH || !PROPERTY_ID) {
-        console.warn('⚠️ GA4 configuration missing. Skipping GA4 analysis.');
-        return null;
+    const jsonCreds = process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON;
+    let auth;
+
+    if (jsonCreds) {
+        auth = new google.auth.GoogleAuth({
+            credentials: JSON.parse(jsonCreds),
+            scopes: ['https://www.googleapis.com/auth/analytics.readonly'],
+        });
+    } else if (KEY_FILE_PATH && fs.existsSync(KEY_FILE_PATH)) {
+        auth = new google.auth.GoogleAuth({
+            keyFile: KEY_FILE_PATH,
+            scopes: ['https://www.googleapis.com/auth/analytics.readonly'],
+        });
     }
 
-    const auth = new google.auth.GoogleAuth({
-        keyFile: KEY_FILE_PATH,
-        scopes: ['https://www.googleapis.com/auth/analytics.readonly'],
-    });
+    if (!auth || !PROPERTY_ID) {
+        console.warn('⚠️ GA4 configuration missing (no credentials or Property ID). Skipping GA4 analysis.');
+        return null;
+    }
 
     const analyticsData = google.analyticsdata({ version: 'v1beta', auth });
 

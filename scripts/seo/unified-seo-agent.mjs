@@ -19,11 +19,22 @@ async function runUnifiedAudit() {
 
     try {
         // 1. Search Console Audit
-        if (KEY_FILE_PATH && fs.existsSync(KEY_FILE_PATH)) {
-            const auth = new google.auth.GoogleAuth({
+        const jsonCreds = process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON;
+        let auth;
+
+        if (jsonCreds) {
+            auth = new google.auth.GoogleAuth({
+                credentials: JSON.parse(jsonCreds),
+                scopes: ['https://www.googleapis.com/auth/webmasters.readonly'],
+            });
+        } else if (KEY_FILE_PATH && fs.existsSync(KEY_FILE_PATH)) {
+            auth = new google.auth.GoogleAuth({
                 keyFile: KEY_FILE_PATH,
                 scopes: ['https://www.googleapis.com/auth/webmasters.readonly'],
             });
+        }
+
+        if (auth) {
             const searchconsole = google.searchconsole({ version: 'v1', auth });
 
             console.log('--- Fetching Search Console Data ---');
