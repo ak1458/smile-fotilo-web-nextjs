@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     apple: '/icon.png',
   },
   verification: {
-    google: process.env.NEXT_PUBLIC_GSC_VERIFICATION || 'YOUR_GOOGLE_SEARCH_CONSOLE_VERIFICATION_CODE',
+    google: process.env.NEXT_PUBLIC_GSC_VERIFICATION,
   },
   openGraph: {
     title: "Smile Fotilo | World-Class Digital Experiences",
