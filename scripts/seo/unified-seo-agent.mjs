@@ -5,7 +5,8 @@ import { submitToIndexNow } from './bing-indexer.mjs';
 import { getGA4Metrics } from './ga4-analyzer.mjs';
 
 const KEY_FILE_PATH = process.env.GOOGLE_APPLICATION_CREDENTIALS;
-const SITE_URL = process.env.SITE_URL || 'sc-domain:smilefotilo.com';
+const SITE_URL = process.env.SITE_URL || 'https://smilefotilo.com';
+const GSC_SITE_URL = process.env.SEARCH_CONSOLE_SITE_URL || 'sc-domain:smilefotilo.com';
 
 async function runUnifiedAudit() {
     console.log('🚀 Starting 7-Day Unified SEO Automation Process...');
@@ -39,7 +40,7 @@ async function runUnifiedAudit() {
 
             console.log('--- Fetching Search Console Data ---');
             const traffic = await searchconsole.searchanalytics.query({
-                siteUrl: SITE_URL,
+                siteUrl: GSC_SITE_URL,
                 requestBody: {
                     startDate: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
                     endDate: new Date().toISOString().split('T')[0],

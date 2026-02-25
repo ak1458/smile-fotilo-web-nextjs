@@ -26,6 +26,7 @@ jobs:
           GA4_PROPERTY_ID: ${{ secrets.GA4_PROPERTY_ID }}
           BING_API_KEY: ${{ secrets.BING_API_KEY }}
           SITE_URL: ${{ secrets.SITE_URL }}
+          SEARCH_CONSOLE_SITE_URL: ${{ secrets.SEARCH_CONSOLE_SITE_URL }}
         run: npm run seo:audit:weekly
         
       - name: Run AI Auto-Fixer
