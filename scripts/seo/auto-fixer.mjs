@@ -3,13 +3,15 @@ import path from 'path';
 import axios from 'axios';
 
 const GROQ_API_KEY = process.env.GROQ_API_KEY;
+const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
+const OPENROUTER_MODEL = process.env.OPENROUTER_MODEL || 'google/gemini-2.0-flash-lite-001';
 const LAYOUT_FILE_PATH = path.join(process.cwd(), 'app', 'layout.tsx');
 
 async function runAutoFixer() {
     console.log('🔄 Starting AI Auto-Fixer & Republish System...');
 
-    if (!GROQ_API_KEY) {
-        console.error('❌ GROQ_API_KEY is missing. Cannot run auto-fixer.');
+    if (!OPENROUTER_API_KEY && !GROQ_API_KEY) {
+        console.error('❌ Neither OPENROUTER_API_KEY nor GROQ_API_KEY are provided. Cannot run auto-fixer.');
         process.exit(1);
     }
 
@@ -78,13 +80,30 @@ async function runAutoFixer() {
             }
         `;
 
-        console.log('--- Calling Groq AI for SEO Improvements ---');
-        const aiRes = await axios.post('https://api.groq.com/openai/v1/chat/completions', {
-            model: 'llama-3.3-70b-versatile',
-            messages: [{ role: 'user', content: prompt }]
-        }, {
-            headers: { 'Authorization': `Bearer ${GROQ_API_KEY}`, 'Content-Type': 'application/json' }
-        });
+        console.log('--- Calling AI for SEO Improvements ---');
+        let aiRes;
+
+        if (OPENROUTER_API_KEY) {
+            console.log(`Using OpenRouter with model: ${OPENROUTER_MODEL}`);
+            aiRes = await axios.post('https://openrouter.ai/api/v1/chat/completions', {
+                model: OPENROUTER_MODEL,
+                messages: [{ role: 'user', content: prompt }]
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
+                    'HTTP-Referer': 'https://smilefotilo.com',
+                    'Content-Type': 'application/json'
+                }
+            });
+        } else {
+            console.log('Using Groq AI as fallback...');
+            aiRes = await axios.post('https://api.groq.com/openai/v1/chat/completions', {
+                model: 'llama-3.3-70b-versatile',
+                messages: [{ role: 'user', content: prompt }]
+            }, {
+                headers: { 'Authorization': `Bearer ${GROQ_API_KEY}`, 'Content-Type': 'application/json' }
+            });
+        }
 
         let content = aiRes.data.choices[0].message.content;
 
