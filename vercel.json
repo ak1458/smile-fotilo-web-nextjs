@@ -3,14 +3,6 @@
     {
       "path": "/api/cron/search-console",
       "schedule": "0 2 * * *"
-    },
-    {
-      "path": "/api/cron/supabase-ping",
-      "schedule": "0 */6 * * *"
-    },
-    {
-      "path": "/api/cron/reminders",
-      "schedule": "*/5 * * * *"
     }
   ]
 }
