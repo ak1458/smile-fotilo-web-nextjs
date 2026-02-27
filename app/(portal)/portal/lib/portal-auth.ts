@@ -8,7 +8,7 @@ function asString(value: string | string[] | undefined): string | undefined {
 export async function requirePortalUser() {
   const user = await getCurrentUser();
   if (!user) {
-    redirect('/');
+    redirect('/login');
   }
   return user;
 }

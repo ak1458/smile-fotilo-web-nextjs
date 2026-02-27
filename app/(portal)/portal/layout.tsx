@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { getOwnedBusinesses } from '@/app/lib/auth/session';
 import { requirePortalUser } from './lib/portal-auth';
+import { signOutAction } from '@/app/actions/auth';
 
 const PORTAL_NAV = [
   { href: '/portal', label: 'Overview' },
@@ -37,6 +38,16 @@ export default async function PortalLayout({ children }: { children: React.React
               );
             })}
           </nav>
+          <div className="mt-4 border-t border-slate-200 pt-3">
+            <form action={signOutAction}>
+              <button
+                type="submit"
+                className="w-full rounded-lg px-3 py-2 text-left text-sm font-medium text-red-600 transition hover:bg-red-50"
+              >
+                Sign Out
+              </button>
+            </form>
+          </div>
         </aside>
 
         <main className="rounded-2xl border border-slate-200 bg-white p-6">{children}</main>

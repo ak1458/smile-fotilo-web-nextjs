@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { getAdminSession } from './lib/admin-auth';
+import { signOutAction } from '@/app/actions/auth';
 
 const ADMIN_NAV = [
   { href: '/admin', label: 'Overview' },
@@ -11,7 +12,7 @@ const ADMIN_NAV = [
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const session = await getAdminSession();
-  if (!session.userId) redirect('/');
+  if (!session.userId) redirect('/login');
   if (!session.isAdmin) redirect('/portal');
 
   return (
@@ -33,6 +34,16 @@ export default async function AdminLayout({ children }: { children: React.ReactN
               </Link>
             ))}
           </nav>
+          <div className="mt-4 border-t border-slate-200 pt-3">
+            <form action={signOutAction}>
+              <button
+                type="submit"
+                className="w-full rounded-lg px-3 py-2 text-left text-sm font-medium text-red-600 transition hover:bg-red-50"
+              >
+                Sign Out
+              </button>
+            </form>
+          </div>
         </aside>
 
         <main className="space-y-4 rounded-2xl border border-slate-200 bg-white p-6">{children}</main>
