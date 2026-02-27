@@ -1,59 +1,29 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { createClient } from '@/app/lib/supabase/client';
+import { signInAction, type SignInResult } from '@/app/actions/auth';
 
 export default function LoginPage() {
-    const router = useRouter();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
 
-    async function handleSubmit(e: React.FormEvent) {
-        e.preventDefault();
+    async function handleSubmit(formData: FormData) {
         setError(null);
         setLoading(true);
 
         try {
-            const supabase = createClient();
-            const { error: signInError } = await supabase.auth.signInWithPassword({
-                email,
-                password,
-            });
-
-            if (signInError) {
-                setError(signInError.message);
-                setLoading(false);
-                return;
+            const result: SignInResult = await signInAction(formData);
+            // If we reach here, there was an error (successful login redirects)
+            if (result?.error) {
+                setError(result.error);
             }
-
-            const {
-                data: { user },
-            } = await supabase.auth.getUser();
-
-            if (!user) {
-                setError('Authentication succeeded but no user returned.');
-                setLoading(false);
-                return;
+        } catch (err: unknown) {
+            // redirect() throws a NEXT_REDIRECT error — that's expected
+            // Only show error for actual failures
+            if (err instanceof Error && !err.message.includes('NEXT_REDIRECT')) {
+                setError('An unexpected error occurred. Please try again.');
             }
-
-            const { data: profile } = await supabase
-                .from('profiles')
-                .select('role')
-                .eq('id', user.id)
-                .maybeSingle();
-
-            if (profile?.role === 'admin') {
-                router.push('/admin');
-            } else {
-                router.push('/portal');
-            }
-
-            router.refresh();
-        } catch {
-            setError('An unexpected error occurred. Please try again.');
+        } finally {
             setLoading(false);
         }
     }
@@ -98,30 +68,21 @@ export default function LoginPage() {
                     </p>
                 </div>
 
-                {/* Form */}
-                <form onSubmit={handleSubmit} className="space-y-5">
+                {/* Form — uses server action */}
+                <form action={handleSubmit} className="space-y-5">
                     <div>
                         <label htmlFor="email" className="mb-1.5 block text-sm font-medium" style={{ color: '#94a3b8' }}>
                             Email Address
                         </label>
                         <input
                             id="email"
+                            name="email"
                             type="email"
                             required
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            className="w-full rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 outline-none transition-all duration-300"
+                            className="w-full rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 outline-none transition-all duration-300 focus:ring-2 focus:ring-violet-500/50"
                             style={{
                                 background: 'rgba(139,92,246,0.08)',
                                 border: '1px solid rgba(139,92,246,0.25)',
-                            }}
-                            onFocus={(e) => {
-                                e.currentTarget.style.borderColor = 'rgba(139,92,246,0.6)';
-                                e.currentTarget.style.boxShadow = '0 0 20px rgba(139,92,246,0.15)';
-                            }}
-                            onBlur={(e) => {
-                                e.currentTarget.style.borderColor = 'rgba(139,92,246,0.25)';
-                                e.currentTarget.style.boxShadow = 'none';
                             }}
                             placeholder="you@example.com"
                             autoComplete="email"
@@ -134,22 +95,13 @@ export default function LoginPage() {
                         </label>
                         <input
                             id="password"
+                            name="password"
                             type="password"
                             required
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="w-full rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 outline-none transition-all duration-300"
+                            className="w-full rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 outline-none transition-all duration-300 focus:ring-2 focus:ring-violet-500/50"
                             style={{
                                 background: 'rgba(139,92,246,0.08)',
                                 border: '1px solid rgba(139,92,246,0.25)',
-                            }}
-                            onFocus={(e) => {
-                                e.currentTarget.style.borderColor = 'rgba(139,92,246,0.6)';
-                                e.currentTarget.style.boxShadow = '0 0 20px rgba(139,92,246,0.15)';
-                            }}
-                            onBlur={(e) => {
-                                e.currentTarget.style.borderColor = 'rgba(139,92,246,0.25)';
-                                e.currentTarget.style.boxShadow = 'none';
                             }}
                             placeholder="••••••••"
                             autoComplete="current-password"
@@ -172,21 +124,7 @@ export default function LoginPage() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="relative w-full overflow-hidden rounded-full px-6 py-3 text-sm font-semibold text-white transition-all duration-400 disabled:opacity-50"
-                        style={{
-                            background: 'linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%)',
-                            boxShadow: '0 4px 15px -3px rgba(139,92,246,0.5)',
-                        }}
-                        onMouseEnter={(e) => {
-                            if (!loading) {
-                                e.currentTarget.style.transform = 'translateY(-2px) scale(1.01)';
-                                e.currentTarget.style.boxShadow = '0 12px 35px -5px rgba(139,92,246,0.6), 0 0 20px rgba(139,92,246,0.4)';
-                            }
-                        }}
-                        onMouseLeave={(e) => {
-                            e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                            e.currentTarget.style.boxShadow = '0 4px 15px -3px rgba(139,92,246,0.5)';
-                        }}
+                        className="btn-primary w-full disabled:opacity-50"
                     >
                         {loading ? (
                             <span className="flex items-center justify-center gap-2">
@@ -194,10 +132,10 @@ export default function LoginPage() {
                                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                                 </svg>
-                                Signing in…
+                                <span>Signing in…</span>
                             </span>
                         ) : (
-                            'Sign In'
+                            <span>Sign In</span>
                         )}
                     </button>
                 </form>
