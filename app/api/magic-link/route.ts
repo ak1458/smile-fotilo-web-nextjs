@@ -1,35 +1,25 @@
 import { NextResponse } from 'next/server';
 import { createAdminClient } from '@/app/lib/supabase/admin';
 
-// Temporary endpoint to generate a magic link so the admin can log in and reset their password.
-// DELETE THIS FILE after use.
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const secret = searchParams.get('secret');
 
-    // Simple security — require the CRON_SECRET to run
     if (secret !== process.env.CRON_SECRET) {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     const supabase = createAdminClient();
 
-    // Generate a magic link for the admin user
-    // This gives a direct login URL that bypasses the password requirement
-    const { data, error } = await supabase.auth.admin.generateLink({
-        type: 'magiclink',
-        email: 'admin@smilefotilo.com',
-    });
+    // Reset password directly via Admin API so the user can log in without hitting Supabase themselves
+    const { data, error } = await supabase.auth.admin.updateUserById(
+        '8c7128a7-578c-4504-9243-37c88cd2ae8a',
+        { password: 'SmileFotiloAdmin2026!' }
+    );
 
     if (error) {
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    // Return the clickable link
-    // The user clicks this, it logs them in via the callback route, and they are in.
-    return NextResponse.json({
-        success: true,
-        message: 'Copy the link below and open it in your browser to log in.',
-        magicLink: data.properties.action_link
-    });
+    return NextResponse.json({ success: true, message: 'Password reset successfully.' });
 }

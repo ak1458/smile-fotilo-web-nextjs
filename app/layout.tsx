@@ -21,11 +21,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL('https://smilefotilo.com'),
   title: {
-    default: "Smile Fotilo | Web Design & Digital Marketing in Gonda, Lucknow & Global",
+    default: "Smile Fotilo | Premium Web Design & Digital Marketing",
     template: "%s | Smile Fotilo",
   },
-  description: "Smile Fotilo: Premium Web Design, Branding & Digital Marketing agency. Serving Gonda, Lucknow, and global clients with world-class digital experiences.",
-  keywords: ["Web Design", "Digital Marketing", "Branding", "Gonda", "Lucknow", "Greater Noida", "Ayodhya", "Website Development", "SEO", "Creative Agency", "Web Design Gonda", "SEO Lucknow", "Website Developer India"],
+  description: "Smile Fotilo: Premium Web Design, Branding & Digital Marketing agency. Serving clients globally with world-class digital experiences.",
+  keywords: ["Web Design Agency", "Digital Marketing", "Branding Agency", "Website Development", "Search Engine Optimization", "Creative Studio"],
   authors: [{ name: "Ashraf Kamal" }],
   creator: "Smile Fotilo",
   publisher: "Smile Fotilo",
