@@ -14,6 +14,16 @@ const AI_PROVIDER = process.env.AI_PROVIDER || 'groq';
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
 const OPENROUTER_MODEL = process.env.OPENROUTER_MODEL || 'google/gemini-2.0-flash-lite-001';
 
+function getDateRange() {
+    const end = new Date();
+    const start = new Date();
+    start.setDate(end.getDate() - 30);
+    return {
+        startDate: start.toISOString().split('T')[0],
+        endDate: end.toISOString().split('T')[0]
+    };
+}
+
 async function runOptimizer() {
     const auth = new google.auth.GoogleAuth({
         keyFile: KEY_FILE_PATH,
@@ -26,7 +36,7 @@ async function runOptimizer() {
         console.log('--- STEP 1: Fetching Search Performance Data ---');
         const dateRange = getDateRange();
         console.log(`Date Range: ${dateRange.startDate} to ${dateRange.endDate}`);
-        
+
         const res = await searchconsole.searchanalytics.query({
             siteUrl: SITE_URL,
             requestBody: {
@@ -97,7 +107,7 @@ async function runOptimizer() {
     } catch (err) {
         console.error('❌ Optimization loop failed:', err.message);
         console.error('Stack trace:', err.stack);
-        
+
         // Check for specific errors
         if (err.message.includes('gaxios')) {
             console.error('🔧 This is a gaxios compatibility issue. Try running: npm install gaxios@6.3.0');

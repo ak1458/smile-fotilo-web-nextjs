@@ -3,6 +3,10 @@
     {
       "path": "/api/cron/search-console",
       "schedule": "0 2 * * *"
+    },
+    {
+      "path": "/api/cron/gbp-automation",
+      "schedule": "0 3 * * *"
     }
   ]
 }

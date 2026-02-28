@@ -15,7 +15,7 @@ async function publishGmbPost() {
     }
 
     const strategyData = JSON.parse(fs.readFileSync(STRATEGY_FILE, 'utf8'));
-    const gmbPostIdea = strategyData.gmb_post_idea;
+    const gmbPostIdea = strategyData.gmb_post;
 
     if (!gmbPostIdea) {
         console.log('No GMB post idea found in strategy.');
