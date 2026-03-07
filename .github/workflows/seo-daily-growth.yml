@@ -20,9 +20,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          npm install googleapis@133.0.0 axios@1.6.7
-          # Force compatible gaxios version to fix mergeHeaders error
-          npm install gaxios@6.3.0 --save
+          npm install
 
       - name: Verify Secrets
         run: |
@@ -50,15 +48,16 @@ jobs:
           # GMB Autopilot (Staged - will succeed once API access is granted)
           node gmb_automated_poster.js || echo "⚠️ GMB Poster failed but continuing..."
           node gmb_review_manager.js || echo "⚠️ GMB Review Manager failed but continuing..."
+          rm -f google-key.json
 
       - name: Check for Changes
         id: check_changes
         run: |
-          git status
-          if [ -n "$(git status --porcelain)" ]; then
-            echo "has_changes=true" >> $GITHUB_OUTPUT
-          else
+          git add strategy_output.json app/data/gmb-feed.json || true
+          if git diff --staged --quiet; then
             echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
           fi
 
       - name: Commit AI Growth Strategy

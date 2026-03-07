@@ -9,7 +9,9 @@ on:
 jobs:
   check-updates:
     runs-on: ubuntu-latest
-    
+    permissions:
+      issues: write
+      
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
