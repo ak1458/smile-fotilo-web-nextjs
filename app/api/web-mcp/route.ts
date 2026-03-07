@@ -1,3 +1,4 @@
+import { z } from 'zod';
 import { NextRequest, NextResponse } from 'next/server';
 import { WEB_MCP_ROUTES, WEB_MCP_VERSION, getMcpRoute, normalizeMcpPath } from '@/app/lib/web-mcp/manifest';
 

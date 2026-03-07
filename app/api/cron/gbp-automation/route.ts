@@ -1,6 +1,7 @@
+import { z } from 'zod';
 import { NextRequest, NextResponse } from 'next/server';
 import { google } from 'googleapis';
-import { GBPAgent } from '../../lib/gbp/agent';
+import { GBPAgent } from '../../../lib/gbp/agent';
 
 export async function GET(request: NextRequest) {
     const authHeader = request.headers.get('authorization');

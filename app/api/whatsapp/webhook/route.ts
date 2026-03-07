@@ -1,3 +1,4 @@
+import { z } from 'zod';
 import { NextRequest, NextResponse } from 'next/server';
 import { chatWithBusinessAgent } from '@/app/lib/ai/business-chat';
 

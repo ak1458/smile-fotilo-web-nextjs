@@ -1,3 +1,4 @@
+import { z } from 'zod';
 import { NextRequest, NextResponse } from 'next/server';
 import { createAdminClient } from '@/app/lib/supabase/admin';
 import { canAccessBusiness, getCurrentUser } from '@/app/lib/auth/session';
@@ -15,12 +16,13 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
 
-    const limit = Math.min(Number(request.nextUrl.searchParams.get('limit') ?? 50), 200);
+    const rawLimit = Number(request.nextUrl.searchParams.get('limit') ?? 50);
+    const limit = Number.isFinite(rawLimit) ? Math.max(1, Math.min(rawLimit, 200)) : 50;
     const supabase = createAdminClient();
 
     const { data, error } = await supabase
       .from('conversations')
-      .select('*, messages(*)')
+      .select('id,customer_phone,source,status,last_message_at,created_at')
       .eq('business_id', businessId)
       .order('last_message_at', { ascending: false })
       .limit(limit);

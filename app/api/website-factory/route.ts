@@ -90,7 +90,7 @@ TYPOGRAPHY: [Heading font style and body font style]
 MOOD: [2-3 words describing the visual feel]
 STYLE_NOTES: [2 sentences about design approach]`;
 
-    let designDirection = {
+    const designDirection = {
       colors: ['#1e3a5f', '#4a90a4', '#f4a261', '#ffffff'],
       typography: 'Modern sans-serif for headings, clean readable font for body',
       mood: 'Professional, Trustworthy',
@@ -129,7 +129,7 @@ HEADLINE: [Main headline, 5-8 words]
 SUBHEADLINE: [Supporting text, 10-15 words]
 CTA_BUTTON: [Call-to-action text, 2-4 words]`;
 
-    let homeCopy = {
+    const homeCopy = {
       headline: `${nameGuard.sanitized}: ${industryGuard.sanitized} Excellence`,
       subheadline: `We provide professional ${industryGuard.sanitized.toLowerCase()} services tailored to your needs. Quality you can trust.`,
       cta: 'Get Started',

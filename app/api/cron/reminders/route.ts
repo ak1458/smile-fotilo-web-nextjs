@@ -1,3 +1,4 @@
+import { z } from 'zod';
 import { NextRequest, NextResponse } from 'next/server';
 import { createAdminClient } from '@/app/lib/supabase/admin';
 import { sendWhatsAppTemplate } from '@/app/lib/whatsapp/client';
