@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
             {
                 userAgent: '*',
                 allow: '/',
-                disallow: ['/private/', '/api/'],
+                disallow: ['/private/', '/api/', '/admin/*', '/portal/*'],
             },
         ],
         sitemap: 'https://smilefotilo.com/sitemap.xml',

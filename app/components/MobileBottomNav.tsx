@@ -7,6 +7,9 @@ import { MdHome, MdLocationOn, MdCall, MdApps, MdEmail } from 'react-icons/md';
 
 export const MobileBottomNav = React.memo(() => {
     const pathname = usePathname();
+    const hideOnAppShellRoutes = ['/admin', '/portal', '/login'].some(
+        (route) => pathname === route || pathname.startsWith(`${route}/`),
+    );
 
     const navItems = [
         { href: '/', icon: <MdHome />, label: 'Home' },
@@ -15,6 +18,10 @@ export const MobileBottomNav = React.memo(() => {
         { href: '/#services', icon: <MdApps />, label: 'Services' },
         { href: '/#contact', icon: <MdEmail />, label: 'Contact' },
     ];
+
+    if (hideOnAppShellRoutes) {
+        return null;
+    }
 
     return (
         <nav className="md:hidden fixed bottom-3 left-3 right-3 z-[100]">

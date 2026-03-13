@@ -241,18 +241,55 @@ body::before {
 }
 
 /* Typography Scale */
-h1 {
+:where(h1):not([class]) {
   font-size: clamp(2rem, 8vw, 4.5rem);
   line-height: 1.1;
 }
 
-h2 {
+:where(h2):not([class]) {
   font-size: clamp(1.5rem, 5vw, 2.5rem);
   line-height: 1.2;
 }
 
-p {
+:where(p):not([class]) {
   font-size: clamp(0.9rem, 3vw, 1.125rem);
+}
+
+/* Admin pages rely on utility typography scales and tight layout control */
+.admin-reset :where(h1, h2, h3, p) {
+  margin: 0;
+}
+
+.portal-reset :where(h1, h2, h3, p) {
+  margin: 0;
+}
+
+/* Keep dashboard typography readable even if global light-mode class is active */
+.admin-reset .text-white,
+.portal-reset .text-white {
+  color: #fff !important;
+}
+
+.admin-reset .text-slate-100,
+.portal-reset .text-slate-100 {
+  color: #f1f5f9 !important;
+}
+
+.admin-reset .text-slate-200,
+.portal-reset .text-slate-200 {
+  color: #e2e8f0 !important;
+}
+
+.admin-reset .text-slate-300,
+.portal-reset .text-slate-300 {
+  color: #cbd5e1 !important;
+}
+
+.admin-reset .text-slate-400,
+.portal-reset .text-slate-400,
+.text-slate-500 {
+  /* Enforce minimum 4.5:1 contrast over #0a0118 by brightening slate-500 to slate-400 levels globally */
+  color: #94a3b8 !important;
 }
 
 /* Animations */

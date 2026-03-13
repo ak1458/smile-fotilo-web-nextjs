@@ -44,9 +44,8 @@ const GlassSelect = ({
             <button
                 type="button"
                 onClick={() => setIsOpen(!isOpen)}
-                className={`w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-left flex items-center justify-between transition-all hover:bg-white/10 ${
-                    isOpen ? 'border-violet-500/50 bg-white/10' : ''
-                } ${selected ? 'text-white' : 'text-slate-400'}`}
+                className={`w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-left flex items-center justify-between transition-all hover:bg-white/10 ${isOpen ? 'border-violet-500/50 bg-white/10' : ''
+                    } ${selected ? 'text-white' : 'text-slate-400'}`}
             >
                 <span>{selected?.label || placeholder}</span>
                 <MdExpandMore className={`text-slate-400 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
@@ -66,16 +65,14 @@ const GlassSelect = ({
                                 key={option.value}
                                 type="button"
                                 onClick={() => handleSelect(option)}
-                                className={`w-full px-4 py-3 text-left transition-all flex items-center gap-3 ${
-                                    selected?.value === option.value
-                                        ? 'bg-violet-600/20 text-violet-300'
-                                        : 'text-slate-300 hover:bg-white/10 hover:text-white'
-                                }`}
+                                className={`w-full px-4 py-3 text-left transition-all flex items-center gap-3 ${selected?.value === option.value
+                                    ? 'bg-violet-600/20 text-violet-300'
+                                    : 'text-slate-300 hover:bg-white/10 hover:text-white'
+                                    }`}
                             >
                                 <span
-                                    className={`w-2 h-2 rounded-full ${
-                                        selected?.value === option.value ? 'bg-violet-400' : 'bg-transparent'
-                                    }`}
+                                    className={`w-2 h-2 rounded-full ${selected?.value === option.value ? 'bg-violet-400' : 'bg-transparent'
+                                        }`}
                                 />
                                 {option.label}
                             </button>
@@ -95,16 +92,16 @@ export const ContactForm = () => {
     const handleServiceSelect = (option: { value: string; label: string }) => {
         if (option.value === 'Custom') {
             setShowChatbotRedirect(true);
-            setStatus({ 
-                type: 'redirect', 
-                text: 'Custom projects are best discussed with Echo, our AI assistant.' 
+            setStatus({
+                type: 'redirect',
+                text: 'Custom projects are best discussed with Echo, our AI assistant.'
             });
-            
+
             // Dispatch event to open chatbot with custom project context
             setTimeout(() => {
                 const event = new CustomEvent('echo:open-chat', {
-                    detail: { 
-                        message: 'I have a custom project that doesn\'t fit the standard options. I need to discuss my specific requirements with you.' 
+                    detail: {
+                        message: 'I have a custom project that doesn\'t fit the standard options. I need to discuss my specific requirements with you.'
                     }
                 });
                 window.dispatchEvent(event);
@@ -180,8 +177,9 @@ export const ContactForm = () => {
         <form onSubmit={handleSubmit} className="space-y-6 p-8 border border-white/10 rounded-3xl bg-[#0F172A]/50 backdrop-blur-md">
             <div className="grid sm:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                    <label className="text-sm font-medium text-slate-400">Name</label>
+                    <label htmlFor="name" className="text-sm font-medium text-slate-400">Name</label>
                     <input
+                        id="name"
                         name="name"
                         type="text"
                         required
@@ -190,8 +188,9 @@ export const ContactForm = () => {
                     />
                 </div>
                 <div className="space-y-2">
-                    <label className="text-sm font-medium text-slate-400">Email</label>
+                    <label htmlFor="email" className="text-sm font-medium text-slate-400">Email</label>
                     <input
+                        id="email"
                         name="email"
                         type="email"
                         required
@@ -203,15 +202,15 @@ export const ContactForm = () => {
 
             <div className="space-y-2">
                 <label className="text-sm font-medium text-slate-400">Service Interest</label>
-                <GlassSelect 
-                    name="service" 
-                    placeholder="Select a service" 
-                    options={serviceOptions} 
-                    required 
+                <GlassSelect
+                    name="service"
+                    placeholder="Select a service"
+                    options={serviceOptions}
+                    required
                     onSelect={handleServiceSelect}
                 />
                 {showChatbotRedirect && (
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
                         className="flex items-center gap-2 text-sm text-violet-400 bg-violet-500/10 border border-violet-500/20 rounded-lg px-3 py-2"
@@ -228,8 +227,9 @@ export const ContactForm = () => {
             </div>
 
             <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-400">Project Details</label>
+                <label htmlFor="message" className="text-sm font-medium text-slate-400">Project Details</label>
                 <textarea
+                    id="message"
                     name="message"
                     required
                     rows={4}
@@ -245,9 +245,8 @@ export const ContactForm = () => {
                 aria-busy={isSubmitting}
             >
                 <div
-                    className={`absolute inset-0 bg-white/20 transition-transform duration-300 pointer-events-none ${
-                        isSubmitting ? '' : 'translate-y-full group-hover:translate-y-0'
-                    }`}
+                    className={`absolute inset-0 bg-white/20 transition-transform duration-300 pointer-events-none ${isSubmitting ? '' : 'translate-y-full group-hover:translate-y-0'
+                        }`}
                 />
                 <span className="flex items-center justify-center gap-2">
                     {isSubmitting && (
@@ -266,15 +265,14 @@ export const ContactForm = () => {
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0 }}
-                        className={`text-center py-2 rounded-lg text-sm ${
-                            status.type === 'success'
-                                ? 'bg-emerald-500/10 border border-emerald-500/20 text-emerald-400'
-                                : status.type === 'error'
-                                    ? 'bg-red-500/10 border border-red-500/20 text-red-400'
-                                    : status.type === 'redirect'
-                                        ? 'bg-violet-500/10 border border-violet-500/20 text-violet-400'
-                                        : 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300'
-                        }`}
+                        className={`text-center py-2 rounded-lg text-sm ${status.type === 'success'
+                            ? 'bg-emerald-500/10 border border-emerald-500/20 text-emerald-400'
+                            : status.type === 'error'
+                                ? 'bg-red-500/10 border border-red-500/20 text-red-400'
+                                : status.type === 'redirect'
+                                    ? 'bg-violet-500/10 border border-violet-500/20 text-violet-400'
+                                    : 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300'
+                            }`}
                     >
                         {status.text}
                     </motion.div>

@@ -1,7 +1,12 @@
 'use client';
 
 import { ChatSupport } from './ChatSupport';
+import { ErrorBoundary } from './ErrorBoundary';
 
 export const ChatSupportWrapper = () => {
-    return <ChatSupport />;
+    return (
+        <ErrorBoundary>
+            <ChatSupport />
+        </ErrorBoundary>
+    );
 };

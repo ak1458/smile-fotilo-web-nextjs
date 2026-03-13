@@ -2,8 +2,8 @@
 
 import Script from 'next/script';
 
-const GTM_ID = 'GTM-NXSPSN27';
-const GA_MEASUREMENT_ID = 'G-9ZS27TJ3ZJ';
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || 'GTM-NXSPSN27';
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-9ZS27TJ3ZJ';
 
 export function GoogleAnalytics() {
     return (

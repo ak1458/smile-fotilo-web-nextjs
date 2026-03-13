@@ -45,7 +45,7 @@ async function runAxeIfPossible(page) {
   try {
     await page.addScriptTag({ url: 'https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.9.0/axe.min.js' });
     const result = await page.evaluate(async () => {
-      // eslint-disable-next-line no-undef
+       
       const axeResult = await axe.run(document, {
         runOnly: {
           type: 'rule',

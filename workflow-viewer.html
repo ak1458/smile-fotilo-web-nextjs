@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmileFotilo — Architecture Workflow</title>
+    <style>
+        /* CSS Reset & Variables */
+        :root {
+            --bg: #0f172a;
+            /* Deep slate dark mode */
+            --panel: #1e293b;
+            --border: #334155;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+
+            --cat-page: #a855f7;
+            --cat-component: #3b82f6;
+            --cat-action: #f59e0b;
+            --cat-api: #10b981;
+            --cat-tool: #06b6d4;
+            --cat-portal: #ec4899;
+            --cat-admin: #f43f5e;
+            --cat-external: #eab308;
+            --cat-security: #ef4444;
+            --cat-data: #8b5cf6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow: hidden;
+            height: 100vh
+        }
+
+        /* Canvas & Grid */
+        #canvas {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            cursor: grab
+        }
+
+        #canvas.grabbing {
+            cursor: grabbing
+        }
+
+        .grid {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px
+        }
+
+        /* World & SVG Connections */
+        .world {
+            position: absolute;
+            transform-origin: 0 0
+        }
+
+        svg.conns {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 10000px;
+            height: 10000px;
+            pointer-events: none;
+            z-index: 1
+        }
+
+        svg.conns path {
+            fill: none;
+            stroke: #334155;
+            stroke-width: 2;
+            transition: stroke 0.2s
+        }
+
+        svg.conns path:hover {
+            stroke: #94a3b8;
+            stroke-width: 3
+        }
+
+        /* Node Styling */
+        .node {
+            position: absolute;
+            width: 240px;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: grab;
+            z-index: 5;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+            transition: transform 0.1s;
+            user-select: none;
+        }
+
+        .node:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+            filter: brightness(1.1);
+        }
+
+        .node.dragging {
+            cursor: grabbing;
+            z-index: 100 !important;
+            filter: brightness(1.2);
+        }
+
+        .node-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border);
+            border-radius: 8px 8px 0 0;
+        }
+
+        .node-icon {
+            font-size: 16px;
+        }
+
+        .node-title {
+            font-weight: 600;
+            font-size: 13px;
+            color: #fff;
+        }
+
+        .node-body {
+            padding: 12px;
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .node-cat {
+            position: absolute;
+            top: -8px;
+            right: 10px;
+            font-size: 9px;
+            text-transform: uppercase;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #fff;
+            letter-spacing: 0.5px;
+        }
+
+        /* Category Colors */
+        .cat-page .node-cat,
+        .cat-page .node-header {
+            background: rgba(168, 85, 247, 0.15);
+            border-bottom-color: rgba(168, 85, 247, 0.3);
+            color: var(--cat-page);
+        }
+
+        .cat-page {
+            border-color: rgba(168, 85, 247, 0.5);
+        }
+
+        .cat-component .node-cat,
+        .cat-component .node-header {
+            background: rgba(59, 130, 246, 0.15);
+            border-bottom-color: rgba(59, 130, 246, 0.3);
+            color: var(--cat-component);
+        }
+
+        .cat-component {
+            border-color: rgba(59, 130, 246, 0.5);
+        }
+
+        .cat-action .node-cat,
+        .cat-action .node-header {
+            background: rgba(245, 158, 11, 0.15);
+            border-bottom-color: rgba(245, 158, 11, 0.3);
+            color: var(--cat-action);
+        }
+
+        .cat-action {
+            border-color: rgba(245, 158, 11, 0.5);
+        }
+
+        .cat-api .node-cat,
+        .cat-api .node-header {
+            background: rgba(16, 185, 129, 0.15);
+            border-bottom-color: rgba(16, 185, 129, 0.3);
+            color: var(--cat-api);
+        }
+
+        .cat-api {
+            border-color: rgba(16, 185, 129, 0.5);
+        }
+
+        .cat-tool .node-cat,
+        .cat-tool .node-header {
+            background: rgba(6, 182, 212, 0.15);
+            border-bottom-color: rgba(6, 182, 212, 0.3);
+            color: var(--cat-tool);
+        }
+
+        .cat-tool {
+            border-color: rgba(6, 182, 212, 0.5);
+        }
+
+        .cat-portal .node-cat,
+        .cat-portal .node-header {
+            background: rgba(236, 72, 153, 0.15);
+            border-bottom-color: rgba(236, 72, 153, 0.3);
+            color: var(--cat-portal);
+        }
+
+        .cat-portal {
+            border-color: rgba(236, 72, 153, 0.5);
+        }
+
+        .cat-admin .node-cat,
+        .cat-admin .node-header {
+            background: rgba(244, 63, 94, 0.15);
+            border-bottom-color: rgba(244, 63, 94, 0.3);
+            color: var(--cat-admin);
+        }
+
+        .cat-admin {
+            border-color: rgba(244, 63, 94, 0.5);
+        }
+
+        .cat-external .node-cat,
+        .cat-external .node-header {
+            background: rgba(234, 179, 8, 0.15);
+            border-bottom-color: rgba(234, 179, 8, 0.3);
+            color: var(--cat-external);
+        }
+
+        .cat-external {
+            border-color: rgba(234, 179, 8, 0.5);
+        }
+
+        .cat-security .node-cat,
+        .cat-security .node-header {
+            background: rgba(239, 68, 68, 0.15);
+            border-bottom-color: rgba(239, 68, 68, 0.3);
+            color: var(--cat-security);
+        }
+
+        .cat-security {
+            border-color: rgba(239, 68, 68, 0.5);
+        }
+
+        .cat-data .node-cat,
+        .cat-data .node-header {
+            background: rgba(139, 92, 246, 0.15);
+            border-bottom-color: rgba(139, 92, 246, 0.3);
+            color: var(--cat-data);
+        }
+
+        .cat-data {
+            border-color: rgba(139, 92, 246, 0.5);
+        }
+
+        /* Interface Elements */
+        .toolbar {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(8px);
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo {
+            font-weight: 800;
+            color: #fff;
+            margin-right: 15px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo span {
+            color: #facc15;
+        }
+
+        .tbtn {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 6px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .tbtn:hover {
+            background: #334155;
+            border-color: #475569;
+        }
+
+        /* Legend */
+        .legend {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(8px);
+            padding: 12px 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            z-index: 1000;
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .legend-color {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        /* Minimap */
+        .minimap {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 200px;
+            height: 150px;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        .m-node {
+            position: absolute;
+            width: 4px;
+            height: 3px;
+            border-radius: 1px;
+        }
+
+        .m-view {
+            position: absolute;
+            border: 1px solid #fff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="toolbar">
+        <div class="logo"><span>📸</span> SmileFotilo Architecture</div>
+        <button class="tbtn" onclick="fitAll()">Fit View</button>
+        <button class="tbtn" onclick="zoomIn()">Zoom In</button>
+        <button class="tbtn" onclick="zoomOut()">Zoom Out</button>
+        <button class="tbtn" onclick="resetView()">Reset</button>
+    </div>
+
+    <div class="legend" id="legend"></div>
+    <div class="minimap" id="minimap">
+        <div id="m-nodes"></div>
+        <div class="m-view" id="m-view"></div>
+    </div>
+
+    <div id="canvas">
+        <div class="grid"></div>
+        <div class="world" id="world">
+            <svg class="conns" id="svg"></svg>
+        </div>
+    </div>
+
+    <script>
+        // ───── 1. NODES DATA (FLAT, ALL VISIBLE AT ONCE) ─────
+        const nodes = [
+            // User Entry
+            { id: 'user_web', title: 'Website Visitor', desc: 'Browser access Mobile/Desktop', cat: 'page', icon: '👤', x: 100, y: 400 },
+            { id: 'user_client', title: 'Logged-in Client', desc: 'Access to Portal via Auth', cat: 'portal', icon: '🔐', x: 100, y: 1200 },
+
+            // Pages (Public) - X: 400
+            { id: 'p_home', title: 'Home Page', desc: 'Hero, 3D Robot, Pricing, Services summary, FAQ, Global map.', cat: 'page', icon: '🏠', x: 400, y: 100 },
+            { id: 'p_services', title: 'Services Vertical', desc: 'Web Design, SEO, Branding, AI Growth OS, Clinic Autopilot.', cat: 'page', icon: '🛠️', x: 400, y: 250 },
+            { id: 'p_portfolio', title: 'Portfolio & Work', desc: 'Case studies, project results, and dynamic client showcases.', cat: 'page', icon: '💼', x: 400, y: 400 },
+            { id: 'p_blog', title: 'Blog Center', desc: 'Dynamic SEO articles driven by internal data knowledge base.', cat: 'page', icon: '📰', x: 400, y: 550 },
+            { id: 'p_locations', title: 'Locations', desc: 'Gonda, Lucknow, Greater Noida, Ayodhya specific landing pages.', cat: 'page', icon: '📍', x: 400, y: 700 },
+            { id: 'p_marketplace', title: 'Agent Marketplace', desc: 'Browse categorized AI agents for clinics, shops, etc.', cat: 'page', icon: '🏪', x: 400, y: 850 },
+            { id: 'p_tools', title: 'AI Tools Hub', desc: 'Landing for all free lead-generation AI tools.', cat: 'page', icon: '🧰', x: 400, y: 1000 },
+
+            // Portal & Admin (Protected) - X: 400
+            { id: 'port_dash', title: 'Portal Dashboard', desc: 'Client view of active agents, ROI metrics, and tasks.', cat: 'portal', icon: '📊', x: 400, y: 1200 },
+            { id: 'port_calls', title: 'Portal Calls', desc: 'History of incoming/outgoing Twilio voice calls & transcripts.', cat: 'portal', icon: '📞', x: 400, y: 1350 },
+            { id: 'adm_dash', title: 'Admin Dashboard', desc: 'Global view of all clients, system health, and raw logs.', cat: 'admin', icon: '🛡️', x: 400, y: 1550 },
+            { id: 'adm_biz', title: 'Admin Businesses', desc: 'CRUD interfaces for onboarding new agency clients.', cat: 'admin', icon: '🏢', x: 400, y: 1700 },
+
+            // Shared UI Components - X: 750
+            { id: 'c_navbar', title: 'NavBar & BottomNav', desc: 'Global navigation with desktop dropdowns and mobile tabs.', cat: 'component', icon: '🧭', x: 750, y: 100 },
+            { id: 'c_footer', title: 'Global Footer', desc: 'Sitemap, legal links, social icons, newsletter signup.', cat: 'component', icon: '🦶', x: 750, y: 250 },
+            { id: 'c_echo', title: 'ChatSupport (Echo)', desc: 'Persistent animated chat bubble widget opening the AI UI.', cat: 'component', icon: '💬', x: 750, y: 400 },
+            { id: 'c_contact', title: 'ContactForms', desc: 'Multi-step capture form (Zod validation), generic modal popups.', cat: 'component', icon: '📋', x: 750, y: 550 },
+            { id: 'c_seo', title: 'JsonLd Engine', desc: 'Generates structured data script tags for Google robots.', cat: 'component', icon: '🏷️', x: 750, y: 700 },
+
+            // Server Actions - X: 1100
+            { id: 'a_chat', title: 'chat.ts (Echo AI)', desc: 'The brain. Handles rate limits, RAG knowledge, model fallback routing.', cat: 'action', icon: '🧠', x: 1100, y: 400 },
+            { id: 'a_contact', title: 'contact.ts', desc: 'Receives leads, cleans data, sends to EmailJS & Resend.', cat: 'action', icon: '📩', x: 1100, y: 550 },
+            { id: 'a_audit', title: 'audit.ts', desc: 'Fetches webpage HTML, grades SEO/Speed, asks Groq for analysis.', cat: 'action', icon: '🔍', x: 1100, y: 1000 },
+
+            // API Routes - X: 1450
+            { id: 'api_ai_tools', title: '/api/seo-content, /brand-kit', desc: 'Various endpoints handling specific tool prompts for Groq.', cat: 'api', icon: '✨', x: 1450, y: 950 },
+            { id: 'api_agents', title: '/api/agents (CRUD)', desc: 'Create, read, update specific agent configuration in DB.', cat: 'api', icon: '🤖', x: 1450, y: 1200 },
+            { id: 'api_twilio', title: '/api/twilio & /api/voice', desc: 'Webhook receivers for Twilio incoming calls and status updates.', cat: 'api', icon: '📡', x: 1450, y: 1350 },
+            { id: 'api_stripe', title: '/api/billing', desc: 'Handles Razorpay subscription and one-off agent template sales.', cat: 'api', icon: '💳', x: 1450, y: 1500 },
+            { id: 'api_cron', title: '/api/cron', desc: 'Scheduled tasks: DB keep-alive, auto GMB posting, data sync.', cat: 'api', icon: '⏰', x: 1450, y: 1650 },
+
+            // Security & Data - X: 1450
+            { id: 'data_kb', title: 'SmileFotilo Knowledge', desc: 'Massive string of structured agency data injected into Echo prompts.', cat: 'data', icon: '📚', x: 1450, y: 250 },
+            { id: 'sec_guard', title: 'Prompt Guard', desc: 'Middleware stripping harmful commands (XSS, drop tables, jailbreaks).', cat: 'security', icon: '🔒', x: 1450, y: 400 },
+            { id: 'sec_rate', title: 'Rate Limiter', desc: 'IP-based throttling (e.g., 25 chat requests per minute).', cat: 'security', icon: '⏱️', x: 1450, y: 550 },
+            { id: 'sec_verify', title: 'Twilio Verify', desc: 'Ensures incoming request signatures genuinely originated from Twilio.', cat: 'security', icon: '🛡️', x: 1450, y: 1250 },
+
+            // External Infrastructure - X: 1850
+            { id: 'ext_groq', title: 'Groq AI Model', desc: 'Llama 3.3 70B interface running on fast LPUs. Primary intelligence.', cat: 'external', icon: '⚡', x: 1850, y: 400 },
+            { id: 'ext_or', title: 'OpenRouter', desc: 'Fallback multi-model router if Groq is down or needs Reasoning.', cat: 'external', icon: '🔀', x: 1850, y: 550 },
+            { id: 'ext_db', title: 'Supabase (Postgres)', desc: 'Core database managing Businesses, Agents, Conversations, Logs.', cat: 'external', icon: '🗄️', x: 1850, y: 1200 },
+            { id: 'ext_twilio', title: 'Twilio Network', desc: 'Cellular network bridge handling actual Voice calls and WhatsApp API.', cat: 'external', icon: '📱', x: 1850, y: 1350 },
+            { id: 'ext_pay', title: 'Razorpay Gateway', desc: 'Processes INR payments and triggers webhook updates.', cat: 'external', icon: '💸', x: 1850, y: 1500 },
+            { id: 'ext_vercel', title: 'Vercel Platform', desc: 'Serverless Node.js edge network running Next.js 16 App Router.', cat: 'external', icon: '▲', x: 1850, y: 1650 },
+            { id: 'ext_mail', title: 'EmailJS / Resend', desc: 'Transports email notifications to clients and agency owners.', cat: 'external', icon: '✉️', x: 1850, y: 700 },
+        ];
+
+        // ───── 2. CONNECTIONS ─────
+        const connections = [
+            // User to UI
+            ['user_web', 'p_home'], ['user_web', 'p_services'], ['user_web', 'p_portfolio'],
+            ['user_web', 'p_blog'], ['user_web', 'p_marketplace'], ['user_web', 'p_tools'],
+            ['user_client', 'port_dash'], ['user_client', 'port_calls'],
+
+            // Pages to Components
+            ['p_home', 'c_navbar'], ['p_home', 'c_footer'], ['p_home', 'c_echo'], ['p_home', 'c_contact'],
+            ['p_services', 'c_echo'], ['p_services', 'c_contact'],
+            ['p_tools', 'c_navbar'], ['p_locations', 'c_seo'],
+
+            // Components to Actions
+            ['c_echo', 'a_chat'],
+            ['c_contact', 'a_contact'],
+
+            // Tools to Action/APIs
+            ['p_tools', 'a_audit'],
+            ['p_tools', 'api_ai_tools'],
+            ['p_marketplace', 'api_agents'],
+
+            // Portals to APIs
+            ['port_dash', 'api_agents'],
+            ['port_calls', 'api_twilio'],
+            ['adm_dash', 'api_agents'],
+            ['adm_biz', 'api_agents'],
+
+            // Actions to Logic/Security/Data
+            ['a_chat', 'sec_rate'],
+            ['a_chat', 'sec_guard'],
+            ['a_chat', 'data_kb'],
+            ['a_chat', 'ext_groq'],
+            ['a_chat', 'ext_or'],
+            ['a_contact', 'ext_mail'],
+            ['a_audit', 'ext_groq'],
+
+            // APIs to External
+            ['api_ai_tools', 'ext_groq'],
+            ['api_agents', 'ext_db'],
+            ['api_twilio', 'sec_verify'],
+            ['sec_verify', 'ext_twilio'],
+            ['api_stripe', 'ext_pay'],
+            ['api_cron', 'ext_db'],
+
+            // External internal links
+            ['ext_or', 'ext_groq']
+        ];
+
+        // ───── 3. CATEGORY LEGEND SETUP ─────
+        const cats = {
+            'page': { color: 'var(--cat-page)', label: 'Pages (UI)' },
+            'component': { color: 'var(--cat-component)', label: 'Components' },
+            'action': { color: 'var(--cat-action)', label: 'Server Actions' },
+            'api': { color: 'var(--cat-api)', label: 'API Routes' },
+            'tool': { color: 'var(--cat-tool)', label: 'AI Tools' },
+            'portal': { color: 'var(--cat-portal)', label: 'Client Portal' },
+            'admin': { color: 'var(--cat-admin)', label: 'Admin Panel' },
+            'security': { color: 'var(--cat-security)', label: 'Security' },
+            'data': { color: 'var(--cat-data)', label: 'Data & KB' },
+            'external': { color: 'var(--cat-external)', label: 'External Services' },
+        };
+
+        // ───── 4. RENDERING ENGINE ─────
+        const world = document.getElementById('world');
+        const svg = document.getElementById('svg');
+        const canvas = document.getElementById('canvas');
+        let ox = 50, oy = 50, sc = 0.6, drag = null, pan = null;
+
+        function init() {
+            // Build Legend
+            const leg = document.getElementById('legend');
+            for (const [key, val] of Object.entries(cats)) {
+                leg.innerHTML += `<div class="legend-item"><div class="legend-color" style="background:${val.color}"></div>${val.label}</div>`;
+            }
+
+            // Draw Nodes
+            nodes.forEach(n => {
+                const el = document.createElement('div');
+                el.id = 'n-' + n.id;
+                el.className = `node cat-${n.cat}`;
+                el.style.left = n.x + 'px';
+                el.style.top = n.y + 'px';
+                el.innerHTML = `
+      <div class="node-cat">${n.cat}</div>
+      <div class="node-header">
+        <div class="node-icon">${n.icon}</div>
+        <div class="node-title">${n.title}</div>
+      </div>
+      <div class="node-body">${n.desc}</div>
+    `;
+                el.addEventListener('mousedown', e => startDrag(e, n));
+                world.appendChild(el);
+            });
+
+            drawConnections();
+            applyTransform();
+            updateMinimap();
+        }
+
+        function drawConnections() {
+            svg.innerHTML = '';
+            connections.forEach(([fId, tId]) => {
+                const fn = nodes.find(n => n.id === fId);
+                const tn = nodes.find(n => n.id === tId);
+                if (!fn || !tn) return;
+
+                // Calculate centers
+                const fel = document.getElementById('n-' + fn.id);
+                const tel = document.getElementById('n-' + tn.id);
+                const fw = fel ? fel.offsetWidth : 240, fh = fel ? fel.offsetHeight : 100;
+                const tw = tel ? tel.offsetWidth : 240, th = tel ? tel.offsetHeight : 100;
+
+                // Connect Right-side of from to Left-side of to
+                const x1 = fn.x + fw;
+                const y1 = fn.y + (fh / 2);
+                const x2 = tn.x;
+                const y2 = tn.y + (th / 2);
+
+                const dx = Math.abs(x2 - x1);
+                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                path.setAttribute('d', `M${x1},${y1} C${x1 + dx / 1.5},${y1} ${x2 - dx / 1.5},${y2} ${x2},${y2}`);
+                svg.appendChild(path);
+            });
+        }
+
+        // ───── 5. INTERACTION LOGIC (PAN, ZOOM, DRAG) ─────
+        function applyTransform() {
+            world.style.transform = `translate(${ox}px,${oy}px) scale(${sc})`;
+            updateMinimap();
+        }
+
+        canvas.addEventListener('mousedown', e => {
+            if (e.target === canvas || e.target.classList.contains('grid')) {
+                pan = { sx: e.clientX - ox, sy: e.clientY - oy };
+                canvas.classList.add('grabbing');
+            }
+        });
+        window.addEventListener('mousemove', e => {
+            if (pan) { ox = e.clientX - pan.sx; oy = e.clientY - pan.sy; applyTransform(); }
+            if (drag) {
+                const n = drag.node;
+                n.x = drag.nx + (e.clientX - drag.mx) / sc;
+                n.y = drag.ny + (e.clientY - drag.my) / sc;
+                document.getElementById('n-' + n.id).style.left = n.x + 'px';
+                document.getElementById('n-' + n.id).style.top = n.y + 'px';
+                drawConnections();
+                updateMinimap();
+            }
+        });
+        window.addEventListener('mouseup', () => {
+            if (pan) { pan = null; canvas.classList.remove('grabbing'); }
+            if (drag) { document.getElementById('n-' + drag.node.id).classList.remove('dragging'); drag = null; }
+        });
+        canvas.addEventListener('wheel', e => {
+            e.preventDefault();
+            const d = e.deltaY > 0 ? -0.08 : 0.08;
+            const oldSc = sc;
+            sc = Math.min(2, Math.max(0.15, sc + d));
+            const mx = e.clientX, my = e.clientY;
+            ox = mx - (mx - ox) * (sc / oldSc);
+            oy = my - (my - oy) * (sc / oldSc);
+            applyTransform();
+        }, { passive: false });
+
+        function startDrag(e, n) {
+            e.stopPropagation();
+            drag = { node: n, mx: e.clientX, my: e.clientY, nx: n.x, ny: n.y };
+            document.getElementById('n-' + n.id).classList.add('dragging');
+        }
+
+        // ───── 6. MINIMAP ─────
+        function updateMinimap() {
+            const mm = document.getElementById('minimap');
+            const mNodes = document.getElementById('m-nodes');
+            const mView = document.getElementById('m-view');
+
+            const mw = mm.offsetWidth, mh = mm.offsetHeight;
+            const mapScale = 0.02; // Scaling logic for minimap 10000px space
+
+            mNodes.innerHTML = '';
+            nodes.forEach(n => {
+                const p = document.createElement('div');
+                p.className = 'm-node';
+                p.style.left = (n.x * mapScale) + 'px';
+                p.style.top = (n.y * mapScale) + 'px';
+                p.style.backgroundColor = cats[n.cat].color;
+                mNodes.appendChild(p);
+            });
+
+            // Viewport rect
+            const vW = window.innerWidth / sc;
+            const vH = window.innerHeight / sc;
+            const vX = -ox / sc;
+            const vY = -oy / sc;
+
+            mView.style.width = (vW * mapScale) + 'px';
+            mView.style.height = (vH * mapScale) + 'px';
+            mView.style.left = (vX * mapScale) + 'px';
+            mView.style.top = (vY * mapScale) + 'px';
+        }
+
+        function fitAll() { ox = 50; oy = 50; sc = 0.45; applyTransform(); }
+        function zoomIn() { sc = Math.min(2, sc + 0.1); applyTransform(); }
+        function zoomOut() { sc = Math.max(0.15, sc - 0.1); applyTransform(); }
+        function resetView() { ox = 50; oy = 50; sc = 0.8; applyTransform(); }
+
+        init();
+    </script>
+</body>
+
+</html>

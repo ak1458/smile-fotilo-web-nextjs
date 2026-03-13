@@ -1,20 +1,81 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MdHome, MdWork, MdApps, MdArticle, MdLocationOn, MdInfo, MdChevronRight, MdLocalHospital, MdSearch, MdPayments } from 'react-icons/md';
 import Image from 'next/image';
 
 export const NavBar = React.memo(() => {
     const [isOpen, setIsOpen] = useState(false);
+    const pathname = usePathname();
+    const menuRef = useRef<HTMLDivElement>(null);
+    const buttonRef = useRef<HTMLButtonElement>(null);
+
+    const hideOnAppShellRoutes = ['/admin', '/portal', '/login'].some(
+        (route) => pathname === route || pathname.startsWith(`${route}/`),
+    );
 
     useEffect(() => {
         document.body.style.overflow = isOpen ? 'hidden' : '';
+
+        // Return focus to button when closed
+        if (!isOpen && buttonRef.current) {
+            buttonRef.current.focus();
+        }
+
         return () => {
             document.body.style.overflow = '';
         };
     }, [isOpen]);
+
+    // Focus Trap Logic
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (!isOpen || !menuRef.current) return;
+
+            if (e.key === 'Escape') {
+                setIsOpen(false);
+                return;
+            }
+
+            if (e.key === 'Tab') {
+                const focusableElements = menuRef.current.querySelectorAll(
+                    'a[href], button:not([disabled]), textarea, input, select'
+                );
+                const firstElement = focusableElements[0] as HTMLElement;
+                const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+
+                if (e.shiftKey) {
+                    if (document.activeElement === firstElement) {
+                        e.preventDefault();
+                        lastElement?.focus();
+                    }
+                } else {
+                    if (document.activeElement === lastElement) {
+                        e.preventDefault();
+                        firstElement?.focus();
+                    }
+                }
+            }
+        };
+
+        if (isOpen) {
+            document.addEventListener('keydown', handleKeyDown);
+            // Auto focus first element on open
+            setTimeout(() => {
+                const firstLink = menuRef.current?.querySelector('a[href]') as HTMLElement;
+                firstLink?.focus();
+            }, 100);
+        }
+
+        return () => document.removeEventListener('keydown', handleKeyDown);
+    }, [isOpen]);
+
+    if (hideOnAppShellRoutes) {
+        return null;
+    }
 
     const handleLinkClick = () => {
         setIsOpen(false);
@@ -40,12 +101,12 @@ export const NavBar = React.memo(() => {
                     <div className="flex justify-between items-center h-20">
                         {/* Logo */}
                         <Link href="/" className="flex items-center gap-2 group relative h-12 w-auto" onClick={handleLinkClick}>
-                            <Image 
-                                src="/logo.png" 
-                                alt="Smile Fotilo Logo" 
-                                width={168} 
+                            <Image
+                                src="/logo.png"
+                                alt="Smile Fotilo Logo"
+                                width={168}
                                 height={48}
-                                className="h-12 w-auto object-contain transition-all brightness-125 contrast-110" 
+                                className="h-12 w-auto object-contain transition-all brightness-125 contrast-110"
                                 style={{ width: 'auto', height: '48px' }}
                                 priority
                             />
@@ -71,8 +132,12 @@ export const NavBar = React.memo(() => {
                         {/* Mobile: Hamburger Only */}
                         <div className="md:hidden flex items-center gap-2">
                             <button
+                                ref={buttonRef}
                                 onClick={() => setIsOpen(!isOpen)}
-                                className="relative w-12 h-12 rounded-xl bg-gradient-to-br from-violet-600/20 to-purple-600/20 border border-violet-500/30 flex items-center justify-center"
+                                aria-expanded={isOpen}
+                                aria-controls="mobile-menu"
+                                aria-label="Toggle menu"
+                                className="relative w-12 h-12 rounded-xl bg-gradient-to-br from-violet-600/20 to-purple-600/20 border border-violet-500/30 flex items-center justify-center -mr-2"
                             >
                                 <div className="flex flex-col gap-1.5 items-center justify-center">
                                     <motion.span
@@ -107,6 +172,8 @@ export const NavBar = React.memo(() => {
                         <div className="absolute inset-0 bg-[#0a0118]/98 backdrop-blur-2xl" />
 
                         <div
+                            id="mobile-menu"
+                            ref={menuRef}
                             className="relative h-full min-h-0 max-h-[calc(100vh-5rem)] overflow-y-auto overscroll-contain px-6 py-8 pb-[calc(2rem+env(safe-area-inset-bottom))]"
                             style={{ WebkitOverflowScrolling: 'touch', touchAction: 'pan-y' }}
                         >

@@ -45,6 +45,17 @@ const FREE_OPENROUTER_MODELS: string[] = Array.from(
 const requestThrottleMap = new Map<string, Counter>();
 const freeModelPointerMap = new Map<string, number>();
 
+const MAX_CACHE_ENTRIES = 1000;
+
+function enforceCacheLimit<K, V>(map: Map<K, V>) {
+  if (map.size > MAX_CACHE_ENTRIES) {
+    const oldestKey = map.keys().next().value;
+    if (oldestKey !== undefined) {
+      map.delete(oldestKey);
+    }
+  }
+}
+
 function sanitizeInput(input: string): string {
   if (typeof input !== 'string') return '';
 
@@ -408,6 +419,7 @@ function touchCounter(map: Map<string, Counter>, key: string, windowMs: number, 
   if (!current || now > current.resetTime) {
     const fresh = { count: 0, resetTime: now + windowMs };
     map.set(key, fresh);
+    enforceCacheLimit(map);
     return fresh;
   }
   return current;
@@ -430,7 +442,8 @@ function cleanupExpiredEntries(): void {
   for (const [key, value] of requestThrottleMap.entries()) {
     if (now > value.resetTime) requestThrottleMap.delete(key);
   }
-  if (freeModelPointerMap.size > 5000) freeModelPointerMap.clear();
+  // Enforce rigid limit instead of just clearing at 5000
+  enforceCacheLimit(freeModelPointerMap);
 }
 
 const globalState = globalThis as typeof globalThis & { __echoCleanupIntervalStarted?: boolean };
@@ -516,7 +529,12 @@ async function callOpenRouterWithFallback(
     lastError = result.error;
   }
 
-  console.error('[CHAT] Model fallback chain failed:', lastError);
+  if (typeof window === 'undefined') {
+    const { secureLog } = await import('../lib/secure-log');
+    secureLog.error('[CHAT] Model fallback chain failed:', lastError);
+  } else {
+    console.error('[CHAT] Model fallback chain failed:', lastError);
+  }
   return formatReply("Having a brief connection issue on my end. I can still handle basic questions, or you can reach Ashraf directly at +91 9453878422.", ['Pricing', 'Services', 'Contact directly']);
 }
 

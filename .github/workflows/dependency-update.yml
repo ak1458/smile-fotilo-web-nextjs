@@ -2,8 +2,8 @@ name: Dependency Update Check
 
 on:
   schedule:
-    # Run daily at 06:00 UTC
-    - cron: '0 6 * * *'
+    # Run weekly on Sundays at 06:00 UTC
+    - cron: '0 6 * * 0'
   workflow_dispatch: # Allow manual trigger
 
 jobs:
@@ -24,19 +24,31 @@ jobs:
         
     - name: Check for outdated dependencies
       run: |
-        npm outdated > outdated-dependencies.txt 2>&1 || true
-        cat outdated-dependencies.txt
+        npm outdated --json > outdated-dependencies.json || true
+        cat outdated-dependencies.json
         
     - name: Create issue if updates available
       uses: actions/github-script@v7
       with:
         script: |
           const fs = require('fs');
-          const content = fs.readFileSync('outdated-dependencies.txt', 'utf8');
+          let content;
+          try {
+            content = JSON.parse(fs.readFileSync('outdated-dependencies.json', 'utf8'));
+          } catch (e) {
+            console.log('No outdated dependencies found or error reading file.');
+            return;
+          }
           
-          if (content.includes('Package') && content.includes('Current')) {
+          if (Object.keys(content).length > 0) {
             const title = `📦 Dependency Updates Available - ${new Date().toISOString().split('T')[0]}`;
-            const body = `## Outdated Dependencies\n\n\`\`\`\n${content}\n\`\`\`\n\nPlease review and update dependencies. Run \`npm update\` locally and test before deploying.`;
+            let body = `## Outdated Dependencies\n\n| Package | Current | Wanted | Latest |\n| :--- | :--- | :--- | :--- |\n`;
+            
+            for (const [pkg, details] of Object.entries(content)) {
+              body += `| ${pkg} | ${details.current} | ${details.wanted} | ${details.latest} |\n`;
+            }
+            
+            body += `\n\nPlease review and update dependencies. Run \`npm update\` locally and test before deploying.`;
             
             github.rest.issues.create({
               owner: context.repo.owner,

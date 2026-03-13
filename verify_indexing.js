@@ -2,7 +2,7 @@
 const { google } = require('googleapis');
 const path = require('path');
 
-const KEY_FILE_PATH = path.join(__dirname, '..', 'captcha-1747281225780-8777cd95d4a8.json');
+const KEY_FILE_PATH = path.join(__dirname, '..', 'captcha-1747281225780-7cd3c8d65214.json');
 const SITE_URL = 'sc-domain:smilefotilo.com';
 
 async function verifyIndexing() {

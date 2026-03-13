@@ -69,7 +69,78 @@ export const JsonLd = () => {
                 "publisher": {
                     "@id": "https://smilefotilo.com/#organization"
                 },
-                "inLanguage": "en"
+                "inLanguage": "en",
+                "potentialAction": [{
+                    "@type": "SearchAction",
+                    "target": {
+                        "@type": "EntryPoint",
+                        "urlTemplate": "https://smilefotilo.com/search?q={search_term_string}"
+                    },
+                    "query-input": "required name=search_term_string"
+                }]
+            },
+            // Site Navigation Schema
+            {
+                "@type": "ItemList",
+                "@id": "https://smilefotilo.com/#navigation",
+                "name": "Main Navigation",
+                "itemListElement": [
+                    {
+                        "@type": "SiteNavigationElement",
+                        "position": 1,
+                        "name": "About Us",
+                        "url": "https://smilefotilo.com/about"
+                    },
+                    {
+                        "@type": "SiteNavigationElement",
+                        "position": 2,
+                        "name": "Our Services",
+                        "url": "https://smilefotilo.com/services"
+                    },
+                    {
+                        "@type": "SiteNavigationElement",
+                        "position": 3,
+                        "name": "Portfolio / Work",
+                        "url": "https://smilefotilo.com/work"
+                    },
+                    {
+                        "@type": "SiteNavigationElement",
+                        "position": 4,
+                        "name": "Pricing",
+                        "url": "https://smilefotilo.com/pricing"
+                    },
+                    {
+                        "@type": "SiteNavigationElement",
+                        "position": 5,
+                        "name": "Tools",
+                        "url": "https://smilefotilo.com/tools"
+                    }
+                ]
+            },
+            // Breadcrumbs Schema
+            {
+                "@type": "BreadcrumbList",
+                "@id": "https://smilefotilo.com/#breadcrumb",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Home",
+                        "item": "https://smilefotilo.com"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": "Services",
+                        "item": "https://smilefotilo.com/services"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 3,
+                        "name": "Web Design",
+                        "item": "https://smilefotilo.com/services/web-design"
+                    }
+                ]
             },
             // Primary LocalBusiness — Gonda HQ (ProfessionalService for richer results)
             {
@@ -111,7 +182,7 @@ export const JsonLd = () => {
                     { "@type": "Country", "name": "United States" },
                     { "@type": "Country", "name": "Mexico" }
                 ],
-                "priceRange": "₹15,000 — ₹5,00,000",
+                "priceRange": "15000-500000",
                 "currenciesAccepted": "INR, USD",
                 "paymentAccepted": "UPI, Bank Transfer, PayPal, Credit Card",
                 "isAccessibleForFree": false,

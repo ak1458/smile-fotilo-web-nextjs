@@ -1,5 +1,7 @@
 'use server';
 
+import { z } from 'zod';
+
 type AuditResult = {
     url: string;
     score: number;
@@ -10,14 +12,15 @@ type AuditResult = {
     quickReplies: string[];
 };
 
-function isValidUrl(url: string): boolean {
+// Use Zod for strict URL and length validation
+const UrlSchema = z.string().trim().max(200, "URL is too long").refine((val) => {
     try {
-        const parsed = new URL(url.startsWith('http') ? url : `https://${url}`);
+        const parsed = new URL(val.startsWith('http') ? val : `https://${val}`);
         return ['http:', 'https:'].includes(parsed.protocol);
     } catch {
         return false;
     }
-}
+}, { message: "Invalid URL format" });
 
 function makeErrorResult(url: string, msg: string): AuditResult {
     return {
@@ -32,11 +35,13 @@ function makeErrorResult(url: string, msg: string): AuditResult {
 }
 
 export async function runWebsiteAudit(rawUrl: string): Promise<AuditResult> {
-    if (!rawUrl || !isValidUrl(rawUrl)) {
-        return makeErrorResult(rawUrl || '', 'Please enter a valid URL (e.g., smilefotilo.com)');
+    const parsed = UrlSchema.safeParse(rawUrl);
+
+    if (!parsed.success) {
+        return makeErrorResult(rawUrl?.slice(0, 100) || '', 'Please enter a valid URL (e.g., smilefotilo.com, max 200 chars)');
     }
 
-    const url = rawUrl.startsWith('http') ? rawUrl : `https://${rawUrl}`;
+    const url = parsed.data.startsWith('http') ? parsed.data : `https://${parsed.data}`;
 
     try {
         // Fetch main page

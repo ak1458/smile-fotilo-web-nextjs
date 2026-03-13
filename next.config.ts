@@ -89,6 +89,165 @@ const nextConfig: NextConfig = {
         destination: '/icon.png',
         permanent: true,
       },
+
+      // ============================================================
+      // WordPress → Next.js Migration Redirects (Feb 2026)
+      // These old WP URLs are still indexed in GSC. 301 redirects
+      // tell Google the site has migrated and transfer ranking juice.
+      // ============================================================
+      {
+        source: '/contact',
+        destination: '/about',
+        permanent: true,
+      },
+      {
+        source: '/contact/',
+        destination: '/about',
+        permanent: true,
+      },
+      {
+        source: '/hire-developer',
+        destination: '/services/web-design',
+        permanent: true,
+      },
+      {
+        source: '/hire-developer/',
+        destination: '/services/web-design',
+        permanent: true,
+      },
+      {
+        source: '/our-team',
+        destination: '/about',
+        permanent: true,
+      },
+      {
+        source: '/our-team/',
+        destination: '/about',
+        permanent: true,
+      },
+      {
+        source: '/software-developmet',
+        destination: '/services/web-design',
+        permanent: true,
+      },
+      {
+        source: '/software-developmet/',
+        destination: '/services/web-design',
+        permanent: true,
+      },
+      {
+        source: '/web-development',
+        destination: '/services/web-design',
+        permanent: true,
+      },
+      {
+        source: '/web-development/',
+        destination: '/services/web-design',
+        permanent: true,
+      },
+      {
+        source: '/lucknow-seo-expert',
+        destination: '/locations/lucknow',
+        permanent: true,
+      },
+      {
+        source: '/lucknow-seo-expert/',
+        destination: '/locations/lucknow',
+        permanent: true,
+      },
+      {
+        source: '/dmca',
+        destination: '/terms',
+        permanent: true,
+      },
+      {
+        source: '/dmca/',
+        destination: '/terms',
+        permanent: true,
+      },
+      {
+        source: '/sitemap',
+        destination: '/sitemap.xml',
+        permanent: true,
+      },
+      {
+        source: '/sitemap/',
+        destination: '/sitemap.xml',
+        permanent: true,
+      },
+      {
+        source: '/terms-and-conditions',
+        destination: '/terms',
+        permanent: true,
+      },
+      {
+        source: '/terms-and-conditions/',
+        destination: '/terms',
+        permanent: true,
+      },
+      {
+        source: '/portfolio',
+        destination: '/work',
+        permanent: true,
+      },
+      {
+        source: '/portfolio/',
+        destination: '/work',
+        permanent: true,
+      },
+      // New Legacy Fixes from Mar 2026 API Scan
+      {
+        source: '/app-development/',
+        destination: '/services/web-design',
+        permanent: true,
+      },
+      {
+        source: '/graphics-design/',
+        destination: '/services/branding',
+        permanent: true,
+      },
+      {
+        source: '/our-blogs/',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/privacy-policy/',
+        destination: '/privacy',
+        permanent: true,
+      },
+      {
+        source: '/author/:path*',
+        destination: '/about',
+        permanent: true,
+      },
+      {
+        source: '/top-search-engines-for-pentesters-a-guide-to-penetration-testing-tools/',
+        destination: '/blog/on-page-seo-checklist-2026',
+        permanent: true,
+      },
+      // Old WordPress tag/category pages -> blog
+      {
+        source: '/tag/:slug*',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/category/:slug*',
+        destination: '/blog',
+        permanent: true,
+      },
+      // Old WordPress blog post format
+      {
+        source: '/top-5-tools-for-seo-success-in-2024',
+        destination: '/blog/on-page-seo-checklist-2026',
+        permanent: true,
+      },
+      {
+        source: '/top-5-tools-for-seo-success-in-2024/',
+        destination: '/blog/on-page-seo-checklist-2026',
+        permanent: true,
+      },
     ];
   },
 

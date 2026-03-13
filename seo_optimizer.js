@@ -54,10 +54,11 @@ async function runOptimizer() {
 
         const prompt = `
             Context: Smile Fotilo is a web design & digital marketing agency with locations in Gonda, Noida, and Lucknow.
-            Current High-Impression Keywords: ${topQueries}
-            Task:
-            1. Generate a sample GMB Post title and 100-word text for Gonda HQ that uses these keywords naturally.
-            2. Suggest one specific sentence change for the Gonda location page to improve relevance.
+            Current Search Trends: ${topQueries}
+            
+            Task (Google Feb 2026 Core Update Safe Mode):
+            1. Generate a DRAFT GMB Post idea (title and 100-word text) focusing on helpful tips, real-world agency experience, or recent project announcements. Do NOT just stuff the keywords. Use them only if they naturally fit a genuinely helpful update.
+            2. Suggest one specific UX or content improvement for the Gonda location page based on what users are searching for, to build more trust (E-E-A-T).
             
             Return in JSON format: { "gmb_post": { "title": "", "text": "" }, "web_suggestion": "" }
         `;

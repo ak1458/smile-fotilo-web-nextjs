@@ -398,12 +398,12 @@ export const ChatSupport = () => {
                     </div>
                 )}
                 <button
-                            onClick={handleRobotInteraction}
-                            aria-label="Open chat assistant"
-                            className="rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-900"
-                        >
-                            <EchoIcon size={56} isHovered={isHovered} />
-                        </button>
+                    onClick={handleRobotInteraction}
+                    aria-label="Open chat assistant"
+                    className="rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-900"
+                >
+                    <EchoIcon size={56} isHovered={isHovered} />
+                </button>
             </div>
 
             {/* Chat Dialog */}
@@ -491,16 +491,16 @@ export const ChatSupport = () => {
                         )}
                     </div>
 
-                    {/* Input */}
                     <form onSubmit={handleSubmit} className="p-3 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-white/10 flex gap-2">
                         <input
                             value={inputValue}
                             onChange={(e) => setInputValue(e.target.value)}
                             placeholder="Ask about websites, SEO, pricing..."
                             disabled={isTyping}
+                            aria-label="Type your message"
                             className="flex-1 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white px-4 py-3 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
                         />
-                        <button type="submit" disabled={!inputValue.trim() || isTyping} className="p-3 bg-indigo-600 text-white rounded-xl hover:bg-indigo-500 disabled:opacity-50 transition-colors">
+                        <button type="submit" disabled={!inputValue.trim() || isTyping} aria-label="Send message" className="p-3 bg-indigo-600 text-white rounded-xl hover:bg-indigo-500 disabled:opacity-50 transition-colors">
                             <MdSend className="text-lg" />
                         </button>
                     </form>

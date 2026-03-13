@@ -143,7 +143,11 @@ export default function LoginPage() {
                 {/* Footer */}
                 <p className="text-center text-xs" style={{ color: '#64748b' }}>
                     Don&apos;t have an account or forgot your password?{' '}
-                    <a href="mailto:admin@smilefotilo.com" className="hover:underline transition-all" style={{ color: '#a78bfa' }}>
+                    <a
+                        href="mailto:ashrafkamal1458@gmail.com"
+                        className="hover:underline transition-all"
+                        style={{ color: '#a78bfa' }}
+                    >
                         Contact the admin
                     </a>
                 </p>

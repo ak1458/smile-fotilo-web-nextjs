@@ -1,6 +1,7 @@
 'use server';
 
 import { Resend } from 'resend';
+import { z } from 'zod';
 
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
@@ -10,21 +11,25 @@ const COMPANY_EMAIL = 'ashrafkamal1458@gmail.com';
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || COMPANY_EMAIL;
 const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
 
-interface ContactFormData {
-    name: string;
-    email: string;
-    service: string;
-    budget: string;
-    message: string;
-}
+// Maximum sane limits to prevent memory exhaustion and abuse
+const ContactFormSchema = z.object({
+    name: z.string().min(1, "Name is required").max(100, "Name too long"),
+    email: z.string().email("Invalid email format").max(200, "Email too long"),
+    service: z.string().min(1, "Service is required").max(100, 'Service too long'),
+    budget: z.string().min(1, "Budget is required").max(100, 'Budget too long'),
+    message: z.string().min(1, "Message is required").max(5000, "Message is too long (max 5000 characters)"),
+});
 
-interface ChatLeadData {
-    name?: string;
-    email: string;
-    phone?: string;
-    service?: string;
-    conversationSummary: string;
-}
+const ChatLeadSchema = z.object({
+    name: z.string().max(100).optional(),
+    email: z.string().email().max(200),
+    phone: z.string().max(50).optional(),
+    service: z.string().max(100).optional(),
+    conversationSummary: z.string().max(10000, "Summary too long (max 10000 chars)"),
+});
+
+export type ContactFormData = z.infer<typeof ContactFormSchema>;
+export type ChatLeadData = z.infer<typeof ChatLeadSchema>;
 
 const escapeHtml = (value: string) =>
     value
@@ -37,8 +42,13 @@ const escapeHtml = (value: string) =>
 const sanitize = (value: string) => escapeHtml(value.trim());
 
 export async function sendContactEmail(data: ContactFormData) {
-    if (!data.name || !data.email || !data.service || !data.budget || !data.message) {
-        return { success: false, message: 'Please fill all required fields before submitting.' };
+    const parsed = ContactFormSchema.safeParse(data);
+
+    if (!parsed.success) {
+        return {
+            success: false,
+            message: parsed.error.issues[0]?.message || 'Invalid input provided. Please check your fields.'
+        };
     }
 
     if (!resend) {
@@ -50,11 +60,11 @@ export async function sendContactEmail(data: ContactFormData) {
     }
 
     const safeData = {
-        name: sanitize(data.name),
-        email: sanitize(data.email),
-        service: sanitize(data.service),
-        budget: sanitize(data.budget),
-        message: sanitize(data.message),
+        name: sanitize(parsed.data.name),
+        email: sanitize(parsed.data.email),
+        service: sanitize(parsed.data.service),
+        budget: sanitize(parsed.data.budget),
+        message: sanitize(parsed.data.message),
     };
 
     try {
@@ -160,8 +170,13 @@ export async function sendContactEmail(data: ContactFormData) {
 }
 
 export async function sendChatLeadEmail(data: ChatLeadData) {
-    if (!data.email || !data.conversationSummary) {
-        return { success: false, message: 'Missing lead data.' };
+    const parsed = ChatLeadSchema.safeParse(data);
+
+    if (!parsed.success) {
+        return {
+            success: false,
+            message: parsed.error.issues[0]?.message || 'Invalid lead data provided.'
+        };
     }
 
     if (!resend) {
@@ -170,11 +185,11 @@ export async function sendChatLeadEmail(data: ChatLeadData) {
     }
 
     const safeData = {
-        name: data.name ? sanitize(data.name) : '',
-        email: sanitize(data.email),
-        phone: data.phone ? sanitize(data.phone) : '',
-        service: data.service ? sanitize(data.service) : '',
-        conversationSummary: sanitize(data.conversationSummary),
+        name: parsed.data.name ? sanitize(parsed.data.name) : '',
+        email: sanitize(parsed.data.email),
+        phone: parsed.data.phone ? sanitize(parsed.data.phone) : '',
+        service: parsed.data.service ? sanitize(parsed.data.service) : '',
+        conversationSummary: sanitize(parsed.data.conversationSummary),
     };
 
     try {

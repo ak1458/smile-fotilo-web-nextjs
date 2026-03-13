@@ -22,12 +22,13 @@ const Hero = () => {
           src="/global-bg-network.webp"
           alt=""
           fill
+          sizes="100vw"
           className="object-cover opacity-30"
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#0a0118] via-[#0a0118]/80 to-[#0a0118]" />
       </div>
-      
+
       {/* Anti-Gravity Background Animation */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-[1]">
         <motion.div
@@ -53,7 +54,7 @@ const Hero = () => {
           <span className="text-xs font-bold uppercase tracking-widest text-slate-400">🚀 Ready to Build Your Empire?</span>
         </motion.div>
 
-        <motion.h1
+        <motion.h2
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
@@ -61,7 +62,7 @@ const Hero = () => {
         >
           Be Your Own Boss <br className="hidden md:block" />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-indigo-400 to-purple-400">Powered by AI</span>
-        </motion.h1>
+        </motion.h2>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -239,22 +240,20 @@ const Pricing = () => {
           <button
             type="button"
             onClick={() => setMode('project')}
-            className={`w-1/2 rounded-xl px-4 py-3 text-sm font-semibold transition-all ${
-              mode === 'project'
-                ? 'bg-indigo-500 text-white'
-                : 'text-slate-300 hover:bg-white/5'
-            }`}
+            className={`w-1/2 rounded-xl px-4 py-3 text-sm font-semibold transition-all ${mode === 'project'
+              ? 'bg-indigo-500 text-white'
+              : 'text-slate-300 hover:bg-white/5'
+              }`}
           >
             Project Delivery
           </button>
           <button
             type="button"
             onClick={() => setMode('autopilot')}
-            className={`w-1/2 rounded-xl px-4 py-3 text-sm font-semibold transition-all ${
-              mode === 'autopilot'
-                ? 'bg-cyan-500 text-slate-950'
-                : 'text-slate-300 hover:bg-white/5'
-            }`}
+            className={`w-1/2 rounded-xl px-4 py-3 text-sm font-semibold transition-all ${mode === 'autopilot'
+              ? 'bg-cyan-500 text-slate-950'
+              : 'text-slate-300 hover:bg-white/5'
+              }`}
           >
             AI Growth Ops
           </button>
@@ -268,11 +267,10 @@ const Pricing = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.08 }}
-              className={`h-full rounded-3xl border p-6 md:p-8 backdrop-blur-sm flex flex-col ${
-                plan.featured
-                  ? 'border-indigo-500/40 bg-[#0F172A]/80 shadow-[0_0_40px_rgba(99,102,241,0.18)]'
-                  : 'border-white/10 bg-[#0F172A]/55'
-              }`}
+              className={`h-full rounded-3xl border p-6 md:p-8 backdrop-blur-sm flex flex-col ${plan.featured
+                ? 'border-indigo-500/40 bg-[#0F172A]/80 shadow-[0_0_40px_rgba(99,102,241,0.18)]'
+                : 'border-white/10 bg-[#0F172A]/55'
+                }`}
             >
               {plan.featured && (
                 <div className="mb-4 inline-flex w-fit rounded-full bg-indigo-500 px-3 py-1 text-xs font-bold uppercase">

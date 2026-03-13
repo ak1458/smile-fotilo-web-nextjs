@@ -57,27 +57,37 @@ async function publishGmbPost() {
         }
 
         // 4. Publish to each location (Gonda, Lucknow, Noida)
+        const isSunday = new Date().getDay() === 0;
+        
+        if (!isSunday && !process.env.FORCE_GMB_POST) {
+            console.log('Skipping GMB post: Automation restricted to SUNDAYS for safety (Anti-Spam Policy).');
+            return;
+        }
+
         for (const location of locations) {
             console.log(`Publishing to: ${location.title}...`);
 
-            // This is the placeholder for the actual Post creation call
-            // Once the quota is > 0, we use the mybusinessbusinessinformation.locations.localPosts.create() equivalent
-            console.log('POST CONTENT:', gmbPostIdea);
-
-            /* 
-            await google.mybusinessbusinessinformation('v1').locations.localPosts.create({
-                parent: location.name,
-                requestBody: {
-                    languageCode: 'en-US',
-                    summary: gmbPostIdea,
-                    topicType: 'STANDARD',
-                    callToAction: {
-                        actionType: 'LEARN_MORE',
-                        url: 'https://smilefotilo.com'
+            try {
+                // Using the v1 LocalPosts API
+                await google.mybusinessbusinessinformation('v1').locations.localPosts.create({
+                    parent: location.name,
+                    requestBody: {
+                        languageCode: 'en-US',
+                        summary: gmbPostIdea,
+                        topicType: 'STANDARD',
+                        callToAction: {
+                            actionType: 'LEARN_MORE',
+                            url: 'https://smilefotilo.com'
+                        }
                     }
+                });
+                console.log(`Successfully posted to ${location.title}`);
+            } catch (postErr) {
+                console.error(`Failed to post to ${location.title}:`, postErr.message);
+                if (postErr.message.includes('Quota exceeded')) {
+                    console.log('NOTICE: GMB API Quota is 0. Manual whitelisting required in Google Cloud Console.');
                 }
-            });
-            */
+            }
         }
 
         console.log('GMB Automation Cycle Complete.');
