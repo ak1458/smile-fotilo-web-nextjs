@@ -25,7 +25,7 @@ create policy "Users can view leads for their businesses"
     exists (
       select 1 from public.businesses
       where businesses.id = leads.business_id
-      and businesses.user_id = auth.uid()
+      and businesses.owner_id = auth.uid()
     )
   );
 
@@ -35,7 +35,7 @@ create policy "Users can insert leads for their businesses"
     exists (
       select 1 from public.businesses
       where businesses.id = leads.business_id
-      and businesses.user_id = auth.uid()
+      and businesses.owner_id = auth.uid()
     )
   );
 
