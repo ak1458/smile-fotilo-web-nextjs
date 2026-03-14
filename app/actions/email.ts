@@ -12,7 +12,7 @@ if (process.env.SENDGRID_API_KEY) {
 const COMPANY_EMAIL = 'ashrafkamal1458@gmail.com';
 // Admin email for notifications
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || COMPANY_EMAIL;
-const FROM_EMAIL = 'hello@smilefotilo.com'; // Should be verified in SendGrid
+const FROM_EMAIL = 'support@smilefotilo.com'; // Verified in SendGrid
 
 const ContactFormSchema = z.object({
     name: z.string().min(1, "Name is required").max(100, "Name too long"),
