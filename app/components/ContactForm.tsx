@@ -144,17 +144,17 @@ export const ContactForm = () => {
             const result = await sendContactEmail(data);
 
             if (result.success) {
-                setStatus({ type: 'success', text: 'Message sent. Check your inbox for confirmation.' });
+                setStatus({ type: 'success', text: result.message || 'Message sent. Check your inbox for confirmation.' });
                 (event.target as HTMLFormElement).reset();
                 setShowChatbotRedirect(false);
             } else {
-                setStatus({ type: 'error', text: result.message || 'Failed to send message.' });
+                setStatus({ type: 'error', text: result.message || 'Failed to send message. Please use the WhatsApp button instead.' });
             }
         } catch {
-            setStatus({ type: 'error', text: 'Something went wrong. Please try again.' });
+            setStatus({ type: 'error', text: 'Network Error. Please use the WhatsApp button instead.' });
         } finally {
             setIsSubmitting(false);
-            setTimeout(() => setStatus(null), 5000);
+            setTimeout(() => setStatus(null), 7000);
         }
     };
 
