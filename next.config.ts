@@ -185,16 +185,6 @@ const nextConfig: NextConfig = {
         destination: '/terms',
         permanent: true,
       },
-      {
-        source: '/portfolio',
-        destination: '/work',
-        permanent: true,
-      },
-      {
-        source: '/portfolio/',
-        destination: '/work',
-        permanent: true,
-      },
       // New Legacy Fixes from Mar 2026 API Scan
       {
         source: '/app-development/',
