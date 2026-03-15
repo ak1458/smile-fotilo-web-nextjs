@@ -98,6 +98,14 @@ export default function TermsOfServicePage() {
                             <li>Phone: +91 9453878422</li>
                         </ul>
                     </section>
+
+                    <section>
+                        <h2 className="text-2xl font-bold text-white mb-4">10. Earnings Disclaimer</h2>
+                        <p className="text-slate-300 leading-relaxed">
+                            Smile Fotilo does not guarantee specific financial returns, traffic increases, or search engine rankings. 
+                            Any examples or case studies are provided for illustrative purposes and do not constitute a promise of performance.
+                        </p>
+                    </section>
                 </div>
 
                     <div className="mt-12 pt-8 border-t border-white/10">

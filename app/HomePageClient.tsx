@@ -71,7 +71,7 @@ const Hero = () => {
           className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 font-light leading-relaxed"
         >
           Stop surviving. Start thriving. <br />
-          We build <span className="text-indigo-400 font-semibold border-b border-indigo-400/30">digital empires</span> that print money while you sleep.
+          We build <span className="text-indigo-400 font-semibold border-b border-indigo-400/30">digital platforms</span> designed to drive consistent revenue and scale your operations.
         </motion.p>
 
         <motion.div
