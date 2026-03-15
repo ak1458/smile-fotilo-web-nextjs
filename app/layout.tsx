@@ -82,7 +82,6 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth dark" suppressHydrationWarning>
       <head>
-        <GoogleAnalytics />
         <link rel="alternate" type="application/json" href="/api/web-mcp" title="Web MCP Index" />
         <link rel="alternate" type="application/json" href="/api/web-mcp?all=1" title="Web MCP Full Manifest" />
       </head>
@@ -90,6 +89,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning
       >
+        <GoogleAnalytics />
         <GTMNoScript />
         <FestivalProvider>
           <NavBar />
