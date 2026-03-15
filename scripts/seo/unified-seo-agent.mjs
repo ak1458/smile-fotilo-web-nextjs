@@ -76,6 +76,7 @@ async function runUnifiedAudit() {
 
     } catch (error) {
         console.error('❌ Unified SEO process failed:', error.message);
+        process.exit(1);
     }
 }
 

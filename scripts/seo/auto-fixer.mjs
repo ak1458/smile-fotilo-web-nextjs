@@ -147,6 +147,7 @@ async function runAutoFixer() {
         if (error.response && error.response.data) {
             console.error('API Error Details:', JSON.stringify(error.response.data, null, 2));
         }
+        process.exit(1);
     }
 }
 
