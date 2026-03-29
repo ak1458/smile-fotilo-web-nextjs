@@ -238,6 +238,22 @@ const nextConfig: NextConfig = {
         destination: '/blog/on-page-seo-checklist-2026',
         permanent: true,
       },
+      // General Legacy URL fallbacks (Mar 2026)
+      {
+        source: '/:slug*.html',
+        destination: '/:slug*',
+        permanent: true,
+      },
+      {
+        source: '/about-us',
+        destination: '/about',
+        permanent: true,
+      },
+      {
+        source: '/about-us/',
+        destination: '/about',
+        permanent: true,
+      },
     ];
   },
 

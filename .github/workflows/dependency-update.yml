@@ -34,9 +34,14 @@ jobs:
           const fs = require('fs');
           let content;
           try {
-            content = JSON.parse(fs.readFileSync('outdated-dependencies.json', 'utf8'));
+            const fileStr = fs.readFileSync('outdated-dependencies.json', 'utf8').trim();
+            if (!fileStr) {
+              console.log('File is empty. No outdated dependencies.');
+              return;
+            }
+            content = JSON.parse(fileStr);
           } catch (e) {
-            console.log('No outdated dependencies found or error reading file.');
+            console.log('No outdated dependencies found or error reading file.', e.message);
             return;
           }
           

@@ -4,7 +4,23 @@ const path = require('path');
 const fs = require('fs');
 
 // Configuration
-const KEY_FILE_PATH = process.env.GOOGLE_APPLICATION_CREDENTIALS || path.join(__dirname, '..', 'captcha-1747281225780-8777cd95d4a8.json');
+function findKeyFile() {
+    if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
+        return process.env.GOOGLE_APPLICATION_CREDENTIALS;
+    }
+    const parentDir = path.join(__dirname, '..');
+    try {
+        const files = fs.readdirSync(parentDir);
+        const captchaFile = files.find(file => file.startsWith('captcha-') && file.endsWith('.json'));
+        if (captchaFile) {
+            return path.join(parentDir, captchaFile);
+        }
+    } catch (e) {
+        console.error("Error finding captcha file:", e);
+    }
+    return path.join(__dirname, '..', 'captcha-1747281225780-7cd3c8d65214.json'); // Fallback
+}
+const KEY_FILE_PATH = findKeyFile();
 const STRATEGY_FILE = path.join(__dirname, 'strategy_output.json');
 
 async function publishGmbPost() {

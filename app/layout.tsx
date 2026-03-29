@@ -7,6 +7,7 @@ import { MobileBottomNav } from "./components/MobileBottomNav";
 import { FestivalProvider } from "./components/FestivalProvider";
 import { ChatSupportWrapper } from "./components/ChatSupportWrapper";
 import { GoogleAnalytics, GTMNoScript } from "./components/GoogleAnalytics";
+import { GoogleTagManager } from '@next/third-parties/google';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -81,6 +82,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth dark" suppressHydrationWarning>
+      <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID || 'GTM-NXSPSN27'} />
       <head>
         <link rel="alternate" type="application/json" href="/api/web-mcp" title="Web MCP Index" />
         <link rel="alternate" type="application/json" href="/api/web-mcp?all=1" title="Web MCP Full Manifest" />
