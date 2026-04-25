@@ -238,6 +238,21 @@ export const ContactForm = () => {
                 ></textarea>
             </div>
 
+            <div className="flex items-start gap-3 mt-4">
+                <div className="flex items-center h-5">
+                    <input
+                        id="privacy-consent"
+                        name="privacy-consent"
+                        type="checkbox"
+                        required
+                        className="w-4 h-4 rounded border-white/10 bg-white/5 text-violet-500 focus:ring-violet-500/50 cursor-pointer"
+                    />
+                </div>
+                <label htmlFor="privacy-consent" className="text-xs text-slate-400 cursor-pointer">
+                    I agree to the <Link href="/privacy" className="text-violet-400 hover:text-violet-300 underline underline-offset-2">Privacy Policy</Link> and consent to Smile Fotilo processing my personal data to contact me regarding my inquiry. We never sell your data.
+                </label>
+            </div>
+
             <button
                 type="submit"
                 disabled={isSubmitting || showChatbotRedirect}

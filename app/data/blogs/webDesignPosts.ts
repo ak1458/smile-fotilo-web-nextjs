@@ -996,7 +996,7 @@ At Smile Fotilo, we don't just "optimize" later. We build for speed from day one
 -   **Edge Network**: Your site lives on Vercel's global CDN (Content Delivery Network).
 -   **Code Splitting**: Users only download the code needed for the specific page they browse.
 
-**Our Guarantee**: 90+ score on Google PageSpeed Insights for every new project.
+**Our Commitment**: 90+ score on Google PageSpeed Insights for every new project.
 
 [Check your website speed here](https://pagespeed.web.dev) - then call us to fix it.
 
