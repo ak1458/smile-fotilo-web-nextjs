@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MdExpandMore, MdChat } from 'react-icons/md';
+import Link from 'next/link';
 
 const GlassSelect = ({
     name,
