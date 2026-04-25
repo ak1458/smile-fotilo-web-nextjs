@@ -2,16 +2,23 @@ import type { Metadata } from "next";
 import GondaPageClient from "./GondaPageClient";
 
 export const metadata: Metadata = {
-  title: "Web Design & SEO in Gonda | Smile Fotilo (HQ)",
+  title: "Website Developer & SEO Company in Gonda | Smile Fotilo",
   description:
-    "Smile Fotilo headquarters in Gonda, Uttar Pradesh. Premium web design, SEO, and branding services with global delivery standards.",
+    "Need a website developer in Gonda? Smile Fotilo builds SEO-ready websites, landing pages, e-commerce stores, branding, and local lead systems for Gonda businesses.",
   alternates: {
     canonical: "/locations/gonda",
   },
-  keywords: ["web design Gonda", "SEO Gonda", "website developer Gonda", "digital marketing Gonda", "Uttar Pradesh"],
+  keywords: [
+    "website developer in Gonda",
+    "web design company in Gonda",
+    "SEO company in Gonda",
+    "business website Gonda",
+    "ecommerce website development Gonda",
+    "local SEO Gonda",
+  ],
   openGraph: {
-    title: "Web Design & SEO in Gonda | Smile Fotilo HQ",
-    description: "Headquarters of Smile Fotilo in Gonda, UP. Premium web design, SEO, and branding services delivered globally.",
+    title: "Website Developer & SEO Company in Gonda | Smile Fotilo",
+    description: "SEO-ready websites, landing pages, e-commerce stores, and local lead systems for Gonda businesses.",
     type: "website",
     images: [
       {
@@ -24,8 +31,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Web Design & SEO in Gonda | Smile Fotilo HQ",
-    description: "Premium web design and digital marketing from Gonda, Uttar Pradesh.",
+    title: "Website Developer & SEO Company in Gonda | Smile Fotilo",
+    description: "SEO-ready websites and local digital growth systems for Gonda businesses.",
     images: ["/og?title=Web%20Design%20Gonda&subtitle=Smile%20Fotilo%20HQ"],
   },
 };

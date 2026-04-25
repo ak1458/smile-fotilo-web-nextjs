@@ -6,7 +6,7 @@ type Props = {
 
 export function SearchBar({ defaultValue, category, businessId }: Props) {
   return (
-    <form action="/marketplace" method="GET" className="rounded-2xl border border-slate-200 bg-white p-3">
+    <form action="/marketplace" method="GET" className="sf-marketplace-search rounded-2xl border border-slate-200 bg-white p-3">
       <label htmlFor="search" className="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500">
         Search
       </label>

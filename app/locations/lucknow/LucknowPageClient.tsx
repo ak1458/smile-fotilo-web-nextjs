@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from 'react';
-import { NavBar } from '../../components/NavBar';
 import { Footer } from '../../components/Footer';
 import { ConnectModal } from '../../components/ConnectModal';
 import { OtherLocations } from '../../components/OtherLocations';
@@ -15,7 +14,6 @@ export default function LucknowPage() {
     return (
         <main className="min-h-screen relative text-slate-200 selection:bg-amber-500/30">
             <LocationSchema location="lucknow" />
-            <NavBar />
             <ConnectModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} context="Lucknow Location Page" />
 
             {/* Global Animated Background */}

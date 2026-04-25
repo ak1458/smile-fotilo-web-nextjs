@@ -381,7 +381,7 @@ export const ChatSupport = () => {
 
     return (
         <div
-            className="fixed bottom-28 md:bottom-4 right-4 z-[950]"
+            className="sf-chat-support fixed bottom-28 md:bottom-4 right-4 z-[950]"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >
@@ -390,7 +390,7 @@ export const ChatSupport = () => {
                 {showTooltip && !isOpen && (
                     <div className="absolute bottom-full right-0 mb-2 whitespace-nowrap animate-fade-in">
                         <div className="relative bg-white dark:bg-slate-800 text-slate-800 dark:text-white text-sm font-medium pl-3 pr-8 py-2 rounded-xl shadow-lg border border-slate-200 dark:border-white/10">
-                            Want to grow? Let's chat! 🚀
+                            Want to grow? Let&apos;s chat! 🚀
                             <button onClick={(e) => { e.stopPropagation(); setShowTooltip(false); }}
                                 className="absolute top-0.5 right-0.5 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 rounded-full hover:bg-slate-100 transition-colors">×</button>
                             <div className="absolute bottom-0 right-6 translate-y-1/2 rotate-45 w-2 h-2 bg-white dark:bg-slate-800 border-r border-b border-slate-200 dark:border-white/10"></div>
@@ -408,10 +408,10 @@ export const ChatSupport = () => {
 
             {/* Chat Dialog */}
             <div className={`absolute bottom-full right-0 mb-4 transition-all duration-300 ${isOpen ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto' : 'opacity-0 translate-y-8 scale-95 pointer-events-none'}`}>
-                <div className="relative w-[360px] max-w-[calc(100vw-2rem)] h-[520px] max-h-[calc(100dvh-180px)] sm:max-h-[520px] flex flex-col bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-white/10 overflow-hidden">
+                <div className="sf-chat-window relative w-[360px] max-w-[calc(100vw-2rem)] h-[520px] max-h-[calc(100dvh-180px)] sm:max-h-[520px] flex flex-col bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-white/10 overflow-hidden">
 
                     {/* Header */}
-                    <div className="bg-gradient-to-r from-violet-600 to-indigo-600 p-4 text-center relative shrink-0">
+                    <div className="sf-chat-header bg-gradient-to-r from-violet-600 to-indigo-600 p-4 text-center relative shrink-0">
                         <h3 className="text-white font-bold text-lg">Echo Assistant</h3>
                         <button
                             onClick={() => setShowModelPicker(!showModelPicker)}
@@ -427,7 +427,7 @@ export const ChatSupport = () => {
 
                     {/* Model Picker Dropdown */}
                     {showModelPicker && (
-                        <div className="bg-slate-50 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 p-2 max-h-[200px] overflow-y-auto shrink-0">
+                        <div className="sf-chat-model-picker bg-slate-50 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 p-2 max-h-[200px] overflow-y-auto shrink-0">
                             {AI_MODELS.map((model) => (
                                 <button
                                     key={model.id}
@@ -449,7 +449,7 @@ export const ChatSupport = () => {
                     )}
 
                     {/* Messages */}
-                    <div ref={chatContainerRef} className="flex-1 overflow-y-auto p-4 space-y-3 bg-slate-50 dark:bg-slate-900/50">
+                    <div ref={chatContainerRef} className="sf-chat-messages flex-1 overflow-y-auto p-4 space-y-3 bg-slate-50 dark:bg-slate-900/50">
                         {messages.map((msg) => (
                             <div key={msg.id} className="space-y-2">
                                 <div className={`flex ${msg.sender === 'bot' ? 'justify-start' : 'justify-end'}`}>
@@ -467,7 +467,7 @@ export const ChatSupport = () => {
                                             <button
                                                 key={i}
                                                 onClick={() => handleQuickReply(reply)}
-                                                className="px-3 py-2 text-xs bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-300 rounded-full border border-indigo-200 dark:border-indigo-700 hover:bg-indigo-100 dark:hover:bg-indigo-800/50 transition-all hover:scale-105 active:scale-95"
+                                                className="sf-chat-quick-reply px-3 py-2 text-xs bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-300 rounded-full border border-indigo-200 dark:border-indigo-700 hover:bg-indigo-100 dark:hover:bg-indigo-800/50 transition-all hover:scale-105 active:scale-95"
                                             >
                                                 {reply}
                                             </button>
@@ -491,14 +491,14 @@ export const ChatSupport = () => {
                         )}
                     </div>
 
-                    <form onSubmit={handleSubmit} className="p-3 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-white/10 flex gap-2">
+                    <form onSubmit={handleSubmit} className="sf-chat-form p-3 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-white/10 flex gap-2">
                         <input
                             value={inputValue}
                             onChange={(e) => setInputValue(e.target.value)}
                             placeholder="Ask about websites, SEO, pricing..."
                             disabled={isTyping}
                             aria-label="Type your message"
-                            className="flex-1 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white px-4 py-3 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
+                            className="sf-chat-input flex-1 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white px-4 py-3 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
                         />
                         <button type="submit" disabled={!inputValue.trim() || isTyping} aria-label="Send message" className="p-3 bg-indigo-600 text-white rounded-xl hover:bg-indigo-500 disabled:opacity-50 transition-colors">
                             <MdSend className="text-lg" />

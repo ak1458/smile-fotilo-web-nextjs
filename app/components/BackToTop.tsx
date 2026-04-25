@@ -35,7 +35,7 @@ export const BackToTop = React.memo(() => {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.8 }}
                     onClick={scrollToTop}
-                    className="fixed bottom-8 left-8 z-40 p-3 rounded-full bg-indigo-600 text-white shadow-xl hover:bg-indigo-500 transition-colors border border-indigo-400/20"
+                    className="sf-back-to-top fixed bottom-8 left-8 z-40 p-3 rounded-full bg-indigo-600 text-white shadow-xl hover:bg-indigo-500 transition-colors border border-indigo-400/20"
                     aria-label="Back to top"
                 >
                     <MdArrowUpward className="text-2xl font-bold" />

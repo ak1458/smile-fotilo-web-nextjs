@@ -586,5 +586,80 @@ If you sell 100% of the time, no one follows.
 
 [We write content that sells →](/services/branding)
         `
+    },
+    {
+        slug: "search-console-indexing-fix-redesign",
+        title: "What To Check When Your Website Is Not Showing On Google After A Redesign",
+        description: "A website redesign can improve design and speed, but it can also create indexing problems if migration signals are missed. Learn how to fix 'sitemap submitted but pages not indexed'.",
+        author: "Ashraf Kamal",
+        date: "2026-04-25",
+        readTime: "5 min",
+        category: "SEO",
+        tags: ["sitemap submitted but pages not indexed", "website not showing on Google", "search console fix", "migration seo"],
+        image: "/blog/seo-audit.webp",
+        content: `
+## The Hidden Cost of Redesigns
+
+A website redesign can improve design and speed, but it can also create indexing problems if migration signals are missed. The first step is to check whether Google can crawl the new website. Robots.txt, sitemap.xml, canonical tags, noindex rules, redirects, and server responses should all be verified.
+
+### Old URLs Blocking the New Ones
+Old WordPress or CMS URLs often remain inside Search Console after a migration. This does not mean Google hates the new website. It usually means Google still has old discovery paths and needs clear replacement signals. Proper 301 redirects, a fresh sitemap, internal links to important pages, and updated canonical URLs help Google understand the current structure.
+
+### URL Inspection Tool is Your Friend
+Search Console URL Inspection is useful for checking important pages one by one. If a page is "unknown to Google," it needs stronger discovery through the sitemap, internal links, and sometimes a manual indexing request. A sitemap helps discovery, but it does not guarantee ranking. The page still needs helpful content, clear intent, and enough authority to compete.
+
+**The best redesign SEO process is simple:** preserve valuable URLs where possible, redirect old URLs, submit the current sitemap, monitor coverage, and improve pages based on impressions and click-through data.
+        `
+    },
+    {
+        slug: "google-business-profile-not-getting-calls",
+        title: "How Google Business Profile Helps Local Service Businesses Get Better Leads",
+        description: "Is your Google Business Profile not getting calls? Learn how to optimize your GBP for local searches and turn maps views into actual enquiries.",
+        author: "Ashraf Kamal",
+        date: "2026-04-25",
+        readTime: "4 min",
+        category: "SEO",
+        tags: ["Google Business Profile not getting calls", "local seo", "business not appearing on Google Maps", "GBP optimization"],
+        image: "/blog/local-seo.webp",
+        content: `
+## Why You Aren't Getting Calls From Google Maps
+
+For local service businesses, Google Business Profile (GBP) is often the first place a customer checks before calling. If your **Google Business Profile is not getting calls**, it's usually because it lacks trust signals or relevance for high-intent searches.
+
+A strong profile should accurately show the business name, category, service area, phone number, website, hours, photos, and description. It should not exaggerate, keyword-stuff the business name, or use locations that the business does not truly serve.
+
+### Align Your Website With Your Profile
+The website and profile should support each other. A Gonda profile should link to a Gonda page. An Ayodhya profile should link to an Ayodhya page. A Greater Noida profile should link to a Greater Noida or Noida service page. This helps users land on content that matches what they searched for.
+
+Posts, services, reviews, and photos can help keep the profile active and useful. The goal is not to game Google. The goal is to provide complete, accurate information so customers can decide quickly. Businesses should monitor calls, website clicks, direction requests, and Search Console data to understand which searches are creating real opportunities.
+        `
+    },
+    {
+        slug: "website-not-getting-leads-gonda",
+        title: "Why Small Businesses Need SEO-Ready Websites, Not Just Good-Looking Pages",
+        description: "My website is not getting leads! If you are a business owner saying this, learn why mobile speed, clear service pages, and SEO structure matter more than aesthetics.",
+        author: "Ashraf Kamal",
+        date: "2026-04-25",
+        readTime: "6 min",
+        category: "SEO",
+        tags: ["my website is not getting leads", "need more enquiries from website", "website design for local business"],
+        image: "/blog/web-design.webp",
+        content: `
+## The "Online Brochure" Trap
+
+Many small businesses already have a website, but the website does not always bring calls, WhatsApp enquiries, or Google visibility. The issue is usually not design alone. A business website needs clear service pages, fast mobile loading, local search structure, and contact paths that make action easy.
+
+An SEO-ready website starts with simple questions:
+- What service does the business offer?
+- Which area does it serve?
+- What problem does the customer need solved?
+
+Pages should answer those questions quickly, then support the answer with proof, pricing cues, frequently asked questions, and direct contact options.
+
+### The GBP Connection
+Google Business Profile also matters. If the website says one thing and the profile says another, trust becomes weaker. The business name, phone, location page, service area, and description should stay consistent. Search Console should be checked regularly so indexing problems, low click-through pages, and old migration URLs do not silently block growth.
+
+For local businesses, the fastest path to leads is usually a focused local page, strong internal links, clean schema, and a profile that reflects the real business accurately. That is how a website becomes a working lead system instead of only an online brochure.
+        `
     }
 ];

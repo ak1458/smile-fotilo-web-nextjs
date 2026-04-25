@@ -38,54 +38,6 @@ export const metadata: Metadata = {
     },
 };
 
-// FAQ Schema for featured snippets
-const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-        {
-            "@type": "Question",
-            "name": "What is brand identity?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Brand identity is the visual and verbal elements that represent your business: logo, colors, typography, imagery style, voice, and how these come together consistently across all touchpoints. It's what makes your business recognizable and memorable."
-            }
-        },
-        {
-            "@type": "Question",
-            "name": "How much does a logo cost in India?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Standalone logos start from ₹7,999 in India. However, complete brand identity packages (₹25,000+) are recommended as they include logo variations, color palette, typography, and usage guidelines for consistency across all platforms."
-            }
-        },
-        {
-            "@type": "Question",
-            "name": "How long does branding take?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Logo-only projects take 1-2 weeks. Complete brand identity systems take 3-4 weeks. This includes research, concepts, revisions, and final delivery of all assets including vector files and brand guidelines."
-            }
-        },
-        {
-            "@type": "Question",
-            "name": "How many logo concepts do you provide?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "We provide 3 distinct initial concepts based on your brief. You select one direction, then we refine with 2 rounds of revisions until you're completely satisfied with the final design."
-            }
-        },
-        {
-            "@type": "Question",
-            "name": "What are brand guidelines?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "A brand guidelines document (brand book) specifies how to use your logo, colors, fonts, and imagery correctly. It's essential for maintaining consistency as you grow and work with different vendors or team members."
-            }
-        }
-    ]
-};
-
 export default function BrandingPage() {
     const faqs = [
         {
@@ -125,12 +77,6 @@ export default function BrandingPage() {
     return (
         <>
         <main className="min-h-screen bg-[#020617] text-white">
-            {/* FAQ Schema */}
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-            />
-
             {/* Hero Section - Lead with Answer */}
             <section className="pt-32 pb-20 relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-b from-rose-500/10 to-transparent pointer-events-none" />

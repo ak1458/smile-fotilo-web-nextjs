@@ -94,13 +94,13 @@ export const NavBar = React.memo(() => {
     ];
 
     return (
-        <nav className="fixed top-0 w-full z-50">
+        <nav className="sf-site-nav fixed top-0 z-50 w-full">
             {/* Main Nav Bar - Dark Mode Style */}
-            <div className="glass border-b border-white/5 bg-[#0a0118]/80 backdrop-blur-xl transition-all duration-300">
+            <div className="sf-nav-shell glass border-b border-white/5 bg-[#0a0118]/80 backdrop-blur-xl transition-all duration-300">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center h-20">
                         {/* Logo */}
-                        <Link href="/" className="flex items-center gap-2 group relative h-12 w-auto" onClick={handleLinkClick}>
+                        <Link href="/" className="nav-logo flex items-center gap-2 group relative h-12 w-auto" onClick={handleLinkClick}>
                             <Image
                                 src="/logo.png"
                                 alt="Smile Fotilo Logo"
@@ -113,18 +113,18 @@ export const NavBar = React.memo(() => {
                         </Link>
 
                         {/* Desktop Menu */}
-                        <div className="hidden md:flex items-center space-x-8">
+                        <div className="nav-links hidden items-center space-x-8 md:flex">
                             {menuItems.map((item) => (
                                 <Link
                                     key={item.href}
                                     href={item.href}
-                                    className="text-sm font-medium text-slate-400 hover:text-violet-400 transition-all duration-300"
+                                    className="sf-nav-link text-sm font-medium text-slate-400 transition-all duration-300 hover:text-violet-400"
                                 >
                                     {item.label}
                                 </Link>
                             ))}
 
-                            <Link href="/#contact" className="px-5 py-2.5 rounded-full bg-gradient-to-r from-violet-600 to-purple-600 text-white font-bold text-sm hover:opacity-90 transition-all shadow-[0_0_20px_rgba(139,92,246,0.4)] hover:scale-105 hover:shadow-[0_0_30px_rgba(139,92,246,0.6)]">
+                            <Link href="/#contact" className="sf-nav-cta rounded-full bg-gradient-to-r from-violet-600 to-purple-600 px-5 py-2.5 text-sm font-bold text-white shadow-[0_0_20px_rgba(139,92,246,0.4)] transition-all hover:scale-105 hover:opacity-90 hover:shadow-[0_0_30px_rgba(139,92,246,0.6)]">
                                 Start Project
                             </Link>
                         </div>
@@ -137,7 +137,7 @@ export const NavBar = React.memo(() => {
                                 aria-expanded={isOpen}
                                 aria-controls="mobile-menu"
                                 aria-label="Toggle menu"
-                                className="relative w-12 h-12 rounded-xl bg-gradient-to-br from-violet-600/20 to-purple-600/20 border border-violet-500/30 flex items-center justify-center -mr-2"
+                                className="sf-nav-menu-button relative -mr-2 flex h-12 w-12 items-center justify-center rounded-xl border border-violet-500/30 bg-gradient-to-br from-violet-600/20 to-purple-600/20"
                             >
                                 <div className="flex flex-col gap-1.5 items-center justify-center">
                                     <motion.span
@@ -167,7 +167,7 @@ export const NavBar = React.memo(() => {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
                         transition={{ duration: 0.3 }}
-                        className="md:hidden fixed inset-0 top-20 z-40"
+                        className="sf-mobile-menu mobile-menu fixed inset-0 top-20 z-40 md:hidden"
                     >
                         <div className="absolute inset-0 bg-[#0a0118]/98 backdrop-blur-2xl" />
 
@@ -188,9 +188,9 @@ export const NavBar = React.memo(() => {
                                         <Link
                                             href={item.href}
                                             onClick={handleLinkClick}
-                                            className="flex items-center gap-4 px-4 py-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-violet-500/20 transition-all group"
+                                            className="sf-mobile-link group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 px-4 py-4 transition-all hover:bg-violet-500/20"
                                         >
-                                            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-600/30 to-purple-600/30 border border-violet-500/30 flex items-center justify-center text-xl text-violet-300">
+                                            <div className="sf-mobile-link-icon flex h-10 w-10 items-center justify-center rounded-xl border border-violet-500/30 bg-gradient-to-br from-violet-600/30 to-purple-600/30 text-xl text-violet-300">
                                                 {item.icon}
                                             </div>
                                             <span className="text-lg font-medium text-white">{item.label}</span>
@@ -209,7 +209,7 @@ export const NavBar = React.memo(() => {
                                 <Link
                                     href="/#contact"
                                     onClick={handleLinkClick}
-                                    className="block w-full text-center px-6 py-4 text-lg font-bold bg-gradient-to-r from-violet-600 to-purple-600 text-white rounded-2xl shadow-[0_0_30px_rgba(139,92,246,0.4)]"
+                                    className="btn-primary block w-full text-center px-6 py-4 text-lg font-bold bg-gradient-to-r from-violet-600 to-purple-600 text-white rounded-2xl shadow-[0_0_30px_rgba(139,92,246,0.4)]"
                                 >
                                     Start Project
                                 </Link>

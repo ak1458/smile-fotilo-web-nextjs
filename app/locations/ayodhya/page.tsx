@@ -2,16 +2,23 @@ import type { Metadata } from "next";
 import AyodhyaPageClient from "./AyodhyaPageClient";
 
 export const metadata: Metadata = {
-  title: "Web Design & SEO in Ayodhya | Smile Fotilo",
+  title: "Website Developer in Ayodhya for Local Businesses | Smile Fotilo",
   description:
-    "Web design and digital services for Ayodhya's growing tourism and local business ecosystem. Modern websites, SEO, and branding with premium execution.",
+    "Smile Fotilo builds mobile-friendly websites, SEO pages, tourism business websites, landing pages, and branding systems for Ayodhya businesses.",
   alternates: {
     canonical: "/locations/ayodhya",
   },
-  keywords: ["web design Ayodhya", "SEO Ayodhya", "website developer Ayodhya", "digital marketing Ayodhya", "tourism website"],
+  keywords: [
+    "website developer Ayodhya",
+    "web design company Ayodhya",
+    "tourism website Ayodhya",
+    "SEO services Ayodhya",
+    "business website Ayodhya",
+    "hotel website design Ayodhya",
+  ],
   openGraph: {
-    title: "Web Design & SEO in Ayodhya | Smile Fotilo",
-    description: "Digital services for Ayodhya's tourism and business ecosystem. Modern websites, SEO, and branding.",
+    title: "Website Developer in Ayodhya for Local Businesses | Smile Fotilo",
+    description: "Mobile-friendly websites, SEO pages, tourism business websites, and branding systems for Ayodhya businesses.",
     type: "website",
     images: [
       {
@@ -24,8 +31,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Web Design & SEO in Ayodhya | Smile Fotilo",
-    description: "Premium web design for Ayodhya's tourism and local business ecosystem.",
+    title: "Website Developer in Ayodhya for Local Businesses | Smile Fotilo",
+    description: "Websites, SEO pages, and local digital systems for Ayodhya businesses.",
     images: ["/og?title=Web%20Design%20Ayodhya&subtitle=Tourism%20%26%20Business%20Digital%20Solutions"],
   },
 };

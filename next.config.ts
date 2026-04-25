@@ -259,6 +259,11 @@ const nextConfig: NextConfig = {
 
   // Disable x-powered-by header to reduce fingerprinting
   poweredByHeader: false,
+
+  // AI-Native Development Features (Next.js 16.2+)
+  logging: {
+    browserToTerminal: true,
+  },
 };
 
 export default nextConfig;

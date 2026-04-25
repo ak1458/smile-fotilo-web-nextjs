@@ -1,5 +1,26 @@
 import { google } from 'googleapis';
+import type { OAuth2Client } from 'google-auth-library';
 import { createAdminClient } from '../supabase/admin';
+
+type OpenRouterResponse = {
+    choices?: Array<{
+        message?: {
+            content?: string;
+        };
+    }>;
+};
+
+export type GBPLocation = {
+    name?: string;
+    title?: string;
+    websiteUri?: string;
+    profile?: {
+        description?: string;
+    };
+    metadata?: {
+        mapsUri?: string;
+    };
+};
 
 export interface GBPRiskReport {
     passed: string[];
@@ -18,8 +39,15 @@ export interface GBPDraft {
     status: 'PENDING' | 'PUBLISHED' | 'REJECTED';
 }
 
+export interface GBPPostResult {
+    status: 'drafted' | 'published' | 'skipped' | 'failed';
+    locationId: string;
+    locationTitle: string;
+    detail: string;
+}
+
 export class GBPAgent {
-    private auth: any;
+    private auth: OAuth2Client;
     private openRouterKey: string;
     private supabase = createAdminClient();
 
@@ -46,7 +74,7 @@ export class GBPAgent {
                     "messages": [{ "role": "user", "content": prompt }]
                 })
             });
-            const data: any = await response.json();
+            const data = await response.json() as OpenRouterResponse;
             return data.choices?.[0]?.message?.content?.trim() || null;
         } catch (err) {
             console.error("[AI ERROR]:", err);
@@ -54,7 +82,7 @@ export class GBPAgent {
         }
     }
 
-    private async getBusinessId(locationTitle: string): Promise<string | null> {
+    private async getBusinessId(): Promise<string | null> {
         const { data } = await this.supabase
             .from('businesses')
             .select('id')
@@ -65,7 +93,7 @@ export class GBPAgent {
     }
 
     async saveDraftToDb(draft: GBPDraft) {
-        const businessId = await this.getBusinessId(draft.locationTitle);
+        const businessId = await this.getBusinessId();
         if (!businessId) {
             console.warn(`[GBP] No business found in DB for ${draft.locationTitle}. Skipping save.`);
             return;
@@ -85,9 +113,9 @@ export class GBPAgent {
         });
     }
 
-    async runHealthAudit(location: any): Promise<GBPRiskReport> {
+    async runHealthAudit(location: GBPLocation): Promise<GBPRiskReport> {
         const riskReport: GBPRiskReport = { passed: [], warnings: [], critical: [] };
-        const name = location.title.toLowerCase();
+        const name = location.title?.toLowerCase() ?? '';
         const spamWords = ['best', '#1', 'top', 'cheap', 'lowest', 'affordable', 'expert'];
 
         const detectedSpam = spamWords.filter(word => name.includes(word));
@@ -128,17 +156,105 @@ export class GBPAgent {
         }
     }
 
-    async generateWeeklyPost(locationId: string, locationTitle: string): Promise<void> {
-        const prompt = `Create a GMB update for Smile Fotilo in ${locationTitle} about premium photography and SEO. Tone: Informative.`;
+    private getV4LocationName(locationId: string, accountName?: string): string {
+        if (locationId.startsWith('accounts/')) {
+            return locationId;
+        }
+
+        if (locationId.startsWith('locations/') && accountName) {
+            return `${accountName}/${locationId}`;
+        }
+
+        return locationId;
+    }
+
+    private async publishLocalPost(locationId: string, content: string, accountName?: string): Promise<string> {
+        const accessToken = (await this.auth.getAccessToken()).token;
+        if (!accessToken) {
+            throw new Error('Google OAuth access token was not returned. Reconnect GBP OAuth.');
+        }
+
+        const locationName = this.getV4LocationName(locationId, accountName);
+        if (!locationName.startsWith('accounts/')) {
+            throw new Error(
+                `GBP Local Posts require an account-qualified location path. Received "${locationId}".`
+            );
+        }
+
+        const response = await fetch(`https://mybusiness.googleapis.com/v4/${locationName}/localPosts`, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                languageCode: 'en-US',
+                summary: content.slice(0, 1500),
+                topicType: 'STANDARD',
+                callToAction: {
+                    actionType: 'LEARN_MORE',
+                    url: 'https://smilefotilo.com',
+                },
+            }),
+        });
+
+        if (!response.ok) {
+            const detail = await response.text();
+            throw new Error(`GBP publish failed (${response.status}): ${detail}`);
+        }
+
+        const published = await response.json() as { name?: string };
+        return published.name ?? locationName;
+    }
+
+    async generateWeeklyPost(
+        locationId: string,
+        locationTitle: string,
+        accountName?: string
+    ): Promise<GBPPostResult> {
+        const prompt = `Create a Google Business Profile weekly update for Smile Fotilo in ${locationTitle}.
+Focus: web design, SEO, branding, and AI growth systems for local businesses.
+Rules: 120-220 words, no hashtags, no exaggerated claims, no keyword stuffing, one clear reason to visit the website.
+Tone: helpful, specific, professional.`;
         const content = await this.generateAIContent(prompt);
-        if (content) {
-            await this.saveDraftToDb({
-                type: 'POST',
+        if (!content) {
+            return {
+                status: 'skipped',
                 locationId,
                 locationTitle,
-                content,
-                status: 'PENDING'
-            });
+                detail: 'AI content generation returned no post content.',
+            };
         }
+
+        const shouldPublish = process.env.GBP_AUTO_PUBLISH !== 'false';
+        let status: GBPDraft['status'] = shouldPublish ? 'PUBLISHED' : 'PENDING';
+        let detail = shouldPublish ? 'Published to Google Business Profile.' : 'Draft saved; GBP_AUTO_PUBLISH=false.';
+        let resultStatus: GBPPostResult['status'] = shouldPublish ? 'published' : 'drafted';
+
+        if (shouldPublish) {
+            try {
+                const publishedName = await this.publishLocalPost(locationId, content, accountName);
+                detail = `Published to ${publishedName}.`;
+            } catch (error) {
+                status = 'PENDING';
+                resultStatus = 'failed';
+                detail = error instanceof Error ? error.message : 'Unknown GBP publish failure.';
+            }
+        }
+
+        await this.saveDraftToDb({
+            type: 'POST',
+            locationId,
+            locationTitle,
+            content,
+            status
+        });
+
+        return {
+            status: resultStatus,
+            locationId,
+            locationTitle,
+            detail,
+        };
     }
 }

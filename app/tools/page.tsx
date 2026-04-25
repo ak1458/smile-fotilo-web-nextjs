@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Metadata } from 'next';
+import { StructuredData, itemListSchema } from '../components/StructuredData';
 
 export const metadata: Metadata = {
   title: 'Free AI Tools',
@@ -75,6 +76,20 @@ const tools = [
 
 export default function ToolsPage() {
   return (
+    <>
+    <StructuredData
+      data={itemListSchema({
+        id: 'https://smilefotilo.com/tools#tool-list',
+        name: 'Smile Fotilo free AI tools',
+        description: metadata.description as string,
+        url: 'https://smilefotilo.com/tools',
+        items: tools.map((tool) => ({
+          name: tool.title,
+          description: tool.description,
+          url: `https://smilefotilo.com${tool.href}`,
+        })),
+      })}
+    />
     <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white">
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute top-20 left-1/3 h-96 w-96 rounded-full bg-violet-500/5 blur-3xl" />
@@ -118,5 +133,6 @@ export default function ToolsPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }

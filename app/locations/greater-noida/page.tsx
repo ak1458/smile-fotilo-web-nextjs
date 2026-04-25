@@ -2,16 +2,23 @@ import type { Metadata } from "next";
 import GreaterNoidaPageClient from "./GreaterNoidaPageClient";
 
 export const metadata: Metadata = {
-  title: "Web Design & SEO in Greater Noida / NCR | Smile Fotilo",
+  title: "Web Design Company in Greater Noida & Noida | Smile Fotilo",
   description:
-    "Digital solutions for startups and corporate clients in Greater Noida and NCR. Web development, SEO, and branding for high-growth teams.",
+    "Smile Fotilo builds websites, SEO landing pages, e-commerce stores, and lead-generation systems for Greater Noida, Noida, and NCR businesses.",
   alternates: {
     canonical: "/locations/greater-noida",
   },
-  keywords: ["web design Greater Noida", "SEO Noida", "website developer NCR", "digital marketing Greater Noida", "Noida"],
+  keywords: [
+    "web design company Greater Noida",
+    "website developer Greater Noida",
+    "SEO services Greater Noida",
+    "website development Noida",
+    "local SEO Noida",
+    "business website Greater Noida",
+  ],
   openGraph: {
-    title: "Web Design & SEO in Greater Noida / NCR | Smile Fotilo",
-    description: "Professional web development, SEO, and branding for tech startups and corporates in Greater Noida and NCR.",
+    title: "Web Design Company in Greater Noida & Noida | Smile Fotilo",
+    description: "Websites, SEO landing pages, e-commerce stores, and lead-generation systems for Greater Noida and NCR.",
     type: "website",
     images: [
       {
@@ -24,8 +31,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Web Design & SEO in Greater Noida / NCR | Smile Fotilo",
-    description: "Digital solutions for startups and corporates in Greater Noida and NCR.",
+    title: "Web Design Company in Greater Noida & Noida | Smile Fotilo",
+    description: "Websites and local SEO systems for Greater Noida, Noida, and NCR businesses.",
     images: ["/og?title=Web%20Design%20Greater%20Noida&subtitle=NCR%20Digital%20Solutions"],
   },
 };

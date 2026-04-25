@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { OpenChatButton } from '../../components/OpenChatButton';
 import { Footer } from '../../components/Footer';
+import { StructuredData, faqSchema, serviceSchema } from '../../components/StructuredData';
 
 export const metadata: Metadata = {
     title: 'Web Design & Development Services India — Starting ₹15,999',
@@ -36,54 +37,6 @@ export const metadata: Metadata = {
         description: 'Custom WordPress, e-commerce & Next.js websites. Mobile-first, SEO-optimized, 2-3 week delivery.',
         images: ['/og?title=Web%20Design%20%26%20Development&subtitle=Starting%20₹15%2C999'],
     },
-};
-
-// FAQ Schema for featured snippets
-const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-        {
-            "@type": "Question",
-            "name": "How much does a website cost in India?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Website costs in India range from ₹15,999 for basic business websites to ₹35,000-75,000 for e-commerce sites. Enterprise solutions are custom-quoted based on requirements. At Smile Fotilo, all packages include mobile optimization, basic SEO, and SSL security."
-            }
-        },
-        {
-            "@type": "Question",
-            "name": "How long does it take to build a website?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "A standard business website takes 2-3 weeks. E-commerce sites with inventory take 4-6 weeks. Complex web applications may take 8-12 weeks. We provide detailed timelines during your free strategy call."
-            }
-        },
-        {
-            "@type": "Question",
-            "name": "Do you build on WordPress or custom code?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "We specialize in both. WordPress is ideal for content-heavy sites with easy updates. For complex applications, we use Next.js, React, or custom PHP solutions. We recommend the best fit during consultation."
-            }
-        },
-        {
-            "@type": "Question",
-            "name": "Will my website work on mobile phones?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Yes, all our websites are mobile-first, meaning they're designed for phones first, then scaled up. We test on 20+ device sizes before launch to ensure perfect responsiveness."
-            }
-        },
-        {
-            "@type": "Question",
-            "name": "What about SEO?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Every website includes on-page SEO fundamentals: meta tags, schema markup, fast loading, and mobile optimization. For ongoing SEO campaigns, we offer dedicated SEO services that can help you rank on Google's Zero Position."
-            }
-        }
-    ]
 };
 
 export default function WebDesignPage() {
@@ -124,13 +77,19 @@ export default function WebDesignPage() {
 
     return (
         <>
+        <StructuredData
+            data={[
+                serviceSchema({
+                    name: 'Web Design & Development Services',
+                    description: metadata.description as string,
+                    url: 'https://smilefotilo.com/services/web-design',
+                    offersFrom: '15999',
+                    areaServed: ['Gonda', 'Lucknow', 'Greater Noida', 'Ayodhya', 'India'],
+                }),
+                faqSchema(faqs),
+            ]}
+        />
         <main className="min-h-screen bg-[#020617] text-white">
-            {/* FAQ Schema */}
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-            />
-
             {/* Hero Section - Lead with Answer */}
             <section className="pt-32 pb-20 relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-b from-indigo-500/10 to-transparent pointer-events-none" />

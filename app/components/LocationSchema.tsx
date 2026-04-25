@@ -1,17 +1,36 @@
-// Location-specific schema data for LocalBusiness markup
+const sharedLocationSchema = {
+    "@context": "https://schema.org",
+    "@type": ["ProfessionalService", "LocalBusiness"],
+    "telephone": "+91-9453878422",
+    "email": "ashrafkamal1458@gmail.com",
+    "image": "https://smilefotilo.com/logo.png",
+    "priceRange": "₹₹",
+    "currenciesAccepted": "INR, USD",
+    "openingHoursSpecification": [
+        {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            "opens": "09:00",
+            "closes": "18:00"
+        }
+    ],
+    "sameAs": [
+        "https://www.instagram.com/ashrafkamal14/",
+        "https://www.linkedin.com/in/ashrafkamal14/"
+    ],
+    "parentOrganization": {
+        "@id": "https://smilefotilo.com/#organization"
+    }
+} as const;
+
 export const locationSchemas = {
     gonda: {
-        "@context": "https://schema.org",
-        "@type": "ProfessionalService",
+        ...sharedLocationSchema,
         "@id": "https://smilefotilo.com/locations/gonda#business",
         "name": "Smile Fotilo - Gonda (Headquarters)",
-        "description": "Top-rated digital agency in Gonda offering web design, SEO, and branding. Specializing in high-performance websites and local SEO dominance.",
+        "description": "Website developer and SEO company in Gonda. We build SEO-ready websites, landing pages, e-commerce stores, and provide local SEO for Gonda businesses.",
         "url": "https://smilefotilo.com/locations/gonda",
-        "hasMap": "https://www.google.com/maps?cid=14436214578143247413", // Hypothetical CID based on maps search pattern
-        "telephone": "+91-9453878422",
-        "email": "hello@smilefotilo.com",
-        "image": "https://smilefotilo.com/logo.png",
-        "priceRange": "₹₹",
+        "hasMap": "https://www.google.com/maps?cid=14436214578143247413",
         "address": {
             "@type": "PostalAddress",
             "streetAddress": "Gonda",
@@ -22,35 +41,21 @@ export const locationSchemas = {
         },
         "geo": {
             "@type": "GeoCoordinates",
-            "latitude": 27.1300,
-            "longitude": 81.9600
-        },
-        "openingHoursSpecification": {
-            "@type": "OpeningHoursSpecification",
-            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-            "opens": "09:00",
-            "closes": "18:00"
+            "latitude": 27.13,
+            "longitude": 81.96
         },
         "areaServed": [
             { "@type": "City", "name": "Gonda" },
+            { "@type": "City", "name": "Lucknow" },
             { "@type": "State", "name": "Uttar Pradesh" }
-        ],
-        "sameAs": [
-            "https://www.instagram.com/ashrafkamal14/",
-            "https://www.linkedin.com/in/ashrafkamal14/"
         ]
     },
     lucknow: {
-        "@context": "https://schema.org",
-        "@type": "ProfessionalService",
+        ...sharedLocationSchema,
         "@id": "https://smilefotilo.com/locations/lucknow#business",
         "name": "Smile Fotilo - Lucknow",
-        "description": "Expert web design and E-commerce services in Lucknow. Dominating local search with premium SEO, branding, and custom web development for Hazratganj & Gomti Nagar.",
+        "description": "Web design company and website development services in Lucknow. We offer WordPress development, local SEO, and digital marketing agency services.",
         "url": "https://smilefotilo.com/locations/lucknow",
-        "telephone": "+91-9453878422",
-        "email": "hello@smilefotilo.com",
-        "image": "https://smilefotilo.com/logo.png",
-        "priceRange": "₹₹",
         "address": {
             "@type": "PostalAddress",
             "addressLocality": "Lucknow",
@@ -69,17 +74,11 @@ export const locationSchemas = {
         ]
     },
     greaterNoida: {
-        "@context": "https://schema.org",
-        "@type": "ProfessionalService",
+        ...sharedLocationSchema,
         "@id": "https://smilefotilo.com/locations/greater-noida#business",
         "name": "Smile Fotilo - Greater Noida",
-        "description": "Leading web development and 'smile e-commerce services' in Noida. High-performance digital solutions for NCR tech startups and corporates.",
+        "description": "Web design company and SEO services in Greater Noida and Noida. We develop business websites, e-commerce stores, and provide local SEO optimization.",
         "url": "https://smilefotilo.com/locations/greater-noida",
-        "hasMap": "https://www.google.com/maps/search/Smile+Fotilo+Greater+Noida",
-        "telephone": "+91-9453878422",
-        "email": "hello@smilefotilo.com",
-        "image": "https://smilefotilo.com/logo.png",
-        "priceRange": "₹₹",
         "address": {
             "@type": "PostalAddress",
             "addressLocality": "Greater Noida",
@@ -89,7 +88,7 @@ export const locationSchemas = {
         "geo": {
             "@type": "GeoCoordinates",
             "latitude": 28.4744,
-            "longitude": 77.5040
+            "longitude": 77.504
         },
         "areaServed": [
             { "@type": "City", "name": "Greater Noida" },
@@ -98,17 +97,11 @@ export const locationSchemas = {
         ]
     },
     ayodhya: {
-        "@context": "https://schema.org",
-        "@type": "ProfessionalService",
+        ...sharedLocationSchema,
         "@id": "https://smilefotilo.com/locations/ayodhya#business",
         "name": "Smile Fotilo - Ayodhya",
-        "description": "Digital services for Ayodhya's growing tourism and spiritual business ecosystem. Web design for temples, hotels, and local commerce.",
+        "description": "Website developer and web design company in Ayodhya. We specialize in tourism websites, hotel website design, and local SEO services.",
         "url": "https://smilefotilo.com/locations/ayodhya",
-        "hasMap": "https://www.google.com/maps/search/Smile+Fotilo+Ayodhya",
-        "telephone": "+91-9453878422",
-        "email": "hello@smilefotilo.com",
-        "image": "https://smilefotilo.com/logo.png",
-        "priceRange": "₹₹",
         "address": {
             "@type": "PostalAddress",
             "addressLocality": "Ayodhya",
@@ -125,12 +118,14 @@ export const locationSchemas = {
             { "@type": "City", "name": "Faizabad" }
         ]
     }
-};
+} as const;
 
-// Component to render location schema
 export function LocationSchema({ location }: { location: keyof typeof locationSchemas }) {
     const schema = locationSchemas[location];
-    if (!schema) return null;
+
+    if (!schema) {
+        return null;
+    }
 
     return (
         <script

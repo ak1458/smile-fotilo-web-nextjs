@@ -25,7 +25,7 @@ function buildCategoryHref(input: {
 
 export function CategoryFilter({ categories, activeCategory, search, businessId }: Props) {
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-3">
+    <div className="sf-marketplace-filter rounded-2xl border border-slate-200 bg-white p-3">
       <h2 className="mb-2 px-2 text-sm font-semibold text-slate-900">Categories</h2>
       <div className="space-y-1">
         {categories.map((category) => {

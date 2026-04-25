@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { MdApartment, MdTempleHindu, MdHome, MdMosque, MdRocketLaunch } from 'react-icons/md';
-import { NavBar } from '../components/NavBar';
 import { Footer } from '../components/Footer';
 
 export const metadata: Metadata = {
@@ -54,8 +53,6 @@ const locations = [
 export default function LocationsPage() {
     return (
         <main className="bg-[#020617] min-h-screen text-slate-200">
-            <NavBar />
-
             {/* Hero */}
             <section className="relative pt-32 pb-20 overflow-hidden">
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">

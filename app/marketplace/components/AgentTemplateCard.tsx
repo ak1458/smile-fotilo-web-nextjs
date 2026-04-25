@@ -29,7 +29,7 @@ export function AgentTemplateCard({ template, businessId }: Props) {
   return (
     <Link
       href={buildTemplateHref(template.slug, businessId)}
-      className="group rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-slate-300 hover:shadow-sm"
+      className="sf-marketplace-card group rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-slate-300 hover:shadow-sm"
     >
       <div className="flex items-start justify-between gap-2">
         <span className="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-slate-600">

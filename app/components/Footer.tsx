@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { MdCall, MdEmail, MdSchedule } from 'react-icons/md';
 
 export const Footer = React.memo(() => (
-    <footer className="bg-[#0a0f1a] border-t border-white/5 pt-16 pb-8">
+    <footer className="sf-site-footer bg-[#0a0f1a] border-t border-white/5 pt-16 pb-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Main Footer Grid - Reorganized for better mobile layout */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
@@ -44,7 +44,9 @@ export const Footer = React.memo(() => (
                             <li><Link href="/portfolio" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm font-medium">Ashraf&apos;s Portfolio</Link></li>
                             <li><Link href="/work" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Our Work</Link></li>
                             <li><Link href="/blog" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Blog</Link></li>
-                            <li><Link href="/#services" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Services</Link></li>
+                            <li><Link href="/services/web-design" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Web Design</Link></li>
+                            <li><Link href="/services/seo" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">SEO Services</Link></li>
+                            <li><Link href="/services/branding" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Branding</Link></li>
                             <li><Link href="/services/clinic-growth-autopilot" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Growth Autopilot</Link></li>
                             <li><Link href="/about" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">About Us</Link></li>
                             <li><Link href="/#contact" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Contact</Link></li>
@@ -59,6 +61,7 @@ export const Footer = React.memo(() => (
                             <li><Link href="/locations/lucknow" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Lucknow</Link></li>
                             <li><Link href="/locations/ayodhya" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Ayodhya</Link></li>
                             <li><Link href="/locations/gonda" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Gonda (HQ)</Link></li>
+                            <li><Link href="/locations" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">All Locations</Link></li>
                         </ul>
                     </div>
                 </div>

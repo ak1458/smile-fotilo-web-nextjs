@@ -3,6 +3,7 @@ import Link from "next/link";
 import { MdCode, MdTrendingUp, MdPalette, MdArrowForward, MdLocalHospital } from 'react-icons/md';
 import { OpenChatButton } from "../components/OpenChatButton";
 import { Footer } from "../components/Footer";
+import { StructuredData, itemListSchema } from "../components/StructuredData";
 
 export const metadata: Metadata = {
   title: "Services | Smile Fotilo",
@@ -55,6 +56,19 @@ const services = [
 export default function ServicesPage() {
   return (
     <>
+      <StructuredData
+        data={itemListSchema({
+          id: 'https://smilefotilo.com/services#service-list',
+          name: 'Smile Fotilo services',
+          description: metadata.description as string,
+          url: 'https://smilefotilo.com/services',
+          items: services.map((service) => ({
+            name: service.title,
+            description: service.desc,
+            url: `https://smilefotilo.com${service.href}`,
+          })),
+        })}
+      />
       <main className="min-h-screen bg-[#020617] text-white">
         {/* Hero */}
         <section className="pt-32 pb-16 relative overflow-hidden">

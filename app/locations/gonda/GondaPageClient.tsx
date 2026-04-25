@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from 'react';
-import { NavBar } from '../../components/NavBar';
 import { Footer } from '../../components/Footer';
 import { ConnectModal } from '../../components/ConnectModal';
 import { OtherLocations } from '../../components/OtherLocations';
@@ -15,7 +14,6 @@ export default function GondaPage() {
     return (
         <main className="min-h-screen relative text-slate-200 selection:bg-emerald-500/30">
             <LocationSchema location="gonda" />
-            <NavBar />
             <ConnectModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} context="Gonda (HQ) Page" />
 
             {/* Global Animated Background */}

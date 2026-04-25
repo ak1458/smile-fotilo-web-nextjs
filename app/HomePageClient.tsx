@@ -6,11 +6,12 @@ import { Footer } from './components/Footer';
 import { BackToTop } from './components/BackToTop';
 import Image from 'next/image';
 import { MdCode, MdTrendingUp, MdPhotoCamera, MdSupportAgent, MdMail, MdSchedule, MdArrowOutward, MdArrowForward, MdPublic, MdPayments, MdLocalHospital } from 'react-icons/md';
+import dynamic from 'next/dynamic';
 
-import { ContactForm } from './components/ContactForm';
-import { Testimonials } from './components/Testimonials';
-import { AILocalBusinessOS } from './components/AILocalBusinessOS';
-import { OpenChatButton } from './components/OpenChatButton';
+const ContactForm = dynamic(() => import('./components/ContactForm').then(mod => mod.ContactForm), { ssr: true });
+const Testimonials = dynamic(() => import('./components/Testimonials').then(mod => mod.Testimonials), { ssr: true });
+const AILocalBusinessOS = dynamic(() => import('./components/AILocalBusinessOS').then(mod => mod.AILocalBusinessOS), { ssr: true });
+const OpenChatButton = dynamic(() => import('./components/OpenChatButton').then(mod => mod.OpenChatButton), { ssr: false });
 import Link from 'next/link';
 
 const Hero = () => {
@@ -482,7 +483,7 @@ const Portfolio = () => {
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
             className="object-cover transition-transform duration-700 group-hover:scale-110"
-            loading={index < 2 ? 'eager' : 'lazy'}
+            loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0a0118] via-[#0a0118]/60 to-transparent" />
         </div>
@@ -560,7 +561,7 @@ const Portfolio = () => {
 };
 export default function Home() {
   return (
-    <main className="min-h-screen font-sans selection:bg-indigo-500 selection:text-white bg-[#020617]">
+    <main className="sf-home-page min-h-screen bg-[#020617] font-sans selection:bg-indigo-500 selection:text-white">
       <Hero />
       <Services />
       <AILocalBusinessOS />

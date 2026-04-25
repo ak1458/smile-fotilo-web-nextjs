@@ -56,61 +56,6 @@ export const metadata: Metadata = {
   },
 };
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: [
-    {
-      '@type': 'Question',
-      name: 'What is AI Local Business OS?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'AI Local Business OS is a productized growth platform that automates review handling, local content publishing, lead followup, and multilingual support from one dashboard.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Who is this for?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'It is designed for clinics, restaurants, retail stores, coaching institutes, real estate teams, and other local service businesses that need consistent growth operations.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Is this only a chatbot?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'No. Chat is one module. The full system includes review workflows, content scheduling, lead pipelines, integration logs, and performance analytics.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Can my team approve content before posting?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Yes. Approval mode is supported for review replies, campaign posts, and outbound followups so your team stays in control.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Does it support Hindi and English?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Yes. The platform supports Hindi and English by default, with roadmap support for additional regional languages.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'How is pricing structured?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Pricing is typically monthly per location with optional managed services for teams that want done-for-you operations.',
-      },
-    },
-  ],
-};
-
 const modules = [
   {
     title: 'Reviews and Reputation',
@@ -190,8 +135,6 @@ export default function AIGrowthOSPage() {
   return (
     <>
     <main className="min-h-screen bg-[#020617] text-white">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-
       <section className="pt-32 pb-20 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-cyan-500/15 to-transparent pointer-events-none" />
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">

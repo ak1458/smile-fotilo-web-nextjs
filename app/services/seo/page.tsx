@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { OpenChatButton } from '../../components/OpenChatButton';
 import { Footer } from '../../components/Footer';
+import { StructuredData, faqSchema, serviceSchema } from '../../components/StructuredData';
 
 export const metadata: Metadata = {
     title: 'SEO & GEO Services India — Zero Position Ranking',
@@ -39,88 +40,33 @@ export const metadata: Metadata = {
     },
 };
 
-// FAQ Schema for this page
-const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-        {
-            "@type": "Question",
-            "name": "What is Zero Position in SEO?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Zero Position is the top spot above all organic results on Google. In 2026, it primarily means appearing in AI Overviews (SGE) or Featured Snippets. Being cited in AI responses is now more valuable than ranking #1 in traditional blue links."
-            }
-        },
-        {
-            "@type": "Question",
-            "name": "What is GEO (Generative Engine Optimization)?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "GEO is the practice of optimizing content so AI models like Gemini and ChatGPT cite your brand as a source. While SEO helps humans find your links, GEO ensures AI treats your brand as an authoritative entity worth citing."
-            }
-        },
-        {
-            "@type": "Question",
-            "name": "How do I rank in AI Overviews?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "To rank in AI Overviews: 1) Structure content with direct answers in the first 2-3 sentences, 2) Use FAQ and HowTo schema markup, 3) Build topical authority with topic clusters, 4) Ensure factual accuracy with expert citations, and 5) Establish E-E-A-T through author credentials."
-            }
-        },
-        {
-            "@type": "Question",
-            "name": "How long does SEO take to show results?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "SEO improvements appear in 2-3 months, significant results in 4-6 months, and substantial growth in 6-12 months. We provide monthly reports tracking rankings, traffic, and AI citations."
-            }
-        },
-        {
-            "@type": "Question",
-            "name": "What's the difference between SEO and GEO?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "SEO focuses on ranking #1 for clicks using keywords and backlinks. GEO focuses on being cited in AI summaries through factual accuracy and entity authority. Modern optimization requires both."
-            }
-        },
-        {
-            "@type": "Question",
-            "name": "How much does SEO cost per month?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Our SEO packages start from ₹9,999/month for local businesses. E-commerce and competitive industries may require ₹25,000-50,000/month. We customize based on your goals and competition."
-            }
-        },
-        {
-            "@type": "Question",
-            "name": "What is E-E-A-T and why does it matter?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "E-E-A-T stands for Experience, Expertise, Authoritativeness, and Trust. In 2026, with AI-generated content flooding the web, Google rewards content with proven human experience. Phrases like 'In our 5 years of work...' signal authentic expertise."
-            }
-        },
-        {
-            "@type": "Question",
-            "name": "Do you provide local SEO services?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Yes. Local SEO helps your business appear in 'near me' searches and Google Maps. We optimize your Google Business Profile, local citations, and location-specific content for cities like Lucknow, Gonda, Greater Noida, and Ayodhya."
-            }
-        }
-    ]
-};
+const faqs = [
+    { question: "What is Zero Position in SEO?", answer: "Zero Position is the featured content above all organic results—primarily AI Overviews or Featured Snippets. Being cited here means AI recognizes your brand as the authoritative source." },
+    { question: "What is GEO (Generative Engine Optimization)?", answer: "GEO optimizes content so AI models cite your brand. While SEO helps humans find links, GEO ensures AI treats your brand as an entity worth citing." },
+    { question: "How do I rank in AI Overviews?", answer: "Use direct answers in the first 2-3 sentences, add FAQ schema, build topic clusters, ensure factual accuracy, and establish E-E-A-T through author credentials." },
+    { question: "How long does SEO take to show results?", answer: "Initial improvements appear in 2-3 months, significant results in 4-6 months. We provide monthly reports tracking rankings, traffic, and AI citations." },
+    { question: "What's the difference between SEO and GEO?", answer: "SEO = rank #1 for clicks. GEO = be cited in AI summaries. Modern optimization requires both approaches." },
+    { question: "How much does SEO cost per month?", answer: "Starting from ₹9,999/month for local businesses. E-commerce may require ₹25,000-50,000/month based on competition." },
+    { question: "What is E-E-A-T?", answer: "Experience, Expertise, Authoritativeness, Trust. In 2026, Google rewards content with proven human experience over AI-generated content." },
+    { question: "Do you provide local SEO?", answer: "Yes. We optimize for 'near me' searches, Google Maps, and location pages for cities like Lucknow, Gonda, Greater Noida, and Ayodhya." }
+];
 
 export default function SEOPage() {
     return (
         <>
+        <StructuredData
+            data={[
+                serviceSchema({
+                    name: 'SEO & GEO Services',
+                    description: metadata.description as string,
+                    url: 'https://smilefotilo.com/services/seo',
+                    offersFrom: '9999',
+                    areaServed: ['Gonda', 'Lucknow', 'Greater Noida', 'Ayodhya', 'India'],
+                }),
+                faqSchema(faqs),
+            ]}
+        />
         <main className="min-h-screen bg-[#020617] text-white">
-            {/* FAQ Schema */}
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-            />
-
             {/* Hero Section - Lead with Answer */}
             <section className="pt-32 pb-20 relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-b from-emerald-500/10 to-transparent pointer-events-none" />
@@ -232,19 +178,10 @@ export default function SEOPage() {
                         SEO & GEO Questions Answered
                     </h2>
                     <div className="space-y-6">
-                        {[
-                            { q: "What is Zero Position in SEO?", a: "Zero Position is the featured content above all organic results—primarily AI Overviews or Featured Snippets. Being cited here means AI recognizes your brand as the authoritative source." },
-                            { q: "What is GEO (Generative Engine Optimization)?", a: "GEO optimizes content so AI models cite your brand. While SEO helps humans find links, GEO ensures AI treats your brand as an entity worth citing." },
-                            { q: "How do I rank in AI Overviews?", a: "Use direct answers in the first 2-3 sentences, add FAQ schema, build topic clusters, ensure factual accuracy, and establish E-E-A-T through author credentials." },
-                            { q: "How long does SEO take to show results?", a: "Initial improvements appear in 2-3 months, significant results in 4-6 months. We provide monthly reports tracking rankings, traffic, and AI citations." },
-                            { q: "What's the difference between SEO and GEO?", a: "SEO = rank #1 for clicks. GEO = be cited in AI summaries. Modern optimization requires both approaches." },
-                            { q: "How much does SEO cost per month?", a: "Starting from ₹9,999/month for local businesses. E-commerce may require ₹25,000-50,000/month based on competition." },
-                            { q: "What is E-E-A-T?", a: "Experience, Expertise, Authoritativeness, Trust. In 2026, Google rewards content with proven human experience over AI-generated content." },
-                            { q: "Do you provide local SEO?", a: "Yes. We optimize for 'near me' searches, Google Maps, and location pages for cities like Lucknow, Gonda, Greater Noida, and Ayodhya." }
-                        ].map((faq, i) => (
+                        {faqs.map((faq, i) => (
                             <div key={i} className="p-6 border border-white/10 rounded-2xl bg-[#0F172A]/50">
-                                <h3 className="text-lg font-bold mb-3">{faq.q}</h3>
-                                <p className="text-slate-400">{faq.a}</p>
+                                <h3 className="text-lg font-bold mb-3">{faq.question}</h3>
+                                <p className="text-slate-400">{faq.answer}</p>
                             </div>
                         ))}
                     </div>

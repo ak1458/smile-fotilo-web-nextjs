@@ -4,7 +4,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { NavBar } from '../../components/NavBar';
 import { Footer } from '../../components/Footer';
 import { ConnectModal } from '../../components/ConnectModal';
 import { OtherLocations } from '../../components/OtherLocations';
@@ -91,7 +90,6 @@ export default function GlobalPage() {
 
     return (
         <main className="min-h-screen relative text-slate-200 selection:bg-blue-500/30">
-            <NavBar />
             <ConnectModal
                 isOpen={isModalOpen}
                 onClose={() => { setIsModalOpen(false); setSelectedProject(null); }}

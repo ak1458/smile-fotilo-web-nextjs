@@ -49,7 +49,7 @@ export const Breadcrumbs = () => {
             />
 
             {/* Visual Breadcrumb UI */}
-            <nav className="flex items-center text-sm font-medium text-slate-400 mb-8 pt-4 overflow-x-auto whitespace-nowrap pb-2 scrollbar-none">
+            <nav className="sf-breadcrumbs flex items-center text-sm font-medium text-slate-400 mb-8 pt-4 overflow-x-auto whitespace-nowrap pb-2 scrollbar-none">
                 <ol className="flex items-center space-x-2">
                     {allBreadcrumbs.map((crumb, index) => {
                         const isLast = index === allBreadcrumbs.length - 1;

@@ -9,6 +9,9 @@ async function submitToIndexNow(urls) {
     if (!urls || urls.length === 0) return;
 
     const BING_API_KEY = process.env.BING_API_KEY;
+    if (!BING_API_KEY) {
+        throw new Error('BING_API_KEY is not configured. IndexNow submissions require a matching key and key-location response.');
+    }
 
     console.log(`--- Submitting ${urls.length} URLs to IndexNow (Bing & Yandex) ---`);
 
@@ -19,7 +22,7 @@ async function submitToIndexNow(urls) {
             console.log(`Submitting to ${endpoint}...`);
             const response = await axios.post(endpoint, {
                 host: HOST,
-                key: BING_API_KEY || 'NOT_SET',
+                key: BING_API_KEY,
                 keyLocation: KEY_LOCATION,
                 urlList: urls
             });

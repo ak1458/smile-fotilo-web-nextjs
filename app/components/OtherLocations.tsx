@@ -23,7 +23,7 @@ export const OtherLocations = ({ currentLocation }: { currentLocation: string })
     const filteredLocations = locations.filter(loc => loc.id !== currentLocation);
 
     return (
-        <section className="py-20 relative border-t border-white/5 bg-black/40 backdrop-blur-sm">
+        <section className="sf-other-locations py-20 relative border-t border-white/5 bg-black/40 backdrop-blur-sm">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-12">
                     <h2 className="text-2xl font-bold text-white mb-4">Explore Our Locations</h2>

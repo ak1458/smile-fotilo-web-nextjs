@@ -44,7 +44,7 @@ const GlassSelect = ({
             <button
                 type="button"
                 onClick={() => setIsOpen(!isOpen)}
-                className={`w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-left flex items-center justify-between transition-all hover:bg-white/10 ${isOpen ? 'border-violet-500/50 bg-white/10' : ''
+                className={`sf-select-trigger w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-left flex items-center justify-between transition-all hover:bg-white/10 ${isOpen ? 'border-violet-500/50 bg-white/10' : ''
                     } ${selected ? 'text-white' : 'text-slate-400'}`}
             >
                 <span>{selected?.label || placeholder}</span>
@@ -58,14 +58,14 @@ const GlassSelect = ({
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: -10, scale: 0.95 }}
                         transition={{ duration: 0.15 }}
-                        className="absolute z-50 w-full mt-2 py-2 bg-slate-900/90 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl overflow-hidden"
+                        className="sf-select-menu absolute z-50 w-full mt-2 py-2 bg-slate-900/90 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl overflow-hidden"
                     >
                         {options.map((option) => (
                             <button
                                 key={option.value}
                                 type="button"
                                 onClick={() => handleSelect(option)}
-                                className={`w-full px-4 py-3 text-left transition-all flex items-center gap-3 ${selected?.value === option.value
+                                className={`sf-select-option w-full px-4 py-3 text-left transition-all flex items-center gap-3 ${selected?.value === option.value
                                     ? 'bg-violet-600/20 text-violet-300'
                                     : 'text-slate-300 hover:bg-white/10 hover:text-white'
                                     }`}
@@ -174,7 +174,7 @@ export const ContactForm = () => {
     ];
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-6 p-8 border border-white/10 rounded-3xl bg-[#0F172A]/50 backdrop-blur-md">
+        <form onSubmit={handleSubmit} className="sf-contact-form space-y-6 p-8 border border-white/10 rounded-3xl bg-[#0F172A]/50 backdrop-blur-md">
             <div className="grid sm:grid-cols-2 gap-6">
                 <div className="space-y-2">
                     <label htmlFor="name" className="text-sm font-medium text-slate-400">Name</label>

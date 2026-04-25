@@ -24,7 +24,7 @@ export const MobileBottomNav = React.memo(() => {
     }
 
     return (
-        <nav className="md:hidden fixed bottom-3 left-3 right-3 z-[100]">
+        <nav className="sf-mobile-bottom-nav md:hidden fixed bottom-3 left-3 right-3 z-[100]">
             <div className="glass rounded-2xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)] px-3 py-2.5 flex items-center justify-around backdrop-blur-xl">
                 {navItems.map((item) => (
                     item.isCall ? (
