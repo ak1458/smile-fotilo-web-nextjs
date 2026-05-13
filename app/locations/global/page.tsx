@@ -4,14 +4,14 @@ import GlobalPageClient from "./GlobalPageClient";
 export const metadata: Metadata = {
   title: "Global Web Design & Digital Marketing | Smile Fotilo",
   description:
-    "World-class web design, SEO, and digital systems built in India and delivered globally. Serving enterprise clients in USA, Mexico, and worldwide.",
+    "Web development and digital marketing services built in India, delivered to clients in the USA and worldwide.",
   alternates: {
     canonical: "/locations/global",
   },
   keywords: ["web design agency India", "international web development", "global digital marketing", "web design USA", "website developer global"],
   openGraph: {
     title: "Global Web Design & Digital Marketing | Smile Fotilo",
-    description: "Built in India, delivered globally. Enterprise web design and digital marketing for international businesses.",
+    description: "Web development and digital marketing built in India, delivered to clients worldwide.",
     type: "website",
     images: [
       {
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Global Web Design & Digital Marketing | Smile Fotilo",
-    description: "Enterprise web design and digital marketing. Built in India, delivered worldwide.",
+    description: "Web development and digital marketing. Built in India, delivered worldwide.",
     images: ["/og?title=Global%20Services&subtitle=Built%20in%20India%2C%20Delivered%20Worldwide"],
   },
 };

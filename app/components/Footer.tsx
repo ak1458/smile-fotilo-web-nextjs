@@ -19,7 +19,7 @@ export const Footer = React.memo(() => (
                         className="h-10 w-auto brightness-0 invert mb-4 mx-auto md:mx-0"
                     />
                     <p className="text-slate-400 text-sm leading-relaxed max-w-xs mx-auto md:mx-0">
-                        Premium digital agency crafting world-class websites and brands.
+                        Web development and digital marketing studio — based in India, working worldwide.
                     </p>
                     <div className="flex gap-3 mt-6 justify-center md:justify-start">
                         <a href="https://www.instagram.com/ashrafkamal14/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Profile" className="w-10 h-10 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 flex items-center justify-center text-slate-400 hover:bg-indigo-600 hover:text-white hover:border-indigo-500 transition-all">
@@ -55,7 +55,7 @@ export const Footer = React.memo(() => (
 
                     {/* Locations */}
                     <div className="text-center md:text-left">
-                        <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-4">Our Branches</h4>
+                        <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-4">Service Areas</h4>
                         <ul className="space-y-2">
                             <li><Link href="/locations/greater-noida" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Greater Noida</Link></li>
                             <li><Link href="/locations/lucknow" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Lucknow</Link></li>

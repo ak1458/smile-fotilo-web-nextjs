@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React from 'react';
 import { Footer } from '../components/Footer';
@@ -14,7 +14,7 @@ export default function AboutPage() {
                             About Smile Fotilo
                         </h1>
                         <p className="text-lg text-slate-400 leading-relaxed max-w-2xl mx-auto">
-                            A hybrid creative studio where design meets engineering. Based in Gonda and Lucknow, serving clients worldwide.
+                            A solo web development and digital marketing studio run by Ashraf Kamal. Based in Gonda, India — working with clients worldwide.
                         </p>
                     </header>
 
@@ -22,7 +22,7 @@ export default function AboutPage() {
                     <div className="mb-16">
                         <h2 className="text-3xl font-bold text-white mb-6">Who We Are</h2>
                         <p className="text-slate-400 text-lg leading-relaxed">
-                            Smile Fotilo is where creativity meets logic. The name &quot;Fotilo&quot; (Camera) represents our roots in visual storytelling, while &quot;Smile&quot; represents the satisfaction of our clients. We are a hybrid creative studio based in Gonda & Lucknow, dedicated to making the web a more beautiful place.
+                            Smile Fotilo is a solo web development and digital marketing studio. The name &quot;Fotilo&quot; (Camera) represents our roots in visual storytelling, while &quot;Smile&quot; represents the satisfaction of our clients. I handle everything from design and development to deployment and marketing — using AI-assisted workflows to deliver quality work efficiently.
                         </p>
                     </div>
 
@@ -31,7 +31,7 @@ export default function AboutPage() {
                         <span className="absolute -top-4 -left-4 text-6xl text-indigo-500 opacity-20">&ldquo;</span>
                         <h3 className="text-xl font-bold text-indigo-400 mb-4">The Founder&apos;s Note</h3>
                         <p className="text-slate-300 italic mb-4">
-                            &ldquo;I started Smile Fotilo because I saw too many businesses struggling to balance great aesthetics with technical functionality. As a developer and creative at heart, I wanted to build an agency that does both&mdash;creating websites that are visually stunning and technically robust.&rdquo;
+                            &ldquo;I started Smile Fotilo because I saw too many businesses struggling to get online. As someone who builds websites and manages digital marketing, I wanted to offer both&mdash;functional websites that look good and actually bring in customers.&rdquo;
                         </p>
                         <p className="text-slate-500 font-bold">&mdash; Ashraf Kamal, Founder</p>
                     </div>
@@ -40,7 +40,7 @@ export default function AboutPage() {
                     <div>
                         <h2 className="text-3xl font-bold text-white mb-6">Why Choose Us?</h2>
                         <p className="text-slate-400 text-lg leading-relaxed mb-6">
-                            We bring a unique perspective to web design. We don&apos;t just look at code; we look at composition, lighting, and user emotion. From dynamic WordPress development to engaging social media content, we ensure your brand looks as good as it works.
+                            You work directly with me — no middlemen, no account managers. I use React, Next.js, WordPress, and AI tools to build websites that actually work for your business. From local shops in Gonda to international clients, every project gets my full attention.
                         </p>
                     </div>
                 </div>

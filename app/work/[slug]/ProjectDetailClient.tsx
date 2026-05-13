@@ -51,7 +51,7 @@ const projectsData: Record<string, {
         fullDescription: 'PulseKart is a comprehensive Point of Sale solution designed specifically for pharmacies and healthcare retail. It features real-time inventory tracking, automated reordering, prescription management, and integration with major payment gateways. The system is built for high scalability and can handle multiple store locations from a single dashboard.',
         image: '/project-pulsekart.png',
         features: ['Real-time Inventory Tracking', 'Prescription Management', 'Multi-store Support', 'Payment Gateway Integration', 'Automated Reordering', 'GST Compliant Billing'],
-        technologies: ['React', 'Node.js', 'PostgreSQL', 'Redis', 'AWS'],
+        technologies: ['Next.js', 'TypeScript', 'PostgreSQL', 'Vercel'],
         color: 'from-teal-500 to-cyan-500'
     },
     'kapda-factory': {
@@ -78,7 +78,7 @@ const projectsData: Record<string, {
         title: 'Curbit',
         category: 'Smart City Solution',
         description: 'Website for a US-based company providing curb-related services.',
-        fullDescription: 'Curbit is a professional corporate website for a US-based company specializing in smart city curb management solutions. The website showcases their services, provides a booking system, and includes a customer portal. Built with a clean, enterprise-grade design that reflects the company\'s professional image.',
+        fullDescription: 'Curbit is a professional corporate website for a US-based company specializing in smart city curb management solutions. The website showcases their services, provides a booking system, and includes a customer portal. Built with a clean, professional design that reflects the company\'s image.',
         image: '/project-curbit.png',
         features: ['Service Booking System', 'Customer Portal', 'SEO Optimized', 'Mobile Responsive', 'Contact Management', 'Analytics Dashboard'],
         technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Vercel'],

@@ -39,7 +39,7 @@ export default function PortfolioPageClient({ initialRepos }: { initialRepos: Re
     // Identity Reveal
     const aboutRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress: aboutScroll } = useScroll({ target: aboutRef, offset: ["start 90%", "end 50%"] });
-    const aboutText = "My journey began with a deep curiosity for how things work under the hood. Over the years, I have architected systems, optimized complex databases, and crafted pixel-perfect frontends. I believe in writing code that is not just functional, but maintainable and beautiful.";
+    const aboutText = "I got into development because I wanted to solve real problems for real businesses. Today I use React, Next.js, WordPress, and AI tools to ship projects for clients across India and internationally. Every project on this page links to real code on my GitHub.";
     const words = aboutText.split(' ');
 
     // Horizontal Scroll
@@ -54,7 +54,7 @@ export default function PortfolioPageClient({ initialRepos }: { initialRepos: Re
     // Interstitial Word Reveal
     const revealRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress: revealScroll } = useScroll({ target: revealRef, offset: ["start 75%", "end 25%"] });
-    const revealText = "I CRAFT DIGITAL EXPERIENCES THAT ARE SCALABLE ROBUST AND EXCEPTIONALLY BEAUTIFUL";
+    const revealText = "I BUILD REAL WEBSITES FOR REAL BUSINESSES THAT ACTUALLY WORK";
     const revealWords = revealText.split(' ');
 
     return (
@@ -145,7 +145,7 @@ export default function PortfolioPageClient({ initialRepos }: { initialRepos: Re
                             <motion.span initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 1, delay: 0.4 }} className="block text-transparent stroke-text" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.5)' }}>Craftsman</motion.span>
                         </h1>
                         <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 }} className="text-xl md:text-2xl text-white/50 max-w-2xl font-light tracking-wide mix-blend-difference">
-                            Bridging the gap between high-end design and highly scalable engineering.
+                            I build websites and web apps for businesses that need things to actually work.
                         </motion.p>
                     </div>
                 </motion.section>
@@ -181,10 +181,10 @@ export default function PortfolioPageClient({ initialRepos }: { initialRepos: Re
                                 {/* Visual Density: Bento box skill grid */}
                                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-24">
                                     {[
-                                        { title: "Frontend", tools: "React, Next.js, Framer", icon: <MdCode size={24} />, color: "from-blue-500/20" },
-                                        { title: "Backend", tools: "Node, Go, Postges", icon: <MdMemory size={24} />, color: "from-violet-500/20" },
-                                        { title: "Cloud", tools: "AWS, Docker, CI/CD", icon: <MdLanguage size={24} />, color: "from-fuchsia-500/20" },
-                                        { title: "Scale", tools: "Performance, Redis", icon: <MdCheckCircle size={24} />, color: "from-indigo-500/20" },
+                                        { title: "Frontend", tools: "React, Next.js, Vite", icon: <MdCode size={24} />, color: "from-blue-500/20" },
+                                        { title: "Backend", tools: "Node.js, WordPress, PostgreSQL", icon: <MdMemory size={24} />, color: "from-violet-500/20" },
+                                        { title: "Deployment", tools: "Vercel, Netlify, cPanel", icon: <MdLanguage size={24} />, color: "from-fuchsia-500/20" },
+                                        { title: "Tools", tools: "AI-Assisted Dev, Git, GitHub", icon: <MdCheckCircle size={24} />, color: "from-indigo-500/20" },
                                     ].map((skill, i) => (
                                         <motion.div
                                             key={i}
@@ -251,7 +251,7 @@ export default function PortfolioPageClient({ initialRepos }: { initialRepos: Re
                                             </div>
                                             <h3 className="text-3xl md:text-4xl font-bold text-white mb-6 leading-tight group-hover:text-violet-300 transition-colors">{repo.name}</h3>
                                             <p className="text-white/40 text-lg leading-relaxed line-clamp-3 font-light">
-                                                {repo.description || "Experimental architecture and codebase engineering."}
+                                                {repo.description || "Project repository — view code on GitHub."}
                                             </p>
                                         </div>
 
@@ -304,9 +304,9 @@ export default function PortfolioPageClient({ initialRepos }: { initialRepos: Re
                                 <div className="absolute left-[27px] md:left-[35px] top-6 bottom-6 w-px bg-white/10" />
 
                                 {[
-                                    { year: "2024", role: "Senior Software Engineer", company: "TechCorp", desc: "Spearheaded the monolithic decomposition into a robust microservices ecosystem. Improved core database latency by 45% utilizing advanced Redis caching layers and read-replicas." },
-                                    { year: "2022", role: "Fullstack Developer", company: "InnovateStudio", desc: "Engineered real-time analytics dashboards processing 50k+ events/sec via WebSockets. Designed sleek, interactive data visualizations." },
-                                    { year: "2020", role: "Frontend Architect", company: "Creative Agency", desc: "Delivered award-winning WebGL and GSAP animated experiences for Fortune 500 clients, strictly focusing on 60fps mobile performance." },
+                                    { year: "2024", role: "Founder & Developer", company: "Smile Fotilo", desc: "Run a solo web development and digital marketing studio. Handle everything from client discovery and design to development, deployment, and ongoing support using AI-assisted workflows." },
+                                    { year: "2023", role: "Web Developer", company: "Client Projects", desc: "Built full-stack applications for real businesses: PulseKart pharmacy POS (Next.js + PostgreSQL), Veloria Vault e-commerce (WordPress), OrderFlow logistics dashboard, and Takhti tuition management PWA." },
+                                    { year: "2022", role: "Digital Marketing", company: "Veloria Vault", desc: "Manage the complete digital presence for a leather handbag brand: website, Amazon and Flipkart seller accounts, product listing optimization, social media content, and AI-generated creatives." },
                                 ].map((item, i) => (
                                     <motion.div
                                         key={i}

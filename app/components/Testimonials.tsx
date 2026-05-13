@@ -13,38 +13,38 @@ interface Testimonial {
 
 const testimonials: Testimonial[] = [
     {
-        name: "KapdaFactory",
-        role: "Luxury Garment Brand",
-        company: "Gonda, UP",
-        text: "They understood our vision for a premium garment brand perfectly. The website and new brand identity position us exactly where we want to be in the luxury market.",
-        rating: 5
-    },
-    {
-        name: "OrderFlow",
-        role: "B2B Ordering Platform",
-        company: "Noida & Lucknow",
-        text: "Working with the team was seamless. They delivered our B2B ordering platform on time and within budget. The system scales perfectly across our multiple locations.",
-        rating: 5
-    },
-    {
         name: "Veloria Vault",
         role: "Luxury Leather Goods",
         company: "Lucknow, UP",
-        text: "Smile Fotilo captured the essence of our leather brand. The e-commerce experience is smooth, elegant, and has significantly boosted our online sales.",
-        rating: 5
-    },
-    {
-        name: "Curbit",
-        role: "Mobile App Solution",
-        company: "Global Client",
-        text: "An incredible tech partner. They transformed our complex requirements into a user-friendly mobile application. Their attention to detail in UI/UX is outstanding.",
+        text: "Ashraf built and manages our entire website, runs our Amazon and Flipkart ad campaigns, and creates all our social media content. He handles everything so I can focus on my product.",
         rating: 5
     },
     {
         name: "PulseKart",
         role: "Pharmacy POS System",
         company: "Gonda, UP",
-        text: "The custom POS system handles our inventory, billing, and prescriptions seamlessly. It has completely modernized how we do business at our pharmacy.",
+        text: "The pharmacy billing system Ashraf built replaced our manual process completely. Inventory tracking, prescription records, GST billing — it all works from one dashboard.",
+        rating: 5
+    },
+    {
+        name: "StoryBook Weddings",
+        role: "Photography Portfolio",
+        company: "Lucknow, UP",
+        text: "Clean portfolio site, delivered on time, looks great on mobile. Exactly what we needed to showcase our wedding photography work.",
+        rating: 5
+    },
+    {
+        name: "Curbit",
+        role: "Service Website",
+        company: "Oregon, USA",
+        text: "Professional website that represents our company well. Good communication despite the timezone difference.",
+        rating: 5
+    },
+    {
+        name: "KapdaFactory",
+        role: "Garment E-Commerce",
+        company: "Gonda, UP",
+        text: "Ashraf set up our WordPress store and manages product listings and payments. The site works well for our customers.",
         rating: 5
     }
 ];
@@ -65,21 +65,21 @@ export const Testimonials = () => {
                 {/* Header */}
                 <div className="text-center mb-16">
                     <h2 className="text-4xl md:text-5xl font-bold mb-4">
-                        Trusted by <span className="text-indigo-400">Growing Brands</span>
+                        Client <span className="text-indigo-400">Projects</span>
                     </h2>
                     <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-                        From local startups to international enterprises, we help businesses
-                        build digital experiences that drive growth.
+                        I work directly with business owners — no account managers, no handoffs.
+                        Here&apos;s what that looks like in practice.
                     </p>
                 </div>
 
                 {/* Stats Bar */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
                     {[
-                        { stat: "50+", label: "Projects Delivered" },
+                        { stat: "10+", label: "Projects Delivered" },
                         { stat: "4.9", label: "Average Rating" },
-                        { stat: "98%", label: "Client Retention" },
-                        { stat: "5", label: "Countries Served" }
+                        { stat: "100%", label: "Direct Communication" },
+                        { stat: "2", label: "Countries Served" }
                     ].map((item, i) => (
                         <div key={i} className="text-center">
                             <div className="text-3xl md:text-4xl font-bold text-indigo-400 mb-2">{item.stat}</div>

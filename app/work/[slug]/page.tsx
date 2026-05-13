@@ -30,7 +30,7 @@ const projectMeta: Record<
     curbit: {
         title: 'Curbit',
         description:
-            'Website for a US-based company providing curb-related services. Clean, professional, and enterprise-grade.',
+            'Website for a US-based company providing curb-related services. Clean, professional design with service booking.',
     },
     'veloria-vault': {
         title: 'Veloria Vault',

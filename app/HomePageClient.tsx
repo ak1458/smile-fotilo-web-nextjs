@@ -72,7 +72,7 @@ const Hero = () => {
           className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 font-light leading-relaxed"
         >
           Stop surviving. Start thriving. <br />
-          We build <span className="text-indigo-400 font-semibold border-b border-indigo-400/30">digital platforms</span> designed to drive consistent revenue and scale your operations.
+          I build <span className="text-indigo-400 font-semibold border-b border-indigo-400/30">websites and web apps</span> designed to drive consistent revenue for your business.
         </motion.p>
 
         <motion.div
@@ -97,8 +97,8 @@ const Services = () => {
   const services = [
     { icon: <MdCode />, title: 'Web Development', desc: 'Fast, secure, and SEO-optimized websites on WordPress & Custom Stacks.' },
     { icon: <MdTrendingUp />, title: 'Digital Growth', desc: 'Data-driven SEO and Google Ads strategies that bring customers.' },
-    { icon: <MdPhotoCamera />, title: 'Creative Studio', desc: 'High-end product photography and brand identity design.' },
-    { icon: <MdSupportAgent />, title: '24/7 Support', desc: 'Dedicated support team to help you grow your business.' },
+    { icon: <MdPhotoCamera />, title: 'Content Creation', desc: 'AI-generated images, videos, product photography, and social media content.' },
+    { icon: <MdSupportAgent />, title: 'Ongoing Support', desc: 'Direct communication with me for updates, fixes, and growth planning.' },
     { icon: <MdLocalHospital />, title: 'Growth Autopilot', desc: 'Clinic-first missed-call recovery, reminders, review workflows, and bilingual inquiry handling.' }
   ];
 
@@ -348,9 +348,9 @@ const Contact = () => {
                 Got a vision? <br />
                 Let&apos;s make it <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-indigo-400">Real.</span>
               </h2>
-              <p className="text-slate-400 text-lg mb-8 leading-relaxed max-w-md">
-                We help ambitious brands scale with design-driven digital solutions.
-                Tell us about your project, and we&apos;ll get back to you within 24 hours.
+                <p className="text-slate-400 text-lg mb-8 leading-relaxed max-w-md">
+                I help businesses get online and grow with clean websites and practical digital marketing.
+                Tell me about your project, and I&apos;ll get back to you within 24 hours.
               </p>
             </motion.div>
 
@@ -537,7 +537,7 @@ const Portfolio = () => {
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Featured <span className="text-indigo-400">Works</span></h2>
           <p className="text-slate-400 max-w-2xl mx-auto text-lg">
-            Product-first builds focused on real automation outcomes, scalable architecture, and clean user experience.
+            Real projects built for real businesses — each one linked to live code or a verifiable client.
           </p>
         </motion.div>
 
@@ -581,7 +581,7 @@ const FAQ = () => {
   const faqs = [
     {
       question: "What services does Smile Fotilo offer?",
-      answer: "We offer Web Design & Development, Digital Marketing & SEO, Brand Identity Design, and Product Photography services tailored for global brands."
+      answer: "I offer Web Development (WordPress and custom React/Next.js), Digital Marketing (SEO, social media, Amazon/Flipkart ads), AI-generated content and creatives, and e-commerce management."
     },
     {
       question: "How much does a website cost?",
@@ -593,11 +593,11 @@ const FAQ = () => {
     },
     {
       question: "Do you work with international clients?",
-      answer: "Yes! We proudly serve enterprise clients in Texas (USA), Mexico, and across India. We handle timezone differences and work in English and Hindi."
+      answer: "Yes! I work with clients internationally. I’ve built projects for businesses in the USA and serve clients across India. I handle timezone differences and communicate in English and Hindi."
     },
     {
       question: "What support do you provide after launch?",
-      answer: "We provide 24/7 dedicated support including website maintenance, security updates, performance optimization, and ongoing SEO improvements."
+      answer: "I provide responsive support during business hours (Mon-Sat, 9AM-6PM IST) including website maintenance, security updates, performance optimization, and ongoing SEO improvements. Urgent issues are handled same-day."
     },
     {
       question: "Do you offer AI automation services for local businesses?",
@@ -679,8 +679,8 @@ const GlobalReach = () => {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="text-lg text-slate-400 leading-relaxed"
               >
-                We don&apos;t just build websites; we engineer digital platforms for the global market.
-                Proudly serving enterprise clients in <span className="text-slate-200 font-semibold underline underline-offset-4">Texas (USA)</span> and <span className="text-slate-200 font-semibold">Mexico</span> with the same dedication we bring to Gonda.
+                We don&apos;t just build websites; we help businesses get online and grow.
+                Currently serving clients in <span className="text-slate-200 font-semibold underline underline-offset-4">India</span> and <span className="text-slate-200 font-semibold">the USA</span> with the same dedication from our base in Gonda.
               </motion.p>
 
               <motion.div
@@ -706,7 +706,7 @@ const GlobalReach = () => {
                   <div className="w-10 h-10 rounded-full bg-blue-900/30 flex items-center justify-center text-blue-400 mb-4 text-xl">
                     <MdPublic />
                   </div>
-                  <div className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-1">Logistics AI</div>
+                  <div className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-1">Website Project</div>
                   <div className="text-xl font-bold text-slate-200">Texas, USA</div>
                 </motion.div>
 
@@ -718,8 +718,8 @@ const GlobalReach = () => {
                   <div className="w-10 h-10 rounded-full bg-indigo-900/30 flex items-center justify-center text-indigo-400 mb-4 text-xl">
                     <MdPayments />
                   </div>
-                  <div className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-1">Fintech App</div>
-                  <div className="text-xl font-bold text-slate-200">Mexico City</div>
+                  <div className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-1">Digital Marketing</div>
+                  <div className="text-xl font-bold text-slate-200">India</div>
                 </motion.div>
               </div>
             </div>

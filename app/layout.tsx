@@ -23,10 +23,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL('https://smilefotilo.com'),
   title: {
-    default: "Smile Fotilo | Premium Web Design & Digital Marketing",
+    default: "Smile Fotilo | Web Development & Digital Marketing Studio",
     template: "%s | Smile Fotilo",
   },
-  description: "Smile Fotilo: Premium Web Design, Branding & Digital Marketing agency. Serving clients globally with world-class digital experiences.",
+  description: "Smile Fotilo: Web Development & Digital Marketing studio by Ashraf Kamal. Building custom websites and helping businesses grow online.",
   keywords: ["Web Design Agency", "Digital Marketing", "Branding Agency", "Website Development", "Search Engine Optimization", "Creative Studio"],
   authors: [{ name: "Ashraf Kamal" }],
   creator: "Smile Fotilo",
@@ -39,8 +39,8 @@ export const metadata: Metadata = {
     google: process.env.NEXT_PUBLIC_GSC_VERIFICATION,
   },
   openGraph: {
-    title: "Smile Fotilo | World-Class Digital Experiences",
-    description: "We build beautiful, high-performance websites and brands. Based in India, serving the world.",
+    title: "Smile Fotilo | Web Development & Digital Marketing",
+    description: "I build clean, functional websites and help businesses grow online. Based in India, serving clients worldwide.",
     url: "https://smilefotilo.com",
     siteName: "Smile Fotilo",
     images: [
@@ -56,8 +56,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Smile Fotilo | Creative Agency",
-    description: "Transforming brands with stunning web design and digital strategy.",
+    title: "Smile Fotilo | Web Development Studio",
+    description: "Custom websites and digital marketing. Based in India, serving clients worldwide.",
     creator: "@ashrafkamal14",
     images: ["/og?title=Smile%20Fotilo&subtitle=Web%20Design%2C%20Branding%20%26%20Digital%20Marketing"],
   },

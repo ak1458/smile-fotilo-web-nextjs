@@ -43,7 +43,7 @@ export default function WorkPage() {
             slug: "curbit",
             title: "Curbit",
             category: "Smart City Solution",
-            description: "Website for a US-based company providing curb-related services. Clean, professional, and enterprise-grade.",
+            description: "Website for a US-based company providing curb-related services. Clean, professional design with service booking.",
             image: "/project-curbit.png",
             color: "from-indigo-600 to-violet-500",
             tags: ["Web Platform", "Smart City", "Enterprise", "USA"],
@@ -96,7 +96,7 @@ export default function WorkPage() {
                         transition={{ delay: 0.1 }}
                         className="text-slate-400 max-w-2xl mx-auto text-lg"
                     >
-                        A showcase of our most ambitious projects, ranging from enterprise fintech solutions to luxury digital experiences.
+                        Real projects I&apos;ve built for real businesses — from pharmacy POS systems to luxury e-commerce stores.
                     </motion.p>
                 </div>
 
@@ -162,7 +162,7 @@ export default function WorkPage() {
                         </div>
                         <h2 className="text-3xl md:text-4xl font-bold mb-6">Explore the Codebase</h2>
                         <p className="text-slate-400 max-w-2xl mx-auto mb-10 text-lg">
-                            We believe in open source and code quality. Explore our repositories to see the architecture behind our applications, including more tools and libraries.
+                            All my project code is on GitHub. Check it out to see how I build things — real commits, real projects, no fluff.
                         </p>
                         <a
                             href="https://github.com/ak1458"

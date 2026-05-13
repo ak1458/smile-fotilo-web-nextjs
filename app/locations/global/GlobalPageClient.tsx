@@ -133,7 +133,7 @@ export default function GlobalPage() {
                         </h1>
 
                         <p className="text-xl text-slate-300 mb-10 font-light leading-relaxed">
-                            Delivering enterprise-grade digital solutions to <strong className="text-blue-200 font-medium">Oregon, Texas, Mexico</strong>, and across the globe.
+                            Delivering quality web development and digital marketing to <strong className="text-blue-200 font-medium">Oregon, Texas</strong>, and clients across the globe.
                             <span className="text-slate-400 block mt-2">Powered by our headquarters in Gonda, India.</span>
                         </p>
 
@@ -259,7 +259,7 @@ export default function GlobalPage() {
                     <div className="text-center mb-16">
                         <span className="text-blue-400 font-bold tracking-widest uppercase text-sm mb-4 block">What We Offer</span>
                         <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Global Services</h2>
-                        <p className="text-slate-400 max-w-2xl mx-auto">Enterprise-level services delivered worldwide with Indian efficiency.</p>
+                        <p className="text-slate-400 max-w-2xl mx-auto">Quality web services delivered worldwide from our base in India.</p>
                     </div>
 
                     <div className="grid md:grid-cols-3 gap-6">
@@ -340,7 +340,7 @@ export default function GlobalPage() {
                             <ul className="space-y-3">
                                 <li className="flex items-center gap-3 text-slate-300">
                                     <MdCheckCircle className="text-blue-400" />
-                                    <span>Enterprise-grade solutions</span>
+                                    <span>Quality web solutions</span>
                                 </li>
                                 <li className="flex items-center gap-3 text-slate-300">
                                     <MdCheckCircle className="text-blue-400" />

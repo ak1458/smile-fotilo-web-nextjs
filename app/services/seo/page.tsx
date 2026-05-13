@@ -44,11 +44,11 @@ const faqs = [
     { question: "What is Zero Position in SEO?", answer: "Zero Position is the featured content above all organic results—primarily AI Overviews or Featured Snippets. Being cited here means AI recognizes your brand as the authoritative source." },
     { question: "What is GEO (Generative Engine Optimization)?", answer: "GEO optimizes content so AI models cite your brand. While SEO helps humans find links, GEO ensures AI treats your brand as an entity worth citing." },
     { question: "How do I rank in AI Overviews?", answer: "Use direct answers in the first 2-3 sentences, add FAQ schema, build topic clusters, ensure factual accuracy, and establish E-E-A-T through author credentials." },
-    { question: "How long does SEO take to show results?", answer: "Initial improvements appear in 2-3 months, significant results in 4-6 months. We provide monthly reports tracking rankings, traffic, and AI citations." },
+    { question: "How long does SEO take to show results?", answer: "Initial improvements appear in 2-3 months, significant results in 4-6 months. I provide monthly reports tracking rankings, traffic, and AI citations." },
     { question: "What's the difference between SEO and GEO?", answer: "SEO = rank #1 for clicks. GEO = be cited in AI summaries. Modern optimization requires both approaches." },
     { question: "How much does SEO cost per month?", answer: "Starting from ₹9,999/month for local businesses. E-commerce may require ₹25,000-50,000/month based on competition." },
     { question: "What is E-E-A-T?", answer: "Experience, Expertise, Authoritativeness, Trust. In 2026, Google rewards content with proven human experience over AI-generated content." },
-    { question: "Do you provide local SEO?", answer: "Yes. We optimize for 'near me' searches, Google Maps, and location pages for cities like Lucknow, Gonda, Greater Noida, and Ayodhya." }
+    { question: "Do you provide local SEO?", answer: "Yes. I optimize for 'near me' searches, Google Maps, and location pages for cities like Lucknow, Gonda, Greater Noida, and Ayodhya." }
 ];
 
 export default function SEOPage() {
@@ -76,7 +76,7 @@ export default function SEOPage() {
                         <span className="text-emerald-400">Rank on Zero Position</span>
                     </h1>
                     <p className="text-xl text-slate-400 mb-8 max-w-2xl mx-auto">
-                        <strong>Zero Position is the new #1.</strong> We optimize your website for AI Overviews,
+                        <strong>Zero Position is the new #1.</strong> I optimize your website for AI Overviews,
                         Featured Snippets, and traditional search. Get found by both humans and AI models.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -198,15 +198,13 @@ export default function SEOPage() {
                                 SF
                             </div>
                             <div>
-                                <h3 className="text-xl font-bold text-emerald-400 mb-2">Smile Fotilo Digital Team</h3>
+                                <h3 className="text-xl font-bold text-emerald-400 mb-2">Ashraf Kamal, Founder</h3>
                                 <p className="text-slate-400 leading-relaxed mb-4">
-                                    <strong>In our 5+ years at Smile Fotilo, we&apos;ve helped 100+ businesses rank on the first page of Google.</strong> Our
-                                    team has hands-on experience with local SEO for clinics, e-commerce SEO for fashion brands, and technical
-                                    SEO for SaaS platforms. We&apos;ve adapted our strategies from traditional SEO to modern GEO as AI reshapes search.
+                                    <strong>I implement SEO best practices on every website I build</strong> &mdash; from structured data and schema markup to Core Web Vitals optimization. I&apos;ve applied local SEO for clinics, e-commerce SEO for fashion brands, and technical SEO for web applications. I stay current with how AI is reshaping search and apply GEO strategies where relevant.
                                 </p>
                                 <p className="text-slate-400 leading-relaxed">
-                                    We serve clients across Uttar Pradesh (Lucknow, Gonda, Greater Noida, Ayodhya) and internationally.
-                                    Our data-driven approach focuses on measurable results: traffic, leads, and now—AI citations.
+                                    I serve clients across Uttar Pradesh (Lucknow, Gonda, Greater Noida, Ayodhya) and internationally.
+                                    My approach focuses on measurable results: traffic, leads, and AI citations.
                                 </p>
                             </div>
                         </div>
@@ -218,7 +216,7 @@ export default function SEOPage() {
             <section className="py-20 bg-gradient-to-r from-emerald-600 to-teal-600">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <h2 className="text-3xl md:text-4xl font-bold mb-6">Get Your Free SEO & GEO Audit</h2>
-                    <p className="text-xl text-white/80 mb-8">Discover what&apos;s stopping you from Zero Position. We&apos;ll analyze your site for both traditional SEO and AI readability.</p>
+                    <p className="text-xl text-white/80 mb-8">Discover what&apos;s stopping you from Zero Position. I&apos;ll analyze your site for both traditional SEO and AI readability.</p>
                     <OpenChatButton
                         prompt="Please start my SEO and GEO audit request and collect the project details."
                         className="inline-block bg-white text-emerald-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-slate-100 transition-colors"
