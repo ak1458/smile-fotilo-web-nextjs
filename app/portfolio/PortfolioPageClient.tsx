@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useSpring, MotionValue } from 'framer-motion';
 import { Footer } from '../components/Footer';
 import Link from 'next/link';
@@ -44,12 +44,32 @@ export default function PortfolioPageClient({ initialRepos }: { initialRepos: Re
 
     // Horizontal Scroll
     const horizontalContainerRef = useRef<HTMLDivElement>(null);
-    const { scrollYProgress: horizontalScroll } = useScroll({ target: horizontalContainerRef });
+    const { scrollYProgress: horizontalScroll } = useScroll({ 
+        target: horizontalContainerRef,
+        offset: ["start start", "end end"]
+    });
 
-    // Dynamically calculate horizontal translation & section height based on repository count
+    // Measure actual track width to sync horizontal scroll with vertical scroll
     const repoCount = initialRepos?.length || 1;
-    // Card width (approx 500px) + gap
-    const xTrack = useSmoothTransform(horizontalScroll, [0, 1], [0, -(repoCount * 450)]);
+    const trackRef = useRef<HTMLDivElement>(null);
+    const [trackWidth, setTrackWidth] = useState(0);
+    
+    useEffect(() => {
+        const el = trackRef.current;
+        if (!el) return;
+        const update = () => {
+            setTrackWidth(el.scrollWidth - window.innerWidth);
+        };
+        
+        const timer = setTimeout(update, 100);
+        window.addEventListener('resize', update);
+        return () => {
+            clearTimeout(timer);
+            window.removeEventListener('resize', update);
+        };
+    }, [repoCount, initialRepos]);
+
+    const xTrack = useTransform(horizontalScroll, [0, 1], [0, -trackWidth]);
 
     // Interstitial Word Reveal
     const revealRef = useRef<HTMLDivElement>(null);
@@ -203,7 +223,7 @@ export default function PortfolioPageClient({ initialRepos }: { initialRepos: Re
 
                     {/* 3. HORIZONTAL SCROLL (Massive cards, structural lines) */}
                     {/* Dynamic height based on repositories so it doesn't scroll off into emptiness */}
-                    <section ref={horizontalContainerRef} className="relative bg-transparent" style={{ height: `calc(100vh + ${repoCount * 400}px)` }}>
+                    <section ref={horizontalContainerRef} className="relative bg-transparent" style={{ height: `${trackWidth + 1000}px` }}>
 
                         <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden border-y border-white/10 bg-black/40 backdrop-blur-xl">
 
@@ -220,7 +240,7 @@ export default function PortfolioPageClient({ initialRepos }: { initialRepos: Re
                                 </div>
                             </div>
 
-                            <motion.div style={{ x: xTrack }} className="flex gap-12 px-6 md:px-24 items-center h-[600px] absolute w-max mt-8">
+                            <motion.div ref={trackRef} style={{ x: xTrack }} className="flex gap-12 px-6 md:px-24 items-center h-[600px] absolute w-max mt-8">
 
                                 {/* Intro Structural Block */}
                                 <div className="w-[300px] md:w-[500px] shrink-0 p-8 h-full flex flex-col justify-center relative">
@@ -275,7 +295,7 @@ export default function PortfolioPageClient({ initialRepos }: { initialRepos: Re
                     </section>
 
                     {/* Massive Interstitial Text Reveal (filling the void) */}
-                    <section ref={revealRef} className="min-h-screen flex items-center justify-center relative z-10 px-6 md:px-12 bg-transparent overflow-hidden py-32">
+                    <section ref={revealRef} className="min-h-[50vh] flex items-center justify-center relative z-10 px-6 md:px-12 bg-transparent overflow-hidden py-20">
                         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-violet-900/5 to-transparent mix-blend-screen pointer-events-none" />
                         <h2 className="text-[12vw] md:text-[9vw] font-black uppercase leading-[0.85] tracking-tighter flex flex-wrap justify-center gap-x-[3vw] gap-y-[1vw] max-w-[95vw] text-center mix-blend-difference">
                             {revealWords.map((word, i) => {
