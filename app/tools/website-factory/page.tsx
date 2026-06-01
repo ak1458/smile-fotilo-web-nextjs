@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import WebsiteFactoryPageClient from './WebsiteFactoryPageClient';
 
 export const metadata: Metadata = {
+  robots: { index: false, follow: true }, // Phase 3: thin AI tool noindexed pending rebuild/removal
   title: 'AI Website Factory',
   description:
     'Generate a website blueprint with sitemap, messaging, design direction, keywords, and launch checklist from a simple brief.',

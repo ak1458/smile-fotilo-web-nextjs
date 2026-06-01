@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import DocumentIntelligencePageClient from './DocumentIntelligencePageClient';
 
 export const metadata: Metadata = {
+  robots: { index: false, follow: true }, // Phase 3: thin AI tool noindexed pending rebuild/removal
   title: 'Document Intelligence Tool',
   description:
     'Analyze document text with AI to extract summaries, structured data, key fields, and actionable next steps.',

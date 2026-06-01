@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import BrandKitPageClient from './BrandKitPageClient';
 
 export const metadata: Metadata = {
+  robots: { index: false, follow: true }, // Phase 3: thin AI tool noindexed pending rebuild/removal
   title: 'AI Brand Kit Generator',
   description:
     'Create an AI-powered brand kit with color palette, typography direction, brand voice, taglines, and social bios for your business.',

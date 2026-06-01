@@ -177,43 +177,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
             changeFrequency: 'monthly',
             priority: 0.7,
         },
-        {
-            url: `${baseUrl}/tools/seo-content`,
-            lastModified: lastUpdated,
-            changeFrequency: 'monthly',
-            priority: 0.7,
-        },
-        {
-            url: `${baseUrl}/tools/brand-kit`,
-            lastModified: lastUpdated,
-            changeFrequency: 'monthly',
-            priority: 0.7,
-        },
-        {
-            url: `${baseUrl}/tools/content-calendar`,
-            lastModified: lastUpdated,
-            changeFrequency: 'monthly',
-            priority: 0.7,
-        },
-        {
-            url: `${baseUrl}/tools/document-intelligence`,
-            lastModified: lastUpdated,
-            changeFrequency: 'monthly',
-            priority: 0.7,
-        },
-        {
-            url: `${baseUrl}/tools/website-factory`,
-            lastModified: lastUpdated,
-            changeFrequency: 'monthly',
-            priority: 0.7,
-        },
-        // Marketplace
-        {
-            url: `${baseUrl}/marketplace`,
-            lastModified: lastUpdated,
-            changeFrequency: 'weekly',
-            priority: 0.8,
-        },
+        // (Phase 3: seo-content, brand-kit, content-calendar, document-intelligence,
+        //  website-factory tools + marketplace removed from sitemap — noindexed/simplified)
         // Portfolio
         {
             url: `${baseUrl}/portfolio`,

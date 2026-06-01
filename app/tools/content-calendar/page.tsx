@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import ContentCalendarPageClient from './ContentCalendarPageClient';
 
 export const metadata: Metadata = {
+  robots: { index: false, follow: true }, // Phase 3: thin AI tool noindexed pending rebuild/removal
   title: 'AI Content Calendar Generator',
   description:
     'Generate a 7-day social content calendar with captions, hashtags, post ideas, and publishing guidance tailored to your business.',
