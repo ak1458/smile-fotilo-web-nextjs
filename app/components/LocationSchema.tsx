@@ -1,33 +1,12 @@
 const ORG_ID = "https://smilefotilo.com/#organization";
 
-// The ONE real physical location (HQ). NAP matches the Google Business Profile exactly.
-const gondaBusiness = {
-    "@context": "https://schema.org",
-    "@type": ["ProfessionalService", "LocalBusiness"],
-    "@id": "https://smilefotilo.com/locations/gonda#business",
-    "name": "Smile Fotilo",
-    "description": "Website developer and SEO company in Gonda. We build SEO-ready websites, landing pages, e-commerce stores, and provide local SEO for Gonda businesses.",
-    "url": "https://smilefotilo.com/locations/gonda",
+const SHARED = {
     "telephone": "+91-9453878422",
     "email": "support@smilefotilo.com",
     "image": "https://smilefotilo.com/logo.png",
     "logo": "https://smilefotilo.com/logo.png",
     "priceRange": "₹₹",
     "currenciesAccepted": "INR, USD",
-    "hasMap": "https://www.google.com/maps?cid=14436214578143247413",
-    "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "KP Singh Marg, near Deewani Kacheri Chauraha, Civil Line",
-        "addressLocality": "Gonda",
-        "addressRegion": "Uttar Pradesh",
-        "postalCode": "271001",
-        "addressCountry": "IN"
-    },
-    "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 27.13,
-        "longitude": 81.96
-    },
     "openingHoursSpecification": [
         {
             "@type": "OpeningHoursSpecification",
@@ -36,11 +15,6 @@ const gondaBusiness = {
             "closes": "18:00"
         }
     ],
-    "areaServed": [
-        { "@type": "City", "name": "Gonda" },
-        { "@type": "City", "name": "Lucknow" },
-        { "@type": "State", "name": "Uttar Pradesh" }
-    ],
     "sameAs": [
         "https://www.instagram.com/ashrafkamal14/",
         "https://www.linkedin.com/in/ashrafkamal14/"
@@ -48,10 +22,51 @@ const gondaBusiness = {
     "parentOrganization": { "@id": ORG_ID }
 };
 
-// Service-area pages: no physical office in these cities, so we DO NOT assert a
-// LocalBusiness with a fabricated address (that risks Google demotion). We model
-// them as a Service provided by the real Gonda business, serving the named area.
 type Area = { "@type": string; name: string };
+
+// A real, verified Google Business Profile storefront (physical address shown).
+function storefront(opts: {
+    id: string;
+    name: string;
+    description: string;
+    url: string;
+    streetAddress: string;
+    addressLocality: string;
+    postalCode: string;
+    latitude: number;
+    longitude: number;
+    areas: Area[];
+    hasMap?: string;
+}) {
+    return {
+        "@context": "https://schema.org",
+        "@type": ["ProfessionalService", "LocalBusiness"],
+        "@id": opts.id,
+        "name": opts.name,
+        "description": opts.description,
+        "url": opts.url,
+        ...SHARED,
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": opts.streetAddress,
+            "addressLocality": opts.addressLocality,
+            "addressRegion": "Uttar Pradesh",
+            "postalCode": opts.postalCode,
+            "addressCountry": "IN"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": opts.latitude,
+            "longitude": opts.longitude
+        },
+        "areaServed": opts.areas,
+        ...(opts.hasMap ? { "hasMap": opts.hasMap } : {})
+    };
+}
+
+// A service-area page with NO physical office (e.g. Lucknow, served from Gonda).
+// No PostalAddress is asserted — that would be a fabricated location. Modeled as a
+// Service provided by the real organization, serving the named area.
 function areaService(opts: {
     id: string;
     name: string;
@@ -79,37 +94,70 @@ function areaService(opts: {
 }
 
 export const locationSchemas = {
-    gonda: gondaBusiness,
-    lucknow: areaService({
-        id: "https://smilefotilo.com/locations/lucknow#service",
-        name: "Web Design & SEO in Lucknow — Smile Fotilo",
-        description: "WordPress and custom website development, local SEO, and digital marketing for Lucknow businesses. Served from our Gonda studio, on-site visits available.",
-        url: "https://smilefotilo.com/locations/lucknow",
+    // Verified storefront — Headquarters. Also the service hub for nearby towns.
+    gonda: storefront({
+        id: "https://smilefotilo.com/locations/gonda#business",
+        name: "Smile Fotilo — Gonda (Headquarters)",
+        description: "Website developer and SEO company in Gonda. We build SEO-ready websites, landing pages, e-commerce stores, and provide local SEO for Gonda and nearby districts.",
+        url: "https://smilefotilo.com/locations/gonda",
+        streetAddress: "KP Singh Marg, near Deewani Kacheri Chauraha, Lucknow Road, Civil Lines",
+        addressLocality: "Gonda",
+        postalCode: "271001",
+        latitude: 27.1340,
+        longitude: 81.9610,
+        hasMap: "https://www.google.com/maps?cid=14436214578143247413",
         areas: [
-            { "@type": "City", "name": "Lucknow" },
-            { "@type": "Place", "name": "Gomti Nagar" },
-            { "@type": "Place", "name": "Hazratganj" }
+            { "@type": "City", "name": "Gonda" },
+            { "@type": "City", "name": "Colonelganj" },
+            { "@type": "City", "name": "Bahraich" },
+            { "@type": "City", "name": "Balrampur" },
+            { "@type": "City", "name": "Barabanki" },
+            { "@type": "City", "name": "Lucknow" }
         ]
     }),
-    greaterNoida: areaService({
-        id: "https://smilefotilo.com/locations/greater-noida#service",
-        name: "Web Design & SEO in Greater Noida — Smile Fotilo",
-        description: "Business websites, e-commerce stores, and local SEO for Greater Noida and Noida (NCR) businesses, delivered remotely from our Gonda studio.",
+    // Verified storefront — Greater Noida (NCR).
+    greaterNoida: storefront({
+        id: "https://smilefotilo.com/locations/greater-noida#business",
+        name: "Smile Fotilo — Greater Noida",
+        description: "Web design company and SEO services in Greater Noida and Noida. We develop business websites, e-commerce stores, and provide local SEO across NCR.",
         url: "https://smilefotilo.com/locations/greater-noida",
+        streetAddress: "Alpha 1 Block C Market",
+        addressLocality: "Greater Noida",
+        postalCode: "201310",
+        latitude: 28.4744,
+        longitude: 77.5040,
         areas: [
             { "@type": "City", "name": "Greater Noida" },
             { "@type": "City", "name": "Noida" },
             { "@type": "Place", "name": "NCR" }
         ]
     }),
-    ayodhya: areaService({
-        id: "https://smilefotilo.com/locations/ayodhya#service",
-        name: "Tourism & Hotel Website Design in Ayodhya — Smile Fotilo",
-        description: "Tourism, hotel, and temple website design plus local SEO for Ayodhya and Faizabad businesses, delivered from our nearby Gonda studio.",
+    // Verified storefront — Ayodhya.
+    ayodhya: storefront({
+        id: "https://smilefotilo.com/locations/ayodhya#business",
+        name: "Smile Fotilo — Ayodhya",
+        description: "Website developer and web design company in Ayodhya. We specialize in tourism websites, hotel website design, and local SEO services for Ayodhya and Faizabad.",
         url: "https://smilefotilo.com/locations/ayodhya",
+        streetAddress: "Parikrama Marg, Ram Nagar Ghosiyana",
+        addressLocality: "Ayodhya",
+        postalCode: "224001",
+        latitude: 26.7920,
+        longitude: 82.1980,
         areas: [
             { "@type": "City", "name": "Ayodhya" },
             { "@type": "City", "name": "Faizabad" }
+        ]
+    }),
+    // Service-area only (no office) — served from the Gonda studio.
+    lucknow: areaService({
+        id: "https://smilefotilo.com/locations/lucknow#service",
+        name: "Web Design & SEO in Lucknow — Smile Fotilo",
+        description: "WordPress and custom website development, local SEO, and digital marketing for Lucknow businesses. Served from our nearby Gonda studio; on-site visits available.",
+        url: "https://smilefotilo.com/locations/lucknow",
+        areas: [
+            { "@type": "City", "name": "Lucknow" },
+            { "@type": "Place", "name": "Gomti Nagar" },
+            { "@type": "Place", "name": "Hazratganj" }
         ]
     })
 };
