@@ -248,7 +248,7 @@ function getPredefinedReply(rawMessage: string): PredefinedReply | null {
 
   if (containsAny(message, ['contact', 'phone', 'call', 'email', 'reach', 'speak', 'talk'])) {
     return {
-      text: 'Direct line to Ashraf (founder) is +91 9453878422, or email ashrafkamal1458@gmail.com. He\'s usually available 9AM-6PM IST, Monday-Saturday. If it\'s urgent, call - otherwise email with details and he\'ll respond same day.',
+      text: 'Direct line to Ashraf (founder) is +91 9453878422, or email support@smilefotilo.com. He\'s usually available 9AM-6PM IST, Monday-Saturday. If it\'s urgent, call - otherwise email with details and he\'ll respond same day.',
       quickReplies: ['I\'ll call now', 'Will email details', 'Can you have him call me?'],
     };
   }

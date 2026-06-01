@@ -52,18 +52,18 @@ const Hero = () => {
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#1E293B] border border-white/5 mb-8 shadow-none"
         >
           <span className="flex h-2 w-2 rounded-full bg-emerald-500"></span>
-          <span className="text-xs font-bold uppercase tracking-widest text-slate-400">🚀 Ready to Build Your Empire?</span>
+          <span className="text-xs font-bold uppercase tracking-widest text-slate-400">★ 4.9 · 118 Google reviews · Gonda, UP</span>
         </motion.div>
 
-        <motion.h2
+        <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-4xl md:text-6xl lg:text-7xl font-bold text-slate-50 leading-[1.1] mb-6 tracking-tight"
         >
-          Be Your Own Boss <br className="hidden md:block" />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-indigo-400 to-purple-400">Powered by AI</span>
-        </motion.h2>
+          Websites &amp; Local SEO that <br className="hidden md:block" />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-indigo-400 to-purple-400">bring you customers</span>
+        </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -71,8 +71,7 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 font-light leading-relaxed"
         >
-          Stop surviving. Start thriving. <br />
-          I build <span className="text-indigo-400 font-semibold border-b border-indigo-400/30">websites and web apps</span> designed to drive consistent revenue for your business.
+          I&apos;m Ashraf Kamal. I build fast, SEO-ready <span className="text-indigo-400 font-semibold border-b border-indigo-400/30">websites and run local SEO</span> for clinics, e-commerce, and local businesses across Gonda, Lucknow &amp; Ayodhya — and for clients worldwide. Founder-led, same-day replies, Hindi &amp; English.
         </motion.p>
 
         <motion.div
@@ -81,11 +80,11 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
-          <a href="https://wa.me/919453878422?text=Hi%20Smile%20Fotilo%2C%20I%20want%20to%20discuss%20a%20project." target="_blank" rel="noopener noreferrer" className="btn-primary px-8 py-4 text-lg min-w-[180px] text-center bg-green-600 hover:bg-green-500 shadow-[0_0_30px_rgba(22,163,74,0.3)] border-green-500">
-            <span>Chat on WhatsApp</span>
+          <a href="https://wa.me/919453878422?text=Hi%20Smile%20Fotilo%2C%20I%20want%20a%20free%20quote%20for%20my%20website%2FSEO%20project." target="_blank" rel="noopener noreferrer" className="btn-primary px-8 py-4 text-lg min-w-[180px] text-center bg-green-600 hover:bg-green-500 shadow-[0_0_30px_rgba(22,163,74,0.3)] border-green-500">
+            <span>Get a Free Quote</span>
           </a>
           <a href="#work" className="btn-secondary px-8 py-4 text-lg min-w-[180px] text-center">
-            View Our Work
+            See Client Results
           </a>
         </motion.div>
       </div>
@@ -385,8 +384,8 @@ const Contact = () => {
                 </div>
                 <div>
                   <div className="text-sm text-slate-500">Email us</div>
-                  <a href="mailto:ashrafkamal1458@gmail.com" className="font-medium text-white text-lg hover:text-indigo-400 transition-colors">
-                    ashrafkamal1458@gmail.com
+                  <a href="mailto:support@smilefotilo.com" className="font-medium text-white text-lg hover:text-indigo-400 transition-colors">
+                    support@smilefotilo.com
                   </a>
                 </div>
               </motion.div>

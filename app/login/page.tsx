@@ -144,7 +144,7 @@ export default function LoginPage() {
                 <p className="text-center text-xs" style={{ color: '#64748b' }}>
                     Don&apos;t have an account or forgot your password?{' '}
                     <a
-                        href="mailto:ashrafkamal1458@gmail.com"
+                        href="mailto:support@smilefotilo.com"
                         className="hover:underline transition-all"
                         style={{ color: '#a78bfa' }}
                     >

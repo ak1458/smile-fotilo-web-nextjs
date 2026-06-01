@@ -1,9 +1,12 @@
-name: Daily SEO & GMB Growth Engine
+name: Daily SEO & GMB Growth Engine (DISABLED)
 
+# DISABLED 2026-06-01: This job was a no-op. It invokes seo_optimizer.js,
+# gmb_automated_poster.js, gmb_review_manager.js and commits strategy_output.json
+# — none of which exist in the repo. Every step is wrapped in `|| echo "...failed
+# but continuing"`, so it reported success while doing nothing for ~18 months.
+# Auto-schedule removed; manual-only until rebuilt as a real, data-backed job.
 on:
-  schedule:
-    - cron: '0 0 * * *' # Runs daily at midnight UTC
-  workflow_dispatch: # Allows manual trigger
+  workflow_dispatch: # Manual trigger only (auto-schedule disabled)
 
 jobs:
   optimize:

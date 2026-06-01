@@ -1,11 +1,33 @@
-const sharedLocationSchema = {
+const ORG_ID = "https://smilefotilo.com/#organization";
+
+// The ONE real physical location (HQ). NAP matches the Google Business Profile exactly.
+const gondaBusiness = {
     "@context": "https://schema.org",
     "@type": ["ProfessionalService", "LocalBusiness"],
+    "@id": "https://smilefotilo.com/locations/gonda#business",
+    "name": "Smile Fotilo",
+    "description": "Website developer and SEO company in Gonda. We build SEO-ready websites, landing pages, e-commerce stores, and provide local SEO for Gonda businesses.",
+    "url": "https://smilefotilo.com/locations/gonda",
     "telephone": "+91-9453878422",
-    "email": "ashrafkamal1458@gmail.com",
+    "email": "support@smilefotilo.com",
     "image": "https://smilefotilo.com/logo.png",
+    "logo": "https://smilefotilo.com/logo.png",
     "priceRange": "₹₹",
     "currenciesAccepted": "INR, USD",
+    "hasMap": "https://www.google.com/maps?cid=14436214578143247413",
+    "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "KP Singh Marg, near Deewani Kacheri Chauraha, Civil Line",
+        "addressLocality": "Gonda",
+        "addressRegion": "Uttar Pradesh",
+        "postalCode": "271001",
+        "addressCountry": "IN"
+    },
+    "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 27.13,
+        "longitude": 81.96
+    },
     "openingHoursSpecification": [
         {
             "@type": "OpeningHoursSpecification",
@@ -14,111 +36,83 @@ const sharedLocationSchema = {
             "closes": "18:00"
         }
     ],
+    "areaServed": [
+        { "@type": "City", "name": "Gonda" },
+        { "@type": "City", "name": "Lucknow" },
+        { "@type": "State", "name": "Uttar Pradesh" }
+    ],
     "sameAs": [
         "https://www.instagram.com/ashrafkamal14/",
         "https://www.linkedin.com/in/ashrafkamal14/"
     ],
-    "parentOrganization": {
-        "@id": "https://smilefotilo.com/#organization"
-    }
-} as const;
+    "parentOrganization": { "@id": ORG_ID }
+};
+
+// Service-area pages: no physical office in these cities, so we DO NOT assert a
+// LocalBusiness with a fabricated address (that risks Google demotion). We model
+// them as a Service provided by the real Gonda business, serving the named area.
+type Area = { "@type": string; name: string };
+function areaService(opts: {
+    id: string;
+    name: string;
+    description: string;
+    url: string;
+    areas: Area[];
+}) {
+    return {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "@id": opts.id,
+        "name": opts.name,
+        "description": opts.description,
+        "url": opts.url,
+        "serviceType": "Web design, development & local SEO",
+        "provider": {
+            "@type": "Organization",
+            "@id": ORG_ID,
+            "name": "Smile Fotilo",
+            "telephone": "+91-9453878422",
+            "email": "support@smilefotilo.com"
+        },
+        "areaServed": opts.areas
+    };
+}
 
 export const locationSchemas = {
-    gonda: {
-        ...sharedLocationSchema,
-        "@id": "https://smilefotilo.com/locations/gonda#business",
-        "name": "Smile Fotilo - Gonda (Headquarters)",
-        "description": "Website developer and SEO company in Gonda. We build SEO-ready websites, landing pages, e-commerce stores, and provide local SEO for Gonda businesses.",
-        "url": "https://smilefotilo.com/locations/gonda",
-        "hasMap": "https://www.google.com/maps?cid=14436214578143247413",
-        "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "Gonda",
-            "addressLocality": "Gonda",
-            "addressRegion": "Uttar Pradesh",
-            "postalCode": "271001",
-            "addressCountry": "IN"
-        },
-        "geo": {
-            "@type": "GeoCoordinates",
-            "latitude": 27.13,
-            "longitude": 81.96
-        },
-        "areaServed": [
-            { "@type": "City", "name": "Gonda" },
-            { "@type": "City", "name": "Lucknow" },
-            { "@type": "State", "name": "Uttar Pradesh" }
-        ]
-    },
-    lucknow: {
-        ...sharedLocationSchema,
-        "@id": "https://smilefotilo.com/locations/lucknow#business",
-        "name": "Smile Fotilo - Lucknow",
-        "description": "Web design company and website development services in Lucknow. We offer WordPress development, local SEO, and digital marketing agency services.",
-        "url": "https://smilefotilo.com/locations/lucknow",
-        "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Lucknow",
-            "addressRegion": "Uttar Pradesh",
-            "addressCountry": "IN"
-        },
-        "geo": {
-            "@type": "GeoCoordinates",
-            "latitude": 26.8467,
-            "longitude": 80.9462
-        },
-        "areaServed": [
+    gonda: gondaBusiness,
+    lucknow: areaService({
+        id: "https://smilefotilo.com/locations/lucknow#service",
+        name: "Web Design & SEO in Lucknow — Smile Fotilo",
+        description: "WordPress and custom website development, local SEO, and digital marketing for Lucknow businesses. Served from our Gonda studio, on-site visits available.",
+        url: "https://smilefotilo.com/locations/lucknow",
+        areas: [
             { "@type": "City", "name": "Lucknow" },
             { "@type": "Place", "name": "Gomti Nagar" },
             { "@type": "Place", "name": "Hazratganj" }
         ]
-    },
-    greaterNoida: {
-        ...sharedLocationSchema,
-        "@id": "https://smilefotilo.com/locations/greater-noida#business",
-        "name": "Smile Fotilo - Greater Noida",
-        "description": "Web design company and SEO services in Greater Noida and Noida. We develop business websites, e-commerce stores, and provide local SEO optimization.",
-        "url": "https://smilefotilo.com/locations/greater-noida",
-        "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Greater Noida",
-            "addressRegion": "Uttar Pradesh",
-            "addressCountry": "IN"
-        },
-        "geo": {
-            "@type": "GeoCoordinates",
-            "latitude": 28.4744,
-            "longitude": 77.504
-        },
-        "areaServed": [
+    }),
+    greaterNoida: areaService({
+        id: "https://smilefotilo.com/locations/greater-noida#service",
+        name: "Web Design & SEO in Greater Noida — Smile Fotilo",
+        description: "Business websites, e-commerce stores, and local SEO for Greater Noida and Noida (NCR) businesses, delivered remotely from our Gonda studio.",
+        url: "https://smilefotilo.com/locations/greater-noida",
+        areas: [
             { "@type": "City", "name": "Greater Noida" },
             { "@type": "City", "name": "Noida" },
             { "@type": "Place", "name": "NCR" }
         ]
-    },
-    ayodhya: {
-        ...sharedLocationSchema,
-        "@id": "https://smilefotilo.com/locations/ayodhya#business",
-        "name": "Smile Fotilo - Ayodhya",
-        "description": "Website developer and web design company in Ayodhya. We specialize in tourism websites, hotel website design, and local SEO services.",
-        "url": "https://smilefotilo.com/locations/ayodhya",
-        "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Ayodhya",
-            "addressRegion": "Uttar Pradesh",
-            "addressCountry": "IN"
-        },
-        "geo": {
-            "@type": "GeoCoordinates",
-            "latitude": 26.7922,
-            "longitude": 82.1998
-        },
-        "areaServed": [
+    }),
+    ayodhya: areaService({
+        id: "https://smilefotilo.com/locations/ayodhya#service",
+        name: "Tourism & Hotel Website Design in Ayodhya — Smile Fotilo",
+        description: "Tourism, hotel, and temple website design plus local SEO for Ayodhya and Faizabad businesses, delivered from our nearby Gonda studio.",
+        url: "https://smilefotilo.com/locations/ayodhya",
+        areas: [
             { "@type": "City", "name": "Ayodhya" },
             { "@type": "City", "name": "Faizabad" }
         ]
-    }
-} as const;
+    })
+};
 
 export function LocationSchema({ location }: { location: keyof typeof locationSchemas }) {
     const schema = locationSchemas[location];

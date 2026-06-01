@@ -15,8 +15,16 @@ export const JsonLd = () => {
                 },
                 "image": "https://smilefotilo.com/logo.png",
                 "description": "Smile Fotilo is a premium digital agency for web design, branding, SEO, and AI-led growth systems.",
-                "email": "ashrafkamal1458@gmail.com",
+                "email": "support@smilefotilo.com",
                 "telephone": "+91-9453878422",
+                "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "KP Singh Marg, near Deewani Kacheri Chauraha, Civil Line",
+                    "addressLocality": "Gonda",
+                    "addressRegion": "Uttar Pradesh",
+                    "postalCode": "271001",
+                    "addressCountry": "IN"
+                },
                 "sameAs": [
                     "https://www.instagram.com/ashrafkamal14/",
                     "https://www.linkedin.com/in/ashrafkamal14/",
@@ -27,7 +35,7 @@ export const JsonLd = () => {
                     {
                         "@type": "ContactPoint",
                         "telephone": "+91-9453878422",
-                        "email": "ashrafkamal1458@gmail.com",
+                        "email": "support@smilefotilo.com",
                         "contactType": "sales",
                         "areaServed": ["IN", "US", "MX"],
                         "availableLanguage": ["en", "hi"]

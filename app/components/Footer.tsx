@@ -77,9 +77,9 @@ export const Footer = React.memo(() => (
                             </a>
                         </li>
                         <li>
-                            <a href="mailto:ashrafkamal1458@gmail.com" className="flex items-center gap-3 text-slate-400 text-sm justify-center md:justify-start hover:text-indigo-400 transition-colors">
+                            <a href="mailto:support@smilefotilo.com" className="flex items-center gap-3 text-slate-400 text-sm justify-center md:justify-start hover:text-indigo-400 transition-colors">
                                 <MdEmail className="text-indigo-400 text-lg" />
-                                <span className="truncate">ashrafkamal1458@gmail.com</span>
+                                <span className="truncate">support@smilefotilo.com</span>
                             </a>
                         </li>
                         <li className="flex items-center gap-3 text-slate-400 text-sm justify-center md:justify-start">

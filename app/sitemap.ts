@@ -5,7 +5,10 @@ export const dynamic = 'force-static';
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = 'https://smilefotilo.com';
-    const now = new Date();
+    // Stable lastmod for static pages. Bump this date only when the pages actually
+    // change — do NOT use `new Date()` (it faked "changed today" on every build,
+    // a freshness signal Google learns to ignore).
+    const lastUpdated = new Date('2026-06-01T00:00:00Z');
 
     // Generate blog post URLs
     const blogUrls = blogPosts.map(post => ({
@@ -19,8 +22,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
         // Blog main page
         {
             url: `${baseUrl}/blog`,
-            lastModified: now,
-            changeFrequency: 'daily',
+            lastModified: lastUpdated,
+            changeFrequency: 'weekly',
             priority: 0.9,
         },
         // All blog posts
@@ -28,193 +31,193 @@ export default function sitemap(): MetadataRoute.Sitemap {
         // Main Pages
         {
             url: baseUrl,
-            lastModified: now,
+            lastModified: lastUpdated,
             changeFrequency: 'weekly',
             priority: 1,
         },
         {
             url: `${baseUrl}/about`,
-            lastModified: now,
+            lastModified: lastUpdated,
             changeFrequency: 'monthly',
             priority: 0.8,
         },
         {
             url: `${baseUrl}/privacy`,
-            lastModified: now,
+            lastModified: lastUpdated,
             changeFrequency: 'yearly',
             priority: 0.3,
         },
         {
             url: `${baseUrl}/terms`,
-            lastModified: now,
+            lastModified: lastUpdated,
             changeFrequency: 'yearly',
             priority: 0.3,
         },
         {
             url: `${baseUrl}/pricing`,
-            lastModified: now,
+            lastModified: lastUpdated,
             changeFrequency: 'weekly',
             priority: 0.9,
         },
         {
             url: `${baseUrl}/services`,
-            lastModified: now,
+            lastModified: lastUpdated,
             changeFrequency: 'monthly',
             priority: 0.8,
         },
         // Services - SEO Authority Pages
         {
             url: `${baseUrl}/services/web-design`,
-            lastModified: now,
+            lastModified: lastUpdated,
             changeFrequency: 'monthly',
             priority: 0.9,
         },
         {
             url: `${baseUrl}/services/seo`,
-            lastModified: now,
+            lastModified: lastUpdated,
             changeFrequency: 'monthly',
             priority: 0.9,
         },
         {
             url: `${baseUrl}/services/branding`,
-            lastModified: now,
+            lastModified: lastUpdated,
             changeFrequency: 'monthly',
             priority: 0.9,
         },
         {
             url: `${baseUrl}/services/ai-growth-os`,
-            lastModified: now,
+            lastModified: lastUpdated,
             changeFrequency: 'monthly',
             priority: 0.9,
         },
         {
             url: `${baseUrl}/services/clinic-growth-autopilot`,
-            lastModified: now,
+            lastModified: lastUpdated,
             changeFrequency: 'monthly',
             priority: 0.9,
         },
         // Work / Portfolio
         {
             url: `${baseUrl}/work`,
-            lastModified: now,
+            lastModified: lastUpdated,
             changeFrequency: 'weekly',
             priority: 0.9,
         },
         {
             url: `${baseUrl}/work/pulsekart`,
-            lastModified: now,
+            lastModified: lastUpdated,
             changeFrequency: 'monthly',
             priority: 0.7,
         },
         {
             url: `${baseUrl}/work/kapda-factory`,
-            lastModified: now,
+            lastModified: lastUpdated,
             changeFrequency: 'monthly',
             priority: 0.7,
         },
         {
             url: `${baseUrl}/work/orderflow`,
-            lastModified: now,
+            lastModified: lastUpdated,
             changeFrequency: 'monthly',
             priority: 0.7,
         },
         {
             url: `${baseUrl}/work/storybook-weddings`,
-            lastModified: now,
+            lastModified: lastUpdated,
             changeFrequency: 'monthly',
             priority: 0.7,
         },
         // Locations
         {
             url: `${baseUrl}/locations`,
-            lastModified: now,
+            lastModified: lastUpdated,
             changeFrequency: 'monthly',
             priority: 0.8,
         },
         {
             url: `${baseUrl}/locations/gonda`,
-            lastModified: now,
+            lastModified: lastUpdated,
             changeFrequency: 'monthly',
             priority: 0.7,
         },
         {
             url: `${baseUrl}/locations/lucknow`,
-            lastModified: now,
+            lastModified: lastUpdated,
             changeFrequency: 'monthly',
             priority: 0.7,
         },
         {
             url: `${baseUrl}/locations/greater-noida`,
-            lastModified: now,
+            lastModified: lastUpdated,
             changeFrequency: 'monthly',
             priority: 0.7,
         },
         {
             url: `${baseUrl}/locations/ayodhya`,
-            lastModified: now,
+            lastModified: lastUpdated,
             changeFrequency: 'monthly',
             priority: 0.7,
         },
         {
             url: `${baseUrl}/locations/global`,
-            lastModified: now,
+            lastModified: lastUpdated,
             changeFrequency: 'monthly',
             priority: 0.8,
         },
         // Tools Pages
         {
             url: `${baseUrl}/tools`,
-            lastModified: now,
+            lastModified: lastUpdated,
             changeFrequency: 'monthly',
             priority: 0.8,
         },
         {
             url: `${baseUrl}/tools/website-audit`,
-            lastModified: now,
+            lastModified: lastUpdated,
             changeFrequency: 'monthly',
             priority: 0.7,
         },
         {
             url: `${baseUrl}/tools/seo-content`,
-            lastModified: now,
+            lastModified: lastUpdated,
             changeFrequency: 'monthly',
             priority: 0.7,
         },
         {
             url: `${baseUrl}/tools/brand-kit`,
-            lastModified: now,
+            lastModified: lastUpdated,
             changeFrequency: 'monthly',
             priority: 0.7,
         },
         {
             url: `${baseUrl}/tools/content-calendar`,
-            lastModified: now,
+            lastModified: lastUpdated,
             changeFrequency: 'monthly',
             priority: 0.7,
         },
         {
             url: `${baseUrl}/tools/document-intelligence`,
-            lastModified: now,
+            lastModified: lastUpdated,
             changeFrequency: 'monthly',
             priority: 0.7,
         },
         {
             url: `${baseUrl}/tools/website-factory`,
-            lastModified: now,
+            lastModified: lastUpdated,
             changeFrequency: 'monthly',
             priority: 0.7,
         },
         // Marketplace
         {
             url: `${baseUrl}/marketplace`,
-            lastModified: now,
+            lastModified: lastUpdated,
             changeFrequency: 'weekly',
             priority: 0.8,
         },
         // Portfolio
         {
             url: `${baseUrl}/portfolio`,
-            lastModified: now,
+            lastModified: lastUpdated,
             changeFrequency: 'monthly',
             priority: 0.8,
         },

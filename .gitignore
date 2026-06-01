@@ -24,6 +24,15 @@
 .DS_Store
 *.pem
 
+# secrets (never commit) — keep local-only in ../_local-secrets
+secrets.txt
+secrets*.txt
+*secret*.json
+captcha-*.json
+google-key.json
+*-service-account*.json
+*.key
+
 # debug
 npm-debug.log*
 yarn-debug.log*

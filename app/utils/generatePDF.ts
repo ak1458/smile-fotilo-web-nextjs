@@ -202,7 +202,7 @@ export async function generateProjectPDF(data: ProjectData): Promise<void> {
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(203, 213, 225);
     doc.text('+91 9453878422', margin + 10, y + 22);
-    doc.text('ashrafkamal1458@gmail.com', margin + 70, y + 22);
+    doc.text('support@smilefotilo.com', margin + 70, y + 22);
     doc.text('smilefotilo.com', margin + 10, y + 30);
 
     // ========== FOOTER ==========

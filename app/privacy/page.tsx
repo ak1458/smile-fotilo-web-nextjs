@@ -71,7 +71,7 @@ export default function PrivacyPolicyPage() {
                                 If you have any questions about this Privacy Policy, please contact us at:
                             </p>
                             <ul className="text-slate-300 mt-4 space-y-2">
-                                <li>Email: ashrafkamal1458@gmail.com</li>
+                                <li>Email: support@smilefotilo.com</li>
                                 <li>Phone: +91 9453878422</li>
                                 <li>Address: Gonda, Uttar Pradesh, India</li>
                             </ul>

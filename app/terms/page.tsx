@@ -94,7 +94,7 @@ export default function TermsOfServicePage() {
                             For questions about these Terms of Service, please contact us:
                         </p>
                         <ul className="text-slate-300 mt-4 space-y-2">
-                            <li>Email: ashrafkamal1458@gmail.com</li>
+                            <li>Email: support@smilefotilo.com</li>
                             <li>Phone: +91 9453878422</li>
                         </ul>
                     </section>
