@@ -186,39 +186,30 @@ async function callGroq(
  * Template fallback for when all APIs fail
  */
 function getTemplateResponse(prompt: string): string {
-  const prompt_lower = prompt.toLowerCase();
+  // Fallback for the Smile Fotilo site assistant when all AI providers are down.
+  // (Previously held leftover clinic-bot templates — wrong for our own site.)
+  const p = prompt.toLowerCase();
+  const wa = 'WhatsApp +91 94538 78422';
 
-  // Common business queries
-  if (prompt_lower.includes('price') || prompt_lower.includes('cost') || prompt_lower.includes('rate')) {
-    return 'Hamari services ki pricing bahut competitive hai. Starter plan ₹15,000 se shuru hota hai. Details ke liye call karein!';
+  if (p.includes('price') || p.includes('cost') || p.includes('rate') || p.includes('budget')) {
+    return `Websites start at ₹25,000 (Launch) and ₹65,000 (Growth, with e-commerce). Local SEO from ₹15,000/month. Tell me your project and I'll point you to the right fit — or ${wa} for a fast quote.`;
   }
-
-  if (prompt_lower.includes('time') || prompt_lower.includes('hour') || prompt_lower.includes('open')) {
-    return 'Hamara clinic subah 9 baje se shaam 7 baje tak open rehta hai. Monday to Saturday.';
+  if (p.includes('time') || p.includes('hour') || p.includes('open') || p.includes('reply')) {
+    return `We reply the same day, Monday–Saturday, 9am–6pm IST. Fastest way to reach Ashraf: ${wa}.`;
   }
-
-  if (prompt_lower.includes('appointment') || prompt_lower.includes('booking') || prompt_lower.includes('slot')) {
-    return 'Appointment book karne ke liye aapna naam aur preferred date/time bataiye. Main aapko confirm kar deta hoon.';
+  if (p.includes('appointment') || p.includes('booking') || p.includes('call') || p.includes('meeting')) {
+    return `Happy to set up a quick call. Share your name and what you need (website, SEO, or automation) and the best time — or message us on ${wa}.`;
   }
-
-  if (prompt_lower.includes('location') || prompt_lower.includes('address') || prompt_lower.includes('where')) {
-    return 'Hamara address: [Business Address]. Aap Google Maps par "[Business Name]" search kar sakte hain.';
+  if (p.includes('location') || p.includes('address') || p.includes('where')) {
+    return `We're based in Gonda (HQ) with studios in Greater Noida and Ayodhya, and we work with clients across Uttar Pradesh and worldwide.`;
   }
-
-  if (prompt_lower.includes('service') || prompt_lower.includes('treatment') || prompt_lower.includes('facility')) {
-    return 'Ham yeh services provide karte hain: [List services]. Koi specific service ke baare mein jaankari chahiye?';
+  if (p.includes('service') || p.includes('do you') || p.includes('what can')) {
+    return `We build websites, run local SEO, set up e-commerce, and add AI automation (like WhatsApp follow-ups and missed-call recovery). What are you trying to grow?`;
   }
-
-  if (prompt_lower.includes('doctor') || prompt_lower.includes('dr.') || prompt_lower.includes('who')) {
-    return 'Hamare yahan experienced doctors hain. Dr. [Name] ke paas 10+ saal ka experience hai. Aap unse milna chahenge?';
+  if (p.includes('thank') || p.includes('thanks') || p.includes('dhanyavad')) {
+    return `You're welcome! Anything else I can help with? You can also reach us on ${wa}.`;
   }
-
-  if (prompt_lower.includes('thank') || prompt_lower.includes('thanks') || prompt_lower.includes('dhanyavad')) {
-    return 'Aapka welcome hai! Koi aur madad chahiye toh batana.';
-  }
-
-  // Default response
-  return 'Main aapki madad karna chahta hoon. Kripaya apna sawal thoda detail mein batayein.';
+  return `I can help with websites, SEO, and automation. Tell me a bit about your business and I'll guide you — or reach Ashraf directly on ${wa}.`;
 }
 
 /**
