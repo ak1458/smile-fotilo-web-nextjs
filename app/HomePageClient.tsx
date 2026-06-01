@@ -71,7 +71,7 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 font-light leading-relaxed"
         >
-          I&apos;m Ashraf Kamal. I build fast, SEO-ready <span className="text-indigo-400 font-semibold border-b border-indigo-400/30">websites and run local SEO</span> for clinics, e-commerce, and local businesses across Gonda, Lucknow &amp; Ayodhya — and for clients worldwide. Founder-led, same-day replies, Hindi &amp; English.
+          I&apos;m Ashraf Kamal. I build fast, SEO-ready <span className="text-indigo-400 font-semibold border-b border-indigo-400/30">websites, run local SEO, and set up AI automation</span> for clinics, e-commerce, and local businesses across Gonda, Lucknow &amp; Ayodhya — and for clients worldwide. Founder-led, same-day replies, Hindi &amp; English.
         </motion.p>
 
         <motion.div
@@ -87,6 +87,15 @@ const Hero = () => {
             See Client Results
           </a>
         </motion.div>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+          className="mt-6 text-sm text-slate-400"
+        >
+          Websites from <span className="font-semibold text-slate-200">₹25,000</span> · Free quote in 24 hours · 100+ projects delivered
+        </motion.p>
       </div>
     </section>
   );
@@ -147,36 +156,36 @@ const Pricing = () => {
   const pricingByMode = {
     project: {
       label: 'Project Delivery',
-      subtitle: 'One-time execution for websites and product builds.',
+      subtitle: 'Fixed-scope websites. Transparent pricing, no surprises.',
       plans: [
         {
-          title: 'Starter',
-          price: 'INR 15k',
+          title: 'Launch',
+          price: '₹25,000',
           suffix: '/ project',
-          description: 'For clinics and local businesses that need a premium online presence.',
-          points: ['Responsive website', 'Core SEO setup', 'Lead-ready contact flow'],
-          ctaLabel: 'Get Starter',
+          description: 'For local businesses and clinics getting online the right way.',
+          points: ['5-page responsive website', 'On-page SEO setup', 'Lead form + WhatsApp CTA', 'Google Business Profile optimization'],
+          ctaLabel: 'Start with Launch',
           href: '/pricing',
           featured: false,
         },
         {
           title: 'Growth',
-          price: 'INR 35k+',
+          price: '₹65,000',
           suffix: '/ project',
-          description: 'For brands that need dynamic pages, conversion UX, and scale-ready architecture.',
-          points: ['Dynamic content blocks', 'Performance optimization', 'Analytics and tracking'],
+          description: 'For businesses and small e-commerce that need to convert and scale.',
+          points: ['Dynamic pages or online store', 'Conversion-focused UX', 'Performance + analytics', '3 months support'],
           ctaLabel: 'Choose Growth',
           href: '/pricing',
           featured: true,
         },
         {
-          title: 'Enterprise',
-          price: 'Custom Scope',
-          suffix: '',
-          description: 'Complex system design, multi-role dashboards, and advanced integrations.',
-          points: ['Architecture planning', 'Custom workflows', 'Delivery roadmap'],
-          ctaLabel: 'Discuss Enterprise',
-          prompt: 'I need enterprise project pricing and delivery scope.',
+          title: 'Premium',
+          price: '₹1,25,000+',
+          suffix: '/ project',
+          description: 'For custom builds with integrations, dashboards, and advanced SEO.',
+          points: ['Custom architecture', 'Payments / CRM / AI integrations', 'Advanced SEO + roadmap'],
+          ctaLabel: 'Discuss Premium',
+          prompt: 'I need custom/premium project pricing and delivery scope.',
           featured: false,
         },
       ],
@@ -232,7 +241,7 @@ const Pricing = () => {
           className="text-center mb-12"
         >
           <span className="text-indigo-400 font-bold tracking-wider uppercase text-sm">Packages</span>
-          <h2 className="text-3xl md:text-5xl font-bold text-slate-50 mt-3">Dynamic Pricing</h2>
+          <h2 className="text-3xl md:text-5xl font-bold text-slate-50 mt-3">Simple, Transparent Pricing</h2>
           <p className="text-slate-400 mt-4 max-w-2xl mx-auto">{activeMode.subtitle}</p>
         </motion.div>
 

@@ -116,7 +116,7 @@ Good: "Sure thing. What's the business - clinic, retail, services? Helps me poin
 
 User: "How much?"
 Bad: "Great question! Our pricing starts at..."
-Good: "Depends on what you need. Starter sites run ₹15k, e-commerce starts around ₹35k. What's your budget looking like?"
+Good: "Depends on what you need. Launch sites start at ₹25k, e-commerce/Growth around ₹65k. What's your budget looking like?"
 
 User: "What do you do?"
 Bad: "We offer web development, SEO, branding..."
@@ -185,21 +185,21 @@ function getPredefinedReply(rawMessage: string): PredefinedReply | null {
 
   if (containsAny(message, ['price', 'pricing', 'cost', 'budget', 'how much', 'investment'])) {
     return {
-      text: 'Straight to the numbers - I respect that. Starter sites begin at ₹15k (5 pages, basic SEO). E-commerce and complex builds start around ₹35k. Growth Autopilot for clinics is ₹9,999/month. What\'s your ballpark?',
-      quickReplies: ['Under ₹20k', '₹20k-50k range', 'Flexible for right solution', 'Just researching'],
+      text: 'Straight to the numbers - I respect that. Launch sites begin at ₹25k (5 pages, on-page SEO + Google Business setup). E-commerce/Growth starts around ₹65k. Growth Autopilot for clinics is ₹9,999/month. What\'s your ballpark?',
+      quickReplies: ['Under ₹40k', '₹40k-1L range', 'Flexible for right solution', 'Just researching'],
     };
   }
 
   if (containsAny(message, ['starter', 'basic', 'simple website'])) {
     return {
-      text: 'Starter makes sense if you\'re just establishing your online presence. You get a professional 5-page site, mobile optimization, basic SEO setup, and one month of support. Turnaround is usually 5-7 days. Solid foundation to build on.',
+      text: 'Launch makes sense if you\'re just establishing your online presence. You get a professional 5-page site, mobile optimization, on-page SEO, and Google Business Profile setup so you show up locally. Turnaround is usually 5-7 days. Solid foundation to build on.',
       quickReplies: ['What pages are included?', 'Can I upgrade later?', 'Let\'s move forward'],
     };
   }
 
   if (containsAny(message, ['growth', 'ecommerce', 'e-commerce', 'online store'])) {
     return {
-      text: 'Growth tier is where most serious businesses land. You get full e-commerce with payment integration, an admin panel so you can update products yourself, advanced SEO setup, and we handle up to 50 products in the initial build. Starts at ₹35k.',
+      text: 'Growth tier is where most serious businesses land. You get full e-commerce with payment integration, an admin panel so you can update products yourself, advanced SEO setup, and we handle up to 50 products in the initial build. Starts at ₹65k.',
       quickReplies: ['Payment gateway options?', 'How many products?', 'Timeline for this?'],
     };
   }

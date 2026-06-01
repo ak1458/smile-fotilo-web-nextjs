@@ -31,25 +31,23 @@ Smile Fotilo is a premium digital agency specializing in high-end web design, SE
 
 **PRICING PACKAGES:**
 
-- **The Starter (₹15k / project):**
-  - Best for doctors, clinics, small shops.
-  - Professional 5-page website
-  - Basic SEO setup
-  - 1-week delivery
+- **Launch (₹25,000 / project):**
+  - Best for doctors, clinics, local shops getting online.
+  - 5-page responsive website
+  - On-page SEO setup + Google Business Profile optimization
+  - Lead form + WhatsApp CTA
 
-- **The Growth (₹35k / starting):**
-  - Best for retail brands & growing businesses.
-  - Dynamic content management
-  - E-commerce functionality (up to 50 products)
-  - Advanced SEO & Analytics
-  - Blog section
+- **Growth (₹65,000 / starting):**
+  - Best for businesses & small e-commerce.
+  - Dynamic pages or online store
+  - Conversion-focused UX + performance
+  - Advanced SEO & analytics, 3 months support
 
-- **The Domination (Custom Pricing):**
-  - Full-stack solution for large enterprises.
-  - Custom web application (React/Next.js)
-  - 3D integrations
-  - Full branding suite
-  - Dedicated support officer
+- **Premium (₹1,25,000+ / custom):**
+  - Custom builds with integrations.
+  - Custom web app (React/Next.js)
+  - Payments / CRM / AI integrations
+  - Advanced SEO + delivery roadmap
 
 **CONTACT INFO:**
 - **Email:** support@smilefotilo.com

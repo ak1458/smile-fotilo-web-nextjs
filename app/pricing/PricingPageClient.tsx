@@ -29,12 +29,12 @@ export default function PricingPage() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="p-8 rounded-3xl bg-[#1E293B] border border-white/5 hover:border-sky-400 transition-all"
           >
-            <div className="text-sky-400 font-bold uppercase text-xs mb-2">The Starter</div>
+            <div className="text-sky-400 font-bold uppercase text-xs mb-2">Launch</div>
             <h2 className="text-3xl font-bold text-slate-50 mb-4">
-              INR 15k <span className="text-sm text-slate-400 font-normal">/ project</span>
+              ₹25,000 <span className="text-sm text-slate-400 font-normal">/ project</span>
             </h2>
             <p className="text-slate-400 mb-8">
-              Perfect for doctors, clinics, or small shops needing a professional digital presence.
+              For doctors, clinics, and local shops getting online the right way — with SEO and Google Business done properly.
             </p>
 
             <ul className="space-y-4 mb-8 text-slate-300">
@@ -77,9 +77,9 @@ export default function PricingPage() {
             <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-sky-400 text-[#0F172A] text-xs font-bold px-3 py-1 rounded-full uppercase">
               Most Popular
             </div>
-            <div className="text-sky-400 font-bold uppercase text-xs mb-2">The Growth</div>
+            <div className="text-sky-400 font-bold uppercase text-xs mb-2">Growth</div>
             <h2 className="text-3xl font-bold text-slate-50 mb-4">
-              INR 35k <span className="text-sm text-slate-400 font-normal">/ starting</span>
+              ₹65,000 <span className="text-sm text-slate-400 font-normal">/ starting</span>
             </h2>
             <p className="text-slate-400 mb-8">
               For retail brands ready to sell online with dynamic content and advanced performance setup.
