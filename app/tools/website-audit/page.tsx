@@ -2,24 +2,24 @@ import type { Metadata } from 'next';
 import WebsiteAuditPageClient from './WebsiteAuditPageClient';
 
 export const metadata: Metadata = {
-  title: 'AI Website Audit Tool',
+  title: 'Free Website Audit Tool — SEO, Speed & Mobile Checker',
   description:
-    'Run a fast AI website audit to review SEO, performance, and technical issues with graded recommendations.',
+    'Free website audit: real SEO, performance, mobile, and security checks with category scores and prioritized fixes. Enter any URL and get results in seconds.',
   alternates: {
     canonical: '/tools/website-audit',
   },
   openGraph: {
-    title: 'AI Website Audit Tool | Smile Fotilo',
+    title: 'Free Website Audit Tool | Smile Fotilo',
     description:
-      'Audit any website for SEO, speed, and technical issues with Smile Fotilo AI.',
+      'Run a real SEO, speed, mobile, and security audit on any website — scored by category with prioritized fixes.',
     type: 'website',
     url: 'https://smilefotilo.com/tools/website-audit',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AI Website Audit Tool | Smile Fotilo',
+    title: 'Free Website Audit Tool | Smile Fotilo',
     description:
-      'Audit any website for SEO, speed, and technical issues with Smile Fotilo AI.',
+      'Run a real SEO, speed, mobile, and security audit on any website — scored by category with prioritized fixes.',
   },
 };
 

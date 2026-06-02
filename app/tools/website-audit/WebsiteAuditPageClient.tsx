@@ -8,9 +8,13 @@ type AuditResult = {
     score: number;
     grade: string;
     summary: string;
+    categories?: { name: string; score: number; icon: string }[];
+    metrics?: { ttfbMs: number; htmlKB: number; perfSource: 'psi' | 'heuristic'; lcp: string | null; cls: string | null };
     issues: { category: string; severity: 'critical' | 'warning' | 'info'; message: string }[];
     recommendations: string[];
 };
+
+const barColor = (s: number) => (s >= 80 ? 'bg-emerald-400' : s >= 55 ? 'bg-amber-400' : 'bg-red-400');
 
 const severityStyles = {
     critical: 'bg-red-500/10 text-red-400 border-red-500/20',
@@ -104,14 +108,14 @@ export default function WebsiteAuditPage() {
                 <div className="relative z-10 max-w-3xl mx-auto text-center px-6 pt-16 pb-12">
                     <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-violet-500/10 border border-violet-500/20 rounded-full text-violet-300 text-xs font-medium mb-6">
                         <span className="w-2 h-2 bg-violet-400 rounded-full animate-pulse" />
-                        FREE AI-POWERED TOOL
+                        FREE WEBSITE AUDIT
                     </div>
                     <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
-                        Instant Website
+                        Free Website
                         <span className="bg-gradient-to-r from-violet-400 to-blue-400 bg-clip-text text-transparent"> Audit</span>
                     </h1>
                     <p className="text-white/50 text-lg max-w-xl mx-auto mb-10">
-                        Enter any URL and get an AI-powered SEO, performance, and security analysis in seconds.
+                        Enter any URL for real SEO, performance, mobile, and security checks — scored by category, with fixes ranked by priority.
                     </p>
 
                     {/* Search Bar */}
@@ -201,6 +205,35 @@ export default function WebsiteAuditPage() {
                         </div>
                     </div>
 
+                    {/* Category Scores */}
+                    {result.categories && result.categories.length > 0 && (
+                        <div className="bg-white/5 rounded-2xl border border-white/10 p-6">
+                            <div className="flex items-center justify-between mb-4">
+                                <h3 className="text-lg font-bold">Category Scores</h3>
+                                {result.metrics && (
+                                    <span className="text-xs text-white/40">
+                                        {result.metrics.ttfbMs}ms response · {result.metrics.htmlKB}KB
+                                        {result.metrics.perfSource === 'psi' ? ' · Lighthouse' : ''}
+                                        {result.metrics.lcp ? ` · LCP ${result.metrics.lcp}` : ''}
+                                    </span>
+                                )}
+                            </div>
+                            <div className="grid sm:grid-cols-2 gap-x-8 gap-y-4">
+                                {result.categories.map((c) => (
+                                    <div key={c.name}>
+                                        <div className="flex items-center justify-between text-sm mb-1.5">
+                                            <span className="text-white/80">{c.icon} {c.name}</span>
+                                            <span className="font-semibold text-white/90">{c.score}/100</span>
+                                        </div>
+                                        <div className="h-2 rounded-full bg-white/10 overflow-hidden">
+                                            <div className={`h-full rounded-full ${barColor(c.score)} transition-all duration-700`} style={{ width: `${c.score}%` }} />
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
                     {/* Issues List */}
                     {result.issues.length > 0 && (
                         <div className="bg-white/5 rounded-2xl border border-white/10 p-6">
@@ -243,9 +276,9 @@ export default function WebsiteAuditPage() {
                     <div className="bg-gradient-to-r from-violet-600/20 to-indigo-600/20 rounded-2xl border border-violet-500/20 p-8 text-center">
                         {!emailCaptured ? (
                             <>
-                                <h3 className="text-xl font-bold mb-2">Want a Deeper Analysis?</h3>
+                                <h3 className="text-xl font-bold mb-2">Want us to fix these?</h3>
                                 <p className="text-white/50 text-sm mb-6 max-w-md mx-auto">
-                                    Get a comprehensive 20-page audit report with actionable fixes, competitor analysis, and a growth strategy — delivered to your inbox.
+                                    Get the full report with prioritized fixes plus a free 15-min call on how to action them — straight to your inbox.
                                 </p>
                                 <form onSubmit={handleEmailCapture} className="flex flex-col sm:flex-row items-center gap-3 max-w-md mx-auto">
                                     <input
@@ -275,7 +308,7 @@ export default function WebsiteAuditPage() {
 
                     {/* CTA */}
                     <div className="text-center">
-                        <p className="text-white/30 text-xs mb-4">Powered by Smile Fotilo AI</p>
+                        <p className="text-white/30 text-xs mb-4">Real checks, no fluff — by Smile Fotilo</p>
                         <Link
                             href="/pricing"
                             className="inline-flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/10 rounded-xl text-white/70 hover:text-white hover:border-white/20 transition-all text-sm"
