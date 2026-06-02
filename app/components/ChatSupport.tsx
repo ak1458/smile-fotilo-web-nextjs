@@ -104,7 +104,7 @@ export const ChatSupport = () => {
 
         if (text.includes('price') || text.includes('pricing') || text.includes('cost') || text.includes('budget')) {
             return {
-                text: "Our packages run from ₹15k for Starter sites up to ₹35k+ for e-commerce. Growth Autopilot is ₹9,999/month. What's your budget range?",
+                text: "Our websites start at ₹25k (Launch) and ₹65k (Growth, with e-commerce). Growth Autopilot is ₹12,000/month. What's your budget range?",
                 quickReplies: ["Under ₹20k", "₹20k-50k", "Flexible budget"]
             };
         }

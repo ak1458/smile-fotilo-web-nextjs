@@ -185,7 +185,7 @@ function getPredefinedReply(rawMessage: string): PredefinedReply | null {
 
   if (containsAny(message, ['price', 'pricing', 'cost', 'budget', 'how much', 'investment'])) {
     return {
-      text: 'Straight to the numbers - I respect that. Launch sites begin at ₹25k (5 pages, on-page SEO + Google Business setup). E-commerce/Growth starts around ₹65k. Growth Autopilot for clinics is ₹9,999/month. What\'s your ballpark?',
+      text: 'Straight to the numbers - I respect that. Launch sites begin at ₹25k (5 pages, on-page SEO + Google Business setup). E-commerce/Growth starts around ₹65k. Growth Autopilot for clinics is ₹12,000/month. What\'s your ballpark?',
       quickReplies: ['Under ₹40k', '₹40k-1L range', 'Flexible for right solution', 'Just researching'],
     };
   }
@@ -206,7 +206,7 @@ function getPredefinedReply(rawMessage: string): PredefinedReply | null {
 
   if (containsAny(message, ['clinic autopilot', 'clinic ai', 'ai growth', 'ai os', 'automation', 'chatbot', 'local business os', 'autopilot'])) {
     return {
-      text: 'Growth Autopilot is our flagship product for clinics specifically. It handles the repetitive stuff - missed call follow-ups via WhatsApp, appointment reminders 24h and 2h before, Google review responses, and a bilingual chatbot for patient queries. ₹9,999/month per location.',
+      text: 'Growth Autopilot is our flagship product for clinics specifically. It handles the repetitive stuff - missed call follow-ups via WhatsApp, appointment reminders 24h and 2h before, Google review responses, and a bilingual chatbot for patient queries. ₹12,000/month per location.',
       quickReplies: ['How does setup work?', 'Which clinics is this for?', 'Book a pilot demo'],
     };
   }

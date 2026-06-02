@@ -6,7 +6,7 @@ import { StructuredData, faqSchema, serviceSchema } from '../../components/Struc
 
 export const metadata: Metadata = {
     title: 'SEO & GEO Services India — Zero Position Ranking',
-    description: 'Expert SEO & GEO (Generative Engine Optimization) services starting ₹9,999/month. We rank you in AI Overviews, Featured Snippets, and Google #1. Local SEO for Lucknow, Gonda, Greater Noida. Free audit.',
+    description: 'Expert SEO & GEO (Generative Engine Optimization) services starting ₹15,000/month. We rank you in AI Overviews, Featured Snippets, and Google #1. Local SEO for Lucknow, Gonda, Greater Noida. Free audit.',
     alternates: {
         canonical: '/services/seo',
     },
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     ],
     openGraph: {
         title: 'SEO & GEO Services — Zero Position Ranking',
-        description: 'Expert SEO & GEO services. Rank in AI Overviews, Featured Snippets, and Google #1. Starting ₹9,999/month.',
+        description: 'Expert SEO & GEO services. Rank in AI Overviews, Featured Snippets, and Google #1. Starting ₹15,000/month.',
         type: 'website',
         url: 'https://smilefotilo.com/services/seo',
         images: [{
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: 'SEO & GEO Services — Zero Position',
-        description: 'Rank in AI Overviews & Google #1. Expert SEO & GEO optimization starting ₹9,999/month.',
+        description: 'Rank in AI Overviews & Google #1. Expert SEO & GEO optimization starting ₹15,000/month.',
         images: ['/og?title=SEO%20%26%20GEO%20Services&subtitle=Zero%20Position%20Ranking'],
     },
 };
@@ -46,7 +46,7 @@ const faqs = [
     { question: "How do I rank in AI Overviews?", answer: "Use direct answers in the first 2-3 sentences, add FAQ schema, build topic clusters, ensure factual accuracy, and establish E-E-A-T through author credentials." },
     { question: "How long does SEO take to show results?", answer: "Initial improvements appear in 2-3 months, significant results in 4-6 months. I provide monthly reports tracking rankings, traffic, and AI citations." },
     { question: "What's the difference between SEO and GEO?", answer: "SEO = rank #1 for clicks. GEO = be cited in AI summaries. Modern optimization requires both approaches." },
-    { question: "How much does SEO cost per month?", answer: "Starting from ₹9,999/month for local businesses. E-commerce may require ₹25,000-50,000/month based on competition." },
+    { question: "How much does SEO cost per month?", answer: "Starting from ₹15,000/month for local businesses. E-commerce may require ₹25,000-50,000/month based on competition." },
     { question: "What is E-E-A-T?", answer: "Experience, Expertise, Authoritativeness, Trust. In 2026, Google rewards content with proven human experience over AI-generated content." },
     { question: "Do you provide local SEO?", answer: "Yes. I optimize for 'near me' searches, Google Maps, and location pages for cities like Lucknow, Gonda, Greater Noida, and Ayodhya." }
 ];
@@ -60,7 +60,7 @@ export default function SEOPage() {
                     name: 'SEO & GEO Services',
                     description: metadata.description as string,
                     url: 'https://smilefotilo.com/services/seo',
-                    offersFrom: '9999',
+                    offersFrom: '15000',
                     areaServed: ['Gonda', 'Lucknow', 'Greater Noida', 'Ayodhya', 'India'],
                 }),
                 faqSchema(faqs),

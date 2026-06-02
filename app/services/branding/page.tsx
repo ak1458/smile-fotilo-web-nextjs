@@ -4,8 +4,8 @@ import { OpenChatButton } from '../../components/OpenChatButton';
 import { Footer } from '../../components/Footer';
 
 export const metadata: Metadata = {
-    title: 'Brand Identity & Logo Design India — Starting ₹7,999',
-    description: 'Professional logo design starting ₹7,999 and brand identity from ₹25,000. 3 concepts, 2 revisions, all vector files. Packaging design, brand guidelines, and visual identity systems. 2-4 week delivery.',
+    title: 'Brand Identity & Logo Design India — Starting ₹10,000',
+    description: 'Professional logo design starting ₹10,000 and brand identity from ₹25,000. 3 concepts, 2 revisions, all vector files. Packaging design, brand guidelines, and visual identity systems. 2-4 week delivery.',
     alternates: {
         canonical: '/services/branding',
     },
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
         'brand book design', 'social media branding', 'affordable logo design India'
     ],
     openGraph: {
-        title: 'Brand Identity & Logo Design — Starting ₹7,999',
+        title: 'Brand Identity & Logo Design — Starting ₹10,000',
         description: 'Professional brand identity design. 3 concepts, 2 revisions, all vector files. Complete visual identity systems.',
         type: 'website',
         url: 'https://smilefotilo.com/services/branding',
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'Brand Identity & Logo Design — ₹7,999',
+        title: 'Brand Identity & Logo Design — ₹10,000',
         description: 'Professional logos & brand identity. 3 concepts, 2 revisions, all vector files. 2-4 week delivery.',
         images: ['/og?title=Brand%20Identity%20%26%20Logo%20Design&subtitle=Starting%20₹7%2C999'],
     },
@@ -46,7 +46,7 @@ export default function BrandingPage() {
         },
         {
             question: "How much does a logo cost?",
-            answer: "Standalone logos start from ₹7,999. However, we recommend complete brand identity packages (₹25,000+) that include logo variations, color palette, typography, and usage guidelines for consistency."
+            answer: "Standalone logos start from ₹10,000. However, we recommend complete brand identity packages (₹25,000+) that include logo variations, color palette, typography, and usage guidelines for consistency."
         },
         {
             question: "How long does branding take?",
@@ -87,7 +87,7 @@ export default function BrandingPage() {
                     </h1>
                     {/* Lead-with-Answer for featured snippets */}
                     <p className="text-xl text-slate-300 mb-4 max-w-2xl mx-auto">
-                        <strong className="text-white">Logo design starting ₹7,999, complete brand identity from ₹25,000.</strong> We
+                        <strong className="text-white">Logo design starting ₹10,000, complete brand identity from ₹25,000.</strong> We
                         create memorable logos, color palettes, typography systems, and brand guidelines in 2-4 weeks.
                     </p>
                     <p className="text-lg text-slate-400 mb-8 max-w-2xl mx-auto">

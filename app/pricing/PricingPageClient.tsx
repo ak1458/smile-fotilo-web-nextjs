@@ -127,7 +127,7 @@ export default function PricingPage() {
             </div>
             <div className="text-cyan-300 font-bold uppercase text-xs mb-2">Growth Autopilot</div>
             <h2 className="text-3xl font-bold text-slate-50 mb-4">
-              INR 9,999 <span className="text-sm text-slate-400 font-normal">/ month / location</span>
+              ₹12,000 <span className="text-sm text-slate-400 font-normal">/ month / location</span>
             </h2>
             <p className="text-slate-400 mb-8">
               Clinic-first automation: missed-call followup, reminders, reviews, and bilingual inquiry handling.

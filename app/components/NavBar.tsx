@@ -84,6 +84,7 @@ export const NavBar = React.memo(() => {
         setIsOpen(false);
     };
 
+    // Full list — shown in the mobile menu.
     const menuItems = [
         { href: '/#home', label: 'Home', icon: <MdHome /> },
         { href: '/#work', label: 'Work', icon: <MdWork /> },
@@ -95,6 +96,17 @@ export const NavBar = React.memo(() => {
         { href: '/blog', label: 'Blog', icon: <MdArticle /> },
         { href: '/locations', label: 'Locations', icon: <MdLocationOn /> },
         { href: '/about', label: 'About', icon: <MdInfo /> },
+    ];
+
+    // Trimmed set for the desktop bar so it never wraps or feels cramped.
+    const primaryNav = [
+        { href: '/#work', label: 'Work' },
+        { href: '/portfolio', label: 'Portfolio' },
+        { href: '/#services', label: 'Services' },
+        { href: '/pricing', label: 'Pricing' },
+        { href: '/tools', label: 'Tools' },
+        { href: '/blog', label: 'Blog' },
+        { href: '/about', label: 'About' },
     ];
 
     return (
@@ -117,12 +129,12 @@ export const NavBar = React.memo(() => {
                         </Link>
 
                         {/* Desktop Menu */}
-                        <div className="nav-links hidden items-center space-x-8 md:flex">
-                            {menuItems.map((item) => (
+                        <div className="nav-links hidden items-center gap-6 lg:flex xl:gap-8">
+                            {primaryNav.map((item) => (
                                 <Link
                                     key={item.href}
                                     href={item.href}
-                                    className="sf-nav-link text-sm font-medium text-slate-400 transition-all duration-300 hover:text-violet-400"
+                                    className="sf-nav-link whitespace-nowrap text-[15px] font-medium text-slate-300 transition-colors duration-200 hover:text-white"
                                 >
                                     {item.label}
                                 </Link>
@@ -133,14 +145,14 @@ export const NavBar = React.memo(() => {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 aria-label="Chat with us on WhatsApp"
-                                className="sf-nav-cta inline-flex items-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-bold text-[#05290f] shadow-[0_0_20px_rgba(37,211,102,0.35)] transition-all hover:scale-105 hover:bg-[#22c35e] hover:shadow-[0_0_30px_rgba(37,211,102,0.6)]"
+                                className="sf-nav-cta inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-bold text-[#05290f] shadow-[0_0_20px_rgba(37,211,102,0.35)] transition-all hover:scale-105 hover:bg-[#22c35e] hover:shadow-[0_0_30px_rgba(37,211,102,0.6)]"
                             >
                                 <FaWhatsapp className="text-lg" /> Chat on WhatsApp
                             </a>
                         </div>
 
-                        {/* Mobile: Hamburger Only */}
-                        <div className="md:hidden flex items-center gap-2">
+                        {/* Mobile / tablet: Hamburger */}
+                        <div className="lg:hidden flex items-center gap-2">
                             <button
                                 ref={buttonRef}
                                 onClick={() => setIsOpen(!isOpen)}
@@ -177,7 +189,7 @@ export const NavBar = React.memo(() => {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
                         transition={{ duration: 0.3 }}
-                        className="sf-mobile-menu mobile-menu fixed inset-0 top-20 z-40 md:hidden"
+                        className="sf-mobile-menu mobile-menu fixed inset-0 top-20 z-40 lg:hidden"
                     >
                         <div className="absolute inset-0 bg-[#0a0118]/98 backdrop-blur-2xl" />
 

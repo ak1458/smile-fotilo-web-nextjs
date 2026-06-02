@@ -255,11 +255,11 @@ export default function ClinicGrowthAutopilotPage() {
             <ul className="space-y-4 text-slate-200">
               <li className="flex items-start gap-3">
                 <MdCheckCircle className="text-cyan-300 mt-1" />
-                Setup: INR 7,999 to INR 14,999 per clinic.
+                Setup: INR 20,000 per clinic.
               </li>
               <li className="flex items-start gap-3">
                 <MdCheckCircle className="text-cyan-300 mt-1" />
-                Monthly SaaS: INR 3,999 to INR 9,999 per clinic location.
+                Monthly SaaS: INR 12,000 to INR 30,000 per clinic location.
               </li>
               <li className="flex items-start gap-3">
                 <MdCheckCircle className="text-cyan-300 mt-1" />
