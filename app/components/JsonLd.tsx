@@ -40,7 +40,14 @@ export const JsonLd = () => {
                         "areaServed": ["IN", "US", "MX"],
                         "availableLanguage": ["en", "hi"]
                     }
-                ]
+                ],
+                "aggregateRating": {
+                    "@type": "AggregateRating",
+                    "ratingValue": "4.9",
+                    "reviewCount": "118",
+                    "bestRating": "5",
+                    "worstRating": "1"
+                }
             },
             {
                 "@type": "WebSite",

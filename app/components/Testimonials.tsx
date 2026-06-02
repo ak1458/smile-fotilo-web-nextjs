@@ -46,8 +46,33 @@ const testimonials: Testimonial[] = [
         company: "Gonda, UP",
         text: "Ashraf set up our WordPress store and manages product listings and payments. The site works well for our customers.",
         rating: 5
+    },
+    {
+        name: "Rachit Gupta",
+        role: "Google Review",
+        company: "Verified · Google",
+        text: "Smile Fotilo transformed our website with their outstanding design skills. Their expertise in WordPress and SEO boosted our online presence significantly!",
+        rating: 5
+    },
+    {
+        name: "JImmy Li",
+        role: "Google Review",
+        company: "Verified · Google",
+        text: "Smile Fotilo's website development and SEO works were outstanding. They felt more like friends than clients.",
+        rating: 5
+    },
+    {
+        name: "Vivek Chaudhary",
+        role: "Google Review",
+        company: "Verified · Google",
+        text: "Best website development in Gonda and Lucknow — but in terms of India, I think it's the best.",
+        rating: 5
     }
 ];
+
+// Live Google Business Profile rating — 118 reviews at 4.9★ (the agency's strongest
+// trust signal, previously not surfaced on the site). Link goes to the public reviews page.
+const GOOGLE_REVIEWS_URL = "https://search.google.com/local/reviews?placeid=ChIJy15NOsPzmTkRJNmOFVBIiHQ";
 
 const aiCapabilities = [
     { name: "AI Workflow Automation", icon: "AI" },
@@ -71,14 +96,24 @@ export const Testimonials = () => {
                         I work directly with business owners — no account managers, no handoffs.
                         Here&apos;s what that looks like in practice.
                     </p>
+                    <a
+                        href={GOOGLE_REVIEWS_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm text-slate-200 hover:border-indigo-500/40 transition-colors"
+                    >
+                        <span className="text-yellow-400">★★★★★</span>
+                        <span className="font-semibold">4.9</span>
+                        <span className="text-slate-400">· 118 Google reviews — read them all</span>
+                    </a>
                 </div>
 
                 {/* Stats Bar */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
                     {[
+                        { stat: "4.9★", label: "Google Rating" },
+                        { stat: "118", label: "Verified Reviews" },
                         { stat: "10+", label: "Projects Delivered" },
-                        { stat: "4.9", label: "Average Rating" },
-                        { stat: "100%", label: "Direct Communication" },
                         { stat: "2", label: "Countries Served" }
                     ].map((item, i) => (
                         <div key={i} className="text-center">
