@@ -4,7 +4,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MdHome, MdWork, MdApps, MdArticle, MdLocationOn, MdInfo, MdChevronRight, MdLocalHospital, MdSearch, MdPayments } from 'react-icons/md';
+import { MdHome, MdWork, MdApps, MdArticle, MdLocationOn, MdInfo, MdChevronRight, MdLocalHospital, MdSearch, MdPayments, MdStars } from 'react-icons/md';
 import { FaWhatsapp } from 'react-icons/fa';
 import Image from 'next/image';
 
@@ -87,6 +87,7 @@ export const NavBar = React.memo(() => {
     const menuItems = [
         { href: '/#home', label: 'Home', icon: <MdHome /> },
         { href: '/#work', label: 'Work', icon: <MdWork /> },
+        { href: '/portfolio', label: 'Portfolio', icon: <MdStars /> },
         { href: '/#services', label: 'Services', icon: <MdApps /> },
         { href: '/pricing', label: 'Pricing', icon: <MdPayments /> },
         { href: '/services/clinic-growth-autopilot', label: 'Growth AI', icon: <MdLocalHospital /> },
