@@ -124,25 +124,25 @@ export default function GlobalPage() {
                     >
                         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-blue-500/20 mb-8 backdrop-blur-md">
                             <span className="flex h-2 w-2 rounded-full bg-blue-500 animate-pulse shadow-[0_0_10px_blue]"></span>
-                            <span className="text-xs font-bold uppercase tracking-widest text-blue-200">International Operations</span>
+                            <span className="text-xs font-bold uppercase tracking-widest text-blue-200">US &amp; International Clients</span>
                         </div>
 
                         <h1 className="text-5xl md:text-7xl font-bold text-white leading-[1.1] mb-8 tracking-tight">
-                            Beyond <span className="text-blue-400">Boundaries</span>. <br />
-                            <span className="text-indigo-300">Global Excellence</span>.
+                            Web development for <span className="text-blue-400">US businesses</span> <br />
+                            <span className="text-indigo-300">without the big-agency price</span>.
                         </h1>
 
                         <p className="text-xl text-slate-300 mb-10 font-light leading-relaxed">
-                            Delivering quality web development and digital marketing to <strong className="text-blue-200 font-medium">Oregon, Texas</strong>, and clients across the globe.
-                            <span className="text-slate-400 block mt-2">Powered by our headquarters in Gonda, India.</span>
+                            Custom websites, e-commerce, and SEO for US companies. I&apos;ve shipped real work for clients in <strong className="text-blue-200 font-medium">Oregon and Texas</strong> — React, Next.js, Shopify &amp; WordPress.
+                            <span className="text-slate-400 block mt-2">Founder-led, fast delivery, US-friendly hours. Built from my studio in Gonda, India.</span>
                         </p>
 
                         <div className="flex flex-wrap justify-center gap-5">
                             <button
                                 onClick={() => setIsModalOpen(true)}
-                                className="btn-primary flex items-center gap-2 group bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-500 hover:to-violet-500 shadow-blue-500/20"
+                                className="btn-primary flex items-center gap-2 group bg-blue-600 hover:bg-blue-500 shadow-blue-500/20"
                             >
-                                <span>Discuss Global Project</span>
+                                <span>Discuss Your Project</span>
                                 <MdArrowForward className="group-hover:translate-x-1 transition-transform" />
                             </button>
                             <Link
