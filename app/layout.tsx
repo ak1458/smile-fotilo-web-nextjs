@@ -7,6 +7,7 @@ import { MobileBottomNav } from "./components/MobileBottomNav";
 import { FestivalProvider } from "./components/FestivalProvider";
 import { ChatSupportWrapper } from "./components/ChatSupportWrapper";
 import { GoogleAnalytics, GTMNoScript } from "./components/GoogleAnalytics";
+import { ConversionTracking } from "./components/ConversionTracking";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -90,6 +91,7 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <GoogleAnalytics />
+        <ConversionTracking />
         <GTMNoScript />
         <FestivalProvider>
           <NavBar />

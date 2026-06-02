@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import GondaPageClient from "./GondaPageClient";
 
 export const metadata: Metadata = {
-  title: "Website Developer & SEO Company in Gonda | Smile Fotilo",
+  title: "Website Designer in Gonda | Fast, Affordable Web Design — Smile Fotilo",
   description:
-    "Need a website developer in Gonda? Smile Fotilo builds SEO-ready websites, landing pages, e-commerce stores, branding, and local lead systems for Gonda businesses.",
+    "Gonda's local web studio. Custom websites, e-commerce & Google-ranking SEO from ₹6,000 — most sites go live in 2 weeks. Get a free quote on WhatsApp today.",
   alternates: {
     canonical: "/locations/gonda",
   },
@@ -17,8 +17,8 @@ export const metadata: Metadata = {
     "local SEO Gonda",
   ],
   openGraph: {
-    title: "Website Developer & SEO Company in Gonda | Smile Fotilo",
-    description: "SEO-ready websites, landing pages, e-commerce stores, and local lead systems for Gonda businesses.",
+    title: "Website Designer in Gonda | Fast, Affordable Web Design — Smile Fotilo",
+    description: "Custom websites, e-commerce & Google-ranking SEO from ₹6,000. Most Gonda sites live in 2 weeks.",
     type: "website",
     images: [
       {
@@ -31,8 +31,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Website Developer & SEO Company in Gonda | Smile Fotilo",
-    description: "SEO-ready websites and local digital growth systems for Gonda businesses.",
+    title: "Website Designer in Gonda | Fast, Affordable Web Design — Smile Fotilo",
+    description: "Custom websites & local SEO from ₹6,000. Most Gonda sites live in 2 weeks. Free quote on WhatsApp.",
     images: ["/og?title=Web%20Design%20Gonda&subtitle=Smile%20Fotilo%20HQ"],
   },
 };
