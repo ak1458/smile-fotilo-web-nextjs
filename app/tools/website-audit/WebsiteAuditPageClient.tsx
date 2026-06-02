@@ -112,7 +112,7 @@ export default function WebsiteAuditPage() {
                     </div>
                     <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
                         Free Website
-                        <span className="bg-gradient-to-r from-violet-400 to-blue-400 bg-clip-text text-transparent"> Audit</span>
+                        <span className="text-indigo-300"> Audit</span>
                     </h1>
                     <p className="text-white/50 text-lg max-w-xl mx-auto mb-10">
                         Enter any URL for real SEO, performance, mobile, and security checks — scored by category, with fixes ranked by priority.

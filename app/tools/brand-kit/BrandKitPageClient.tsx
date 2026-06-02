@@ -93,7 +93,7 @@ export default function BrandKitPage() {
                 </div>
                 <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
                     AI Brand Kit
-                    <span className="bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-transparent"> Generator</span>
+                    <span className="text-indigo-300"> Generator</span>
                 </h1>
                 <p className="text-white/50 text-lg max-w-xl mx-auto mb-10">
                     Enter your business details and get an AI-generated brand identity — colors, typography, taglines, and brand voice.

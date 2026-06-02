@@ -66,7 +66,7 @@ export default function LocationsPage() {
                     </div>
 
                     <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
-                        Strategic <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">Locations</span>
+                        Strategic <span className="text-indigo-300">Locations</span>
                     </h1>
 
                     <p className="text-xl text-slate-400 max-w-2xl mx-auto">

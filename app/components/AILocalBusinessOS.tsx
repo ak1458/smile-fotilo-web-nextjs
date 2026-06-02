@@ -62,7 +62,7 @@ export const AILocalBusinessOS = () => {
           </div>
           <h2 className="text-3xl md:text-5xl font-bold leading-tight">
             Growth
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-indigo-300"> Autopilot</span>
+            <span className="text-indigo-300"> Autopilot</span>
           </h2>
           <p className="text-slate-400 mt-6 max-w-3xl mx-auto text-lg">
             Purpose-built for clinics: missed-call recovery, patient reminders, review workflows,

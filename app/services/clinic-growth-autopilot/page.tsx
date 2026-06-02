@@ -142,7 +142,7 @@ export default function ClinicGrowthAutopilotPage() {
           </div>
           <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
             Growth Autopilot
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-300"> for Real-World Operations</span>
+            <span className="text-indigo-300"> for Real-World Operations</span>
           </h1>
           <p className="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto mb-8">
             Not a generic chatbot. A clinic-first automation stack that scales to restaurants,

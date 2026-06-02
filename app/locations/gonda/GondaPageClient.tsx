@@ -43,7 +43,7 @@ export default function GondaPage() {
 
                         <h1 className="text-5xl md:text-7xl font-bold text-white leading-[1.1] mb-8 tracking-tight">
                             Rooted in <span className="text-emerald-400">Gonda</span>. <br />
-                            Growing <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-300 to-teal-300">Global</span>.
+                            Growing <span className="text-indigo-300">Global</span>.
                         </h1>
 
                         <p className="text-xl text-slate-300 mb-10 font-light leading-relaxed">

@@ -88,7 +88,7 @@ export default function SEOContentPage() {
                 </div>
                 <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
                     AI SEO Content
-                    <span className="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent"> Engine</span>
+                    <span className="text-indigo-300"> Engine</span>
                 </h1>
                 <p className="text-white/50 text-lg max-w-xl mx-auto mb-10">
                     Enter your business details and get AI-generated blog titles, meta descriptions, keywords & content outlines — optimized for local SEO.

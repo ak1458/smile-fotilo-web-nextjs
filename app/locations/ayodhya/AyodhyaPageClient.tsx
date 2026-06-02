@@ -41,7 +41,7 @@ export default function AyodhyaPage() {
                         </div>
 
                         <h1 className="text-5xl md:text-7xl font-bold text-white leading-[1.1] mb-8 tracking-tight">
-                            Where <span className="bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-amber-200">Heritage</span> Meets <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">Technology</span>
+                            Where <span className="text-indigo-300">Heritage</span> Meets <span className="text-indigo-300">Technology</span>
                         </h1>
 
                         <p className="text-xl text-slate-300 mb-10 font-light leading-relaxed">

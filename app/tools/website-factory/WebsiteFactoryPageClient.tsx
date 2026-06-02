@@ -96,7 +96,7 @@ export default function WebsiteFactoryPage() {
           </div>
           <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
             AI Website
-            <span className="bg-gradient-to-r from-sky-400 to-indigo-400 bg-clip-text text-transparent"> Factory</span>
+            <span className="text-indigo-300"> Factory</span>
           </h1>
           <p className="text-white/50 text-lg max-w-xl mx-auto">
             Generate a complete website blueprint — sitemap, design direction, copy, SEO keywords, and launch checklist.

@@ -144,7 +144,7 @@ export default function AIGrowthOSPage() {
           </div>
           <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
             AI Local Business OS
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-300"> for Scalable Growth</span>
+            <span className="text-indigo-300"> for Scalable Growth</span>
           </h1>
           <p className="text-xl text-slate-300 max-w-3xl mx-auto mb-8">
             Not another generic chatbot. This is an operations system that automates reputation, local marketing,

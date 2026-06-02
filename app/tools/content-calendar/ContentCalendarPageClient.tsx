@@ -115,7 +115,7 @@ export default function ContentCalendarPage() {
                 </div>
                 <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
                     AI Content
-                    <span className="bg-gradient-to-r from-pink-400 to-rose-400 bg-clip-text text-transparent"> Calendar</span>
+                    <span className="text-indigo-300"> Calendar</span>
                 </h1>
                 <p className="text-white/50 text-lg max-w-xl mx-auto mb-10">
                     Get a 7-day social media content calendar with AI-written captions, hashtags, and posting tips — tailored to your business.
@@ -180,7 +180,7 @@ export default function ContentCalendarPage() {
                     {result.weeklyTheme && (
                         <div className="bg-white/5 rounded-2xl border border-white/10 p-6 text-center">
                             <div className="text-xs text-white/30 uppercase tracking-wider mb-2">This Week&apos;s Theme</div>
-                            <h2 className="text-xl font-bold bg-gradient-to-r from-pink-400 to-rose-400 bg-clip-text text-transparent">{result.weeklyTheme}</h2>
+                            <h2 className="text-xl font-bold text-indigo-300">{result.weeklyTheme}</h2>
                         </div>
                     )}
 

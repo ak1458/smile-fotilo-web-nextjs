@@ -76,7 +76,7 @@ export default function ServicesPage() {
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
               Services That{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-violet-400">
+              <span className="text-indigo-300">
                 Grow
               </span>{" "}
               Your Business

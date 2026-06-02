@@ -50,7 +50,7 @@ export default function GreaterNoidaPage() {
                         </div>
 
                         <h1 className="text-5xl md:text-7xl font-bold text-white leading-[1.1] mb-8 tracking-tight">
-                            Powering <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-500">Innovation</span> across <span className="text-white">Noida & NCR</span>
+                            Powering <span className="text-indigo-300">Innovation</span> across <span className="text-white">Noida & NCR</span>
                         </h1>
 
                         <p className="text-xl text-slate-300 mb-10 font-light leading-relaxed max-w-3xl mx-auto">

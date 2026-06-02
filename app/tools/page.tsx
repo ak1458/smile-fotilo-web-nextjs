@@ -99,7 +99,7 @@ export default function ToolsPage() {
       <div className="relative z-10 mx-auto max-w-6xl px-6 pb-20 pt-24">
         <div className="mb-12 text-center">
           <h1 className="text-4xl font-bold md:text-6xl">
-            Free AI <span className="bg-gradient-to-r from-violet-400 via-emerald-400 to-cyan-400 bg-clip-text text-transparent">Tools</span>
+            Free AI <span className="text-indigo-300">Tools</span>
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-lg text-white/40">
             Analyze, optimize, and automate growth workflows without setup friction.

@@ -42,7 +42,7 @@ export default function LucknowPage() {
                         </div>
 
                         <h1 className="text-5xl md:text-7xl font-bold text-white leading-[1.1] mb-8 tracking-tight">
-                            Blending <span className="bg-clip-text text-transparent bg-gradient-to-r from-amber-300 to-yellow-600">Tehzeeb</span> with <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 to-violet-300">Technology</span>
+                            Blending <span className="text-indigo-300">Tehzeeb</span> with <span className="text-indigo-300">Technology</span>
                         </h1>
 
                         <p className="text-xl text-slate-300 mb-10 font-light leading-relaxed">

@@ -74,7 +74,7 @@ export default function DocumentIntelligencePage() {
           </div>
           <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
             Document
-            <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent"> Intelligence</span>
+            <span className="text-indigo-300"> Intelligence</span>
           </h1>
           <p className="text-white/50 text-lg max-w-xl mx-auto">
             Upload or paste any document text and get instant AI analysis — summaries, key data extraction, and actionable insights.

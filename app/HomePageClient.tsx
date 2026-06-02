@@ -62,7 +62,7 @@ const Hero = () => {
           className="text-4xl md:text-6xl lg:text-7xl font-bold text-slate-50 leading-[1.1] mb-6 tracking-tight"
         >
           Websites &amp; Local SEO that <br className="hidden md:block" />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-indigo-400 to-purple-400">bring you customers</span>
+          <span className="text-indigo-300">bring you customers</span>
         </motion.h1>
 
         <motion.p
@@ -354,7 +354,7 @@ const Contact = () => {
             >
               <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
                 Got a vision? <br />
-                Let&apos;s make it <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-indigo-400">Real.</span>
+                Let&apos;s make it <span className="text-indigo-300">Real.</span>
               </h2>
                 <p className="text-slate-400 text-lg mb-8 leading-relaxed max-w-md">
                 I help businesses get online and grow with clean websites and practical digital marketing.
@@ -674,7 +674,7 @@ const GlobalReach = () => {
 
                 <h2 className="text-3xl md:text-5xl font-bold text-white leading-tight">
                   Built in India. <br />
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">
+                  <span className="text-indigo-300">
                     Deployed Worldwide.
                   </span>
                 </h2>

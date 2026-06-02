@@ -67,7 +67,7 @@ export default function BlogPage() {
                         {blogPosts.length} Articles
                     </span>
                     <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-                        Insights & <span className="bg-gradient-to-r from-violet-400 to-purple-400 bg-clip-text text-transparent">Resources</span>
+                        Insights & <span className="text-indigo-300">Resources</span>
                     </h1>
                     <p className="text-xl text-slate-400 max-w-2xl mx-auto">
                         Expert tips on web design, SEO, branding, and growing your business online in 2026

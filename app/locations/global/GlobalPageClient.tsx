@@ -129,7 +129,7 @@ export default function GlobalPage() {
 
                         <h1 className="text-5xl md:text-7xl font-bold text-white leading-[1.1] mb-8 tracking-tight">
                             Beyond <span className="text-blue-400">Boundaries</span>. <br />
-                            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-300 to-violet-300">Global Excellence</span>.
+                            <span className="text-indigo-300">Global Excellence</span>.
                         </h1>
 
                         <p className="text-xl text-slate-300 mb-10 font-light leading-relaxed">
