@@ -135,7 +135,7 @@ export const NavBar = React.memo(() => {
                                 aria-label="Chat with us on WhatsApp"
                                 className="sf-nav-cta inline-flex items-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-bold text-[#05290f] shadow-[0_0_20px_rgba(37,211,102,0.35)] transition-all hover:scale-105 hover:bg-[#22c35e] hover:shadow-[0_0_30px_rgba(37,211,102,0.6)]"
                             >
-                                <FaWhatsapp className="text-lg" /> WhatsApp
+                                <FaWhatsapp className="text-lg" /> Chat on WhatsApp
                             </a>
                         </div>
 
