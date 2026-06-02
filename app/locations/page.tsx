@@ -70,7 +70,7 @@ export default function LocationsPage() {
                     </h1>
 
                     <p className="text-xl text-slate-400 max-w-2xl mx-auto">
-                        Operating from key cities across Uttar Pradesh and NCR to deliver world-class digital solutions.
+                        Operating from key cities across Uttar Pradesh and NCR to deliver modern, results-focused digital solutions.
                     </p>
                 </div>
             </section>

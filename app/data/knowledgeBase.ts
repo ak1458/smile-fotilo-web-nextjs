@@ -1,6 +1,6 @@
 export const SMILE_FOTILO_KNOWLEDGE = `
 **ABOUT SMILE FOTILO:**
-Smile Fotilo is a premium digital agency specializing in high-end web design, SEO, branding, and digital growth. We build world-class digital experiences for global brands.
+Smile Fotilo is a founder-led web development and digital marketing studio in Gonda, Uttar Pradesh, run by Ashraf Kamal. We build fast, SEO-ready websites, run local SEO, and set up AI automation for clinics, e-commerce, and local businesses across India — and for clients in the US. Direct founder communication, same-day replies, Hindi and English.
 
 **OUR SERVICES:**
 

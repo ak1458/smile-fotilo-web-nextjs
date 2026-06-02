@@ -363,7 +363,7 @@ export default function GlobalPage() {
                         Ready to Go Global?
                     </h2>
                     <p className="text-slate-400 mb-8">
-                        Partner with us for world-class digital solutions delivered with Indian efficiency.
+                        Partner with us for modern, results-focused digital solutions delivered with Indian efficiency.
                     </p>
                     <div className="flex flex-wrap justify-center gap-4">
                         <button

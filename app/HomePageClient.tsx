@@ -669,13 +669,13 @@ const GlobalReach = () => {
               >
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-wider mb-4">
                   <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
-                  Global Delivery
+                  India &amp; US clients
                 </div>
 
                 <h2 className="text-3xl md:text-5xl font-bold text-white leading-tight">
-                  Built in India. <br />
+                  A Gonda studio,<br />
                   <span className="text-indigo-300">
-                    Deployed Worldwide.
+                    clients across India &amp; the US.
                   </span>
                 </h2>
               </motion.div>
@@ -687,8 +687,7 @@ const GlobalReach = () => {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="text-lg text-slate-400 leading-relaxed"
               >
-                We don&apos;t just build websites; we help businesses get online and grow.
-                Currently serving clients in <span className="text-slate-200 font-semibold underline underline-offset-4">India</span> and <span className="text-slate-200 font-semibold">the USA</span> with the same dedication from our base in Gonda.
+                I&apos;m a founder who ships, not a faceless agency. I&apos;ve built real projects for businesses in <span className="text-slate-200 font-semibold">India</span> and the <span className="text-slate-200 font-semibold">USA</span> — including Curbit, a service business in Oregon — all from my studio in Gonda. Same care, wherever you are.
               </motion.p>
 
               <motion.div

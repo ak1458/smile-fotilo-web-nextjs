@@ -83,7 +83,7 @@ export default function GondaPage() {
                                 Gonda is not just our home; it&apos;s our strategic command center. By operating from here, we maintain **high efficiency and cost-effectiveness**, passing the value directly to our clients.
                             </p>
                             <p className="text-slate-400 leading-relaxed mb-6">
-                                We are proving that world-class technology doesn&apos;t just come from metro cities. It comes from passion, talent, and dedication—right here in Gonda.
+                                We are proving that modern, results-focused technology doesn&apos;t just come from metro cities. It comes from passion, talent, and dedication—right here in Gonda.
                             </p>
 
                             <div className="flex gap-4">

@@ -85,7 +85,7 @@ export default function AyodhyaPage() {
                                 <h3 className="text-2xl font-bold text-white mb-4">Our Vision for Ayodhya</h3>
                                 <p className="text-slate-400 leading-relaxed mb-6">
                                     We envision Ayodhya not just as a spiritual capital, but as a beacon of specific <strong>smart city innovation</strong>.
-                                    Our goal is to assist local artisans, hospitality services, and cultural institutions in showcasing their legacy to the world through world-class web design and digital storytelling.
+                                    Our goal is to assist local artisans, hospitality services, and cultural institutions in showcasing their legacy to the world through modern, results-focused web design and digital storytelling.
                                 </p>
                                 <ul className="space-y-3">
                                     {[
