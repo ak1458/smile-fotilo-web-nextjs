@@ -2,8 +2,15 @@ import PortfolioPageClient from './PortfolioPageClient';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Portfolio | Developer & Creator',
-  description: 'Interactive portfolio showcasing my GitHub projects and professional experience.',
+  title: 'Portfolio — Ashraf Kamal | Web Developer & AI-Automation Builder',
+  description: 'Selected client work and personal projects by Ashraf Kamal — React, Next.js, WordPress and AI. Real websites and web apps for businesses across India and the US.',
+  alternates: { canonical: '/portfolio' },
+  openGraph: {
+    title: 'Portfolio — Ashraf Kamal | Smile Fotilo',
+    description: 'Real client work and personal projects: PulseKart POS, Veloria Vault, StoryBook Weddings, Takhti and more.',
+    url: 'https://smilefotilo.com/portfolio',
+    type: 'website',
+  },
 };
 
 export default async function PortfolioPage() {

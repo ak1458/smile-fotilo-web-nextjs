@@ -1,11 +1,11 @@
-/* eslint-disable @next/next/no-img-element */
 'use client';
 
-import React, { useRef, useState, useEffect } from 'react';
-import { motion, useScroll, useTransform, useSpring, MotionValue } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 import { Footer } from '../components/Footer';
 import Link from 'next/link';
-import { MdArrowBack, MdCheckCircle, MdMemory, MdLanguage, MdCode, MdArrowOutward, MdStars } from 'react-icons/md';
+import { MdArrowOutward, MdArrowBack, MdStar } from 'react-icons/md';
+import { FaWhatsapp, FaGithub } from 'react-icons/fa';
 
 interface Repo {
     id: number;
@@ -16,354 +16,233 @@ interface Repo {
     stargazers_count: number;
 }
 
-function useSmoothTransform(value: MotionValue<number>, input: number[], output: number[]) {
-    const raw = useTransform(value, input, output);
-    return useSpring(raw, { stiffness: 100, damping: 30, mass: 0.5 });
-}
+const WHATSAPP_HREF = 'https://wa.me/919453878422?text=Hi%20Ashraf%2C%20I%20saw%20your%20portfolio%20and%20want%20to%20discuss%20a%20project.';
 
-export default function PortfolioPageClient({ initialRepos }: { initialRepos: Repo[] }) {
-    const containerRef = useRef<HTMLDivElement>(null);
-    const { scrollYProgress: mainScroll } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
+type Project = {
+    name: string;
+    category: string;
+    summary: string;
+    tech: string[];
+    href?: string;
+    github?: string;
+    accent: string;
+};
 
-    // Background parallax tied to main scroll
-    const bgY = useSmoothTransform(mainScroll, [0, 1], [0, 800]);
+const CLIENT_WORK: Project[] = [
+    { name: 'PulseKart', category: 'Pharmacy POS & Ordering', summary: 'Billing, inventory and online ordering system for a pharmacy in Gonda — replaced manual registers with one fast dashboard.', tech: ['Next.js', 'PostgreSQL', 'Tailwind'], href: '/work/pulsekart', accent: 'text-emerald-300' },
+    { name: 'KapdaFactory', category: 'Garment E-commerce', summary: 'Online store for a clothing manufacturer — product catalog, cart and order flow built to convert browsers into buyers.', tech: ['Next.js', 'Commerce', 'SEO'], href: '/work/kapda-factory', accent: 'text-sky-300' },
+    { name: 'StoryBook Weddings', category: 'Photography Portfolio', summary: 'A booking-focused portfolio for a Lucknow wedding photographer — gallery-first design that turns visits into enquiries.', tech: ['Next.js', 'Gallery', 'Local SEO'], href: '/work/storybook-weddings', accent: 'text-rose-300' },
+    { name: 'Veloria Vault', category: 'Luxury Leather E-commerce', summary: 'Full digital presence for a leather-goods brand — store plus Amazon/Flipkart listings and content that sells.', tech: ['WordPress', 'WooCommerce', 'Marketplace'], accent: 'text-amber-300' },
+    { name: 'OrderFlow', category: 'Logistics Dashboard', summary: 'Dispatch and order-tracking dashboard that gave a logistics operation real-time visibility over deliveries.', tech: ['React', 'Dashboard', 'API'], href: '/work/orderflow', accent: 'text-indigo-300' },
+    { name: 'Curbit', category: 'Service Website (Oregon, USA)', summary: 'Clean lead-generating website for a US service business — fast, mobile-first and built to rank locally.', tech: ['Next.js', 'SEO', 'US client'], accent: 'text-teal-300' },
+];
 
-    // Hero Section
-    const heroRef = useRef<HTMLDivElement>(null);
-    const { scrollYProgress: heroScroll } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
-    const heroScale = useSmoothTransform(heroScroll, [0, 1], [1, 0.8]);
-    const heroOpacity = useSmoothTransform(heroScroll, [0, 0.5], [1, 0]);
-    const massiveTextX = useSmoothTransform(mainScroll, [0, 1], [0, -1000]);
-    const massiveTextXReverse = useSmoothTransform(mainScroll, [0, 1], [-500, 500]);
+const PERSONAL_WORK: Project[] = [
+    { name: 'Takhti', category: 'Tuition Management PWA', summary: 'Installable app for tuition centres — attendance, fee tracking and parent updates in one place.', tech: ['PWA', 'Next.js', 'Offline'], github: 'https://github.com/ak1458', accent: 'text-violet-300' },
+    { name: 'Tuition Teacher', category: 'Tutor–Student Platform', summary: 'A platform to connect local tutors with students and manage classes and schedules.', tech: ['React', 'Auth', 'Supabase'], github: 'https://github.com/ak1458', accent: 'text-cyan-300' },
+    { name: 'YouTube Optimizer', category: 'Browser Extension', summary: 'A Chrome extension that helps creators improve titles, tags and thumbnails for better reach.', tech: ['Extension', 'JS', 'YouTube API'], github: 'https://github.com/ak1458', accent: 'text-orange-300' },
+];
 
-    // Identity Reveal
-    const aboutRef = useRef<HTMLDivElement>(null);
-    const { scrollYProgress: aboutScroll } = useScroll({ target: aboutRef, offset: ["start 90%", "end 50%"] });
-    const aboutText = "I got into development because I wanted to solve real problems for real businesses. Today I use React, Next.js, WordPress, and AI tools to ship projects for clients across India and internationally. Every project on this page links to real code on my GitHub.";
-    const words = aboutText.split(' ');
+const STACK = [
+    { label: 'Frontend', items: 'React · Next.js · Tailwind' },
+    { label: 'Backend', items: 'Node · PostgreSQL · WordPress' },
+    { label: 'Deploy', items: 'Vercel · Netlify · cPanel' },
+    { label: 'AI & Tooling', items: 'AI-assisted dev · Git · APIs' },
+];
 
-    // Horizontal Scroll
-    const horizontalContainerRef = useRef<HTMLDivElement>(null);
-    const { scrollYProgress: horizontalScroll } = useScroll({ 
-        target: horizontalContainerRef,
-        offset: ["start start", "end end"]
-    });
+const TIMELINE = [
+    { year: '2024 — now', role: 'Founder & Developer', org: 'Smile Fotilo', desc: 'Run a solo web + AI-automation studio: client discovery, design, development, deployment and ongoing support using AI-assisted workflows.' },
+    { year: '2023', role: 'Web Developer', org: 'Client Projects', desc: 'Shipped full-stack apps for real businesses — PulseKart POS, Veloria Vault e-commerce, OrderFlow logistics, and the Takhti tuition PWA.' },
+    { year: '2022', role: 'Digital Marketing', org: 'Veloria Vault', desc: 'Managed a leather brand end-to-end: website, marketplace listings, product optimization, content and AI-generated creatives.' },
+];
 
-    // Measure actual track width to sync horizontal scroll with vertical scroll
-    const repoCount = initialRepos?.length || 1;
-    const trackRef = useRef<HTMLDivElement>(null);
-    const [trackWidth, setTrackWidth] = useState(0);
-    
-    useEffect(() => {
-        const el = trackRef.current;
-        if (!el) return;
-        const update = () => {
-            setTrackWidth(el.scrollWidth - window.innerWidth);
-        };
-        
-        const timer = setTimeout(update, 100);
-        window.addEventListener('resize', update);
-        return () => {
-            clearTimeout(timer);
-            window.removeEventListener('resize', update);
-        };
-    }, [repoCount, initialRepos]);
+const fadeUp = {
+    initial: { opacity: 0, y: 24 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, margin: '-60px' },
+    transition: { duration: 0.5 },
+};
 
-    const xTrack = useTransform(horizontalScroll, [0, 1], [0, -trackWidth]);
-
-    // Interstitial Word Reveal
-    const revealRef = useRef<HTMLDivElement>(null);
-    const { scrollYProgress: revealScroll } = useScroll({ target: revealRef, offset: ["start 75%", "end 25%"] });
-    const revealText = "I BUILD REAL WEBSITES FOR REAL BUSINESSES THAT ACTUALLY WORK";
-    const revealWords = revealText.split(' ');
-
+function ProjectCard({ p }: { p: Project }) {
+    const Wrapper: React.ElementType = p.href ? Link : p.github ? 'a' : 'div';
+    const linkProps = p.href
+        ? { href: p.href }
+        : p.github
+            ? { href: p.github, target: '_blank', rel: 'noopener noreferrer' }
+            : {};
     return (
-        <div ref={containerRef} className="min-h-screen bg-[#020202] text-white selection:bg-white/20 font-sans overflow-x-hidden relative">
-
-            {/* Extremely Dense Background Texture & Lighting */}
-            <motion.div style={{ y: bgY }} className="fixed inset-0 z-0 pointer-events-none">
-                {/* Structural Grid lines */}
-                <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
-
-                {/* Massive Ambient Orbs */}
-                <div className="absolute top-[-20%] left-[-20%] w-[100vw] h-[100vw] rounded-full bg-violet-900/10 blur-[150px] mix-blend-screen opacity-70" />
-                <div className="absolute top-[20%] right-[-30%] w-[80vw] h-[80vw] rounded-full bg-indigo-900/15 blur-[120px] mix-blend-screen opacity-80" />
-                <div className="absolute bottom-[-10%] left-1/4 w-[60vw] h-[60vw] rounded-full bg-fuchsia-900/10 blur-[150px] mix-blend-screen opacity-60" />
-
-                {/* Abstract Graffico-style Bursts & Scatters */}
-                <div className="absolute top-[15%] right-[10%] w-[800px] h-[800px] opacity-10 animate-[spin_120s_linear_infinite]">
-                    <svg viewBox="0 0 100 100" className="w-full h-full text-white fill-current">
-                        <path d="M50 0 L52 48 L100 50 L52 52 L50 100 L48 52 L0 50 L48 48 Z" />
-                    </svg>
+        <Wrapper
+            {...linkProps}
+            className="group flex h-full flex-col justify-between rounded-2xl border border-white/10 bg-white/[0.02] p-7 transition-all hover:border-white/25 hover:bg-white/[0.04]"
+        >
+            <div>
+                <div className="mb-4 flex items-center justify-between">
+                    <span className={`text-xs font-semibold uppercase tracking-widest ${p.accent}`}>{p.category}</span>
+                    {(p.href || p.github) && (
+                        <MdArrowOutward className="text-lg text-white/30 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white/80" />
+                    )}
                 </div>
-
-                <div className="absolute top-[45%] left-[-15%] w-[1200px] h-[1200px] opacity-[0.15] animate-[spin_200s_linear_infinite_reverse]">
-                    <svg viewBox="0 0 100 100" className="w-full h-full text-white fill-current">
-                        <circle cx="50" cy="50" r="49" fill="none" stroke="currentColor" strokeWidth="0.2" strokeDasharray="1 2" />
-                        <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" strokeWidth="0.1" />
-                        <path d="M50 0 L50 100 M0 50 L100 50" stroke="currentColor" strokeWidth="0.1" />
-                    </svg>
-                </div>
-
-                <div className="absolute bottom-[20%] right-[5%] w-[600px] h-[600px] opacity-20 animate-[pulse_10s_ease-in-out_infinite]">
-                    {/* Scatter Dots */}
-                    <div className="absolute top-1/4 left-1/4 w-2 h-2 rounded-full bg-violet-500 shadow-[0_0_20px_#8b5cf6]" />
-                    <div className="absolute top-1/2 right-1/4 w-1 h-1 rounded-full bg-indigo-400 shadow-[0_0_10px_#8b5cf6]" />
-                    <div className="absolute bottom-1/4 left-1/2 w-1.5 h-1.5 rounded-full bg-fuchsia-400 shadow-[0_0_15px_#d946ef]" />
-
-                    <svg viewBox="0 0 100 100" className="w-full h-full text-white fill-none stroke-current">
-                        <path d="M20,20 Q50,80 80,20" strokeWidth="0.1" strokeDasharray="0.5 1" />
-                    </svg>
-                </div>
-
-                {/* Heavy Grain Overlay to kill "pure black" void */}
-                <div className="absolute inset-0 opacity-[0.1] bg-[url('https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Dissolve_Noise_Texture.png')] mix-blend-overlay" />
-            </motion.div>
-
-            {/* Navigation Navigation */}
-            <nav className="fixed top-0 inset-x-0 z-50 mix-blend-difference pb-4 pt-6 px-6 md:px-12 backdrop-blur-sm border-b border-white/5">
-                <div className="flex items-center justify-between">
-                    <Link href="/" className="flex items-center gap-2 text-white/60 hover:text-white transition-all group overflow-hidden">
-                        <MdArrowBack className="text-xl group-hover:-translate-x-1 transition-transform" />
-                        <span className="font-bold tracking-[0.2em] text-xs uppercase relative">
-                            Studio
-                            <span className="absolute left-0 bottom-0 w-full h-px bg-white origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
-                        </span>
-                    </Link>
-                    <div className="text-xs font-black tracking-[0.3em] uppercase text-white/50 bg-white/5 px-4 py-2 rounded-full border border-white/10">
-                        portfolio ©{new Date().getFullYear()}
-                    </div>
-                </div>
-            </nav>
-
-            <main className="relative z-10">
-                {/* 1. HERO SECTION (Massive overlay text to eliminate void) */}
-                <motion.section
-                    ref={heroRef}
-                    style={{ scale: heroScale, opacity: heroOpacity }}
-                    className="h-[100svh] flex flex-col justify-center items-center text-center px-4 relative overflow-hidden"
-                >
-                    {/* Background Massive Text */}
-                    <motion.div style={{ x: massiveTextX }} className="absolute whitespace-nowrap top-[20%] left-0 text-[20vw] font-black text-white/[0.02] tracking-tighter leading-none pointer-events-none select-none">
-                        ASHRAF KAMAL ASHRAF
-                    </motion.div>
-                    <motion.div style={{ x: massiveTextXReverse, WebkitTextStroke: '2px rgba(255,255,255,0.03)' }} className="absolute whitespace-nowrap bottom-[20%] right-0 text-[18vw] font-black italic text-transparent stroke-text overflow-visible pointer-events-none select-none">
-                        CREATIVE ENGINEER
-                    </motion.div>
-
-                    <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col items-center">
-                        <motion.div
-                            initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 1.5, ease: "easeOut" }}
-                            className="w-24 h-24 mb-10 rounded-full border border-white/20 bg-white/5 backdrop-blur-xl flex items-center justify-center p-2 relative shadow-[0_0_50px_rgba(139,92,246,0.3)]"
-                        >
-                            <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-violet-600/40 to-indigo-600/40 animate-pulse" />
-                            <img src="/logo.png" alt="Logo" className="w-12 h-12 object-contain brightness-0 invert relative z-10" />
-                        </motion.div>
-
-                        <h1 className="text-[14vw] md:text-[9vw] font-black tracking-tighter leading-[0.85] uppercase mix-blend-difference mb-6">
-                            <motion.span initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 1, delay: 0.2 }} className="block">Digital</motion.span>
-                            <motion.span initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 1, delay: 0.4 }} className="block text-transparent stroke-text" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.5)' }}>Craftsman</motion.span>
-                        </h1>
-                        <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 }} className="text-xl md:text-2xl text-white/50 max-w-2xl font-light tracking-wide mix-blend-difference">
-                            I build websites and web apps for businesses that need things to actually work.
-                        </motion.p>
-                    </div>
-                </motion.section>
-
-                <div className="bg-transparent relative z-10 w-full border-t border-white/10 pt-20 shadow-[0_-20px_50px_rgba(0,0,0,0.8)] backdrop-blur-md">
-                    {/* 2. IDENTITY REVEAL (Tighter padding, larger text) */}
-                    <section ref={aboutRef} className="container mx-auto px-6 md:px-12 pb-32 max-w-7xl relative">
-                        {/* Abstract structural piece */}
-                        <div className="absolute top-0 right-10 w-px h-full bg-gradient-to-b from-violet-500/0 via-violet-500/50 to-transparent hidden lg:block" />
-                        <div className="absolute top-1/2 right-[36px] w-2 h-2 rounded-full bg-violet-400 hidden lg:block shadow-[0_0_10px_#8b5cf6]" />
-
-                        <div className="grid lg:grid-cols-12 gap-12">
-                            <div className="lg:col-span-3">
-                                <h2 className="text-xs uppercase tracking-[0.3em] font-bold text-white/40 sticky top-32 flex items-center gap-4">
-                                    <MdStars className="text-violet-400 text-xl" /> Identity
-                                </h2>
-                            </div>
-
-                            <div className="lg:col-span-9">
-                                <p className="text-4xl md:text-6xl lg:text-[5rem] font-bold leading-[1.1] tracking-tight flex flex-wrap gap-x-4 gap-y-2 mix-blend-difference">
-                                    {words.map((word, i) => {
-                                        const start = i / words.length;
-                                        // eslint-disable-next-line react-hooks/rules-of-hooks
-                                        const opacity = useTransform(aboutScroll, [Math.max(0, start - 0.15), start], [0.1, 1]);
-                                        return (
-                                            <motion.span key={i} style={{ opacity }} className="relative">
-                                                {word}
-                                            </motion.span>
-                                        );
-                                    })}
-                                </p>
-
-                                {/* Visual Density: Bento box skill grid */}
-                                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-24">
-                                    {[
-                                        { title: "Frontend", tools: "React, Next.js, Vite", icon: <MdCode size={24} />, color: "from-blue-500/20" },
-                                        { title: "Backend", tools: "Node.js, WordPress, PostgreSQL", icon: <MdMemory size={24} />, color: "from-violet-500/20" },
-                                        { title: "Deployment", tools: "Vercel, Netlify, cPanel", icon: <MdLanguage size={24} />, color: "from-fuchsia-500/20" },
-                                        { title: "Tools", tools: "AI-Assisted Dev, Git, GitHub", icon: <MdCheckCircle size={24} />, color: "from-indigo-500/20" },
-                                    ].map((skill, i) => (
-                                        <motion.div
-                                            key={i}
-                                            initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.5, delay: i * 0.1 }}
-                                            className="group relative p-6 rounded-3xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] transition-all overflow-hidden"
-                                        >
-                                            <div className={`absolute inset-0 bg-gradient-to-br ${skill.color} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-                                            <h3 className="text-xl font-bold mb-8 text-white relative z-10">{skill.title}</h3>
-                                            <p className="text-white/40 font-mono text-[10px] uppercase tracking-widest relative z-10">{skill.tools}</p>
-                                        </motion.div>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* 3. HORIZONTAL SCROLL (Massive cards, structural lines) */}
-                    {/* Dynamic height based on repositories so it doesn't scroll off into emptiness */}
-                    <section ref={horizontalContainerRef} className="relative bg-transparent" style={{ height: trackWidth > 0 ? `${trackWidth + 300}px` : '100vh' }}>
-
-                        <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden border-y border-white/10 bg-black/40 backdrop-blur-xl">
-
-                            {/* Giant background text to fill void */}
-                            <div className="absolute top-1/2 -translate-y-1/2 left-0 w-full pointer-events-none overflow-hidden">
-                                <h2 className="text-[25vw] font-black uppercase text-white/[0.02] whitespace-nowrap select-none leading-none tracking-tighter mix-blend-screen">
-                                    OPEN SOURCE OPEN SOURCE
-                                </h2>
-                            </div>
-
-                            <div className="absolute top-12 md:top-24 left-6 md:left-12 z-20">
-                                <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-violet-500/30 bg-violet-500/10 text-violet-300 font-mono text-xs uppercase tracking-widest backdrop-blur-md">
-                                    <MdCode size={16} /> Live Github Feed
-                                </div>
-                            </div>
-
-                            <motion.div ref={trackRef} style={{ x: xTrack }} className="flex gap-12 px-6 md:px-24 items-center h-[600px] absolute w-max mt-8">
-
-                                {/* Intro Structural Block */}
-                                <div className="w-[300px] md:w-[500px] shrink-0 p-8 h-full flex flex-col justify-center relative">
-                                    <div className="absolute left-0 top-1/4 bottom-1/4 w-px bg-white/20" />
-                                    <h3 className="text-5xl md:text-7xl font-black mb-6 tracking-tight leading-none uppercase">Selected<br />Works</h3>
-                                    <p className="text-white/50 text-lg md:text-xl font-light mb-12 max-w-sm">A curated architecture of my repositories, pulled directly through the GitHub API.</p>
-                                    <a href="https://github.com/ak1458" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-4 text-sm font-bold uppercase tracking-[0.2em] border border-white/20 px-8 py-4 rounded-full hover:bg-white hover:text-black transition-all w-max group">
-                                        View Full Record <MdArrowOutward className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                                    </a>
-                                </div>
-
-                                {/* GitHub Repo Cards - Taller and wider for impact */}
-                                {initialRepos && initialRepos.length > 0 ? initialRepos.map((repo) => (
-                                    <a
-                                        href={repo.html_url} target="_blank" rel="noopener noreferrer" key={repo.id}
-                                        className="group relative w-[380px] md:w-[500px] h-[500px] shrink-0 rounded-[2rem] bg-[#0a0a0a] border border-white/10 hover:border-violet-500/50 overflow-hidden flex flex-col justify-between p-10 hover:shadow-[0_0_50px_rgba(139,92,246,0.1)] transition-all duration-500"
-                                    >
-                                        <div className="absolute inset-0 bg-gradient-to-tr from-violet-900/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-
-                                        <div className="relative z-10">
-                                            <div className="flex justify-between items-center mb-10 pb-6 border-b border-white/10">
-                                                <div className="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/50 group-hover:scale-110 group-hover:bg-violet-500 group-hover:text-white transition-all duration-300">
-                                                    <MdArrowOutward size={28} />
-                                                </div>
-                                                <div className="px-4 py-2 bg-white/5 border border-white/10 rounded-full font-mono text-sm uppercase tracking-widest text-violet-300 flex items-center gap-2">
-                                                    ⭐ {repo.stargazers_count || 0}
-                                                </div>
-                                            </div>
-                                            <h3 className="text-3xl md:text-4xl font-bold text-white mb-6 leading-tight group-hover:text-violet-300 transition-colors">{repo.name}</h3>
-                                            <p className="text-white/40 text-lg leading-relaxed line-clamp-3 font-light">
-                                                {repo.description || "Project repository — view code on GitHub."}
-                                            </p>
-                                        </div>
-
-                                        <div className="relative z-10 flex justify-between items-end">
-                                            <div className="font-mono text-sm uppercase tracking-[0.2em] text-white/60">
-                                                {repo.language || 'SYS/FILE'}
-                                            </div>
-                                            <div className="text-sm font-bold tracking-widest uppercase text-white/20 group-hover:text-white transition-colors">
-                                                Examine Insight
-                                            </div>
-                                        </div>
-                                    </a>
-                                )) : (
-                                    <div className="w-[500px] h-[500px] shrink-0 border border-white/5 border-dashed rounded-[2rem] flex flex-col items-center justify-center text-white/20 gap-4">
-                                        <div className="w-12 h-12 border-2 border-white/20 border-t-white rounded-full animate-spin" />
-                                        <span className="font-mono text-xs uppercase tracking-widest">Querying GitHub API...</span>
-                                    </div>
-                                )}
-                            </motion.div>
-                        </div>
-                    </section>
-
-                    {/* Massive Interstitial Text Reveal (filling the void) */}
-                    <section ref={revealRef} className="min-h-[50vh] flex items-center justify-center relative z-10 px-6 md:px-12 bg-transparent overflow-hidden py-20">
-                        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-violet-900/5 to-transparent mix-blend-screen pointer-events-none" />
-                        <h2 className="text-[12vw] md:text-[9vw] font-black uppercase leading-[0.85] tracking-tighter flex flex-wrap justify-center gap-x-[3vw] gap-y-[1vw] max-w-[95vw] text-center mix-blend-difference">
-                            {revealWords.map((word, i) => {
-                                const start = i / revealWords.length;
-                                // eslint-disable-next-line react-hooks/rules-of-hooks
-                                const opacity = useTransform(revealScroll, [Math.max(0, start - 0.15), start], [0.1, 1]);
-                                return (
-                                    <motion.span key={i} style={{ opacity }} className="relative text-white">
-                                        {word}
-                                    </motion.span>
-                                );
-                            })}
-                        </h2>
-                    </section>
-
-                    {/* 4. HIGH DENSITY TIMELINE */}
-                    <section className="container mx-auto px-6 md:px-12 py-32 max-w-7xl relative z-10 bg-transparent">
-                        <div className="grid lg:grid-cols-12 gap-12">
-                            <div className="lg:col-span-4 relative z-20">
-                                <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter sticky top-32 mb-12">
-                                    Track<br />Record
-                                </h2>
-                            </div>
-
-                            <div className="lg:col-span-8 relative">
-                                <div className="absolute left-[27px] md:left-[35px] top-6 bottom-6 w-px bg-white/10" />
-
-                                {[
-                                    { year: "2024", role: "Founder & Developer", company: "Smile Fotilo", desc: "Run a solo web development and digital marketing studio. Handle everything from client discovery and design to development, deployment, and ongoing support using AI-assisted workflows." },
-                                    { year: "2023", role: "Web Developer", company: "Client Projects", desc: "Built full-stack applications for real businesses: PulseKart pharmacy POS (Next.js + PostgreSQL), Veloria Vault e-commerce (WordPress), OrderFlow logistics dashboard, and Takhti tuition management PWA." },
-                                    { year: "2022", role: "Digital Marketing", company: "Veloria Vault", desc: "Manage the complete digital presence for a leather handbag brand: website, Amazon and Flipkart seller accounts, product listing optimization, social media content, and AI-generated creatives." },
-                                ].map((item, i) => (
-                                    <motion.div
-                                        key={i}
-                                        initial={{ opacity: 0, scale: 0.95 }}
-                                        whileInView={{ opacity: 1, scale: 1 }}
-                                        viewport={{ once: true, margin: "-100px" }}
-                                        transition={{ duration: 0.6, ease: "easeOut" }}
-                                        className="relative pl-24 md:pl-32 pb-24 group"
-                                    >
-                                        {/* Large Node */}
-                                        <div className="absolute left-0 lg:left-2 top-0 w-16 h-16 bg-[#020202] border-2 border-white/20 rounded-full flex items-center justify-center group-hover:border-violet-500 group-hover:scale-110 transition-all z-10 shadow-[0_0_20px_rgba(0,0,0,1)]">
-                                            <div className="w-3 h-3 bg-white/50 rounded-full group-hover:bg-violet-400 group-hover:shadow-[0_0_15px_#8b5cf6] transition-all" />
-                                        </div>
-
-                                        <div className="inline-block px-4 py-1.5 rounded-full border border-violet-500/30 bg-violet-500/10 text-violet-300 font-mono text-xs tracking-widest mb-6">
-                                            {item.year}
-                                        </div>
-
-                                        <div className="bg-white/[0.02] border border-white/5 rounded-3xl p-8 md:p-10 group-hover:bg-white/[0.04] group-hover:border-white/10 transition-colors">
-                                            <h3 className="text-3xl md:text-4xl font-bold mb-3">{item.role}</h3>
-                                            <div className="text-white/40 uppercase tracking-widest text-sm font-bold mb-8">{item.company}</div>
-                                            <p className="text-white/60 text-lg leading-relaxed font-light">{item.desc}</p>
-                                        </div>
-                                    </motion.div>
-                                ))}
-                            </div>
-                        </div>
-                    </section>
-                </div>
-            </main>
-
-            {/* Footer with border separation */}
-            <div className="relative z-20 bg-black border-t border-white/10">
-                <Footer />
+                <h3 className="mb-3 text-2xl font-semibold text-white">{p.name}</h3>
+                <p className="text-[15px] leading-relaxed text-white/55">{p.summary}</p>
             </div>
-        </div>
+            <div className="mt-6 flex flex-wrap gap-2">
+                {p.tech.map((t) => (
+                    <span key={t} className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-xs font-medium text-white/60">{t}</span>
+                ))}
+            </div>
+        </Wrapper>
     );
 }
 
-// File End
+export default function PortfolioPageClient({ initialRepos }: { initialRepos: Repo[] }) {
+    const repos = (initialRepos || [])
+        .filter((r) => r && r.name && !r.name.includes('.github'))
+        .slice(0, 6);
+
+    return (
+        <div className="min-h-screen bg-[#0a0a0b] font-sans text-white selection:bg-white/20">
+            {/* Top bar */}
+            <nav className="fixed inset-x-0 top-0 z-50 border-b border-white/5 bg-[#0a0a0b]/80 backdrop-blur-xl">
+                <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+                    <Link href="/" className="group inline-flex items-center gap-2 text-sm text-white/60 hover:text-white">
+                        <MdArrowBack className="transition-transform group-hover:-translate-x-1" /> Back to studio
+                    </Link>
+                    <a href={WHATSAPP_HREF} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-2 text-sm font-bold text-[#05290f] transition-transform hover:scale-105">
+                        <FaWhatsapp /> Chat on WhatsApp
+                    </a>
+                </div>
+            </nav>
+
+            <main className="mx-auto max-w-6xl px-6 pt-32">
+                {/* Hero */}
+                <section className="border-b border-white/10 pb-16">
+                    <motion.p {...fadeUp} className="mb-4 text-sm font-medium uppercase tracking-[0.3em] text-white/40">
+                        Ashraf Kamal — Web Developer & AI-Automation Builder
+                    </motion.p>
+                    <motion.h1 {...fadeUp} transition={{ duration: 0.5, delay: 0.05 }} className="max-w-3xl text-4xl font-semibold leading-[1.08] tracking-tight md:text-6xl">
+                        I build real websites & web apps that actually work.
+                    </motion.h1>
+                    <motion.p {...fadeUp} transition={{ duration: 0.5, delay: 0.1 }} className="mt-6 max-w-2xl text-lg leading-relaxed text-white/55">
+                        React, Next.js, WordPress and AI tools — shipping practical, business-focused projects for clients across India and the US. Every project below is real work, with live code on GitHub.
+                    </motion.p>
+                    <motion.div {...fadeUp} transition={{ duration: 0.5, delay: 0.15 }} className="mt-8 flex flex-wrap items-center gap-4">
+                        <a href={WHATSAPP_HREF} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-6 py-3 font-bold text-[#05290f] transition-transform hover:scale-105">
+                            <FaWhatsapp className="text-lg" /> Discuss your project
+                        </a>
+                        <a href="#work" className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 font-semibold text-white/80 transition-colors hover:border-white/40 hover:text-white">
+                            See selected work
+                        </a>
+                        <a href="https://github.com/ak1458" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-white">
+                            <FaGithub /> github.com/ak1458
+                        </a>
+                    </motion.div>
+                    <motion.div {...fadeUp} transition={{ duration: 0.5, delay: 0.2 }} className="mt-10 flex flex-wrap gap-x-10 gap-y-3 text-sm text-white/50">
+                        <span><strong className="text-white">100+</strong> projects delivered</span>
+                        <span className="inline-flex items-center gap-1"><MdStar className="text-amber-300" /> <strong className="text-white">4.9</strong> · 118 Google reviews</span>
+                        <span><strong className="text-white">3</strong> studios in Uttar Pradesh + remote</span>
+                    </motion.div>
+                </section>
+
+                {/* Stack */}
+                <section className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 md:grid-cols-4 my-16">
+                    {STACK.map((s) => (
+                        <div key={s.label} className="bg-[#0a0a0b] p-6">
+                            <div className="text-xs font-bold uppercase tracking-widest text-white/40">{s.label}</div>
+                            <div className="mt-2 text-sm text-white/75">{s.items}</div>
+                        </div>
+                    ))}
+                </section>
+
+                {/* Selected work */}
+                <section id="work" className="scroll-mt-24 py-8">
+                    <div className="mb-10 flex items-end justify-between">
+                        <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">Selected work</h2>
+                        <span className="text-sm text-white/40">Client projects</span>
+                    </div>
+                    <div className="grid gap-5 md:grid-cols-2">
+                        {CLIENT_WORK.map((p) => (
+                            <motion.div key={p.name} {...fadeUp}><ProjectCard p={p} /></motion.div>
+                        ))}
+                    </div>
+                </section>
+
+                {/* Personal */}
+                <section className="py-8">
+                    <div className="mb-10 flex items-end justify-between">
+                        <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">Personal & experimental</h2>
+                        <span className="text-sm text-white/40">Things I build for fun & to learn</span>
+                    </div>
+                    <div className="grid gap-5 md:grid-cols-3">
+                        {PERSONAL_WORK.map((p) => (
+                            <motion.div key={p.name} {...fadeUp}><ProjectCard p={p} /></motion.div>
+                        ))}
+                    </div>
+                </section>
+
+                {/* Live GitHub */}
+                {repos.length > 0 && (
+                    <section className="py-8">
+                        <div className="mb-10 flex items-end justify-between">
+                            <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">Live from GitHub</h2>
+                            <a href="https://github.com/ak1458?tab=repositories" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm text-white/50 hover:text-white">
+                                All repos <MdArrowOutward />
+                            </a>
+                        </div>
+                        <div className="grid gap-5 md:grid-cols-3">
+                            {repos.map((repo) => (
+                                <motion.a
+                                    key={repo.id} {...fadeUp}
+                                    href={repo.html_url} target="_blank" rel="noopener noreferrer"
+                                    className="group flex flex-col justify-between rounded-2xl border border-white/10 bg-white/[0.02] p-6 transition-all hover:border-white/25 hover:bg-white/[0.04]"
+                                >
+                                    <div>
+                                        <div className="mb-3 flex items-center justify-between">
+                                            <FaGithub className="text-white/40" />
+                                            <span className="inline-flex items-center gap-1 text-xs text-white/40"><MdStar className="text-amber-300" /> {repo.stargazers_count || 0}</span>
+                                        </div>
+                                        <h3 className="mb-2 break-words text-lg font-semibold text-white">{repo.name}</h3>
+                                        <p className="line-clamp-2 text-sm text-white/50">{repo.description || 'View the code on GitHub.'}</p>
+                                    </div>
+                                    {repo.language && <div className="mt-4 text-xs font-medium uppercase tracking-widest text-white/40">{repo.language}</div>}
+                                </motion.a>
+                            ))}
+                        </div>
+                    </section>
+                )}
+
+                {/* Track record */}
+                <section className="py-8">
+                    <h2 className="mb-10 text-3xl font-semibold tracking-tight md:text-4xl">Track record</h2>
+                    <div className="space-y-4">
+                        {TIMELINE.map((t) => (
+                            <motion.div key={t.year} {...fadeUp} className="grid gap-2 rounded-2xl border border-white/10 bg-white/[0.02] p-7 md:grid-cols-[180px_1fr] md:gap-8">
+                                <div>
+                                    <div className="text-sm font-bold text-white/70">{t.role}</div>
+                                    <div className="text-xs uppercase tracking-widest text-white/35">{t.org}</div>
+                                    <div className="mt-1 text-xs text-white/35">{t.year}</div>
+                                </div>
+                                <p className="text-[15px] leading-relaxed text-white/55">{t.desc}</p>
+                            </motion.div>
+                        ))}
+                    </div>
+                </section>
+
+                {/* CTA */}
+                <section className="my-16 rounded-3xl border border-white/10 bg-white/[0.03] p-10 text-center md:p-16">
+                    <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">Have a project in mind?</h2>
+                    <p className="mx-auto mt-4 max-w-xl text-white/55">Tell me what you&apos;re building. I reply the same day — in Hindi or English.</p>
+                    <div className="mt-8 flex flex-wrap justify-center gap-4">
+                        <a href={WHATSAPP_HREF} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-7 py-3.5 font-bold text-[#05290f] transition-transform hover:scale-105">
+                            <FaWhatsapp className="text-lg" /> Chat on WhatsApp
+                        </a>
+                        <Link href="/#contact" className="inline-flex items-center gap-2 rounded-full border border-white/20 px-7 py-3.5 font-semibold text-white/80 transition-colors hover:border-white/40 hover:text-white">
+                            Send a message
+                        </Link>
+                    </div>
+                </section>
+            </main>
+
+            <Footer />
+        </div>
+    );
+}
