@@ -95,9 +95,25 @@ function ProjectCard({ p }: { p: Project }) {
 }
 
 export default function PortfolioPageClient({ initialRepos }: { initialRepos: Repo[] }) {
-    const repos = (initialRepos || [])
-        .filter((r) => r && r.name && !r.name.includes('.github'))
-        .slice(0, 6);
+    // Show one repo per project family — newest/best, no legacy/archive/empty dupes.
+    const repos = (() => {
+        const junk = /(\.github|original|souce|source|archive|legacy|backup|-old\b|\btest\b|template|\bconfig\b|dotfiles)/i;
+        const list = (initialRepos || []).filter((r) => r && r.name && !junk.test(r.name));
+        const groups = new Map<string, Repo[]>();
+        for (const r of list) {
+            const key = r.name.toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 6); // family key
+            const arr = groups.get(key) || [];
+            arr.push(r);
+            groups.set(key, arr);
+        }
+        const pickBest = (arr: Repo[]) =>
+            arr.slice().sort(
+                (a, b) =>
+                    (Number(Boolean(b.description)) - Number(Boolean(a.description))) ||
+                    ((b.stargazers_count || 0) - (a.stargazers_count || 0))
+            )[0];
+        return [...groups.values()].map(pickBest).slice(0, 6);
+    })();
 
     return (
         <div className="min-h-screen bg-[#0a0a0b] font-sans text-white selection:bg-white/20">
