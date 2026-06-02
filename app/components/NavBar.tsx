@@ -5,7 +5,10 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MdHome, MdWork, MdApps, MdArticle, MdLocationOn, MdInfo, MdChevronRight, MdLocalHospital, MdSearch, MdPayments } from 'react-icons/md';
+import { FaWhatsapp } from 'react-icons/fa';
 import Image from 'next/image';
+
+const WHATSAPP_HREF = 'https://wa.me/919453878422?text=Hi%20Smile%20Fotilo%2C%20I%20want%20a%20free%20quote%20for%20my%20project.';
 
 export const NavBar = React.memo(() => {
     const [isOpen, setIsOpen] = useState(false);
@@ -124,9 +127,15 @@ export const NavBar = React.memo(() => {
                                 </Link>
                             ))}
 
-                            <Link href="/#contact" className="sf-nav-cta rounded-full bg-gradient-to-r from-violet-600 to-purple-600 px-5 py-2.5 text-sm font-bold text-white shadow-[0_0_20px_rgba(139,92,246,0.4)] transition-all hover:scale-105 hover:opacity-90 hover:shadow-[0_0_30px_rgba(139,92,246,0.6)]">
-                                Start Project
-                            </Link>
+                            <a
+                                href={WHATSAPP_HREF}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="Chat with us on WhatsApp"
+                                className="sf-nav-cta inline-flex items-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-bold text-[#05290f] shadow-[0_0_20px_rgba(37,211,102,0.35)] transition-all hover:scale-105 hover:bg-[#22c35e] hover:shadow-[0_0_30px_rgba(37,211,102,0.6)]"
+                            >
+                                <FaWhatsapp className="text-lg" /> WhatsApp
+                            </a>
                         </div>
 
                         {/* Mobile: Hamburger Only */}
@@ -206,13 +215,16 @@ export const NavBar = React.memo(() => {
                                 transition={{ delay: 0.5 }}
                                 className="mt-8"
                             >
-                                <Link
-                                    href="/#contact"
+                                <a
+                                    href={WHATSAPP_HREF}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     onClick={handleLinkClick}
-                                    className="btn-primary block w-full text-center px-6 py-4 text-lg font-bold bg-gradient-to-r from-violet-600 to-purple-600 text-white rounded-2xl shadow-[0_0_30px_rgba(139,92,246,0.4)]"
+                                    aria-label="Chat with us on WhatsApp"
+                                    className="flex w-full items-center justify-center gap-3 rounded-2xl bg-[#25D366] px-6 py-4 text-lg font-bold text-[#05290f] shadow-[0_0_30px_rgba(37,211,102,0.35)]"
                                 >
-                                    Start Project
-                                </Link>
+                                    <FaWhatsapp className="text-2xl" /> Chat on WhatsApp
+                                </a>
                             </motion.div>
 
                             <div className="mt-auto pt-8 border-t border-white/10">

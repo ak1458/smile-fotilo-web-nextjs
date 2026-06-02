@@ -223,7 +223,7 @@ export default function PortfolioPageClient({ initialRepos }: { initialRepos: Re
 
                     {/* 3. HORIZONTAL SCROLL (Massive cards, structural lines) */}
                     {/* Dynamic height based on repositories so it doesn't scroll off into emptiness */}
-                    <section ref={horizontalContainerRef} className="relative bg-transparent" style={{ height: `${trackWidth + 1000}px` }}>
+                    <section ref={horizontalContainerRef} className="relative bg-transparent" style={{ height: trackWidth > 0 ? `${trackWidth + 300}px` : '100vh' }}>
 
                         <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden border-y border-white/10 bg-black/40 backdrop-blur-xl">
 

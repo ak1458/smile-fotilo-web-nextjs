@@ -519,7 +519,7 @@ async function callOpenRouterWithFallback(
   message: string,
   history: ChatHistoryItem[],
   models: string[]
-): Promise<string> {
+): Promise<string | null> {
   const uniqueModels = dedupeModels(models);
   let lastError = 'No model candidates available';
 
@@ -535,7 +535,7 @@ async function callOpenRouterWithFallback(
   } else {
     console.error('[CHAT] Model fallback chain failed:', lastError);
   }
-  return formatReply("Having a brief connection issue on my end. I can still handle basic questions, or you can reach Ashraf directly at +91 9453878422.", ['Pricing', 'Services', 'Contact directly']);
+  return null; // signal total OpenRouter failure so caller can try other providers
 }
 
 function buildAutoModelChain(clientId: string, complex: boolean, lowValue: boolean): string[] {
@@ -576,27 +576,57 @@ export async function chatWithGemini(
     return formatReply('Please type your question again.', ['Pricing', 'Services', 'Contact']);
   }
 
-  const predefined = getPredefinedReply(sanitizedMessage);
-  if (predefined) {
-    return formatReply(predefined.text, predefined.quickReplies);
-  }
-
   const queryIsComplex = isComplexQuery(sanitizedMessage);
   const lowValue = isLowValueOrOffTopicQuery(sanitizedMessage, history);
 
-  const normalizedSelection = (selectedModel || 'auto').trim();
-  if (normalizedSelection !== 'auto') {
-    const selected = isFreeOpenRouterModel(normalizedSelection)
-      ? normalizedSelection
-      : OPENROUTER_PRIMARY_MODEL;
-
-    const chain = queryIsComplex
-      ? [selected, OPENROUTER_REASONING_MODEL, OPENROUTER_PRIMARY_MODEL, pickNextFreeModel(clientId)]
-      : [selected, OPENROUTER_PRIMARY_MODEL, pickNextFreeModel(clientId)];
-
-    return await callOpenRouterWithFallback(sanitizedMessage, history, chain);
+  // Off-topic / gibberish / filler: don't burn an LLM call, redirect politely.
+  if (lowValue) {
+    const canned = getPredefinedReply(sanitizedMessage);
+    if (canned) return formatReply(canned.text, canned.quickReplies);
+    return formatReply(
+      "I'm Echo — I help with websites, SEO, and AI automation at Smile Fotilo. What are you looking to build or grow?",
+      ['Pricing', 'Services', 'See our work']
+    );
   }
 
-  const chain = buildAutoModelChain(clientId, queryIsComplex, lowValue);
-  return await callOpenRouterWithFallback(sanitizedMessage, history, chain);
+  // AI-FIRST: answer generatively. The system prompt carries the full knowledge
+  // base (services, pricing, locations), so the LLM gives real, contextual answers
+  // instead of canned scripts. Canned replies are only a last-resort fallback.
+  const normalizedSelection = (selectedModel || 'auto').trim();
+  let chain: string[];
+  if (normalizedSelection !== 'auto') {
+    const selected = isFreeOpenRouterModel(normalizedSelection) ? normalizedSelection : OPENROUTER_PRIMARY_MODEL;
+    chain = queryIsComplex
+      ? [selected, OPENROUTER_REASONING_MODEL, OPENROUTER_PRIMARY_MODEL, pickNextFreeModel(clientId)]
+      : [selected, OPENROUTER_PRIMARY_MODEL, pickNextFreeModel(clientId)];
+  } else {
+    chain = buildAutoModelChain(clientId, queryIsComplex, lowValue);
+  }
+
+  const aiText = await callOpenRouterWithFallback(sanitizedMessage, history, chain);
+  if (aiText) return aiText;
+
+  // Secondary AI fallback: Gemini / Groq via the smart router (different providers,
+  // different keys) so a single provider outage doesn't drop us to scripts.
+  try {
+    const { generateAIResponse } = await import('../lib/ai/smart-router');
+    const recent = history.slice(-4).map((h) => `${h.role === 'user' ? 'User' : 'Echo'}: ${h.parts}`).join('\n');
+    const prompt = `${buildSystemPrompt()}\n\nConversation so far:\n${recent}\nUser: ${sanitizedMessage}\nEcho:`;
+    const alt = await generateAIResponse(prompt, {
+      maxTokens: OPENROUTER_MAX_TOKENS,
+      temperature: OPENROUTER_TEMPERATURE,
+      complexity: queryIsComplex ? 'complex' : 'medium',
+    });
+    if (alt && alt.trim()) return sanitizeInput(alt);
+  } catch {
+    // fall through to canned
+  }
+
+  // Last resort: canned FAQ if it matches, else a direct-contact nudge.
+  const canned = getPredefinedReply(sanitizedMessage);
+  if (canned) return formatReply(canned.text, canned.quickReplies);
+  return formatReply(
+    "Quick connection hiccup on my end. Reach Ashraf directly at +91 9453878422 or support@smilefotilo.com — same-day reply.",
+    ['Pricing', 'Services', 'Contact directly']
+  );
 }
