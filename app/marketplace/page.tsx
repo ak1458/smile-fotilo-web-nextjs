@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/marketplace',
   },
+  // Keep out of the index: internal product surface, not a search-landing page.
+  // It was leaking into SERPs and diluting the site's web-dev/SEO topical focus.
+  robots: { index: false, follow: true },
 };
 
 export const dynamic = 'force-dynamic';

@@ -4,7 +4,7 @@ import HomePageClient from "./HomePageClient";
 export const metadata: Metadata = {
   title: "Smile Fotilo | Web Development & Digital Marketing Studio",
   description:
-    "Smile Fotilo is a web development and digital marketing studio run by Ashraf Kamal. I build custom websites using React, Next.js, and WordPress for businesses in India and worldwide.",
+    "Founder-led web development & digital marketing studio. Custom websites, e-commerce & SEO that actually rank — from ₹6,000, most sites live in 2 weeks. Serving India & US businesses. Free quote on WhatsApp.",
   keywords: [
     "Web Design Agency",
     "Digital Marketing",
