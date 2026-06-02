@@ -98,7 +98,7 @@ export default function PortfolioPageClient({ initialRepos }: { initialRepos: Re
     // Show one repo per project family — newest/best, no legacy/archive/empty dupes.
     const repos = (() => {
         const junk = /(\.github|original|souce|source|archive|legacy|backup|-old\b|\btest\b|template|\bconfig\b|dotfiles)/i;
-        const list = (initialRepos || []).filter((r) => r && r.name && !junk.test(r.name));
+        const list = (initialRepos || []).filter((r) => r && r.name && !junk.test(r.name) && r.description && r.description.trim());
         const groups = new Map<string, Repo[]>();
         for (const r of list) {
             const key = r.name.toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 6); // family key
