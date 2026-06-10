@@ -15,7 +15,7 @@ export const MobileBottomNav = React.memo(() => {
         { href: '/', icon: <MdHome />, label: 'Home' },
         { href: '/locations', icon: <MdLocationOn />, label: 'Locations' },
         { href: 'tel:+919453878422', icon: <MdCall />, label: 'Call', isCall: true },
-        { href: '/#services', icon: <MdApps />, label: 'Services' },
+        { href: '/services', icon: <MdApps />, label: 'Services' },
         { href: '/#contact', icon: <MdEmail />, label: 'Contact' },
     ];
 

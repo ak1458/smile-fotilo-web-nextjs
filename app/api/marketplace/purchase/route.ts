@@ -168,7 +168,8 @@ export async function POST(request: NextRequest) {
         purchaseId: purchase.id,
         requiresPayment: true,
         order,
-        razorpayKeyId: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID ?? process.env.RAZORPAY_KEY_ID ?? null,
+        // Never fall back to RAZORPAY_KEY_ID here — only the NEXT_PUBLIC key is safe to send to browsers.
+        razorpayKeyId: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID ?? null,
         paymentMessage: 'Payment order created. Complete checkout to activate installation.',
       });
     } catch (error: unknown) {
@@ -239,7 +240,8 @@ export async function PUT(request: NextRequest) {
         razorpay_payment_id: `manual:${payload.transactionId.trim()}`,
       })
       .eq('id', payload.purchaseId)
-      .eq('buyer_id', user.id);
+      .eq('buyer_id', user.id)
+      .neq('status', 'completed');
 
     if (updateError) {
       return NextResponse.json({ error: updateError.message }, { status: 500 });

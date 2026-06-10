@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { MdCode, MdTrendingUp, MdPalette, MdArrowForward, MdLocalHospital } from 'react-icons/md';
+import { MdCode, MdTrendingUp, MdPalette, MdArrowForward, MdLocalHospital, MdSmartToy } from 'react-icons/md';
 import { OpenChatButton } from "../components/OpenChatButton";
 import { Footer } from "../components/Footer";
 import { StructuredData, itemListSchema } from "../components/StructuredData";
@@ -11,6 +11,21 @@ export const metadata: Metadata = {
     "Explore Smile Fotilo services: web design and development, SEO & GEO, brand identity, and Growth Autopilot for local-business operations.",
   alternates: {
     canonical: "/services",
+  },
+  openGraph: {
+    title: "Services | Smile Fotilo",
+    description:
+      "Web design, SEO & GEO, brand identity, and AI automation for local businesses and global clients.",
+    type: "website",
+    url: "https://smilefotilo.com/services",
+    images: [
+      {
+        url: "/og?title=Our%20Services&subtitle=Web%20Design%20%C2%B7%20SEO%20%C2%B7%20Branding%20%C2%B7%20AI%20Automation",
+        width: 1200,
+        height: 630,
+        alt: "Smile Fotilo Services",
+      },
+    ],
   },
 };
 
@@ -50,6 +65,15 @@ const services = [
     mobileDesc: "AI workflows for followups, reminders, and reviews.",
     accent: "from-cyan-500/20 to-blue-500/10",
     icon: <MdLocalHospital />,
+  },
+  {
+    href: "/services/ai-growth-os",
+    title: "AI Local Business OS",
+    mobileTitle: "AI Business OS",
+    desc: "One automation stack for reviews, local marketing, multilingual support, and lead followup.",
+    mobileDesc: "Reviews, marketing, and lead followup on autopilot.",
+    accent: "from-amber-500/20 to-orange-500/10",
+    icon: <MdSmartToy />,
   },
 ];
 

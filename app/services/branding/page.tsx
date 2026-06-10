@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { OpenChatButton } from '../../components/OpenChatButton';
 import { Footer } from '../../components/Footer';
+import { StructuredData, serviceSchema, faqSchema } from '../../components/StructuredData';
 
 export const metadata: Metadata = {
     title: 'Brand Identity & Logo Design India — Starting ₹10,000',
@@ -76,6 +77,18 @@ export default function BrandingPage() {
 
     return (
         <>
+        <StructuredData
+            data={[
+                serviceSchema({
+                    name: 'Brand Identity & Logo Design',
+                    description:
+                        'Logo design, brand identity systems, packaging, and brand guidelines for startups and established businesses.',
+                    url: 'https://smilefotilo.com/services/branding',
+                    offersFrom: '10000',
+                }),
+                faqSchema(faqs),
+            ]}
+        />
         <main className="min-h-screen bg-[#020617] text-white">
             {/* Hero Section - Lead with Answer */}
             <section className="pt-32 pb-20 relative overflow-hidden">

@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { MdStorefront, MdShoppingCart, MdDevices, MdEditNote, MdAutorenew, MdRocketLaunch } from 'react-icons/md';
 import { OpenChatButton } from '../../components/OpenChatButton';
 import { Footer } from '../../components/Footer';
 import { StructuredData, faqSchema, serviceSchema } from '../../components/StructuredData';
@@ -126,15 +127,15 @@ export default function WebDesignPage() {
                     <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">What We Build</h2>
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {[
-                            { icon: "🏪", title: "Business Websites", desc: "Professional websites for local businesses, startups, and professionals. Clean design, fast loading, SEO-ready." },
-                            { icon: "🛒", title: "E-Commerce Stores", desc: "WooCommerce and custom stores with payment gateway, inventory, and shipping integration." },
-                            { icon: "📱", title: "Web Applications", desc: "Custom dashboards, CRM systems, booking platforms built with React/Next.js." },
-                            { icon: "📝", title: "WordPress Sites", desc: "Content management, blogs, portfolios with easy self-editing capabilities." },
-                            { icon: "🔄", title: "Website Redesigns", desc: "Modern redesigns that preserve SEO while improving performance and conversions." },
-                            { icon: "🚀", title: "Landing Pages", desc: "High-converting landing pages for campaigns, launches, and lead generation." }
+                            { icon: <MdStorefront />, title: "Business Websites", desc: "Professional websites for local businesses, startups, and professionals. Clean design, fast loading, SEO-ready." },
+                            { icon: <MdShoppingCart />, title: "E-Commerce Stores", desc: "WooCommerce and custom stores with payment gateway, inventory, and shipping integration." },
+                            { icon: <MdDevices />, title: "Web Applications", desc: "Custom dashboards, CRM systems, booking platforms built with React/Next.js." },
+                            { icon: <MdEditNote />, title: "WordPress Sites", desc: "Content management, blogs, portfolios with easy self-editing capabilities." },
+                            { icon: <MdAutorenew />, title: "Website Redesigns", desc: "Modern redesigns that preserve SEO while improving performance and conversions." },
+                            { icon: <MdRocketLaunch />, title: "Landing Pages", desc: "High-converting landing pages for campaigns, launches, and lead generation." }
                         ].map((service, i) => (
                             <div key={i} className="p-6 border border-white/10 rounded-2xl bg-[#0F172A]/50 hover:border-indigo-500/30 transition-colors">
-                                <div className="text-4xl mb-4">{service.icon}</div>
+                                <div className="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-2xl text-indigo-300 mb-4">{service.icon}</div>
                                 <h3 className="text-xl font-bold mb-2">{service.title}</h3>
                                 <p className="text-slate-400">{service.desc}</p>
                             </div>

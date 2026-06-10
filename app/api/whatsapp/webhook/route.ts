@@ -1,6 +1,13 @@
-import { z } from 'zod';
+import { timingSafeEqual } from 'crypto';
 import { NextRequest, NextResponse } from 'next/server';
 import { chatWithBusinessAgent } from '@/app/lib/ai/business-chat';
+
+function safeTokenEqual(received: string, expected: string) {
+  const receivedBuf = Buffer.from(received);
+  const expectedBuf = Buffer.from(expected);
+  if (receivedBuf.length !== expectedBuf.length) return false;
+  return timingSafeEqual(receivedBuf, expectedBuf);
+}
 
 export async function GET(request: NextRequest) {
   const mode = request.nextUrl.searchParams.get('hub.mode');
@@ -8,7 +15,7 @@ export async function GET(request: NextRequest) {
   const challenge = request.nextUrl.searchParams.get('hub.challenge');
   const expectedToken = process.env.WHATSAPP_WEBHOOK_SECRET?.trim();
 
-  if (mode === 'subscribe' && expectedToken && token === expectedToken) {
+  if (mode === 'subscribe' && expectedToken && token && safeTokenEqual(token, expectedToken)) {
     return new NextResponse(challenge ?? '', { status: 200 });
   }
 

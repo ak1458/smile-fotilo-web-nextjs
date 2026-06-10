@@ -63,7 +63,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
             url: `${baseUrl}/services`,
             lastModified: lastUpdated,
             changeFrequency: 'monthly',
-            priority: 0.8,
+            priority: 0.9,
         },
         // Services - SEO Authority Pages
         {
@@ -123,6 +123,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
         {
             url: `${baseUrl}/work/storybook-weddings`,
+            lastModified: lastUpdated,
+            changeFrequency: 'monthly',
+            priority: 0.7,
+        },
+        {
+            url: `${baseUrl}/work/curbit`,
+            lastModified: lastUpdated,
+            changeFrequency: 'monthly',
+            priority: 0.7,
+        },
+        {
+            url: `${baseUrl}/work/veloria-vault`,
             lastModified: lastUpdated,
             changeFrequency: 'monthly',
             priority: 0.7,

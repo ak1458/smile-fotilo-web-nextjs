@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { blogPosts, getBlogPost, getRecentPosts } from '../../data/blogPosts';
+import { blogPosts, getBlogPost, getPostsByCategory, getRecentPosts } from '../../data/blogPosts';
 import { ReadingProgressBar } from './ReadingProgressBar';
 import { Footer } from '../../components/Footer';
 
@@ -68,7 +68,12 @@ export default async function BlogPostPage({ params }: { params: Params }) {
         notFound();
     }
 
-    const relatedPosts = getRecentPosts(4).filter((p) => p.slug !== slug).slice(0, 3);
+    // Prefer same-category posts for topical relevance; pad with recent posts if needed.
+    const sameCategory = getPostsByCategory(post.category).filter((p) => p.slug !== slug);
+    const recentFallback = getRecentPosts(8).filter(
+        (p) => p.slug !== slug && !sameCategory.some((c) => c.slug === p.slug),
+    );
+    const relatedPosts = [...sameCategory, ...recentFallback].slice(0, 3);
 
     const canonicalUrl = `https://smilefotilo.com/blog/${post.slug}`;
     const ogImageUrl = `https://smilefotilo.com/og?title=${encodeURIComponent(post.title)}&subtitle=${encodeURIComponent(post.category)}`;
@@ -173,7 +178,7 @@ export default async function BlogPostPage({ params }: { params: Params }) {
                                     <div className="flex items-center gap-4 text-white/80">
                                         <div className="flex items-center gap-3">
                                             <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-                                                <span className="text-2xl">✍️</span>
+                                                <span className="text-lg font-bold text-white">{post.author.charAt(0)}</span>
                                             </div>
                                             <div>
                                                 <div className="font-medium text-white">{post.author}</div>
@@ -270,7 +275,7 @@ export default async function BlogPostPage({ params }: { params: Params }) {
                             <div className="mt-16 bg-gradient-to-br from-indigo-50 to-violet-50 dark:from-indigo-950/20 dark:to-violet-950/20 rounded-3xl p-8 md:p-10 border border-indigo-100 dark:border-indigo-900">
                                 <div className="flex items-start gap-6">
                                     <div className="w-20 h-20 bg-gradient-to-br from-indigo-600 to-violet-600 rounded-full flex items-center justify-center flex-shrink-0">
-                                        <span className="text-4xl">✍️</span>
+                                        <span className="text-3xl font-bold text-white">{post.author.charAt(0)}</span>
                                     </div>
                                     <div className="flex-1">
                                         <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
