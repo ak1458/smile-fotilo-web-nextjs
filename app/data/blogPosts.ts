@@ -54,6 +54,18 @@ export function getAllCategories(): string[] {
     return [...new Set(blogPosts.map(post => post.category))];
 }
 
+// "Web Design" -> "web-design"; used for /blog/category/[category] URLs.
+export function categoryToSlug(category: string): string {
+    return category
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+}
+
+export function getCategoryBySlug(slug: string): string | undefined {
+    return getAllCategories().find((c) => categoryToSlug(c) === slug);
+}
+
 export function getAllTags(): string[] {
     return [...new Set(blogPosts.flatMap(post => post.tags))];
 }

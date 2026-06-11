@@ -58,7 +58,8 @@ describe('cross-page contact links use the real page, not the home anchor', () =
   it.each([
     'app/components/MobileBottomNav.tsx',
     'app/components/Footer.tsx',
-    'app/blog/BlogPageClient.tsx',
+    'app/blog/page.tsx',
+    'app/blog/listing.tsx',
     'app/portfolio/PortfolioPageClient.tsx',
   ])('%s has no /#contact link', (file) => {
     expect(read(file)).not.toContain('/#contact');

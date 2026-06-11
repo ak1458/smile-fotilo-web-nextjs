@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { blogPosts, getBlogPost, getPostsByCategory, getRecentPosts } from '../../data/blogPosts';
+import { blogPosts, getBlogPost, getPostsByCategory, getRecentPosts, categoryToSlug } from '../../data/blogPosts';
 import { ReadingProgressBar } from './ReadingProgressBar';
 import { Footer } from '../../components/Footer';
 
@@ -118,6 +118,7 @@ export default async function BlogPostPage({ params }: { params: Params }) {
                 author: {
                     '@type': 'Person',
                     name: post.author,
+                    url: 'https://smilefotilo.com/about',
                 },
                 publisher: {
                     '@type': 'Organization',
@@ -164,9 +165,12 @@ export default async function BlogPostPage({ params }: { params: Params }) {
                             <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
                                 <div className="container mx-auto max-w-4xl">
                                     <div className="flex items-center gap-3 mb-4">
-                                        <span className="px-4 py-1.5 bg-white/20 backdrop-blur-sm text-white text-sm font-medium rounded-full">
+                                        <Link
+                                            href={`/blog/category/${categoryToSlug(post.category)}`}
+                                            className="px-4 py-1.5 bg-white/20 backdrop-blur-sm text-white text-sm font-medium rounded-full hover:bg-white/30 transition-colors"
+                                        >
                                             {post.category}
-                                        </span>
+                                        </Link>
                                         <span className="text-white/80 text-sm">{post.readTime}</span>
                                     </div>
                                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
@@ -279,17 +283,28 @@ export default async function BlogPostPage({ params }: { params: Params }) {
                                     </div>
                                     <div className="flex-1">
                                         <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
-                                            Written by {post.author}
+                                            Written by{' '}
+                                            <Link href="/about" className="underline decoration-indigo-400 underline-offset-4 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                                                {post.author}
+                                            </Link>
                                         </h2>
                                         <p className="text-slate-600 dark:text-slate-400 mb-6">
-                                            Expert in web design and development, helping businesses grow online since 2020.
+                                            Founder of Smile Fotilo — building websites, running SEO, and setting up AI automation for businesses across India and the US.
                                         </p>
-                                        <Link
-                                            href="/pricing"
-                                            className="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-violet-600 text-white px-6 py-3 rounded-full font-semibold hover:shadow-lg transition-all"
-                                        >
-                                            Work With Us →
-                                        </Link>
+                                        <div className="flex flex-wrap gap-3">
+                                            <Link
+                                                href="/contact"
+                                                className="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-violet-600 text-white px-6 py-3 rounded-full font-semibold hover:shadow-lg transition-all"
+                                            >
+                                                Work With Me →
+                                            </Link>
+                                            <Link
+                                                href="/work"
+                                                className="inline-flex items-center gap-2 border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 px-6 py-3 rounded-full font-semibold hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+                                            >
+                                                See Client Work
+                                            </Link>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

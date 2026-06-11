@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { blogPosts } from './data/blogPosts';
+import { blogPosts, getAllCategories, categoryToSlug } from './data/blogPosts';
 
 export const dynamic = 'force-static';
 
@@ -18,6 +18,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.7,
     }));
 
+    // Category hubs — one crawlable URL per topic cluster.
+    const categoryUrls = getAllCategories().map((category) => ({
+        url: `${baseUrl}/blog/category/${categoryToSlug(category)}`,
+        lastModified: lastUpdated,
+        changeFrequency: 'weekly' as const,
+        priority: 0.6,
+    }));
+
     return [
         // Blog main page
         {
@@ -28,6 +36,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
         // All blog posts
         ...blogUrls,
+        // Category hubs
+        ...categoryUrls,
         // Main Pages
         {
             url: baseUrl,
