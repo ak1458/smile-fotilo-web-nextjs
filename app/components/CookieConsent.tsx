@@ -30,11 +30,16 @@ export function CookieConsent() {
     const [visible, setVisible] = useState(false);
 
     useEffect(() => {
-        try {
-            if (!localStorage.getItem(STORAGE_KEY)) setVisible(true);
-        } catch {
-            // storage blocked: keep banner hidden rather than nag every visit
-        }
+        // Slight delay: avoids a sync setState cascade on hydration and keeps
+        // the banner from popping before the page paints.
+        const timer = setTimeout(() => {
+            try {
+                if (!localStorage.getItem(STORAGE_KEY)) setVisible(true);
+            } catch {
+                // storage blocked: keep banner hidden rather than nag every visit
+            }
+        }, 600);
+        return () => clearTimeout(timer);
     }, []);
 
     const decide = (choice: ConsentChoice) => {

@@ -44,7 +44,18 @@ const escapeHtml = (value: string) =>
 const sanitize = (value: string) => escapeHtml(value.trim());
 
 // Fallback to save lead to the database
-async function backupLeadToDatabase(data: any) {
+interface LeadBackup {
+    source?: string;
+    name: string;
+    email: string;
+    phone?: string;
+    service?: string;
+    budget?: string;
+    message?: string;
+    conversationSummary?: string;
+}
+
+async function backupLeadToDatabase(data: LeadBackup) {
     try {
         const supabase = createAdminClient();
         const businessId = process.env.DEFAULT_BUSINESS_ID;

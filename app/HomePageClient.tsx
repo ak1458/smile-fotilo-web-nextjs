@@ -113,8 +113,8 @@ const Services = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="text-indigo-400 font-bold tracking-wider uppercase text-sm">Our Expertise</span>
-          <h2 className="text-3xl md:text-5xl font-bold text-slate-50 mt-3">Digital Solutions</h2>
+          <h2 className="text-3xl md:text-5xl font-bold text-slate-50">What I build for clients</h2>
+          <p className="text-slate-400 mt-4 max-w-2xl mx-auto">Websites, search rankings, content, and automation — each one tied to bringing you customers.</p>
         </motion.div>
 
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
@@ -156,8 +156,7 @@ const Pricing = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <span className="text-indigo-400 font-bold tracking-wider uppercase text-sm">Packages</span>
-          <h2 className="text-3xl md:text-5xl font-bold text-slate-50 mt-3">Simple, Transparent Pricing</h2>
+          <h2 className="text-3xl md:text-5xl font-bold text-slate-50">Simple, Transparent Pricing</h2>
           <p className="text-slate-400 mt-4 max-w-2xl mx-auto">{activeMode.subtitle}</p>
         </motion.div>
 
@@ -516,8 +515,7 @@ const FAQ = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="text-violet-400 font-bold tracking-wider uppercase text-sm">Got Questions?</span>
-          <h2 className="text-3xl md:text-5xl font-bold text-slate-50 mt-3">Frequently Asked Questions</h2>
+          <h2 className="text-3xl md:text-5xl font-bold text-slate-50">Frequently Asked Questions</h2>
         </motion.div>
 
         <div className="space-y-6">

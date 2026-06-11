@@ -36,6 +36,27 @@ html {
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Surface scale — one base, two elevations. New/rebuilt sections use
+     these instead of ad-hoc hex values (#0a0118 / #020617 / #0a0a0b drift). */
+  --surface-0: #05070f;
+  --surface-1: #0b1020;
+  --surface-2: #11182c;
+}
+
+/* Respect reduced-motion: stop infinite/ambient animation, keep content. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* ========================================

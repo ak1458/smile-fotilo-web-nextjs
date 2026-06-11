@@ -7,7 +7,10 @@ import { chatWithGemini } from './chat';
  * This provides a focused system prompt that emphasizes the terminal aesthetic
  * and technical expertise of the assistant.
  */
-export async function executeTerminalAiCommand(prompt: string, history: any[] = []) {
+export async function executeTerminalAiCommand(
+  prompt: string,
+  history: Array<{ role: 'user' | 'model'; parts: string }> = [],
+) {
   const terminalSystemPrompt = `You are the Smile Fotilo System Core (SF-OS). 
 You are communicating via a restricted technical terminal.
 Your tone is:

@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import HomePageClient from "./HomePageClient";
+import { StructuredData, faqSchema } from "./components/StructuredData";
+import { HOME_FAQS, PRICING_FACTS } from "./data/pricing";
 
 export const metadata: Metadata = {
   title: "Smile Fotilo | Web Development & Digital Marketing Studio",
-  description:
-    "Founder-led web development & digital marketing studio. Custom websites, e-commerce & SEO that actually rank — from ₹6,000, most sites live in 2 weeks. Serving India & US businesses. Free quote on WhatsApp.",
+  description: `Founder-led web development & digital marketing studio. Custom websites, e-commerce & SEO that actually rank — from ${PRICING_FACTS.websiteFrom}, most sites live in 2-4 weeks. Serving India & US businesses. Free quote on WhatsApp.`,
   keywords: [
     "Web Design Agency",
     "Digital Marketing",
@@ -39,11 +40,11 @@ export const metadata: Metadata = {
   },
 };
 
-
-
 export default function Page() {
   return (
     <>
+      {/* Same FAQs the visitor sees on the page — keeps markup honest. */}
+      <StructuredData data={faqSchema(HOME_FAQS)} />
       <HomePageClient />
     </>
   );
