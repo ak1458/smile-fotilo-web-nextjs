@@ -70,6 +70,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
             priority: 0.3,
         },
         {
+            url: `${baseUrl}/cookie-policy`,
+            lastModified: lastUpdated,
+            changeFrequency: 'yearly',
+            priority: 0.3,
+        },
+        {
+            url: `${baseUrl}/disclaimer`,
+            lastModified: lastUpdated,
+            changeFrequency: 'yearly',
+            priority: 0.3,
+        },
+        {
             url: `${baseUrl}/pricing`,
             lastModified: lastUpdated,
             changeFrequency: 'weekly',

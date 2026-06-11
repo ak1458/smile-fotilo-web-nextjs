@@ -58,15 +58,29 @@ export default function PrivacyPolicyPage() {
                         </section>
 
                         <section>
-                            <h2 className="text-2xl font-bold text-white mb-4">5. Cookies</h2>
+                            <h2 className="text-2xl font-bold text-white mb-4">5. Cookies &amp; Analytics Consent</h2>
                             <p className="text-slate-300 leading-relaxed">
-                                Our website may use cookies to enhance your browsing experience. You can choose to disable cookies
-                                through your browser settings, but this may affect some features of our website.
+                                Analytics on this site runs under Google Consent Mode v2: no analytics cookies are set
+                                and no identifiers are stored until you choose &quot;Accept all&quot; in the consent banner.
+                                You can decline and the site works fully. The complete list of cookies and storage we
+                                use — and how to change your choice — is in the{' '}
+                                <Link href="/cookie-policy" className="text-indigo-400 hover:text-indigo-300 underline underline-offset-2">Cookie Policy</Link>.
                             </p>
                         </section>
 
                         <section>
-                            <h2 className="text-2xl font-bold text-white mb-4">6. Contact Us</h2>
+                            <h2 className="text-2xl font-bold text-white mb-4">6. Chat Assistant &amp; Form Data</h2>
+                            <p className="text-slate-300 leading-relaxed">
+                                Messages you send to the Echo chat assistant are processed by AI providers to generate a
+                                reply and are not used to build advertising profiles. Contact-form submissions are
+                                delivered to us by email and stored only as long as needed to respond to your inquiry.
+                                Business-customer data (for clients using our automation products) is stored with
+                                Supabase under access controls.
+                            </p>
+                        </section>
+
+                        <section>
+                            <h2 className="text-2xl font-bold text-white mb-4">7. Contact Us</h2>
                             <p className="text-slate-300 leading-relaxed">
                                 If you have any questions about this Privacy Policy, please contact us at:
                             </p>

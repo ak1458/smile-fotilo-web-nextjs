@@ -6,6 +6,7 @@ import { NavBar } from "./components/NavBar";
 import { MobileBottomNav } from "./components/MobileBottomNav";
 import { FestivalProvider } from "./components/FestivalProvider";
 import { ChatSupportWrapper } from "./components/ChatSupportWrapper";
+import { CookieConsent } from "./components/CookieConsent";
 import { GoogleAnalytics, GTMNoScript } from "./components/GoogleAnalytics";
 import { ConversionTracking } from "./components/ConversionTracking";
 
@@ -99,6 +100,7 @@ export default function RootLayout({
           {children}
           <ChatSupportWrapper />
           <MobileBottomNav />
+          <CookieConsent />
         </FestivalProvider>
       </body>
     </html>

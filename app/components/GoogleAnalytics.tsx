@@ -17,6 +17,26 @@ export function GoogleAnalytics() {
                 {`
                     window.dataLayer = window.dataLayer || [];
                     function gtag(){dataLayer.push(arguments);}
+                    // Consent Mode v2: everything denied until the visitor chooses.
+                    // Google still receives cookieless pings for modeling; no cookies
+                    // are written and no identifiers stored while denied.
+                    gtag('consent', 'default', {
+                        analytics_storage: 'denied',
+                        ad_storage: 'denied',
+                        ad_user_data: 'denied',
+                        ad_personalization: 'denied'
+                    });
+                    // Returning visitors who already accepted: restore before config.
+                    try {
+                        if (localStorage.getItem('sf_cookie_consent') === 'granted') {
+                            gtag('consent', 'update', {
+                                analytics_storage: 'granted',
+                                ad_storage: 'granted',
+                                ad_user_data: 'granted',
+                                ad_personalization: 'granted'
+                            });
+                        }
+                    } catch (e) {}
                     gtag('js', new Date());
                     gtag('config', '${GA_MEASUREMENT_ID}', { send_page_view: true });
                 `}
