@@ -4,7 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Footer } from '../components/Footer';
 import Link from 'next/link';
-import { MdArrowOutward, MdArrowBack, MdStar } from 'react-icons/md';
+import { MdArrowOutward, MdArrowBack } from 'react-icons/md';
 import { FaWhatsapp, FaGithub } from 'react-icons/fa';
 
 interface Repo {
@@ -12,8 +12,9 @@ interface Repo {
     name: string;
     description: string;
     html_url: string;
+    homepage?: string | null;
     language: string;
-    stargazers_count: number;
+    pushed_at?: string;
 }
 
 const WHATSAPP_HREF = 'https://wa.me/919453878422?text=Hi%20Ashraf%2C%20I%20saw%20your%20portfolio%20and%20want%20to%20discuss%20a%20project.';
@@ -38,9 +39,9 @@ const CLIENT_WORK: Project[] = [
 ];
 
 const PERSONAL_WORK: Project[] = [
-    { name: 'Takhti', category: 'Tuition Management PWA', summary: 'Installable app for tuition centres — attendance, fee tracking and parent updates in one place.', tech: ['PWA', 'Next.js', 'Offline'], github: 'https://github.com/ak1458', accent: 'text-violet-300' },
-    { name: 'Tuition Teacher', category: 'Tutor–Student Platform', summary: 'A platform to connect local tutors with students and manage classes and schedules.', tech: ['React', 'Auth', 'Supabase'], github: 'https://github.com/ak1458', accent: 'text-cyan-300' },
-    { name: 'YouTube Optimizer', category: 'Browser Extension', summary: 'A Chrome extension that helps creators improve titles, tags and thumbnails for better reach.', tech: ['Extension', 'JS', 'YouTube API'], github: 'https://github.com/ak1458', accent: 'text-orange-300' },
+    { name: 'Takhti', category: 'Tuition Management PWA', summary: 'Installable app for tuition centres — attendance, fee tracking and parent updates in one place.', tech: ['PWA', 'Next.js', 'Offline'], github: 'https://github.com/ak1458/tuition-mandi', accent: 'text-violet-300' },
+    { name: 'Tuition Teacher', category: 'Tutor–Student Platform', summary: 'A platform to connect local tutors with students and manage classes and schedules.', tech: ['React', 'Auth', 'Supabase'], github: 'https://github.com/ak1458/tuition-mandi', accent: 'text-cyan-300' },
+    { name: 'YouTube Optimizer', category: 'Creator Tooling', summary: 'Bulk playlist organization and SEO metadata optimization for YouTube creators — quota tracking and auto-scheduling built in.', tech: ['YouTube API', 'Automation', 'SEO'], github: 'https://github.com/ak1458/youtube-bulk-optimizer', accent: 'text-orange-300' },
 ];
 
 const STACK = [
@@ -55,6 +56,13 @@ const TIMELINE = [
     { year: '2023', role: 'Web Developer', org: 'Client Projects', desc: 'Shipped full-stack apps for real businesses — PulseKart POS, Veloria Vault e-commerce, OrderFlow logistics, and the Takhti tuition PWA.' },
     { year: '2022', role: 'Digital Marketing', org: 'Veloria Vault', desc: 'Managed a leather brand end-to-end: website, marketplace listings, product optimization, content and AI-generated creatives.' },
 ];
+
+// "youtube-bulk-optimizer" -> "Youtube Bulk Optimizer"
+function formatRepoName(name: string) {
+    return name
+        .replace(/[-_]+/g, ' ')
+        .replace(/\b\w/g, (c) => c.toUpperCase());
+}
 
 const fadeUp = {
     initial: { opacity: 0, y: 24 },
@@ -110,7 +118,7 @@ export default function PortfolioPageClient({ initialRepos }: { initialRepos: Re
             arr.slice().sort(
                 (a, b) =>
                     (Number(Boolean(b.description)) - Number(Boolean(a.description))) ||
-                    ((b.stargazers_count || 0) - (a.stargazers_count || 0))
+                    (new Date(b.pushed_at || 0).getTime() - new Date(a.pushed_at || 0).getTime())
             )[0];
         return [...groups.values()].map(pickBest).slice(0, 6);
     })();
@@ -154,8 +162,8 @@ export default function PortfolioPageClient({ initialRepos }: { initialRepos: Re
                     </motion.div>
                     <motion.div {...fadeUp} transition={{ duration: 0.5, delay: 0.2 }} className="mt-10 flex flex-wrap gap-x-10 gap-y-3 text-sm text-white/50">
                         <span><strong className="text-white">100+</strong> projects delivered</span>
-                        <span className="inline-flex items-center gap-1"><MdStar className="text-amber-300" /> <strong className="text-white">4.9</strong> · 118 Google reviews</span>
-                        <span><strong className="text-white">3</strong> studios in Uttar Pradesh + remote</span>
+                        <span>Based in <strong className="text-white">Gonda, UP</strong> — working remotely worldwide</span>
+                        <span>Clients in <strong className="text-white">India &amp; the US</strong></span>
                     </motion.div>
                 </section>
 
@@ -214,9 +222,13 @@ export default function PortfolioPageClient({ initialRepos }: { initialRepos: Re
                                     <div>
                                         <div className="mb-3 flex items-center justify-between">
                                             <FaGithub className="text-white/40" />
-                                            <span className="inline-flex items-center gap-1 text-xs text-white/40"><MdStar className="text-amber-300" /> {repo.stargazers_count || 0}</span>
+                                            {repo.pushed_at && (
+                                                <span className="text-xs text-white/40">
+                                                    Updated {new Date(repo.pushed_at).toLocaleDateString('en-IN', { month: 'short', year: 'numeric' })}
+                                                </span>
+                                            )}
                                         </div>
-                                        <h3 className="mb-2 break-words text-lg font-semibold text-white">{repo.name}</h3>
+                                        <h3 className="mb-2 break-words text-lg font-semibold text-white">{formatRepoName(repo.name)}</h3>
                                         <p className="line-clamp-2 text-sm text-white/50">{repo.description || 'View the code on GitHub.'}</p>
                                     </div>
                                     {repo.language && <div className="mt-4 text-xs font-medium uppercase tracking-widest text-white/40">{repo.language}</div>}

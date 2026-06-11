@@ -95,7 +95,7 @@ export const Footer = React.memo(() => (
             </div>
 
             <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-                <p className="text-slate-500 text-sm">© {new Date().getFullYear()} Smile Fotilo. Crafted with passion in India. <br className="md:hidden" /><span className="text-slate-600 text-[11px] mt-1 md:mt-0 md:ml-2">Includes AI-assisted, human-reviewed content.</span></p>
+                <p className="text-slate-500 text-sm">© {new Date().getFullYear()} Smile Fotilo. Crafted with passion in India.</p>
                 <div className="flex gap-6 text-sm">
                     <Link href="/privacy" className="text-slate-500 hover:text-slate-300 transition-colors">Privacy Policy</Link>
                     <Link href="/terms" className="text-slate-500 hover:text-slate-300 transition-colors">Terms of Service</Link>

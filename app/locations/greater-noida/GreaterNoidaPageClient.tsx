@@ -5,7 +5,6 @@ import { Footer } from '../../components/Footer';
 import { ConnectModal } from '../../components/ConnectModal';
 import { OtherLocations } from '../../components/OtherLocations';
 import { LocationSchema } from '../../components/LocationSchema';
-import { GmbUpdates } from '../../components/GmbUpdates';
 import { MdRocketLaunch, MdMap, MdHub, MdFactory, MdCode, MdApartment, MdSpeed, MdStorage, MdDevices, MdBolt } from 'react-icons/md';
 
 export default function GreaterNoidaPage() {
@@ -210,7 +209,6 @@ export default function GreaterNoidaPage() {
             </section>
 
             {/* Other Locations Nav */}
-            <GmbUpdates locationFilter="greater-noida" />
             <OtherLocations currentLocation="greater-noida" />
 
             <Footer />

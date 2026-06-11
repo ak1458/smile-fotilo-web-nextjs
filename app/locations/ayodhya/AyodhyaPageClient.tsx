@@ -5,7 +5,6 @@ import { Footer } from '../../components/Footer';
 import { ConnectModal } from '../../components/ConnectModal';
 import { OtherLocations } from '../../components/OtherLocations';
 import { LocationSchema } from '../../components/LocationSchema';
-import { GmbUpdates } from '../../components/GmbUpdates';
 import { MdArrowForward, MdTempleHindu, MdCheckCircle, MdHotel, MdStore, MdAutoAwesome } from 'react-icons/md';
 
 export default function AyodhyaPage() {
@@ -171,7 +170,6 @@ export default function AyodhyaPage() {
             </section>
 
             {/* Other Locations Nav (Consistent with footer style) */}
-            <GmbUpdates locationFilter="ayodhya" />
             <OtherLocations currentLocation="ayodhya" />
 
             <Footer />

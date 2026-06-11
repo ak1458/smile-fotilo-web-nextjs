@@ -7,6 +7,7 @@ import { BackToTop } from './components/BackToTop';
 import Image from 'next/image';
 import { MdCode, MdTrendingUp, MdPhotoCamera, MdSupportAgent, MdMail, MdSchedule, MdArrowOutward, MdArrowForward, MdPublic, MdPayments, MdLocalHospital } from 'react-icons/md';
 import dynamic from 'next/dynamic';
+import { PRICING, HOME_FAQS } from './data/pricing';
 
 const ContactForm = dynamic(() => import('./components/ContactForm').then(mod => mod.ContactForm), { ssr: true });
 const Testimonials = dynamic(() => import('./components/Testimonials').then(mod => mod.Testimonials), { ssr: true });
@@ -45,20 +46,10 @@ const Hero = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#1E293B] border border-white/5 mb-8 shadow-none"
-        >
-          <span className="flex h-2 w-2 rounded-full bg-emerald-500"></span>
-          <span className="text-xs font-bold uppercase tracking-widest text-slate-400">★ 4.9 · 118 Google reviews · Gonda, UP</span>
-        </motion.div>
-
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          transition={{ duration: 0.8 }}
           className="text-4xl md:text-6xl lg:text-7xl font-bold text-slate-50 leading-[1.1] mb-6 tracking-tight"
         >
           Websites &amp; Local SEO that <br className="hidden md:block" />
@@ -153,82 +144,7 @@ const Services = () => {
 const Pricing = () => {
   const [mode, setMode] = useState<'project' | 'autopilot'>('project');
 
-  const pricingByMode = {
-    project: {
-      label: 'Project Delivery',
-      subtitle: 'Fixed-scope websites. Transparent pricing, no surprises.',
-      plans: [
-        {
-          title: 'Launch',
-          price: '₹25,000',
-          suffix: '/ project',
-          description: 'For local businesses and clinics getting online the right way.',
-          points: ['5-page responsive website', 'On-page SEO setup', 'Lead form + WhatsApp CTA', 'Google Business Profile optimization'],
-          ctaLabel: 'Start with Launch',
-          href: '/pricing',
-          featured: false,
-        },
-        {
-          title: 'Growth',
-          price: '₹65,000',
-          suffix: '/ project',
-          description: 'For businesses and small e-commerce that need to convert and scale.',
-          points: ['Dynamic pages or online store', 'Conversion-focused UX', 'Performance + analytics', '3 months support'],
-          ctaLabel: 'Choose Growth',
-          href: '/pricing',
-          featured: true,
-        },
-        {
-          title: 'Premium',
-          price: '₹1,25,000+',
-          suffix: '/ project',
-          description: 'For custom builds with integrations, dashboards, and advanced SEO.',
-          points: ['Custom architecture', 'Payments / CRM / AI integrations', 'Advanced SEO + roadmap'],
-          ctaLabel: 'Discuss Premium',
-          prompt: 'I need custom/premium project pricing and delivery scope.',
-          featured: false,
-        },
-      ],
-    },
-    autopilot: {
-      label: 'AI Growth Ops',
-      subtitle: 'Monthly automation for followups, reminders, reviews, and support.',
-      plans: [
-        {
-          title: 'Automation Setup',
-          price: '₹20,000',
-          suffix: '/ one-time',
-          description: 'One-time build: workflow mapping, integrations, prompt design, and go-live.',
-          points: ['Business discovery', 'Workflow + integration setup', 'Prompt tuning & go-live'],
-          ctaLabel: 'Start Setup',
-          prompt: 'I want the AI automation setup for my business.',
-          featured: false,
-        },
-        {
-          title: 'Growth Autopilot',
-          price: '₹12,000',
-          suffix: '/ month / location',
-          description: 'Managed automation: missed-call recovery, reminders, review responses, and bilingual support — including AI usage and monitoring.',
-          points: ['Missed-call recovery', 'Reminder workflows', 'Review response assistant'],
-          ctaLabel: 'See Autopilot Plan',
-          href: '/services/clinic-growth-autopilot',
-          featured: true,
-        },
-        {
-          title: 'Multi-Branch OS',
-          price: '₹30,000',
-          suffix: '/ month',
-          description: 'Scale AI operations across multiple branches with standardized SOPs, KPI tracking, and priority support.',
-          points: ['Branch-level reporting', 'Team approval controls', 'Weekly outcome tracking'],
-          ctaLabel: 'Open AI OS Service',
-          href: '/services/ai-growth-os',
-          featured: false,
-        },
-      ],
-    },
-  } as const;
-
-  const activeMode = pricingByMode[mode];
+  const activeMode = PRICING[mode];
 
   return (
     <section id="pricing" className="py-16 bg-[#020617] text-white">
@@ -300,7 +216,7 @@ const Pricing = () => {
                   </li>
                 ))}
               </ul>
-              {'prompt' in plan ? (
+              {plan.prompt ? (
                 <OpenChatButton
                   prompt={plan.prompt}
                   className="mt-auto w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-center"
@@ -309,7 +225,7 @@ const Pricing = () => {
                 </OpenChatButton>
               ) : (
                 <Link
-                  href={plan.href}
+                  href={plan.href ?? '/pricing'}
                   className="mt-auto w-full py-3 rounded-xl border border-white/20 hover:border-indigo-300 hover:bg-white/5 text-white font-semibold text-center transition-colors"
                   prefetch
                 >
@@ -586,32 +502,7 @@ export default function Home() {
 };
 
 const FAQ = () => {
-  const faqs = [
-    {
-      question: "What services does Smile Fotilo offer?",
-      answer: "I offer Web Development (WordPress and custom React/Next.js), Digital Marketing (SEO, social media, Amazon/Flipkart ads), AI-generated content and creatives, and e-commerce management."
-    },
-    {
-      question: "How much does a website cost?",
-      answer: "Our website packages start from INR 15,999. We offer Starter (INR 15k) for small businesses, Growth (INR 35k+) for expanding brands, and custom enterprise scopes."
-    },
-    {
-      question: "How long does it take to build a website?",
-      answer: "Typical websites take 2-4 weeks from concept to launch. Complex projects with custom features may take 4-8 weeks. We provide detailed timelines during your strategy call."
-    },
-    {
-      question: "Do you work with international clients?",
-      answer: "Yes! I work with clients internationally. I’ve built projects for businesses in the USA and serve clients across India. I handle timezone differences and communicate in English and Hindi."
-    },
-    {
-      question: "What support do you provide after launch?",
-      answer: "I provide responsive support during business hours (Mon-Sat, 9AM-6PM IST) including website maintenance, security updates, performance optimization, and ongoing SEO improvements. Urgent issues are handled same-day."
-    },
-    {
-      question: "Do you offer AI automation services for local businesses?",
-      answer: "Yes. Our flagship Growth Autopilot is clinic-first and helps automate followups, reminders, reviews, and patient inquiry workflows."
-    }
-  ];
+  const faqs = HOME_FAQS;
 
   return (
     <section id="faq" className="py-24 bg-[#0a0118] relative overflow-hidden">

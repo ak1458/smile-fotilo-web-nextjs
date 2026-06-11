@@ -5,7 +5,6 @@ import { Footer } from '../../components/Footer';
 import { ConnectModal } from '../../components/ConnectModal';
 import { OtherLocations } from '../../components/OtherLocations';
 import { LocationSchema } from '../../components/LocationSchema';
-import { GmbUpdates } from '../../components/GmbUpdates';
 import { MdBusiness, MdLocationOn, MdForest, MdCheckCircle } from 'react-icons/md';
 
 export default function GondaPage() {
@@ -144,7 +143,6 @@ export default function GondaPage() {
                 </div>
             </section>
 
-            <GmbUpdates locationFilter="gonda" />
             <OtherLocations currentLocation="gonda" />
             <Footer />
         </main>
