@@ -1,4 +1,4 @@
-﻿import type { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -156,7 +156,6 @@ export default async function BlogPostPage({ params }: { params: Params }) {
                                 fill
                                 className="object-cover opacity-30"
                                 priority
-                                unoptimized
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
 
@@ -329,7 +328,6 @@ export default async function BlogPostPage({ params }: { params: Params }) {
                                                     fill
                                                     sizes="(max-width: 768px) 100vw, 33vw"
                                                     className="object-cover group-hover:scale-105 transition-transform duration-300"
-                                                    unoptimized
                                                 />
                                             </div>
                                             <div className="p-6 flex-1 flex flex-col">

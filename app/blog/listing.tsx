@@ -31,7 +31,6 @@ export function PostCard({ post }: { post: BlogPost }) {
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 33vw"
             className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-            unoptimized
           />
         </div>
         <div className="p-4 sm:p-6">

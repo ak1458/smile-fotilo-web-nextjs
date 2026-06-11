@@ -67,9 +67,9 @@ export function getCategoryBySlug(slug: string): string | undefined {
 }
 
 // Branded cover via the /og image route. The post.image field points at
-// /blog/*.webp files that were never added to /public — every reference
-// 404'd. Generated covers always resolve and stay visually consistent.
-export function blogImage(post: Pick<BlogPost, 'title' | 'category'>): string {
+// /blog/*.webp files.
+export function blogImage(post: Pick<BlogPost, 'title' | 'category' | 'image'>): string {
+    if (post.image) return post.image; // real generated cover in /public/blog
     return `/og?title=${encodeURIComponent(post.title)}&subtitle=${encodeURIComponent(post.category)}`;
 }
 

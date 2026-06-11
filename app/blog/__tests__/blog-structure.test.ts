@@ -75,15 +75,17 @@ describe('category hub routes', () => {
   });
 });
 
-describe('blog images resolve (52 referenced /blog/*.webp files never existed)', () => {
-  it('blogImage() returns a generated OG cover, never the dead /blog/*.webp path', async () => {
+describe('blog images resolve (all referenced /blog/*.webp files exist)', () => {
+  it('blogImage() returns the real file path when available, falling back to /og', async () => {
     const { blogImage } = await import('../../data/blogPosts');
     const cover = blogImage(blogPosts[0]);
-    expect(cover).toMatch(/^\/og\?/);
-    expect(cover).not.toContain('.webp');
+    expect(cover).toBe(blogPosts[0].image);
+
+    const fallback = blogImage({ title: 'Test Post', category: 'Test' });
+    expect(fallback).toMatch(/^\/og\?/);
   });
 
-  it('no render surface still reads the broken post.image field', () => {
+  it('no render surface still reads the broken post.image field directly', () => {
     for (const file of ['app/blog/listing.tsx', 'app/blog/[slug]/page.tsx']) {
       expect(read(file)).not.toMatch(/\bpost\.image\b|\brelated\.image\b/);
     }
