@@ -64,26 +64,29 @@ describe('locations voice matches founder-led positioning', () => {
   });
 });
 
-describe('tools cull', () => {
-  it.each([
+describe('tools roster (owner decision 2026-06-11: keep and fix, do not delete)', () => {
+  const allTools = [
+    'app/tools/website-audit',
+    'app/tools/seo-content',
+    'app/tools/website-factory',
     'app/tools/brand-kit',
     'app/tools/content-calendar',
     'app/tools/document-intelligence',
-  ])('%s is removed', (dir) => {
-    expect(exists(dir)).toBe(false);
+  ];
+
+  it.each(allTools)('%s exists with its page', (dir) => {
+    expect(exists(`${dir}/page.tsx`)).toBe(true);
   });
 
-  it('removed tool URLs 301 to /tools', () => {
-    const config = read('next.config.ts');
-    for (const slug of ['brand-kit', 'content-calendar', 'document-intelligence']) {
-      expect(config).toContain(`/tools/${slug}`);
+  it('tools index advertises every tool', () => {
+    const src = read('app/tools/page.tsx');
+    for (const dir of allTools) {
+      expect(src).toContain(dir.replace('app', ''));
     }
   });
 
-  it('tools index no longer advertises removed tools', () => {
-    const src = read('app/tools/page.tsx');
-    expect(src).not.toContain('/tools/brand-kit');
-    expect(src).not.toContain('/tools/content-calendar');
-    expect(src).not.toContain('/tools/document-intelligence');
+  it('no redirect swallows a tool URL', () => {
+    const config = read('next.config.ts');
+    expect(config).not.toMatch(/source:\s*'\/tools\//);
   });
 });
