@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { blogPosts, getBlogPost, getPostsByCategory, getRecentPosts, categoryToSlug } from '../../data/blogPosts';
+import { blogPosts, blogImage, getBlogPost, getPostsByCategory, getRecentPosts, categoryToSlug } from '../../data/blogPosts';
 import { ReadingProgressBar } from './ReadingProgressBar';
 import { Footer } from '../../components/Footer';
 
@@ -148,18 +148,17 @@ export default async function BlogPostPage({ params }: { params: Params }) {
                 {/* Hero Section with Image */}
                 <article>
                     <header className="relative">
-                        {/* Hero Image */}
-                        <div className="relative w-full h-[60vh] bg-gradient-to-br from-indigo-600 to-violet-600">
-                            {post.image && (
-                                <Image
-                                    src={post.image}
-                                    alt={post.title}
-                                    fill
-                                    className="object-cover opacity-20"
-                                    priority
-                                />
-                            )}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                        {/* Hero with generated cover (the old image field pointed at files that never existed) */}
+                        <div className="relative w-full h-[52vh] min-h-[380px] bg-[#11182c]">
+                            <Image
+                                src={blogImage(post)}
+                                alt={post.title}
+                                fill
+                                className="object-cover opacity-30"
+                                priority
+                                unoptimized
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
 
                             {/* Title Overlay */}
                             <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
@@ -218,7 +217,7 @@ export default async function BlogPostPage({ params }: { params: Params }) {
                     <div className="py-12 md:py-16">
                         <div className="container mx-auto px-4 max-w-3xl">
                             {/* Main Content */}
-                            <div className="prose prose-xl dark:prose-invert max-w-none
+                            <div className="prose prose-base sm:prose-lg md:prose-xl dark:prose-invert max-w-none
                                 prose-headings:font-bold prose-headings:tracking-tight
                                 prose-h2:text-4xl prose-h2:mt-16 prose-h2:mb-6 prose-h2:leading-tight
                                 prose-h3:text-2xl prose-h3:mt-12 prose-h3:mb-4
@@ -323,16 +322,16 @@ export default async function BlogPostPage({ params }: { params: Params }) {
                                 {relatedPosts.map((related) => (
                                     <Link key={related.slug} href={`/blog/${related.slug}`} className="group">
                                         <article className="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-300 h-full flex flex-col">
-                                            {related.image && (
-                                                <div className="relative h-48 bg-gradient-to-br from-indigo-600 to-violet-600 overflow-hidden">
-                                                    <Image
-                                                        src={related.image}
-                                                        alt={related.title}
-                                                        fill
-                                                        className="object-cover group-hover:scale-105 transition-transform duration-300"
-                                                    />
-                                                </div>
-                                            )}
+                                            <div className="relative h-48 bg-[#11182c] overflow-hidden">
+                                                <Image
+                                                    src={blogImage(related)}
+                                                    alt={related.title}
+                                                    fill
+                                                    sizes="(max-width: 768px) 100vw, 33vw"
+                                                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                                                    unoptimized
+                                                />
+                                            </div>
                                             <div className="p-6 flex-1 flex flex-col">
                                                 <span className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-3">
                                                     {related.category}

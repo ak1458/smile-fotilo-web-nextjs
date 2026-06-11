@@ -89,7 +89,9 @@ SAMPLE POST: [1 short social media post example]`;
       `Excited to serve our amazing customers at ${nameGuard.sanitized}! 🎉 Quality ${industryGuard.sanitized.toLowerCase()} services you can count on. Visit us today!`;
 
     // Generate color palette based on industry and personality
-    const colorPalettes: Record<string, any> = {
+    type PaletteColor = { hex: string; name: string; usage: string };
+    type Palette = Record<'primary' | 'secondary' | 'accent' | 'dark' | 'light' | 'warning', PaletteColor>;
+    const colorPalettes: Record<string, Palette> = {
       'Professional': {
         primary: { hex: '#1e3a5f', name: 'Deep Navy', usage: 'Primary brand color, headers, key CTAs' },
         secondary: { hex: '#4a90a4', name: 'Steel Blue', usage: 'Secondary buttons, links, accents' },
@@ -131,7 +133,8 @@ SAMPLE POST: [1 short social media post example]`;
     const colorPalette = colorPalettes[paletteKey] || defaultPalette;
 
     // Typography based on personality
-    const typographyOptions: Record<string, any> = {
+    type Typography = { headingFont: string; bodyFont: string; headingStyle: string; bodyStyle: string };
+    const typographyOptions: Record<string, Typography> = {
       'Professional': {
         headingFont: 'Inter / SF Pro Display',
         bodyFont: 'Inter / Open Sans',

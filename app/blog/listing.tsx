@@ -1,8 +1,10 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { MdSchedule, MdCalendarToday, MdArrowForward } from 'react-icons/md';
 import {
   BlogPost,
   blogPosts,
+  blogImage,
   getAllCategories,
   categoryToSlug,
 } from '../data/blogPosts';
@@ -22,7 +24,16 @@ export function PostCard({ post }: { post: BlogPost }) {
   return (
     <Link href={`/blog/${post.slug}`} className="group">
       <article className="h-full overflow-hidden rounded-xl border border-white/10 bg-white/[0.02] transition-all duration-300 hover:border-violet-500/30 hover:bg-white/[0.05] sm:rounded-2xl">
-        <div className={`h-1.5 bg-gradient-to-r ${categoryColors[post.category] || 'from-violet-600 to-purple-600'}`} />
+        <div className="relative aspect-[1200/630] w-full overflow-hidden bg-[#11182c]">
+          <Image
+            src={blogImage(post)}
+            alt={post.title}
+            fill
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+            unoptimized
+          />
+        </div>
         <div className="p-4 sm:p-6">
           <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-500 sm:text-xs">
             {post.category}

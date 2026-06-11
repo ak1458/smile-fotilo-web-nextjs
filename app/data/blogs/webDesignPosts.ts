@@ -34,7 +34,7 @@ But that's just the starting point. The real question is: what factors affect YO
 | Custom Web Application | ₹1,00,000 – ₹10,00,000+ | SaaS, enterprise, unique features | 2-6 months |
 | Landing Page | ₹10,000 – ₹25,000 | Campaigns, product launches | 3-7 days |
 
-These are 2026 market rates based on our experience working with 100+ clients across India.
+These are 2026 market rates based on our experience with client projects across India.
 
 ---
 
@@ -360,7 +360,7 @@ Working with a Lucknow-based (or nearby) agency offers:
 We're based in Gonda (1.5 hours from Lucknow) and serve clients across Uttar Pradesh and globally.
 
 **Why clients choose us:**
-- 100+ websites delivered across India & internationally
+- Real client websites delivered across India & internationally
 - Modern tech stack (Next.js, React, WordPress)
 - SEO-first approach
 - Transparent pricing from ₹15,999
@@ -680,7 +680,7 @@ Sunday: By appointment
 
 ---
 
-*Ashraf Kamal runs Smile Fotilo, a web design agency based in Gonda. We've helped 100+ businesses across India establish their online presence.*
+*Ashraf Kamal runs Smile Fotilo, a web design agency based in Gonda. We help businesses across India and the US establish their online presence.*
         `
     },
     {

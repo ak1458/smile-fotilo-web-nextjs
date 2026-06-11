@@ -38,11 +38,21 @@ const CLIENT_WORK: Project[] = [
     { name: 'Curbit', category: 'Service Website (Oregon, USA)', summary: 'Clean lead-generating website for a US service business — fast, mobile-first and built to rank locally.', tech: ['Next.js', 'SEO', 'US client'], accent: 'text-teal-300' },
 ];
 
-const PERSONAL_WORK: Project[] = [
-    { name: 'Takhti', category: 'Tuition Management PWA', summary: 'Installable app for tuition centres — attendance, fee tracking and parent updates in one place.', tech: ['PWA', 'Next.js', 'Offline'], github: 'https://github.com/ak1458/tuition-mandi', accent: 'text-violet-300' },
-    { name: 'Tuition Teacher', category: 'Tutor–Student Platform', summary: 'A platform to connect local tutors with students and manage classes and schedules.', tech: ['React', 'Auth', 'Supabase'], github: 'https://github.com/ak1458/tuition-mandi', accent: 'text-cyan-300' },
-    { name: 'YouTube Optimizer', category: 'Creator Tooling', summary: 'Bulk playlist organization and SEO metadata optimization for YouTube creators — quota tracking and auto-scheduling built in.', tech: ['YouTube API', 'Automation', 'SEO'], github: 'https://github.com/ak1458/youtube-bulk-optimizer', accent: 'text-orange-300' },
+// Project families already shown as client case studies — their repos must
+// not reappear in the GitHub-driven section (the duplication the owner
+// flagged: same project under multiple historical names).
+const CLIENT_REPO_FAMILIES = [
+    'pulsekart', 'kapdafactory', 'kapda', 'veloria', 'orderflow', 'curbit',
+    'storybook', 'smilefotilo', 'smile-fotilo', 'camera-club',
 ];
+
+// One project = one identity. Historical repo names map to the current
+// product name instead of appearing as separate projects.
+const REPO_ALIASES: Record<string, { name: string; category: string }> = {
+    'tuition-mandi': { name: 'Takhti', category: 'Tuition Management Platform' },
+};
+
+const REPO_ACCENTS = ['text-violet-300', 'text-cyan-300', 'text-orange-300', 'text-emerald-300', 'text-rose-300', 'text-sky-300'];
 
 const STACK = [
     { label: 'Frontend', items: 'React · Next.js · Tailwind' },
@@ -103,10 +113,16 @@ function ProjectCard({ p }: { p: Project }) {
 }
 
 export default function PortfolioPageClient({ initialRepos }: { initialRepos: Repo[] }) {
-    // Show one repo per project family — newest/best, no legacy/archive/empty dupes.
-    const repos = (() => {
-        const junk = /(\.github|original|souce|source|archive|legacy|backup|-old\b|\btest\b|template|\bconfig\b|dotfiles)/i;
-        const list = (initialRepos || []).filter((r) => r && r.name && !junk.test(r.name) && r.description && r.description.trim());
+    // GitHub-sourced personal projects, rendered in the same card system as
+    // client work. One repo per project family, no client-work duplicates,
+    // newest first — new public repos with a description appear automatically.
+    const personalProjects: Project[] = (() => {
+        const junk = /(\.github|original|souce|source|archive|legacy|backup|-old\b|\btest\b|template|\bconfig\b|dotfiles|^ak1458$)/i;
+        const list = (initialRepos || []).filter(
+            (r) =>
+                r && r.name && !junk.test(r.name) && r.description && r.description.trim() &&
+                !CLIENT_REPO_FAMILIES.some((fam) => r.name.toLowerCase().includes(fam)),
+        );
         const groups = new Map<string, Repo[]>();
         for (const r of list) {
             const key = r.name.toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 6); // family key
@@ -120,7 +136,28 @@ export default function PortfolioPageClient({ initialRepos }: { initialRepos: Re
                     (Number(Boolean(b.description)) - Number(Boolean(a.description))) ||
                     (new Date(b.pushed_at || 0).getTime() - new Date(a.pushed_at || 0).getTime())
             )[0];
-        return [...groups.values()].map(pickBest).slice(0, 6);
+
+        return [...groups.values()]
+            .map(pickBest)
+            .sort((a, b) => new Date(b.pushed_at || 0).getTime() - new Date(a.pushed_at || 0).getTime())
+            .slice(0, 6)
+            .map((repo, i): Project => {
+                const alias = REPO_ALIASES[repo.name.toLowerCase()];
+                return {
+                    name: alias?.name ?? formatRepoName(repo.name),
+                    category: alias?.category ?? (repo.language ? `${repo.language} · Open Source` : 'Open Source'),
+                    summary: repo.description,
+                    tech: [
+                        ...(repo.language ? [repo.language] : []),
+                        ...(repo.homepage ? ['Live site'] : []),
+                        repo.pushed_at
+                            ? `Updated ${new Date(repo.pushed_at).toLocaleDateString('en-IN', { month: 'short', year: 'numeric' })}`
+                            : 'GitHub',
+                    ],
+                    github: repo.homepage || repo.html_url,
+                    accent: REPO_ACCENTS[i % REPO_ACCENTS.length],
+                };
+            });
     })();
 
     return (
@@ -161,8 +198,8 @@ export default function PortfolioPageClient({ initialRepos }: { initialRepos: Re
                         </a>
                     </motion.div>
                     <motion.div {...fadeUp} transition={{ duration: 0.5, delay: 0.2 }} className="mt-10 flex flex-wrap gap-x-10 gap-y-3 text-sm text-white/50">
-                        <span><strong className="text-white">100+</strong> projects delivered</span>
-                        <span>Based in <strong className="text-white">Gonda, UP</strong> — working remotely worldwide</span>
+                        <span><strong className="text-white">6</strong> documented client case studies</span>
+                        <span>Live code on <strong className="text-white">GitHub</strong></span>
                         <span>Clients in <strong className="text-white">India &amp; the US</strong></span>
                     </motion.div>
                 </section>
@@ -190,58 +227,18 @@ export default function PortfolioPageClient({ initialRepos }: { initialRepos: Re
                     </div>
                 </section>
 
-                {/* Personal */}
-                <section className="py-8">
-                    <div className="mb-10 flex items-end justify-between">
-                        <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">Personal & experimental</h2>
-                        <span className="text-sm text-white/40">Things I build for fun & to learn</span>
-                    </div>
-                    <div className="grid gap-5 md:grid-cols-3">
-                        {PERSONAL_WORK.map((p) => (
-                            <motion.div key={p.name} {...fadeUp}><ProjectCard p={p} /></motion.div>
-                        ))}
-                    </div>
-                </section>
-
-                {/* Live GitHub */}
-                {repos.length > 0 && (
+                {/* Personal & open source — pulled live from GitHub, same card system */}
+                {personalProjects.length > 0 && (
                     <section className="py-8">
                         <div className="mb-10 flex items-end justify-between">
-                            <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">Live from GitHub</h2>
+                            <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">Personal &amp; open source</h2>
                             <a href="https://github.com/ak1458?tab=repositories" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm text-white/50 hover:text-white">
-                                All repos <MdArrowOutward />
+                                <FaGithub /> All repos <MdArrowOutward />
                             </a>
                         </div>
-                        <div className="grid gap-5 md:grid-cols-3">
-                            {repos.map((repo) => (
-                                <motion.a
-                                    key={repo.id} {...fadeUp}
-                                    href={repo.html_url} target="_blank" rel="noopener noreferrer"
-                                    className="group flex flex-col justify-between rounded-2xl border border-white/10 bg-white/[0.02] p-6 transition-all hover:border-white/25 hover:bg-white/[0.04]"
-                                >
-                                    <div>
-                                        <div className="mb-3 flex items-center justify-between">
-                                            <FaGithub className="text-white/40" />
-                                            {repo.pushed_at && (
-                                                <span className="text-xs text-white/40">
-                                                    Updated {new Date(repo.pushed_at).toLocaleDateString('en-IN', { month: 'short', year: 'numeric' })}
-                                                </span>
-                                            )}
-                                        </div>
-                                        <h3 className="mb-2 break-words text-lg font-semibold text-white">{formatRepoName(repo.name)}</h3>
-                                        <p className="line-clamp-2 text-sm text-white/50">{repo.description || 'View the code on GitHub.'}</p>
-                                    </div>
-                                    <div className="mt-4 flex items-center justify-between">
-                                        {repo.language ? (
-                                            <span className="text-xs font-medium uppercase tracking-widest text-white/40">{repo.language}</span>
-                                        ) : <span />}
-                                        {repo.homepage && (
-                                            <span className="inline-flex items-center gap-1 text-xs font-medium text-emerald-300/80">
-                                                Live site <MdArrowOutward />
-                                            </span>
-                                        )}
-                                    </div>
-                                </motion.a>
+                        <div className="grid gap-5 md:grid-cols-2">
+                            {personalProjects.map((p) => (
+                                <motion.div key={p.name} {...fadeUp}><ProjectCard p={p} /></motion.div>
                             ))}
                         </div>
                     </section>

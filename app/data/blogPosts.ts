@@ -66,6 +66,13 @@ export function getCategoryBySlug(slug: string): string | undefined {
     return getAllCategories().find((c) => categoryToSlug(c) === slug);
 }
 
+// Branded cover via the /og image route. The post.image field points at
+// /blog/*.webp files that were never added to /public — every reference
+// 404'd. Generated covers always resolve and stay visually consistent.
+export function blogImage(post: Pick<BlogPost, 'title' | 'category'>): string {
+    return `/og?title=${encodeURIComponent(post.title)}&subtitle=${encodeURIComponent(post.category)}`;
+}
+
 export function getAllTags(): string[] {
     return [...new Set(blogPosts.flatMap(post => post.tags))];
 }

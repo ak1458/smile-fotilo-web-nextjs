@@ -75,6 +75,25 @@ describe('category hub routes', () => {
   });
 });
 
+describe('blog images resolve (52 referenced /blog/*.webp files never existed)', () => {
+  it('blogImage() returns a generated OG cover, never the dead /blog/*.webp path', async () => {
+    const { blogImage } = await import('../../data/blogPosts');
+    const cover = blogImage(blogPosts[0]);
+    expect(cover).toMatch(/^\/og\?/);
+    expect(cover).not.toContain('.webp');
+  });
+
+  it('no render surface still reads the broken post.image field', () => {
+    for (const file of ['app/blog/listing.tsx', 'app/blog/[slug]/page.tsx']) {
+      expect(read(file)).not.toMatch(/\bpost\.image\b|\brelated\.image\b/);
+    }
+  });
+
+  it('listing cards render a real image element', () => {
+    expect(read('app/blog/listing.tsx')).toContain('blogImage');
+  });
+});
+
 describe('blog cards carry no emoji decoration', () => {
   it('listing source has no categoryIcons emoji map', () => {
     const src = read('app/blog/page.tsx');

@@ -44,6 +44,14 @@ html {
   --surface-2: #11182c;
 }
 
+/* Mobile: ambient glow blobs (rounded-full + large blur) overpower small
+   screens and make sections visually merge. Halve them under 640px. */
+@media (max-width: 640px) {
+  div[class*="rounded-full"][class*="blur-["] {
+    opacity: 0.45;
+  }
+}
+
 /* Respect reduced-motion: stop infinite/ambient animation, keep content. */
 @media (prefers-reduced-motion: reduce) {
   html {

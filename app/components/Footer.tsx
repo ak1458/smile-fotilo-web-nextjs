@@ -34,39 +34,38 @@ export const Footer = React.memo(() => (
                     </div>
                 </div>
 
-                {/* Links Row - Side by side on mobile */}
-                <div className="grid grid-cols-2 gap-8 md:col-span-2">
-                    {/* Quick Links */}
+                {/* Link groups — grouped so no single column dominates */}
+                <div className="grid grid-cols-2 gap-8 md:col-span-2 lg:grid-cols-3">
                     <div className="text-center md:text-left">
-                        <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-4">Quick Links</h4>
+                        <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-4">Services</h4>
                         <ul className="space-y-2">
-                            <li><Link href="/" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Home</Link></li>
-                            <li><Link href="/services" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">All Services</Link></li>
                             <li><Link href="/services/web-design" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Web Design</Link></li>
-                            <li><Link href="/services/seo" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">SEO Services</Link></li>
+                            <li><Link href="/services/seo" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">SEO</Link></li>
                             <li><Link href="/services/branding" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Branding</Link></li>
                             <li><Link href="/services/clinic-growth-autopilot" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Growth Autopilot</Link></li>
-                            <li><Link href="/services/ai-growth-os" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">AI Local Business OS</Link></li>
                             <li><Link href="/pricing" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Pricing</Link></li>
+                        </ul>
+                    </div>
+
+                    <div className="text-center md:text-left">
+                        <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-4">Company</h4>
+                        <ul className="space-y-2">
+                            <li><Link href="/about" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">About</Link></li>
                             <li><Link href="/work" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Our Work</Link></li>
                             <li><Link href="/portfolio" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Ashraf&apos;s Portfolio</Link></li>
-                            <li><Link href="/tools" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Free Tools</Link></li>
-                            <li><Link href="/blog" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Blog</Link></li>
-                            <li><Link href="/about" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">About Us</Link></li>
+                            <li><Link href="/locations" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Locations</Link></li>
                             <li><Link href="/contact" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Contact</Link></li>
                         </ul>
                     </div>
 
-                    {/* Locations */}
-                    <div className="text-center md:text-left">
-                        <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-4">Service Areas</h4>
+                    <div className="col-span-2 text-center md:text-left lg:col-span-1">
+                        <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-4">Resources</h4>
                         <ul className="space-y-2">
-                            <li><Link href="/locations/greater-noida" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Greater Noida</Link></li>
-                            <li><Link href="/locations/noida" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Noida</Link></li>
-                            <li><Link href="/locations/lucknow" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Lucknow</Link></li>
-                            <li><Link href="/locations/ayodhya" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Ayodhya</Link></li>
+                            <li><Link href="/blog" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Blog</Link></li>
+                            <li><Link href="/tools" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Free Tools</Link></li>
+                            <li><Link href="/tools/website-audit" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Free Website Audit</Link></li>
                             <li><Link href="/locations/gonda" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Gonda (HQ)</Link></li>
-                            <li><Link href="/locations" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">All Locations</Link></li>
+                            <li><Link href="/locations/noida" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Noida &amp; NCR</Link></li>
                         </ul>
                     </div>
                 </div>

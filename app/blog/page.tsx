@@ -52,7 +52,7 @@ export default async function Page({
     <>
       <main className="min-h-screen bg-[#0a0118]">
         <section className="relative overflow-hidden pt-32 pb-16">
-          <div className="absolute inset-0 bg-gradient-to-b from-violet-950/50 via-[#0a0118] to-[#0a0118]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-violet-950/25 via-[#0a0118] to-[#0a0118] sm:from-violet-950/50" />
           <div className="relative z-10 container mx-auto px-4 text-center">
             <h1 className="mb-6 text-4xl font-bold text-white md:text-6xl">
               Insights &amp; <span className="text-indigo-300">Resources</span>

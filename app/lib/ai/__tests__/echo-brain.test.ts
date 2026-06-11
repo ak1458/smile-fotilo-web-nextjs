@@ -103,6 +103,16 @@ describe('system prompt', () => {
   it('stays grounded — no invented review counts', () => {
     expect(buildSystemPrompt()).not.toContain('118');
   });
+
+  it('carries the hard scope rule: Smile Fotilo topics only, refuse the rest', () => {
+    const prompt = buildSystemPrompt();
+    expect(prompt).toContain('SCOPE (HARD RULE)');
+    expect(prompt).toContain('politely decline');
+  });
+
+  it('instructs multi-turn context retention', () => {
+    expect(buildSystemPrompt()).toContain('Remember the conversation');
+  });
 });
 
 describe('formatReply', () => {

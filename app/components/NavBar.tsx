@@ -112,7 +112,7 @@ export const NavBar = React.memo(() => {
     return (
         <nav className="sf-site-nav fixed top-0 z-50 w-full">
             {/* Main Nav Bar - Dark Mode Style */}
-            <div className="sf-nav-shell glass border-b border-white/5 bg-[#0a0118]/80 backdrop-blur-xl transition-all duration-300">
+            <div className="sf-nav-shell glass border-b border-white/5 bg-[#05070f]/80 backdrop-blur-xl transition-all duration-300">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center h-20">
                         {/* Logo */}
@@ -165,7 +165,7 @@ export const NavBar = React.memo(() => {
                                 aria-expanded={isOpen}
                                 aria-controls="mobile-menu"
                                 aria-label="Toggle menu"
-                                className="sf-nav-menu-button relative -mr-2 flex h-12 w-12 items-center justify-center rounded-xl border border-violet-500/30 bg-gradient-to-br from-violet-600/20 to-purple-600/20"
+                                className="sf-nav-menu-button relative -mr-2 flex h-12 w-12 items-center justify-center rounded-xl border border-white/15 bg-white/5"
                             >
                                 <div className="flex flex-col gap-1.5 items-center justify-center">
                                     <motion.span
@@ -195,9 +195,9 @@ export const NavBar = React.memo(() => {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
                         transition={{ duration: 0.3 }}
-                        className="sf-mobile-menu mobile-menu fixed inset-0 top-20 z-40 lg:hidden"
+                        className="sf-mobile-menu mobile-menu fixed inset-0 top-20 z-[120] lg:hidden"
                     >
-                        <div className="absolute inset-0 bg-[#0a0118]/98 backdrop-blur-2xl" />
+                        <div className="absolute inset-0 bg-[#05070f]/98 backdrop-blur-2xl" />
 
                         <div
                             id="mobile-menu"

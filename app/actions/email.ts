@@ -59,8 +59,8 @@ async function backupLeadToDatabase(data: LeadBackup) {
     try {
         const supabase = createAdminClient();
         const businessId = process.env.DEFAULT_BUSINESS_ID;
-        
-        await supabase.from('leads').insert({
+
+        const { error } = await supabase.from('leads').insert({
             business_id: businessId,
             source: data.source || 'unknown',
             name: data.name,
@@ -72,9 +72,15 @@ async function backupLeadToDatabase(data: LeadBackup) {
             conversation_summary: data.conversationSummary,
             status: 'new'
         });
+        if (error) {
+            console.error('Failed to backup lead to database:', error.message);
+            return false;
+        }
         console.log(`Lead backed up to database: ${data.email}`);
+        return true;
     } catch (e) {
         console.error('Failed to backup lead to database:', e);
+        return false;
     }
 }
 
@@ -97,15 +103,22 @@ export async function sendContactEmail(data: ContactFormData) {
     };
 
     // Always backup lead to database first
-    await backupLeadToDatabase({
+    const backedUp = await backupLeadToDatabase({
         source: 'contact_form',
         ...safeData
     });
 
     if (!process.env.SENDGRID_API_KEY) {
         console.error('SENDGRID_API_KEY is missing. Contact form email cannot be sent.');
+        if (!backedUp) {
+            // Neither channel worked — never tell the visitor we received it.
+            return {
+                success: false,
+                message: 'Could not submit right now. Please WhatsApp +91 94538 78422 or email support@smilefotilo.com.',
+            };
+        }
         return {
-            success: true, // We saved to the DB, so for the user it's a success, even if email fails.
+            success: true, // Saved to the DB, so for the user it's a success, even if email fails.
             message: 'Inquiry received. We will contact you soon.',
         };
     }
@@ -162,7 +175,13 @@ export async function sendContactEmail(data: ContactFormData) {
         return { success: true, message: 'Inquiry sent successfully.' };
     } catch (error) {
         console.error('Email error:', error);
-        // Even if email fails, DB backup succeeded
+        if (!backedUp) {
+            return {
+                success: false,
+                message: 'Could not submit right now. Please WhatsApp +91 94538 78422 or email support@smilefotilo.com.',
+            };
+        }
+        // Email failed but the DB backup has the lead — we will still follow up.
         return { success: true, message: 'Inquiry received. We will contact you soon.' };
     }
 }

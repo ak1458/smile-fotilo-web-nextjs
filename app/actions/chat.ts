@@ -30,6 +30,10 @@ const MINUTE_MS = 60 * 1000;
 
 const REQUEST_LIMIT = readPositiveNumber(process.env.CHAT_REQUEST_LIMIT, 25);
 const REQUEST_WINDOW_MS = readPositiveNumber(process.env.CHAT_REQUEST_WINDOW_MS, MINUTE_MS);
+// Daily ceiling per client on top of the per-minute throttle — bounds worst-case
+// token spend from a single visitor to ~DAILY_LIMIT * OPENROUTER_MAX_TOKENS.
+const DAILY_REQUEST_LIMIT = readPositiveNumber(process.env.CHAT_DAILY_REQUEST_LIMIT, 80);
+const DAY_MS = 24 * 60 * 60 * 1000;
 
 const OPENROUTER_PRIMARY_MODEL = process.env.OPENROUTER_MODEL || 'z-ai/glm-4.5-air:free';
 const OPENROUTER_REASONING_MODEL =
@@ -49,6 +53,7 @@ const FREE_OPENROUTER_MODELS: string[] = Array.from(
 );
 
 const requestThrottleMap = new Map<string, Counter>();
+const dailyThrottleMap = new Map<string, Counter>();
 const freeModelPointerMap = new Map<string, number>();
 
 const MAX_CACHE_ENTRIES = 1000;
@@ -102,12 +107,17 @@ function touchCounter(map: Map<string, Counter>, key: string, windowMs: number, 
 function consumeRequestQuota(clientId: string): { allowed: boolean; retryAfterMs: number } {
   const now = Date.now();
   const counter = touchCounter(requestThrottleMap, clientId, REQUEST_WINDOW_MS, now);
+  const daily = touchCounter(dailyThrottleMap, clientId, DAY_MS, now);
 
   if (counter.count >= REQUEST_LIMIT) {
     return { allowed: false, retryAfterMs: Math.max(0, counter.resetTime - now) };
   }
+  if (daily.count >= DAILY_REQUEST_LIMIT) {
+    return { allowed: false, retryAfterMs: Math.max(0, daily.resetTime - now) };
+  }
 
   counter.count += 1;
+  daily.count += 1;
   return { allowed: true, retryAfterMs: 0 };
 }
 
@@ -115,6 +125,9 @@ function cleanupExpiredEntries(): void {
   const now = Date.now();
   for (const [key, value] of requestThrottleMap.entries()) {
     if (now > value.resetTime) requestThrottleMap.delete(key);
+  }
+  for (const [key, value] of dailyThrottleMap.entries()) {
+    if (now > value.resetTime) dailyThrottleMap.delete(key);
   }
   enforceCacheLimit(freeModelPointerMap);
 }

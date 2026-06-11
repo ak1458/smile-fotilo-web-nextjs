@@ -17,31 +17,25 @@ import Link from 'next/link';
 
 const Hero = () => {
   return (
-    <section id="home" className="relative pt-32 pb-12 lg:pt-40 lg:pb-20 overflow-hidden min-h-screen flex items-center animated-bg text-white">
-      {/* Background Image with Overlay */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="/global-bg-network.webp"
-          alt=""
-          fill
-          sizes="100vw"
-          className="object-cover opacity-30"
-          priority
+    <section id="home" className="relative pt-32 pb-12 lg:pt-40 lg:pb-20 overflow-hidden min-h-screen flex items-center bg-[#05070f] text-white">
+      {/* Quiet, static backdrop: one accent wash + a faint grid. No image,
+          no looping animation — the type carries the hero. */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div
+          className="absolute inset-0 opacity-[0.35]"
+          style={{
+            backgroundImage:
+              'radial-gradient(ellipse 80% 50% at 50% -10%, rgba(79,70,229,0.28), transparent 70%)',
+          }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0118] via-[#0a0118]/80 to-[#0a0118]" />
-      </div>
-
-      {/* Anti-Gravity Background Animation */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-[1]">
-        <motion.div
-          animate={{ x: [0, 50, 0], y: [0, -50, 0] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-500/20 rounded-full blur-[128px]"
-        />
-        <motion.div
-          animate={{ x: [0, -30, 0], y: [0, 30, 0] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-violet-500/10 rounded-full blur-[128px]"
+        <div
+          className="absolute inset-0 opacity-[0.05]"
+          style={{
+            backgroundImage:
+              'linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)',
+            backgroundSize: '72px 72px',
+            maskImage: 'radial-gradient(ellipse 70% 60% at 50% 30%, black, transparent)',
+          }}
         />
       </div>
 
@@ -85,7 +79,7 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.8 }}
           className="mt-6 text-sm text-slate-400"
         >
-          Websites from <span className="font-semibold text-slate-200">₹25,000</span> · Free quote in 24 hours · 100+ projects delivered
+          Websites from <span className="font-semibold text-slate-200">₹25,000</span> · Free quote in 24 hours · Case studies with live code
         </motion.p>
       </div>
     </section>
@@ -102,7 +96,7 @@ const Services = () => {
   ];
 
   return (
-    <section id="services" className="py-20 relative overflow-hidden bg-[#020617] text-white">
+    <section id="services" className="py-20 relative overflow-hidden bg-[#05070f] text-white">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-indigo-500/5 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -147,7 +141,7 @@ const Pricing = () => {
   const activeMode = PRICING[mode];
 
   return (
-    <section id="pricing" className="py-16 bg-[#020617] text-white">
+    <section id="pricing" className="py-16 bg-[#05070f] text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -252,7 +246,7 @@ const Pricing = () => {
 };
 const Contact = () => {
   return (
-    <section id="contact" className="py-24 relative overflow-hidden bg-[#0a0118] text-white">
+    <section id="contact" className="py-24 relative overflow-hidden bg-[#070b17] text-white">
       {/* Ambient Background Glows */}
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[120px] pointer-events-none" />
@@ -447,7 +441,7 @@ const Portfolio = () => {
   };
 
   return (
-    <section id="work" className="py-24 bg-[#0a0118] relative overflow-hidden">
+    <section id="work" className="py-24 bg-[#070b17] relative overflow-hidden">
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-500/5 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -484,7 +478,7 @@ const Portfolio = () => {
 };
 export default function Home() {
   return (
-    <main className="sf-home-page min-h-screen bg-[#020617] font-sans selection:bg-indigo-500 selection:text-white">
+    <main className="sf-home-page min-h-screen bg-[#05070f] font-sans selection:bg-indigo-500 selection:text-white">
       <Hero />
       <Services />
       <AILocalBusinessOS />
@@ -504,7 +498,7 @@ const FAQ = () => {
   const faqs = HOME_FAQS;
 
   return (
-    <section id="faq" className="py-24 bg-[#0a0118] relative overflow-hidden">
+    <section id="faq" className="py-24 bg-[#070b17] relative overflow-hidden">
       <div className="absolute top-0 left-1/4 w-[400px] h-[400px] bg-violet-500/5 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -540,7 +534,7 @@ const FAQ = () => {
 
 const GlobalReach = () => {
   return (
-    <section className="py-24 bg-[#020617] relative overflow-hidden">
+    <section className="py-24 bg-[#05070f] relative overflow-hidden">
       {/* Background Gradients */}
       <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[120px] pointer-events-none" />
@@ -597,7 +591,7 @@ const GlobalReach = () => {
                 {/* Card 1: USA */}
                 <motion.div
                   whileHover={{ y: -5 }}
-                  className="p-6 rounded-2xl bg-[#020617]/50 border border-white/5 hover:border-blue-500/30 transition-all"
+                  className="p-6 rounded-2xl bg-[#05070f]/50 border border-white/5 hover:border-blue-500/30 transition-all"
                 >
                   <div className="w-10 h-10 rounded-full bg-blue-900/30 flex items-center justify-center text-blue-400 mb-4 text-xl">
                     <MdPublic />
@@ -609,7 +603,7 @@ const GlobalReach = () => {
                 {/* Card 2: Mexico */}
                 <motion.div
                   whileHover={{ y: -5 }}
-                  className="p-6 rounded-2xl bg-[#020617]/50 border border-white/5 hover:border-indigo-500/30 transition-all mt-8"
+                  className="p-6 rounded-2xl bg-[#05070f]/50 border border-white/5 hover:border-indigo-500/30 transition-all mt-8"
                 >
                   <div className="w-10 h-10 rounded-full bg-indigo-900/30 flex items-center justify-center text-indigo-400 mb-4 text-xl">
                     <MdPayments />
