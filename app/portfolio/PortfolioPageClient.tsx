@@ -263,7 +263,7 @@ export default function PortfolioPageClient({ initialRepos }: { initialRepos: Re
                         <a href={WHATSAPP_HREF} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-7 py-3.5 font-bold text-[#05290f] transition-transform hover:scale-105">
                             <FaWhatsapp className="text-lg" /> Chat on WhatsApp
                         </a>
-                        <Link href="/#contact" className="inline-flex items-center gap-2 rounded-full border border-white/20 px-7 py-3.5 font-semibold text-white/80 transition-colors hover:border-white/40 hover:text-white">
+                        <Link href="/contact" className="inline-flex items-center gap-2 rounded-full border border-white/20 px-7 py-3.5 font-semibold text-white/80 transition-colors hover:border-white/40 hover:text-white">
                             Send a message
                         </Link>
                     </div>

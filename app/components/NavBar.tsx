@@ -4,7 +4,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MdHome, MdWork, MdApps, MdArticle, MdLocationOn, MdInfo, MdChevronRight, MdLocalHospital, MdSearch, MdPayments, MdStars } from 'react-icons/md';
+import { MdHome, MdWork, MdApps, MdArticle, MdLocationOn, MdInfo, MdChevronRight, MdLocalHospital, MdSearch, MdPayments, MdStars, MdMail } from 'react-icons/md';
 import { FaWhatsapp } from 'react-icons/fa';
 import Image from 'next/image';
 
@@ -96,6 +96,7 @@ export const NavBar = React.memo(() => {
         { href: '/locations', label: 'Locations', icon: <MdLocationOn /> },
         { href: '/about', label: 'About', icon: <MdInfo /> },
         { href: '/portfolio', label: "Ashraf's Portfolio", icon: <MdStars /> },
+        { href: '/contact', label: 'Contact', icon: <MdMail /> },
     ];
 
     // Trimmed set for the desktop bar so it never wraps or feels cramped.
@@ -139,14 +140,20 @@ export const NavBar = React.memo(() => {
                                 </Link>
                             ))}
 
+                            <Link
+                                href="/contact"
+                                className="sf-nav-cta inline-flex items-center whitespace-nowrap rounded-full bg-indigo-600 px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-indigo-500"
+                            >
+                                Get a Quote
+                            </Link>
                             <a
                                 href={WHATSAPP_HREF}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 aria-label="Chat with us on WhatsApp"
-                                className="sf-nav-cta inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-bold text-[#05290f] shadow-[0_0_20px_rgba(37,211,102,0.35)] transition-all hover:scale-105 hover:bg-[#22c35e] hover:shadow-[0_0_30px_rgba(37,211,102,0.6)]"
+                                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#25D366]/40 text-xl text-[#25D366] transition-colors hover:bg-[#25D366]/10"
                             >
-                                <FaWhatsapp className="text-lg" /> Chat on WhatsApp
+                                <FaWhatsapp />
                             </a>
                         </div>
 

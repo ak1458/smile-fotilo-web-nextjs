@@ -95,16 +95,8 @@ const nextConfig: NextConfig = {
       // These old WP URLs are still indexed in GSC. 301 redirects
       // tell Google the site has migrated and transfer ranking juice.
       // ============================================================
-      {
-        source: '/contact',
-        destination: '/about',
-        permanent: true,
-      },
-      {
-        source: '/contact/',
-        destination: '/about',
-        permanent: true,
-      },
+      // NOTE: the old WP /contact→/about redirect was removed June 2026 —
+      // /contact is a real page again. Do not re-add it.
       {
         source: '/hire-developer',
         destination: '/services/web-design',

@@ -125,7 +125,7 @@ export const AILocalBusinessOS = () => {
 
             <div className="flex flex-col sm:flex-row gap-4">
               <Link href="/services/clinic-growth-autopilot" className="btn-primary text-center px-6 py-3">
-                <span>Explore Growth Blueprint</span>
+                <span>See Growth Autopilot</span>
               </Link>
               <a href="tel:+919453878422" className="btn-secondary text-center px-6 py-3">
                 Book Pilot Call

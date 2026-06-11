@@ -264,7 +264,7 @@ export default function BlogPage() {
                             <MdArrowForward />
                         </Link>
                         <Link
-                            href="/#contact"
+                            href="/contact"
                             className="inline-flex items-center gap-2 bg-white/10 text-white px-8 py-4 rounded-full font-bold border border-white/20 hover:bg-white/20 transition-all"
                         >
                             Contact Us

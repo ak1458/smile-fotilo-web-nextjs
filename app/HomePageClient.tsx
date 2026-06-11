@@ -74,9 +74,9 @@ const Hero = () => {
           <a href="https://wa.me/919453878422?text=Hi%20Smile%20Fotilo%2C%20I%20want%20a%20free%20quote%20for%20my%20website%2FSEO%20project." target="_blank" rel="noopener noreferrer" className="btn-primary px-8 py-4 text-lg min-w-[180px] text-center bg-green-600 hover:bg-green-500 shadow-[0_0_30px_rgba(22,163,74,0.3)] border-green-500">
             <span>Get a Free Quote</span>
           </a>
-          <a href="#work" className="btn-secondary px-8 py-4 text-lg min-w-[180px] text-center">
+          <Link href="/work" className="btn-secondary px-8 py-4 text-lg min-w-[180px] text-center">
             See Client Results
-          </a>
+          </Link>
         </motion.div>
 
         <motion.p
@@ -380,12 +380,12 @@ const Portfolio = () => {
       delay: 0.2,
     },
     {
-      title: 'AI Agent Marketplace',
-      href: '/marketplace',
-      category: 'AI Product Platform',
-      description: 'Install-ready AI agent templates for clinics and local businesses with conversion-focused onboarding.',
-      image: '/project-oregon-curbside.png',
-      color: 'from-cyan-500 to-blue-500',
+      title: 'Veloria Vault',
+      href: '/work/veloria-vault',
+      category: 'Luxury E-commerce',
+      description: 'Full digital presence for a leather-goods brand — store, marketplace listings, and content that sells.',
+      image: '/project-veloriavault.png',
+      color: 'from-amber-500 to-orange-500',
       delay: 0.3,
     },
   ];
