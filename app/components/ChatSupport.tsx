@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { chatWithGemini } from '../actions/chat';
+import { PRICING_FACTS } from '../data/pricing';
 import { AI_MODELS } from '../data/aiModels';
 import { EchoIcon } from './EchoIcon';
 import { MdClose, MdSend } from 'react-icons/md';
@@ -104,7 +105,7 @@ export const ChatSupport = () => {
 
         if (text.includes('price') || text.includes('pricing') || text.includes('cost') || text.includes('budget')) {
             return {
-                text: "Our websites start at ₹25k (Launch) and ₹65k (Growth, with e-commerce). Growth Autopilot is ₹12,000/month. What's your budget range?",
+                text: `Our websites start at ${PRICING_FACTS.websiteFrom} (Launch) and ${PRICING_FACTS.growthFrom} (Growth, with e-commerce). Growth Autopilot is ${PRICING_FACTS.autopilotMonthly}/month. What's your budget range?`,
                 quickReplies: ["Under ₹20k", "₹20k-50k", "Flexible budget"]
             };
         }
@@ -152,50 +153,35 @@ export const ChatSupport = () => {
         }]);
     };
 
-    // Initial greeting - professional, varied, not robotic
-    const sendInitialGreeting = async () => {
-        setIsTyping(true);
-        try {
-            const response = await chatWithGemini([], "Welcome the user to Smile Fotilo with energy and enthusiasm. Be proactive and friendly - ask what they're looking to build or grow. Use emojis sparingly. Sound like a helpful business partner, not a robot. Examples: 'Hey! Want help growing your business online?' or 'Ready to level up? What brings you in today?'", getClientId());
-            const parsed = parseResponse(response);
-            setIsTyping(false);
-            setMessages([{
-                id: generateMessageId(),
-                text: parsed.text,
-                sender: 'bot',
-                role: 'model',
-                quickReplies: parsed.quickReplies
-            }]);
-        } catch {
-            setIsTyping(false);
-            // Multiple proactive, friendly greetings that rotate
-            const greetings = [
-                {
-                    text: "Hi, I'm Echo — Smile Fotilo's assistant. Whether you need a website, SEO that actually works, or AI automation, I can point you in the right direction. What's on your mind?",
-                    quickReplies: ["I need a website", "Help with SEO", "AI automation", "What's the pricing?"]
-                },
-                {
-                    text: "Welcome! I'm here to help you figure out the right next step for your business. Are you launching something new or scaling what you've got?",
-                    quickReplies: ["Launch something new", "Scale existing business", "Not sure yet", "Just exploring"]
-                },
-                {
-                    text: "Hi there! I help business owners turn ideas into reality. Need a website that converts, better Google rankings, or AI to handle the busy work?",
-                    quickReplies: ["Website that sells", "Rank on Google", "AI for my business", "Show me everything"]
-                },
-                {
-                    text: "I'm Echo, your digital growth partner at Smile Fotilo. What are we building today?",
-                    quickReplies: ["New website", "More customers", "Business automation", "Talk to a human"]
-                }
-            ];
-            const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
-            setMessages([{
-                id: generateMessageId(),
-                text: randomGreeting.text,
-                sender: 'bot',
-                role: 'model',
-                quickReplies: randomGreeting.quickReplies
-            }]);
-        }
+    // Initial greeting — static rotation. No AI call here: the visitor hasn't
+    // said anything yet, so an LLM round-trip buys nothing but latency and spend.
+    const sendInitialGreeting = () => {
+        const greetings = [
+            {
+                text: "Hi, I'm Echo — Smile Fotilo's assistant. Whether you need a website, SEO that actually works, or AI automation, I can point you in the right direction. What's on your mind?",
+                quickReplies: ["I need a website", "Help with SEO", "AI automation", "What's the pricing?"]
+            },
+            {
+                text: "Welcome! I'm here to help you figure out the right next step for your business. Are you launching something new or scaling what you've got?",
+                quickReplies: ["Launch something new", "Scale existing business", "Not sure yet", "Just exploring"]
+            },
+            {
+                text: "Hi there! I help business owners turn ideas into reality. Need a website that converts, better Google rankings, or AI to handle the busy work?",
+                quickReplies: ["Website that sells", "Rank on Google", "AI for my business", "Show me everything"]
+            },
+            {
+                text: "I'm Echo, your digital growth partner at Smile Fotilo. What are we building today?",
+                quickReplies: ["New website", "More customers", "Business automation", "Talk to a human"]
+            }
+        ];
+        const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
+        setMessages([{
+            id: generateMessageId(),
+            text: randomGreeting.text,
+            sender: 'bot',
+            role: 'model',
+            quickReplies: randomGreeting.quickReplies
+        }]);
     };
 
     useEffect(() => {
@@ -277,7 +263,8 @@ export const ChatSupport = () => {
 
         try {
             const history = messages.map(m => ({ role: m.role || 'user', parts: m.text }));
-            const response = await chatWithGemini(history, text, getClientId(), selectedModel);
+            const pageContext = typeof window !== 'undefined' ? window.location.pathname : undefined;
+            const response = await chatWithGemini(history, text, getClientId(), selectedModel, pageContext);
 
             if (response === 'SETUP_REQUIRED') {
                 addBotMessage("Connection issue on my end. Try again in a moment, or call Ashraf directly at +91 9453878422.", ["Try again", "Call now"]);

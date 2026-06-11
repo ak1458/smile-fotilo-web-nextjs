@@ -1,3 +1,7 @@
+import { PRICING_FACTS } from './pricing';
+
+// Echo's company knowledge. Prices are interpolated from app/data/pricing.ts
+// so the assistant can never drift from the published pricing.
 export const SMILE_FOTILO_KNOWLEDGE = `
 **ABOUT SMILE FOTILO:**
 Smile Fotilo is a founder-led web development and digital marketing studio in Gonda, Uttar Pradesh, run by Ashraf Kamal. We build fast, SEO-ready websites, run local SEO, and set up AI automation for clinics, e-commerce, and local businesses across India — and for clients in the US. Direct founder communication, same-day replies, Hindi and English.
@@ -5,11 +9,11 @@ Smile Fotilo is a founder-led web development and digital marketing studio in Go
 **OUR SERVICES:**
 
 1. **Web Design & Development:**
-   - Custom Website Design (Framer, Webflow, Next.js, React)
-   - E-Commerce Solutions (Shopify, WordPress/WooCommerce, Custom Stacks)
-   - 3D Web Experiences (Three.js, Fiber)
+   - Custom Website Design (Next.js, React, WordPress)
+   - E-Commerce Solutions (WooCommerce, Shopify, Custom Stacks)
+   - Web Applications (dashboards, CRM, booking platforms)
    - Responsive & Mobile-First Design
-   - CMS Development
+   - Website Redesigns that preserve SEO
 
 2. **SEO & Digital Growth:**
    - Technical SEO Audits
@@ -24,36 +28,52 @@ Smile Fotilo is a founder-led web development and digital marketing studio in Go
    - Copywriting & Brand Voice
    - Social Media Branding
 
-4. **Creative Studio:**
-   - Product Photography & Videography
-   - 3D Modeling & Rendering
-   - Motion Graphics
+4. **AI Automation (Growth Autopilot & AI Local Business OS):**
+   - Missed-call recovery via WhatsApp
+   - Appointment reminders and review-response workflows
+   - Bilingual (Hindi/English) customer-query chatbot
+   - Clinic-first, works for any local business
 
 **PRICING PACKAGES:**
 
-- **Launch (₹25,000 / project):**
+- **Launch (${PRICING_FACTS.websiteFrom} / project):**
   - Best for doctors, clinics, local shops getting online.
   - 5-page responsive website
   - On-page SEO setup + Google Business Profile optimization
   - Lead form + WhatsApp CTA
 
-- **Growth (₹65,000 / starting):**
+- **Growth (${PRICING_FACTS.growthFrom} / starting):**
   - Best for businesses & small e-commerce.
   - Dynamic pages or online store
   - Conversion-focused UX + performance
   - Advanced SEO & analytics, 3 months support
 
-- **Premium (₹1,25,000+ / custom):**
+- **Premium (${PRICING_FACTS.premiumFrom} / custom):**
   - Custom builds with integrations.
   - Custom web app (React/Next.js)
   - Payments / CRM / AI integrations
   - Advanced SEO + delivery roadmap
 
+- **Automation Setup (${PRICING_FACTS.automationSetup} / one-time):**
+  - Workflow mapping, integrations, prompt design, go-live.
+
+- **Growth Autopilot (${PRICING_FACTS.autopilotMonthly} / month / location):**
+  - Managed automation: missed-call recovery, reminders, reviews, bilingual support.
+
+- **Multi-Branch OS (${PRICING_FACTS.multiBranchMonthly} / month):**
+  - Multi-location automation with reporting and approval controls.
+
+**KEY PAGES (link visitors to these):**
+- Pricing: smilefotilo.com/pricing
+- Contact / free quote: smilefotilo.com/contact
+- Client work: smilefotilo.com/work
+- Services: smilefotilo.com/services
+
 **CONTACT INFO:**
 - **Email:** support@smilefotilo.com
-- **Phone:** +91 9453878422
-- **Location:** Digital-first agency with hubs in Greater Noida, Lucknow, Ayodhya, and Gonda.
+- **Phone / WhatsApp:** +91 9453878422
+- **Location:** HQ in Gonda, UP; studio in Greater Noida; presence in Ayodhya. Serving Lucknow, Noida, and clients worldwide.
 
 **WHY CHOOSE US?**
-We don't just build websites; we build digital assets that generate revenue. Our "Anti-Gravity" design philosophy ensures your brand stands out with modern, defying-expectations aesthetics.
+Founder-direct work — the person you talk to is the person who designs, builds, and supports your project. Revenue-focused builds, fast delivery (most sites in 2-3 weeks), and honest communication.
 `;
