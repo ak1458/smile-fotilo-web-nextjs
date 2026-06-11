@@ -231,7 +231,16 @@ export default function PortfolioPageClient({ initialRepos }: { initialRepos: Re
                                         <h3 className="mb-2 break-words text-lg font-semibold text-white">{formatRepoName(repo.name)}</h3>
                                         <p className="line-clamp-2 text-sm text-white/50">{repo.description || 'View the code on GitHub.'}</p>
                                     </div>
-                                    {repo.language && <div className="mt-4 text-xs font-medium uppercase tracking-widest text-white/40">{repo.language}</div>}
+                                    <div className="mt-4 flex items-center justify-between">
+                                        {repo.language ? (
+                                            <span className="text-xs font-medium uppercase tracking-widest text-white/40">{repo.language}</span>
+                                        ) : <span />}
+                                        {repo.homepage && (
+                                            <span className="inline-flex items-center gap-1 text-xs font-medium text-emerald-300/80">
+                                                Live site <MdArrowOutward />
+                                            </span>
+                                        )}
+                                    </div>
                                 </motion.a>
                             ))}
                         </div>
