@@ -62,6 +62,15 @@ const locations = [
         iconClasses: 'bg-rose-500/10 text-rose-400 group-hover:bg-rose-500',
         taglineClasses: 'text-rose-400',
     },
+    {
+        name: 'Noida',
+        slug: 'noida',
+        tagline: 'Startup Corridor',
+        description: 'Websites and SEO for NCR startups and D2C brands.',
+        icon: 'apartment',
+        iconClasses: 'bg-sky-500/10 text-sky-400 group-hover:bg-sky-500',
+        taglineClasses: 'text-sky-400',
+    },
 ] as const;
 
 export default function LocationsPage() {
@@ -74,17 +83,12 @@ export default function LocationsPage() {
                 </div>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#1E293B] border border-indigo-500/20 mb-8">
-                        <span className="flex h-2 w-2 rounded-full bg-indigo-500 animate-pulse"></span>
-                        <span className="text-xs font-bold uppercase tracking-widest text-indigo-200">Our Network</span>
-                    </div>
-
                     <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
-                        Strategic <span className="text-indigo-300">Locations</span>
+                        Where I <span className="text-indigo-300">work</span>
                     </h1>
 
                     <p className="text-xl text-slate-400 max-w-2xl mx-auto">
-                        Operating from key cities across Uttar Pradesh and NCR to deliver modern, results-focused digital solutions.
+                        Based in Gonda, with a studio in Greater Noida and a presence in Ayodhya — building websites and running local SEO for businesses across Uttar Pradesh, NCR, and worldwide.
                     </p>
                 </div>
             </section>
@@ -92,7 +96,7 @@ export default function LocationsPage() {
             {/* Locations Grid */}
             <section className="py-20 bg-[#0F172A]">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                    <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                         {locations.map((loc) => (
                             <Link
                                 key={loc.slug}
@@ -119,8 +123,8 @@ export default function LocationsPage() {
             <section className="py-20 bg-gradient-to-r from-indigo-500/10 to-cyan-500/10">
                 <div className="max-w-4xl mx-auto px-4 text-center">
                     <h2 className="text-3xl font-bold text-white mb-6">Ready to Start Your Project?</h2>
-                    <p className="text-slate-300 mb-8">No matter where you are, we deliver premium digital solutions.</p>
-                    <Link href="/#contact" className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-indigo-600 text-white font-bold hover:bg-indigo-500 transition-all">
+                    <p className="text-slate-300 mb-8">Wherever you are, you get the same founder-direct work and same-day replies.</p>
+                    <Link href="/contact" className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-indigo-600 text-white font-bold hover:bg-indigo-500 transition-all">
                         <MdRocketLaunch />
                         Get Started
                     </Link>

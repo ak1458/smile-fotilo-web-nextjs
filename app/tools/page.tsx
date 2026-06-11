@@ -48,36 +48,6 @@ const tools = [
     features: ['Titles', 'Meta descriptions', 'Keywords', 'Outlines'],
   },
   {
-    href: '/tools/brand-kit',
-    title: 'AI Brand Kit',
-    badge: 'Brand',
-    color: 'from-amber-600 to-orange-600',
-    borderColor: 'border-amber-500/20 hover:border-amber-500/40',
-    glowColor: 'group-hover:shadow-amber-500/20',
-    description: 'Create color palettes, brand voice, taglines, and social bios.',
-    features: ['Palette', 'Voice', 'Taglines', 'Social bios'],
-  },
-  {
-    href: '/tools/content-calendar',
-    title: 'Content Calendar',
-    badge: 'Calendar',
-    color: 'from-pink-600 to-rose-600',
-    borderColor: 'border-pink-500/20 hover:border-pink-500/40',
-    glowColor: 'group-hover:shadow-pink-500/20',
-    description: 'Plan 7-day social content with captions and hashtags.',
-    features: ['Weekly plan', 'Captions', 'Hashtags', 'Posting tips'],
-  },
-  {
-    href: '/tools/document-intelligence',
-    title: 'Document Intelligence',
-    badge: 'Docs',
-    color: 'from-blue-600 to-cyan-600',
-    borderColor: 'border-blue-500/20 hover:border-blue-500/40',
-    glowColor: 'group-hover:shadow-blue-500/20',
-    description: 'Extract summaries and structured insights from raw documents.',
-    features: ['Summary', 'Extraction', 'Action items', 'Multi-domain'],
-  },
-  {
     href: '/tools/website-factory',
     title: 'Website Factory',
     badge: 'Factory',
@@ -114,15 +84,39 @@ export default function ToolsPage() {
       <div className="relative z-10 mx-auto max-w-6xl px-6 pb-20 pt-24">
         <div className="mb-12 text-center">
           <h1 className="text-4xl font-bold md:text-6xl">
-            Free AI <span className="text-indigo-300">Tools</span>
+            Free <span className="text-indigo-300">Tools</span>
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-lg text-white/40">
-            Analyze, optimize, and automate growth workflows without setup friction.
+            No signup, no email gate. Run them now — and if the results show work to do, that&apos;s what I&apos;m here for.
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-3 md:gap-6">
-          {tools.map((tool) => (
+        {/* Flagship: the audit tool runs real checks and is the natural first step. */}
+        <Link
+          href={tools[0].href}
+          className="group mb-10 block rounded-3xl border border-violet-500/30 bg-gradient-to-br from-violet-600/15 to-indigo-600/10 p-8 transition-all duration-300 hover:-translate-y-1 hover:border-violet-500/50 md:p-12"
+        >
+          <div className="mb-3 inline-flex rounded-full border border-violet-400/30 bg-violet-500/10 px-3 py-1 text-xs font-bold uppercase tracking-wide text-violet-300">
+            Start here
+          </div>
+          <h2 className="text-2xl font-bold md:text-4xl">{tools[0].title}</h2>
+          <p className="mt-3 max-w-2xl text-base text-white/60 md:text-lg">
+            {tools[0].description} Enter your URL, get an A–F grade in seconds.
+          </p>
+          <div className="mt-5 flex flex-wrap gap-2">
+            {tools[0].features.map((f) => (
+              <span key={f} className="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-white/50">
+                {f}
+              </span>
+            ))}
+          </div>
+          <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-violet-300 transition-transform group-hover:translate-x-1">
+            Run a free audit {"->"}
+          </span>
+        </Link>
+
+        <div className="grid gap-3 sm:grid-cols-2 sm:gap-5 md:gap-6">
+          {tools.slice(1).map((tool) => (
             <Link
               key={tool.title}
               href={tool.href}

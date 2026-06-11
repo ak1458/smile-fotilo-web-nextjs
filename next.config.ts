@@ -246,6 +246,22 @@ const nextConfig: NextConfig = {
         destination: '/about',
         permanent: true,
       },
+      // Thin AI tools removed June 2026 (already noindexed since June 1).
+      {
+        source: '/tools/brand-kit',
+        destination: '/tools',
+        permanent: true,
+      },
+      {
+        source: '/tools/content-calendar',
+        destination: '/tools',
+        permanent: true,
+      },
+      {
+        source: '/tools/document-intelligence',
+        destination: '/tools',
+        permanent: true,
+      },
     ];
   },
 

@@ -62,6 +62,7 @@ export const Footer = React.memo(() => (
                         <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-4">Service Areas</h4>
                         <ul className="space-y-2">
                             <li><Link href="/locations/greater-noida" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Greater Noida</Link></li>
+                            <li><Link href="/locations/noida" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Noida</Link></li>
                             <li><Link href="/locations/lucknow" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Lucknow</Link></li>
                             <li><Link href="/locations/ayodhya" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Ayodhya</Link></li>
                             <li><Link href="/locations/gonda" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Gonda (HQ)</Link></li>

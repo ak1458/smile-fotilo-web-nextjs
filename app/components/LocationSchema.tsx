@@ -148,6 +148,19 @@ export const locationSchemas = {
             { "@type": "City", "name": "Faizabad" }
         ]
     }),
+    // Service-area only (no office) — served from the Greater Noida studio.
+    noida: areaService({
+        id: "https://smilefotilo.com/locations/noida#service",
+        name: "Website Development & SEO in Noida — Smile Fotilo",
+        description: "Website development, e-commerce, and local SEO for Noida businesses — served from our Greater Noida studio with on-site visits across NCR.",
+        url: "https://smilefotilo.com/locations/noida",
+        areas: [
+            { "@type": "City", "name": "Noida" },
+            { "@type": "Place", "name": "Sector 62" },
+            { "@type": "Place", "name": "Sector 18" },
+            { "@type": "Place", "name": "NCR" }
+        ]
+    }),
     // Service-area only (no office) — served from the Gonda studio.
     lucknow: areaService({
         id: "https://smilefotilo.com/locations/lucknow#service",

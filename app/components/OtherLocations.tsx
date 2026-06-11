@@ -15,6 +15,7 @@ const locations: Location[] = [
     { id: 'ayodhya', name: 'Ayodhya', tagline: 'The Spiritual Capital', path: '/locations/ayodhya', color: 'text-orange-400' },
     { id: 'lucknow', name: 'Lucknow', tagline: 'City of Nawabs', path: '/locations/lucknow', color: 'text-amber-400' },
     { id: 'greater-noida', name: 'Gr. Noida & NCR', tagline: 'The Silicon Valley', path: '/locations/greater-noida', color: 'text-cyan-400' },
+    { id: 'noida', name: 'Noida', tagline: 'Startup Corridor', path: '/locations/noida', color: 'text-sky-400' },
     { id: 'gonda', name: 'Gonda', tagline: 'Our Headquarters', path: '/locations/gonda', color: 'text-emerald-400' },
     { id: 'global', name: 'Global', tagline: 'Worldwide Operations', path: '/locations/global', color: 'text-blue-400' },
 ];

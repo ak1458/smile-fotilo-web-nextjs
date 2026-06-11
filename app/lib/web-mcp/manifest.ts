@@ -185,8 +185,8 @@ export const WEB_MCP_ROUTES: McpRoute[] = [
       },
     ],
     links: [
-      { to: '/tools/brand-kit', relation: 'workflow-next', reason: 'AI draft-to-service upgrade flow.' },
       { to: '/portfolio', relation: 'content-link', reason: 'Brand execution examples.' },
+      { to: '/contact', relation: 'cta', reason: 'Request branding scope.' },
     ],
   },
   {
@@ -313,8 +313,7 @@ export const WEB_MCP_ROUTES: McpRoute[] = [
     links: [
       { to: '/tools/website-audit', relation: 'workflow-next', reason: 'Technical audit workflow start.' },
       { to: '/tools/seo-content', relation: 'workflow-next', reason: 'SEO content generation flow.' },
-      { to: '/tools/brand-kit', relation: 'workflow-next', reason: 'Brand design support flow.' },
-      { to: '/tools/content-calendar', relation: 'workflow-next', reason: 'Social planning flow.' },
+      { to: '/tools/website-factory', relation: 'workflow-next', reason: 'Website blueprint pre-sales flow.' },
     ],
   },
   {
@@ -334,7 +333,7 @@ export const WEB_MCP_ROUTES: McpRoute[] = [
         primaryActions: ['run audit'],
       },
     ],
-    links: [{ to: '/#contact', relation: 'cta', reason: 'Escalate from self-serve to managed service.' }],
+    links: [{ to: '/contact', relation: 'cta', reason: 'Escalate from self-serve to managed service.' }],
   },
   {
     path: '/tools/seo-content',
@@ -354,44 +353,6 @@ export const WEB_MCP_ROUTES: McpRoute[] = [
       },
     ],
     links: [{ to: '/blog', relation: 'content-link', reason: 'Publish generated strategy into content engine.' }],
-  },
-  {
-    path: '/tools/brand-kit',
-    title: 'Brand Kit Generator',
-    purpose: 'Generate color/voice/tagline and identity guidance.',
-    layoutFlow: ['navbar', 'hero', 'input-form', 'results', 'footer'],
-    seoIntents: ['brand kit generator', 'brand strategy ai'],
-    schemaHints: ['SoftwareApplication'],
-    sections: [
-      {
-        id: 'brand-form',
-        label: 'Brand Inputs',
-        role: 'form',
-        summary: 'Business profile fields for AI-generated brand system.',
-        selectors: ['form', 'input', 'textarea'],
-        primaryActions: ['generate brand kit'],
-      },
-    ],
-    links: [{ to: '/services/branding', relation: 'workflow-next', reason: 'Move from AI draft to expert execution.' }],
-  },
-  {
-    path: '/tools/content-calendar',
-    title: 'Content Calendar',
-    purpose: 'Generate weekly social plan with captions and hooks.',
-    layoutFlow: ['navbar', 'hero', 'input-form', 'results', 'footer'],
-    seoIntents: ['content calendar generator', 'social media plan ai'],
-    schemaHints: ['SoftwareApplication'],
-    sections: [
-      {
-        id: 'calendar-form',
-        label: 'Calendar Inputs',
-        role: 'form',
-        summary: 'Business and platform context fields for weekly plan.',
-        selectors: ['form', 'input', 'textarea', 'select'],
-        primaryActions: ['generate content calendar'],
-      },
-    ],
-    links: [{ to: '/services/ai-growth-os', relation: 'workflow-next', reason: 'Upgrade to done-for-you operations.' }],
   },
   {
     path: '/marketplace',

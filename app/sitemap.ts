@@ -175,6 +175,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
             priority: 0.7,
         },
         {
+            url: `${baseUrl}/locations/noida`,
+            lastModified: lastUpdated,
+            changeFrequency: 'monthly',
+            priority: 0.7,
+        },
+        {
             url: `${baseUrl}/locations/greater-noida`,
             lastModified: lastUpdated,
             changeFrequency: 'monthly',
