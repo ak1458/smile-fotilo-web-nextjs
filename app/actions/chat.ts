@@ -41,7 +41,10 @@ const OPENROUTER_REASONING_MODEL =
   process.env.OPENROUTER_DEEP_MODEL ||
   'deepseek/deepseek-r1-0528:free';
 
-const OPENROUTER_MAX_TOKENS = readPositiveNumber(process.env.OPENROUTER_MAX_TOKENS, 220);
+// 300 default: enough for a natural two-paragraph answer without letting a
+// single reply run long. Worst-case daily spend per client stays bounded by
+// DAILY_REQUEST_LIMIT * this.
+const OPENROUTER_MAX_TOKENS = readPositiveNumber(process.env.OPENROUTER_MAX_TOKENS, 300);
 const OPENROUTER_TEMPERATURE = readNumberInRange(process.env.OPENROUTER_TEMPERATURE, 0.45, 0, 1);
 
 const baseOpenRouterModels: string[] = AI_MODELS

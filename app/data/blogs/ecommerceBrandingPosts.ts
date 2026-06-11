@@ -4,7 +4,7 @@ import { BlogPost } from '../blogPosts';
 export const ecommerceBrandingPosts: BlogPost[] = [
     {
         slug: "start-online-store-india-2026",
-        title: "How to Start an Online Store in India 2026: Complete Guide",
+        title: "Start an Online Store in India 2026: Costs, GST, Platform, Shipping",
         description: "From GST registration to shipping with Shiprocket. A step-by-step guide to launching your e-commerce brand in India.",
         author: "Ashraf Kamal",
         date: "2026-01-24",
@@ -336,8 +336,8 @@ If you double your conversion rate (1% to 2%), you double your revenue *without*
     },
     {
         slug: "razorpay-integration-guide",
-        title: "Guide to Payment Gateways in India 2026",
-        description: "Razorpay vs PhonePe vs Cashfree. Which one has the lowest failure rate and best pricing?",
+        title: "Razorpay vs PhonePe vs Cashfree (2026): Fees, Failure Rates, Setup",
+        description: "Side-by-side comparison of India payment gateways in 2026 — transaction fees, payment failure rates, settlement times, and which to pick for your store.",
         author: "Ashraf Kamal",
         date: "2026-01-08",
         readTime: "7 min",

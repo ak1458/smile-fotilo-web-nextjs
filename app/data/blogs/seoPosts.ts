@@ -4,8 +4,8 @@ import { BlogPost } from '../blogPosts';
 export const seoPosts: BlogPost[] = [
     {
         slug: "seo-cost-india-2026",
-        title: "SEO Services Cost in India 2026: Monthly Packages & Pricing",
-        description: "How much should you pay for SEO in India in 2026? From ₹5,000 to ₹50,000+ - we reveal real pricing, hidden costs, and what to expect.",
+        title: "SEO Cost in India 2026: Real Prices from ₹5,000 to ₹50,000/Month",
+        description: "What SEO actually costs in India in 2026 — real agency rates, what each price tier includes, hidden costs to avoid, and how to know if you are overpaying.",
         author: "Ashraf Kamal",
         date: "2026-01-23",
         readTime: "10 min",

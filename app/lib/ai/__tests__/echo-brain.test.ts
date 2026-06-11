@@ -113,6 +113,12 @@ describe('system prompt', () => {
   it('instructs multi-turn context retention', () => {
     expect(buildSystemPrompt()).toContain('Remember the conversation');
   });
+
+  it('talks like a person: no forced quick-reply menus on AI turns', () => {
+    const prompt = buildSystemPrompt();
+    expect(prompt).not.toContain('ALWAYS END WITH');
+    expect(prompt).toContain('not a menu');
+  });
 });
 
 describe('formatReply', () => {

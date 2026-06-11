@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import AboutPageClient from "./AboutPageClient";
 
 export const metadata: Metadata = {
-  title: "About Smile Fotilo | Creative Agency India",
+  title: "Meet Ashraf Kamal — Web Developer Behind Smile Fotilo",
   description:
     "Learn about Smile Fotilo, a premium creative agency based in India. We build high-performance websites, brands, and digital marketing systems for local and global businesses.",
   alternates: {
     canonical: "/about",
   },
   openGraph: {
-    title: "About Smile Fotilo | Creative Agency India",
+    title: "Meet Ashraf Kamal — Web Developer Behind Smile Fotilo",
     description: "Premium creative agency in India specializing in web design, branding, and digital marketing for local and global businesses.",
     type: "website",
     images: [
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "About Smile Fotilo | Creative Agency India",
+    title: "Meet Ashraf Kamal — Web Developer Behind Smile Fotilo",
     description: "Premium creative agency specializing in web design, branding, and digital marketing.",
     images: ["/og?title=About%20Smile%20Fotilo&subtitle=Creative%20Agency%20India"],
   },

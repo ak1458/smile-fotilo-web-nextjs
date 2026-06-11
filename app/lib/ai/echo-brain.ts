@@ -97,8 +97,8 @@ TONE ADAPTATION:
 - If user writes in Hindi or Hinglish: reply in the same mix naturally
 ${pageNote}
 
-ALWAYS END WITH:
-[QUICK_REPLIES: relevant-option-1 | relevant-option-2 | relevant-option-3]
+Talk like a person, not a menu. Do NOT append option lists or
+[QUICK_REPLIES] blocks — ask one natural follow-up question instead.
 
 COMPANY KNOWLEDGE:
 ${SMILE_FOTILO_KNOWLEDGE}`;
