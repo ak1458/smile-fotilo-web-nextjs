@@ -44,7 +44,6 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <h1 className="sr-only">Smile Fotilo - Web Development, SEO, & Digital Marketing Studio</h1>
       <HomePageClient />
     </>
   );

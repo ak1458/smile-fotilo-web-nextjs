@@ -12,6 +12,7 @@ import {
 } from 'react-icons/md';
 import { OpenChatButton } from '../../components/OpenChatButton';
 import { Footer } from '../../components/Footer';
+import { StructuredData, serviceSchema } from '../../components/StructuredData';
 
 export const metadata: Metadata = {
   title: 'Growth Autopilot (Clinic-First)',
@@ -133,6 +134,14 @@ const kpis = [
 export default function ClinicGrowthAutopilotPage() {
   return (
     <>
+    <StructuredData
+      data={serviceSchema({
+        name: 'Growth Autopilot (Clinic-First)',
+        description:
+          'Clinic-first automation system for missed-call recovery, appointment reminders, review workflows, and bilingual inquiry handling.',
+        url: 'https://smilefotilo.com/services/clinic-growth-autopilot',
+      })}
+    />
     <main className="min-h-screen bg-[#020617] text-white">
       <section className="pt-32 pb-20 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-cyan-500/15 to-transparent pointer-events-none" />

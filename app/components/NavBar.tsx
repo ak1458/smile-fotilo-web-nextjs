@@ -86,23 +86,22 @@ export const NavBar = React.memo(() => {
 
     // Full list — shown in the mobile menu.
     const menuItems = [
-        { href: '/#home', label: 'Home', icon: <MdHome /> },
-        { href: '/#work', label: 'Work', icon: <MdWork /> },
-        { href: '/portfolio', label: 'Portfolio', icon: <MdStars /> },
-        { href: '/#services', label: 'Services', icon: <MdApps /> },
+        { href: '/', label: 'Home', icon: <MdHome /> },
+        { href: '/services', label: 'Services', icon: <MdApps /> },
+        { href: '/work', label: 'Our Work', icon: <MdWork /> },
         { href: '/pricing', label: 'Pricing', icon: <MdPayments /> },
-        { href: '/services/clinic-growth-autopilot', label: 'Growth AI', icon: <MdLocalHospital /> },
+        { href: '/services/clinic-growth-autopilot', label: 'Growth Autopilot', icon: <MdLocalHospital /> },
         { href: '/tools', label: 'Free Tools', icon: <MdSearch /> },
         { href: '/blog', label: 'Blog', icon: <MdArticle /> },
         { href: '/locations', label: 'Locations', icon: <MdLocationOn /> },
         { href: '/about', label: 'About', icon: <MdInfo /> },
+        { href: '/portfolio', label: "Ashraf's Portfolio", icon: <MdStars /> },
     ];
 
     // Trimmed set for the desktop bar so it never wraps or feels cramped.
     const primaryNav = [
-        { href: '/#work', label: 'Work' },
-        { href: '/portfolio', label: 'Portfolio' },
-        { href: '/#services', label: 'Services' },
+        { href: '/services', label: 'Services' },
+        { href: '/work', label: 'Work' },
         { href: '/pricing', label: 'Pricing' },
         { href: '/tools', label: 'Tools' },
         { href: '/blog', label: 'Blog' },

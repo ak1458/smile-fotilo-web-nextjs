@@ -9,6 +9,20 @@ export const metadata: Metadata = {
     alternates: {
         canonical: '/locations',
     },
+    openGraph: {
+        title: 'Our Locations | Smile Fotilo',
+        description: 'Web design and digital marketing studios in Gonda, Greater Noida, Lucknow, and Ayodhya — serving clients worldwide.',
+        type: 'website',
+        url: 'https://smilefotilo.com/locations',
+        images: [
+            {
+                url: '/og?title=Our%20Locations&subtitle=Gonda%20%C2%B7%20Lucknow%20%C2%B7%20Ayodhya%20%C2%B7%20Greater%20Noida',
+                width: 1200,
+                height: 630,
+                alt: 'Smile Fotilo Locations',
+            },
+        ],
+    },
 };
 
 const locations = [

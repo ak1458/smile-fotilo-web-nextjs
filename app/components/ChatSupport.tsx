@@ -171,20 +171,20 @@ export const ChatSupport = () => {
             // Multiple proactive, friendly greetings that rotate
             const greetings = [
                 {
-                    text: "Hey! 👋 Want help growing your business online? I'm Echo, and I'm here to help you win. Whether it's a killer website, SEO that actually works, or AI automation - what's on your mind?",
-                    quickReplies: ["🚀 I need a website", "📈 Help with SEO", "🤖 AI automation", "💰 What's the pricing?"]
+                    text: "Hi, I'm Echo — Smile Fotilo's assistant. Whether you need a website, SEO that actually works, or AI automation, I can point you in the right direction. What's on your mind?",
+                    quickReplies: ["I need a website", "Help with SEO", "AI automation", "What's the pricing?"]
                 },
                 {
-                    text: "Ready to level up? 🚀 I'm here to help you build something amazing. What brings you in today - looking to launch fresh or scale what you've got?",
+                    text: "Welcome! I'm here to help you figure out the right next step for your business. Are you launching something new or scaling what you've got?",
                     quickReplies: ["Launch something new", "Scale existing business", "Not sure yet", "Just exploring"]
                 },
                 {
-                    text: "Hi there! 👋 I help business owners like you turn ideas into reality. Need a website that converts? Better Google rankings? Or maybe AI to handle the busy work? Tell me what you're after!",
+                    text: "Hi there! I help business owners turn ideas into reality. Need a website that converts, better Google rankings, or AI to handle the busy work?",
                     quickReplies: ["Website that sells", "Rank on Google", "AI for my business", "Show me everything"]
                 },
                 {
-                    text: "Be your own boss with Smile Fotilo AI power 🚀 I'm Echo - your digital growth partner. What are we building today?",
-                    quickReplies: ["New website 🌐", "More customers 📊", "Business automation ⚡", "Talk to a human 👤"]
+                    text: "I'm Echo, your digital growth partner at Smile Fotilo. What are we building today?",
+                    quickReplies: ["New website", "More customers", "Business automation", "Talk to a human"]
                 }
             ];
             const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
@@ -390,7 +390,7 @@ export const ChatSupport = () => {
                 {showTooltip && !isOpen && (
                     <div className="absolute bottom-full right-0 mb-2 whitespace-nowrap animate-fade-in">
                         <div className="relative bg-white dark:bg-slate-800 text-slate-800 dark:text-white text-sm font-medium pl-3 pr-8 py-2 rounded-xl shadow-lg border border-slate-200 dark:border-white/10">
-                            Want to grow? Let&apos;s chat! 🚀
+                            Want to grow? Let&apos;s chat.
                             <button onClick={(e) => { e.stopPropagation(); setShowTooltip(false); }}
                                 className="absolute top-0.5 right-0.5 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 rounded-full hover:bg-slate-100 transition-colors">×</button>
                             <div className="absolute bottom-0 right-6 translate-y-1/2 rotate-45 w-2 h-2 bg-white dark:bg-slate-800 border-r border-b border-slate-200 dark:border-white/10"></div>

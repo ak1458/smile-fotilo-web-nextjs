@@ -9,6 +9,21 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/tools',
   },
+  openGraph: {
+    title: 'Free AI Tools | Smile Fotilo',
+    description:
+      'Free website audit, SEO content engine, brand kit generator, and more — no signup required.',
+    type: 'website',
+    url: 'https://smilefotilo.com/tools',
+    images: [
+      {
+        url: '/og?title=Free%20AI%20Tools&subtitle=Website%20Audit%20%C2%B7%20SEO%20%C2%B7%20Brand%20Kit',
+        width: 1200,
+        height: 630,
+        alt: 'Smile Fotilo Free AI Tools',
+      },
+    ],
+  },
 };
 
 const tools = [

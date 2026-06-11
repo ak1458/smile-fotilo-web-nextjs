@@ -41,13 +41,17 @@ export const Footer = React.memo(() => (
                         <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-4">Quick Links</h4>
                         <ul className="space-y-2">
                             <li><Link href="/" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Home</Link></li>
-                            <li><Link href="/portfolio" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm font-medium">Ashraf&apos;s Portfolio</Link></li>
-                            <li><Link href="/work" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Our Work</Link></li>
-                            <li><Link href="/blog" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Blog</Link></li>
+                            <li><Link href="/services" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">All Services</Link></li>
                             <li><Link href="/services/web-design" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Web Design</Link></li>
                             <li><Link href="/services/seo" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">SEO Services</Link></li>
                             <li><Link href="/services/branding" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Branding</Link></li>
                             <li><Link href="/services/clinic-growth-autopilot" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Growth Autopilot</Link></li>
+                            <li><Link href="/services/ai-growth-os" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">AI Local Business OS</Link></li>
+                            <li><Link href="/pricing" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Pricing</Link></li>
+                            <li><Link href="/work" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Our Work</Link></li>
+                            <li><Link href="/portfolio" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Ashraf&apos;s Portfolio</Link></li>
+                            <li><Link href="/tools" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Free Tools</Link></li>
+                            <li><Link href="/blog" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Blog</Link></li>
                             <li><Link href="/about" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">About Us</Link></li>
                             <li><Link href="/#contact" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">Contact</Link></li>
                         </ul>

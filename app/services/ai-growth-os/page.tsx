@@ -16,6 +16,7 @@ import {
 } from 'react-icons/md';
 import { OpenChatButton } from '../../components/OpenChatButton';
 import { Footer } from '../../components/Footer';
+import { StructuredData, serviceSchema } from '../../components/StructuredData';
 
 export const metadata: Metadata = {
   title: 'AI Local Business OS',
@@ -134,6 +135,14 @@ const verticalPacks = [
 export default function AIGrowthOSPage() {
   return (
     <>
+    <StructuredData
+      data={serviceSchema({
+        name: 'AI Local Business OS',
+        description:
+          'AI automation stack for local businesses: review management, local marketing campaigns, multilingual support, and lead followup.',
+        url: 'https://smilefotilo.com/services/ai-growth-os',
+      })}
+    />
     <main className="min-h-screen bg-[#020617] text-white">
       <section className="pt-32 pb-20 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-cyan-500/15 to-transparent pointer-events-none" />
