@@ -1,20 +1,12 @@
-![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=nextdotjs&logoColor=white) ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white) ![React](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black) ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)
-
-### Stack
-
-Next.js • TypeScript • Tailwind CSS • SEO Optimization
-
-### Local development
-
-Check the `CONTRIBUTING.md` file for details on how to set up the project locally and start contributing.
-
----
+[![Next.js 16](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript&logoColor=white)](https://typescriptlang.org)
+[![Groq](https://img.shields.io/badge/Groq-Llama%203.3%2070B-F55036?logo=meta&logoColor=white)](https://groq.com)
+[![Framer Motion](https://img.shields.io/badge/Framer%20Motion-animations-0055FF?logo=framer&logoColor=white)](https://framer.com/motion)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ﻿# ðŸš€ Smile Fotilo Web
 
 Premium digital agency platform. Features AI-powered interactions, modern reactive UI, and advanced SEO optimization.
-
-![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=nextdotjs&logoColor=white) ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white) ![React](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black) ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)
 
 ## ðŸŒŸ Features
 * Comprehensive implementation tailored for modern standards.
