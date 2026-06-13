@@ -1,106 +1,16 @@
-# Smile Fotilo - Digital Agency Website
+﻿# ðŸš€ Smile Fotilo Web
 
-Premium digital agency website built with Next.js 16, featuring AI-powered chatbot, modern UI, and SEO optimization for "Zero Position" ranking.
+Premium digital agency platform. Features AI-powered interactions, modern reactive UI, and advanced SEO optimization.
 
-## 🚀 Quick Start
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=nextdotjs&logoColor=white) ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white) ![React](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black) ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)
 
-```bash
-# Install dependencies
-npm install
+## ðŸŒŸ Features
+* Comprehensive implementation tailored for modern standards.
+* Secure and optimized for performance.
+* Clean architecture and easy to maintain.
 
-# Run development server
-npm run dev
+## ðŸ’» Tech Stack
+This project is built using **Next.js** and follows best practices for modern development.
 
-# Build for production
-npm run build
-
-# Start production server
-npm run start
-```
-
-## 🔑 Environment Variables
-
-Create a `.env.local` file in the root directory:
-
-```env
-GROQ_API_KEY=your_groq_api_key_here
-```
-
-Get your API key from [Groq Console](https://console.groq.com/).
-
-## 📁 Project Structure
-
-```
-app/
-├── actions/          # Server actions (chat API)
-├── components/       # Reusable components
-├── data/             # Knowledge base
-├── locations/        # Location pages (Gonda, Lucknow, etc.)
-├── services/         # Service pages (SEO, Branding, Web Design)
-├── work/             # Portfolio pages
-├── privacy/          # Privacy Policy
-├── terms/            # Terms of Service
-└── layout.tsx        # Root layout with global SEO
-```
-
-## 🛡️ Security Features
-
-| Feature | Implementation |
-|---------|----------------|
-| CSP | Strict Content-Security-Policy |
-| HSTS | 2-year max-age with preload |
-| Clickjacking | X-Frame-Options: SAMEORIGIN |
-| MIME Sniffing | X-Content-Type-Options: nosniff |
-| XSS | X-XSS-Protection + React escaping |
-| Rate Limiting | 20 requests/min per client |
-| Input Sanitization | HTML/script tag removal |
-
-## 🔍 SEO Features
-
-- **Schema Markup**: Organization, LocalBusiness, Service, FAQPage, HowTo
-- **SpeakableSpecification**: Optimized for AI assistants
-- **ProfilePage**: E-E-A-T author credentials
-- **Lead-with-Answer**: Featured snippet optimization
-- **GEO Ready**: 2026 Generative Engine Optimization
-
-## 🤖 AI Chatbot (Echo)
-
-- Powered by Groq (Llama 3.3 70B)
-- Collects project requirements
-- Generates PDF proposals
-- Rate-limited and sanitized
-
-## 📍 Location Pages
-
-- Gonda (HQ)
-- Lucknow
-- Greater Noida
-- Ayodhya
-
-Each with LocalBusiness schema.
-
-## 📱 Tech Stack
-
-- **Framework**: Next.js 16 (App Router)
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **AI**: Groq SDK (Llama 3.3)
-- **Animations**: Framer Motion
-- **PDF**: jsPDF
-
-## 🚢 Deployment
-
-Works with Vercel, Netlify, or any Node.js host.
-
-```bash
-npm run build
-npm run start
-```
-
-## 📄 License
-
-MIT
-
----
-
-Built with passion by [Smile Fotilo](https://smilefotilo.com)
+## ðŸ› ï¸ Getting Started
+Check the CONTRIBUTING.md file for details on how to set up the project locally and start contributing.
