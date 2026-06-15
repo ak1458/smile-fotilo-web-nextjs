@@ -42,11 +42,11 @@ export default function WorkPage() {
         {
             slug: "curbit",
             title: "Curbit",
-            category: "Smart City Solution",
+            category: "Service Website (USA)",
             description: "Website for a US-based company providing curb-related services. Clean, professional design with service booking.",
             image: "/project-curbit.png",
             color: "from-indigo-600 to-violet-500",
-            tags: ["Web Platform", "Smart City", "Enterprise", "USA"],
+            tags: ["Web Platform", "Service Booking", "Local SEO", "USA"],
             delay: 0.3
         },
         {

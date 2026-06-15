@@ -60,9 +60,19 @@ describe('cross-page contact links use the real page, not the home anchor', () =
     'app/components/Footer.tsx',
     'app/blog/page.tsx',
     'app/blog/listing.tsx',
-    'app/portfolio/PortfolioPageClient.tsx',
   ])('%s has no /#contact link', (file) => {
     expect(read(file)).not.toContain('/#contact');
+  });
+
+  it('portfolio source has no /#contact link', () => {
+    const dir = path.join(process.cwd(), 'app/portfolio');
+    const walk = (d: string): string[] =>
+      fs.readdirSync(d, { withFileTypes: true }).flatMap((e) => {
+        const p = path.join(d, e.name);
+        if (e.isDirectory()) return e.name === '__tests__' ? [] : walk(p);
+        return /\.tsx?$/.test(e.name) ? [fs.readFileSync(p, 'utf8')] : [];
+      });
+    expect(walk(dir).join('\n')).not.toContain('/#contact');
   });
 });
 

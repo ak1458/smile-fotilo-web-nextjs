@@ -76,9 +76,9 @@ const projectsData: Record<string, {
     },
     'curbit': {
         title: 'Curbit',
-        category: 'Smart City Solution',
+        category: 'Service Website (USA)',
         description: 'Website for a US-based company providing curb-related services.',
-        fullDescription: 'Curbit is a professional corporate website for a US-based company specializing in smart city curb management solutions. The website showcases their services, provides a booking system, and includes a customer portal. Built with a clean, professional design that reflects the company\'s image.',
+        fullDescription: 'Curbit is a professional corporate website for a US-based service company offering curb-related services. The website showcases their services, provides a booking system, and includes a customer portal. Built with a clean, professional design that reflects the company\'s image.',
         image: '/project-curbit.png',
         features: ['Service Booking System', 'Customer Portal', 'SEO Optimized', 'Mobile Responsive', 'Contact Management', 'Analytics Dashboard'],
         technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Vercel'],
