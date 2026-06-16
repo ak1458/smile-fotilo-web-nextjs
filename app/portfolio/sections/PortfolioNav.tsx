@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useRef } from 'react';
+import Link from 'next/link';
 import { useActiveSection, useMagnetic } from '../lib/hooks';
 import { SOCIAL } from '@/app/data/portfolio';
 
@@ -64,6 +65,10 @@ export default function PortfolioNav({
         </div>
 
         <div className="nav-cta">
+          <Link href="/" className="back-home" aria-label="Back to Smile Fotilo main site">
+            <span aria-hidden="true">←</span>
+            <span className="lbl">Smile Fotilo</span>
+          </Link>
           <a
             href={SOCIAL.whatsapp}
             target="_blank"

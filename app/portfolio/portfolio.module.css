@@ -73,6 +73,11 @@
 .aurora :global(.nav-links a:hover){color:var(--white);background:rgba(255,255,255,.05)}
 @media(max-width:880px){.aurora :global(.nav-links){display:none}}
 .aurora :global(.nav-cta){display:flex;align-items:center;gap:14px}
+.aurora :global(.back-home){display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--muted);padding:9px 13px;border:1px solid var(--line);border-radius:999px;transition:color .3s,border-color .3s,background .3s;white-space:nowrap}
+.aurora :global(.back-home:hover){color:var(--white);border-color:var(--accent);background:var(--accent-soft)}
+@media(max-width:520px){.aurora :global(.back-home .lbl){display:none}}
+.aurora :global(.ov-back){display:inline-block;color:var(--silver);font-family:var(--mono);font-size:14px;letter-spacing:.03em;padding:7px 0;transition:color .3s}
+.aurora :global(.ov-back:hover){color:var(--accent-2)}
 .aurora :global(.menu-btn){display:flex;flex-direction:column;gap:5px;background:none;border:0;padding:10px;border-radius:10px;transition:background .3s}
 .aurora :global(.menu-btn:hover){background:rgba(255,255,255,.06)}
 .aurora :global(.menu-btn i){display:block;width:22px;height:1.6px;background:var(--white);transition:.4s var(--ease)}

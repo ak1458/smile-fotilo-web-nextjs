@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 import { useClock } from '../lib/hooks';
 import { SOCIAL } from '@/app/data/portfolio';
 
@@ -19,6 +20,10 @@ export default function PortfolioFooter() {
             © 2026 — All rights reserved
             <br />
             Built with intent · Smile Fotilo
+            <br />
+            <Link href="/" className="ov-back" style={{ display: 'inline-block', marginTop: 8 }}>
+              ← smilefotilo.com
+            </Link>
             <br />
             <span>{clock}</span>
           </div>

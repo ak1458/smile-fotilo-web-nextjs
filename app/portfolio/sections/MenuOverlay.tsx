@@ -1,5 +1,6 @@
 'use client';
 import { useEffect } from 'react';
+import Link from 'next/link';
 import { SOCIAL } from '@/app/data/portfolio';
 
 const ITEMS = [
@@ -41,7 +42,11 @@ export default function MenuOverlay({ onClose }: { onClose: () => void }) {
           ))}
         </nav>
         <div className="ov-side">
-          <h5>Direct</h5>
+          <h5>Main site</h5>
+          <Link href="/" className="ov-back" onClick={onClose}>
+            ← Back to Smile Fotilo
+          </Link>
+          <h5 style={{ marginTop: 34 }}>Direct</h5>
           {direct.map((d) => (
             <a key={d.label} href={d.href} {...(d.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
               {d.label}
