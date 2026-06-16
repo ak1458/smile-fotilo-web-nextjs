@@ -2,10 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { JsonLd } from "./components/JsonLd";
-import { NavBar } from "./components/NavBar";
-import { MobileBottomNav } from "./components/MobileBottomNav";
+import { SiteChromeTop, SiteChromeBottom } from "./components/SiteChrome";
 import { FestivalProvider } from "./components/FestivalProvider";
-import { ChatSupportWrapper } from "./components/ChatSupportWrapper";
 import { CookieConsent } from "./components/CookieConsent";
 import { GoogleAnalytics, GTMNoScript } from "./components/GoogleAnalytics";
 import { ConversionTracking } from "./components/ConversionTracking";
@@ -95,11 +93,10 @@ export default function RootLayout({
         <ConversionTracking />
         <GTMNoScript />
         <FestivalProvider>
-          <NavBar />
+          <SiteChromeTop />
           <JsonLd />
           {children}
-          <ChatSupportWrapper />
-          <MobileBottomNav />
+          <SiteChromeBottom />
           <CookieConsent />
         </FestivalProvider>
       </body>
