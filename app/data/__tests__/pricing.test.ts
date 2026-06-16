@@ -83,7 +83,14 @@ describe('trust purge regression guards', () => {
   });
 
   it('portfolio page shows neither review counts nor GitHub star counts', () => {
-    const src = read('app/portfolio/PortfolioPageClient.tsx');
+    const dir = path.join(process.cwd(), 'app/portfolio');
+    const walk = (d: string): string[] =>
+      fs.readdirSync(d, { withFileTypes: true }).flatMap((e) => {
+        const p = path.join(d, e.name);
+        if (e.isDirectory()) return e.name === '__tests__' ? [] : walk(p);
+        return /\.(tsx?|css)$/.test(e.name) ? [fs.readFileSync(p, 'utf8')] : [];
+      });
+    const src = walk(dir).join('\n');
     expect(src).not.toContain('118 Google reviews');
     expect(src).not.toContain('stargazers_count');
   });
