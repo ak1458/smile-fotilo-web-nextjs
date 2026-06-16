@@ -45,21 +45,19 @@ export const TOPIC_CATEGORY: Array<[string, string]> = [
 // Drop a 16:11 image (≈1280×880, .webp/.png/.jpg) at each path. Missing files
 // fall back to the generated gradient cover automatically (Work.tsx onError).
 export const THUMBNAIL_OVERRIDES: Record<string, string> = {
-  'kapdafactory-web-nextjs': '/portfolio/covers/kapdafactory.webp',
-  'veloriavault-headless-v2': '/portfolio/covers/veloriavault.webp',
-  'veloriavault-web-nextjs': '/portfolio/covers/veloriavault.webp',
-  'veloriavault-headless-v1': '/portfolio/covers/veloriavault.webp',
-  'pulsekart-web-nextjs': '/portfolio/covers/pulsekart.webp',
-  'tuition-mandi-pwa': '/portfolio/covers/takhti.webp',
-  'carfax-for-boats': '/portfolio/covers/carfax-boats.webp',
-  'attest-health-tracker': '/portfolio/covers/attest-health.webp',
-  'sovereign-vault': '/portfolio/covers/sovereign-vault.webp',
-  'ai-executive-seo-agent': '/portfolio/covers/ai-seo-agent.webp',
-  'creator-agent-toolbox': '/portfolio/covers/creator-toolbox.webp',
-  'youtube-bulk-optimizer': '/portfolio/covers/youtube-optimizer.webp',
-  'smile-fotilo-web-nextjs': '/portfolio/covers/smile-fotilo.webp',
-  'liar-loop-puzzle': '/portfolio/covers/liar-loop.webp',
-  'simple-trivia-app': '/portfolio/covers/trivia-jokes.webp',
+  'kapdafactory-web-nextjs': '/portfolio/covers/kapdafactory.png',
+  'veloriavault-headless-v2': '/portfolio/covers/veloriavault.png',
+  'veloriavault-web-nextjs': '/portfolio/covers/veloriavault.png',
+  'veloriavault-headless-v1': '/portfolio/covers/veloriavault.png',
+  'pulsekart-web-nextjs': '/portfolio/covers/pulsekart.png',
+  'carfax-for-boats': '/portfolio/covers/carfax-boats.png',
+  'attest-health-tracker': '/portfolio/covers/attest-health.png',
+  'sovereign-vault': '/portfolio/covers/sovereign-vault.png',
+  'ai-executive-seo-agent': '/portfolio/covers/ai-seo-agent.png',
+  'creator-agent-toolbox': '/portfolio/covers/creator-toolbox.png',
+  'youtube-bulk-optimizer': '/portfolio/covers/youtube-optimizer.png',
+  // No cover yet (gradient fallback): tuition-mandi-pwa (Takhti),
+  // smile-fotilo-web-nextjs, liar-loop-puzzle, simple-trivia-app.
 };
 
 // deterministic accent palette for generated gradient covers
