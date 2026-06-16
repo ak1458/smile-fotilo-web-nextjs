@@ -9,17 +9,21 @@ const MILESTONES: Array<{ yr: [string, string]; role: string; org: string; text:
   { yr: ['20', '24'], role: 'Founder & developer', org: 'Smile Fotilo', text: 'Run a solo web + AI-automation studio — discovery, design, development, deployment and support with AI-assisted workflows.' },
 ];
 
-export default function Experience({ reduced }: { reduced: boolean }) {
+export default function Experience({ reduced, desktop }: { reduced: boolean; desktop: boolean }) {
   const outerRef = useRef<HTMLDivElement>(null);
   const stickyRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const barRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    if (reduced) {
+    // Scroll-jack only on capable desktops. On mobile / reduced-motion the
+    // timeline is a plain horizontal swipe (no inflated section height).
+    if (reduced || !desktop) {
       stickyRef.current?.classList.add('static');
+      if (outerRef.current) outerRef.current.style.height = '';
       return;
     }
+    stickyRef.current?.classList.remove('static');
     const outer = outerRef.current;
     const track = trackRef.current;
     const bar = barRef.current;
@@ -64,7 +68,7 @@ export default function Experience({ reduced }: { reduced: boolean }) {
       clearTimeout(t);
       outer.style.height = '';
     };
-  }, [reduced]);
+  }, [reduced, desktop]);
 
   return (
     <section id="experience">

@@ -44,7 +44,7 @@ export default function PortfolioClient({ featured, rest, repoCount }: Portfolio
       <main>
         <About repoCount={repoCount} desktop={desktop} />
         <Work featured={featured} rest={rest} onOpen={setActive} desktop={desktop} />
-        <Experience reduced={reduced} />
+        <Experience reduced={reduced} desktop={desktop} />
         <Skills desktop={desktop} reduced={reduced} />
         <Voices reduced={reduced} />
         <Contact />

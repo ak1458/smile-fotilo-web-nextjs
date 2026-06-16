@@ -240,9 +240,12 @@
 .aurora :global(#experience){padding:0;position:relative}
 .aurora :global(.tl-outer){position:relative}
 .aurora :global(.tl-sticky){position:sticky;top:0;height:100vh;height:100svh;display:flex;flex-direction:column;justify-content:center;gap:30px;overflow:hidden}
-.aurora :global(.tl-sticky.static){position:relative;height:auto;overflow-x:auto;padding:60px 0}
+.aurora :global(.tl-sticky.static){position:relative;height:auto;overflow:visible;padding:40px 0}
 .aurora :global(.timeline-viewport){position:relative;overflow:hidden}
-.aurora :global(.tl-sticky.static .timeline-viewport){overflow:visible}
+.aurora :global(.tl-sticky.static .timeline-viewport){overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.aurora :global(.tl-sticky.static .timeline-viewport)::-webkit-scrollbar{display:none}
+.aurora :global(.tl-sticky.static .timeline-track){transform:none!important}
+.aurora :global(.tl-sticky.static .tl-progress),.aurora :global(.tl-sticky.static .tl-hint){display:none}
 .aurora :global(.timeline-track){display:flex;gap:30px;padding:30px var(--gutter);will-change:transform}
 .aurora :global(.tl-progress){height:2px;background:var(--line);position:relative;margin:0 var(--gutter) 10px;border-radius:2px}
 .aurora :global(.tl-progress i){position:absolute;left:0;top:0;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent-2));box-shadow:0 0 12px var(--glow);border-radius:2px}
@@ -345,6 +348,30 @@
   .aurora :global(.hero-top){display:none}
   .aurora :global(.about-stats){grid-template-columns:1fr 1fr}
   .aurora :global(.project-results){flex-wrap:wrap;gap:18px}
+}
+
+/* ---- mobile optimisation: tighten the generous desktop rhythm ---- */
+@media(max-width:760px){
+  .aurora :global(#about){padding:56px 0}
+  .aurora :global(#work){padding:40px 0 56px}
+  .aurora :global(#skills){padding:52px 0}
+  .aurora :global(#testimonials){padding:52px 0}
+  .aurora :global(#contact){padding:52px 0 28px}
+  .aurora :global(.section-head){margin-bottom:30px}
+  .aurora :global(.work-list){gap:54px}
+  .aurora :global(.work-rest){margin-top:54px}
+  .aurora :global(.about-grid){gap:36px}
+  .aurora :global(.about-chapters){gap:32px}
+  /* hero: pull content up so the top isn't a big empty void */
+  .aurora :global(#hero){min-height:600px;align-items:center}
+  .aurora :global(.hero-inner){padding-bottom:0;padding-top:64px}
+  .aurora :global(.hero-row){margin-top:24px}
+  /* timeline swipe cards fit the viewport */
+  .aurora :global(.milestone){flex:0 0 78vw;padding:26px}
+  .aurora :global(.timeline-track){gap:16px;padding:24px var(--gutter)}
+  /* footer compact, no trailing void */
+  .aurora :global(footer){margin-top:24px;padding:32px 0 28px}
+  .aurora :global(.foot-grid){gap:18px}
 }
 
 /* honor reduced motion globally within the page */
