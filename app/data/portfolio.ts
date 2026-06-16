@@ -6,9 +6,25 @@ export const FEATURED_COUNT = 3;
 // repos whose names match are excluded entirely (junk / infra / profile readme)
 export const JUNK_RE = /(\.github|original|souce|source|archive|legacy|backup|-old\b|\btest\b|template|\bconfig\b|dotfiles|^ak1458$)/i;
 
-// historical repo name -> display name
+// repo name (lowercase) -> clean display name
 export const NAME_ALIASES: Record<string, string> = {
   'tuition-mandi': 'Takhti',
+  'tuition-mandi-pwa': 'Takhti',
+  'kapdafactory-web-nextjs': 'KapdaFactory',
+  'kapdafactory-legacy-laravel': 'KapdaFactory',
+  'veloriavault-headless-v2': 'Veloria Vault',
+  'veloriavault-web-nextjs': 'Veloria Vault',
+  'veloriavault-headless-v1': 'Veloria Vault',
+  'pulsekart-web-nextjs': 'PulseKart',
+  'smile-fotilo-web-nextjs': 'Smile Fotilo',
+  'carfax-for-boats': 'Carfax for Boats',
+  'attest-health-tracker': 'Attest Health',
+  'sovereign-vault': 'Sovereign Vault',
+  'ai-executive-seo-agent': 'AI SEO Agent',
+  'creator-agent-toolbox': 'Creator Agent Toolbox',
+  'youtube-bulk-optimizer': 'YouTube Bulk Optimizer',
+  'liar-loop-puzzle': 'Liar Loop',
+  'simple-trivia-app': 'Trivia & Jokes',
 };
 
 // repo topic -> category label (first match wins; order matters)
@@ -25,8 +41,26 @@ export const TOPIC_CATEGORY: Array<[string, string]> = [
   ['web-app', 'Web App'],
 ];
 
-// optional manual cover override: repo name (lowercase) -> /public path
-export const THUMBNAIL_OVERRIDES: Record<string, string> = {};
+// manual cover override: repo name (lowercase) -> /public path.
+// Drop a 16:11 image (≈1280×880, .webp/.png/.jpg) at each path. Missing files
+// fall back to the generated gradient cover automatically (Work.tsx onError).
+export const THUMBNAIL_OVERRIDES: Record<string, string> = {
+  'kapdafactory-web-nextjs': '/portfolio/covers/kapdafactory.webp',
+  'veloriavault-headless-v2': '/portfolio/covers/veloriavault.webp',
+  'veloriavault-web-nextjs': '/portfolio/covers/veloriavault.webp',
+  'veloriavault-headless-v1': '/portfolio/covers/veloriavault.webp',
+  'pulsekart-web-nextjs': '/portfolio/covers/pulsekart.webp',
+  'tuition-mandi-pwa': '/portfolio/covers/takhti.webp',
+  'carfax-for-boats': '/portfolio/covers/carfax-boats.webp',
+  'attest-health-tracker': '/portfolio/covers/attest-health.webp',
+  'sovereign-vault': '/portfolio/covers/sovereign-vault.webp',
+  'ai-executive-seo-agent': '/portfolio/covers/ai-seo-agent.webp',
+  'creator-agent-toolbox': '/portfolio/covers/creator-toolbox.webp',
+  'youtube-bulk-optimizer': '/portfolio/covers/youtube-optimizer.webp',
+  'smile-fotilo-web-nextjs': '/portfolio/covers/smile-fotilo.webp',
+  'liar-loop-puzzle': '/portfolio/covers/liar-loop.webp',
+  'simple-trivia-app': '/portfolio/covers/trivia-jokes.webp',
+};
 
 // deterministic accent palette for generated gradient covers
 export const ACCENTS = ['#3D7BFF', '#22D3EE', '#8B5CF6', '#10B981', '#F59E0B', '#F43F5E'];

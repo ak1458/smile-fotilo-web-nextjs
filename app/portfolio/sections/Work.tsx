@@ -1,5 +1,5 @@
 'use client';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import Image from 'next/image';
 import type { Project } from '../lib/portfolio';
 
@@ -13,6 +13,8 @@ function updated(pushedAt: string) {
 function Media({ p, desktop }: { p: Project; desktop: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
   const glowRef = useRef<HTMLDivElement>(null);
+  const [imgError, setImgError] = useState(false);
+  const showImg = !!p.thumbnail && !imgError;
 
   const onMove = (e: React.MouseEvent) => {
     if (!desktop) return;
@@ -32,9 +34,15 @@ function Media({ p, desktop }: { p: Project; desktop: boolean }) {
 
   return (
     <div className="project-media" ref={ref} onMouseMove={onMove} onMouseLeave={onLeave} style={{ ['--p' as string]: p.accent }}>
-      {p.thumbnail ? (
+      {showImg ? (
         <div className="thumb">
-          <Image src={p.thumbnail} alt={p.name} fill sizes="(max-width:860px) 100vw, 50vw" />
+          <Image
+            src={p.thumbnail as string}
+            alt={p.name}
+            fill
+            sizes="(max-width:860px) 100vw, 50vw"
+            onError={() => setImgError(true)}
+          />
         </div>
       ) : (
         <>

@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useRef } from 'react';
+import Image from 'next/image';
 
 const CHAPTERS = [
   ['01', 'The journey', 'Self-taught developer who started with WordPress builds and never stopped. Now I ship full-stack products end-to-end — architecture, APIs, and the last 5% of polish that makes an interface feel right.'],
@@ -63,16 +64,13 @@ export default function About({ repoCount, desktop }: { repoCount: number; deskt
           </div>
           <div className="about-visual">
             <div className="portrait reveal" ref={tiltRef}>
-              <div className="ph">
-                <div className="ring">
-                  <span>AK</span>
-                </div>
-                <div>
-                  Portrait
-                  <br />
-                  drop image here
-                </div>
-              </div>
+              <Image
+                src="/portfolio/ashraf.png"
+                alt="Ashraf Kamal"
+                fill
+                sizes="(max-width:900px) 100vw, 460px"
+                style={{ objectFit: 'cover' }}
+              />
             </div>
             <div className="about-stats">
               {stats.map(([num, lbl], i) => (
