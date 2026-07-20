@@ -35,7 +35,7 @@
     "@sendgrid/mail": "^8.1.6",
     "@supabase/ssr": "^0.8.0",
     "@supabase/supabase-js": "^2.97.0",
-    "axios": "^1.13.5",
+    "axios": "^1.18.1",
     "csv-parser": "^3.2.0",
     "date-fns": "^4.1.0",
     "framer-motion": "^12.23.24",
